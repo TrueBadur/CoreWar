@@ -7,6 +7,14 @@
 
 #include "ft_list.h"
 
+typedef struct		s_token
+{
+	char	type;
+	void	*data;
+	int 	line_num;
+	int 	pos_num;
+}					t_token;
+
 typedef struct		s_lexdata
 {
 	t_list	token_list;
