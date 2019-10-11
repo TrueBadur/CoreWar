@@ -3,6 +3,7 @@
 //
 
 #include "read_args.h"
+#include "ft_printf.h"
 
 void 	disassemble(t_argdata *args)
 {
