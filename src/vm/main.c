@@ -27,6 +27,7 @@ int main(int argc, char **argv)
 {
 	t_mngr *mngr;
 
+	ft_printf("Hello");
 	mngr = init_mngr();
 	validate_input(mngr, argc, argv);
 	init_arena(mngr);
