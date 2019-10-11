@@ -10,14 +10,14 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_string.h"
+#include "libft.h"
 #include "read_args.h"
 #include "ft_printf.h"
 
 static void		raise_error(const char *str)
 {
-	ft_dprintf(2, "asm: %s\n", str);
-	ft_dprintf(2, "%s", USAGE);
+	ft_fdprintf(2, "asm: %s\n", str);
+	ft_fdprintf(2, "%s", USAGE);
 	exit(1);
 }
 
