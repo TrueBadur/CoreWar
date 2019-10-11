@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   read_args.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jleann <jleann@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -10,19 +10,23 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "arg_reader.h"
-#include "assembler.h"
-#include "disassembler.h"
+#include "ft_string.h"
+#include "read_args.h"
 
-int	main(int argc, char **argv)
+t_argdata	*read_args(int argc, char **argv)
 {
-	t_argdata	*args;
+	t_argdata	*res;
+	int 		cur_arg;
 
-	args = read_args(argc, argv);
-	if (args->flags.is_src)
-		assemble(args);
-	else
-		disassemble(args);
-	free_argdata(args);
-    return (0);
+	res = ft_memalloc(sizeof(t_argdata));
+	cur_arg = 1;
+	while (cur_arg < argc)
+	{
+		if (argv[cur_arg][0] == '-')
+			read_flags(res, argv[cur_arg] + 1);
+		else
+			read_file(res, argv[cur_arg] + 1);
+		cur_arg++;
+	}
+	check_for_conflict(res);
 }

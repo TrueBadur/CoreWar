@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   read_args.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jleann <jleann@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -9,20 +9,24 @@
 /*   Updated: 2019/06/19 20:08:25 by jleann           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+#ifndef READ_ARGS_H
+# define READ_ARGS_H
 
-#include "arg_reader.h"
-#include "assembler.h"
-#include "disassembler.h"
-
-int	main(int argc, char **argv)
+typedef struct 	s_flag
 {
-	t_argdata	*args;
+	int	ftype:1;
+	int	fassemble:1;
+	int	fdisassemble:1;
+}				t_flag;
 
-	args = read_args(argc, argv);
-	if (args->flags.is_src)
-		assemble(args);
-	else
-		disassemble(args);
-	free_argdata(args);
-    return (0);
-}
+typedef struct	s_argdata
+{
+	char	*fname;
+	char	*cfname;
+	char	*ofname;
+	t_flag	flags;
+}				t_argdata;
+
+t_argdata	*read_args(int argc, char **argv);
+
+#endif
