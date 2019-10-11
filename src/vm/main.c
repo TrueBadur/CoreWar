@@ -7,6 +7,6 @@
 
 int main()
 {
-    printf("Hello im CoreWar!\n");
+    printf("Hello im CoreWar!!\n");
     return (0);
 }
