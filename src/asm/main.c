@@ -10,16 +10,26 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "arg_reader.h"
+#include "read_args.h"
 #include "assembler.h"
 #include "disassembler.h"
+#include <stdlib.h>
+
+void	free_argdata(t_argdata *res)
+{
+	if (res->fname)
+		free(res->fname);
+	if (res->ofname)
+		free(res->ofname);
+	free(res);
+}
 
 int	main(int argc, char **argv)
 {
 	t_argdata	*args;
 
 	args = read_args(argc, argv);
-	if (args->flags.is_src)
+	if (args->flags.ftype == 0 || args->flags.fassemble)
 		assemble(args);
 	else
 		disassemble(args);
