@@ -6,7 +6,7 @@
 /*   By: ehugh-be <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/11 16:27:53 by ehugh-be          #+#    #+#             */
-/*   Updated: 2019/10/11 16:45:40 by ehugh-be         ###   ########.fr       */
+/*   Updated: 2019/10/14 16:24:08 by ehugh-be         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,11 @@
 #define COREWAR_COREWAR_H
 
 #include <libft.h>
-
-enum 			e_exit_codes
+typedef enum 	e_exit_codes
 {
 	SUCCESS,
 	MALLOC_ERROR,
-};
+}				t_eexcode;
 
 typedef struct	s_chmp
 {
@@ -46,9 +45,7 @@ typedef struct	s_mngr
 }				t_mngr;
 
 void			validate_input(t_mngr *mngr, int argc, char **argv);
-void			champion_introduce(t_mngr *mngr);
 void			game_main(t_mngr *mngr);
-void			winer_anounce(t_mngr *mngr);
 void			safe_exit(t_mngr *mngr, enum e_exit_codes code);
 void			init_arena(t_mngr *mngr);
 
