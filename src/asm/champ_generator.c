@@ -43,5 +43,5 @@ t_champdata		*run_champgenerator(t_lexdata *data)
 
 void			free_champdata(t_champdata *data)
 {
-
+	(void)data;
 }

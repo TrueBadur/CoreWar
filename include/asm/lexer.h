@@ -3,9 +3,20 @@
 //
 
 #ifndef COREWAR_LEXER_H
-#define COREWAR_LEXER_H
+# define COREWAR_LEXER_H
+# define CMD_START '.'
+# define ARG_CMD_START '"'
 
-#include "ft_list.h"
+# define ERROR_LEX_NAME_START 1
+# define ERROR_LEX_MALLOC_STR 2
+# define ERROR_LEX_SHORT_ARG_CMD_NAME 3
+# define ERROR_LEX_NAME_END_INVALIDE 4
+
+# include "ft_list.h"
+# include "libft.h"
+//# include "libft_full.h"
+# include <fcntl.h>
+# include "op.h"
 
 typedef struct		s_token
 {
@@ -17,6 +28,10 @@ typedef struct		s_token
 
 typedef struct		s_lexdata
 {
+	char			debug_fd;
+	char			debug_comment;
+	char			debug_name;
+
 	t_list	token_list;
 	char	*champ_name;
 	char 	*champ_comment;

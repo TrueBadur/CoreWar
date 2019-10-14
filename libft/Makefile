@@ -3,16 +3,16 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: ehugh-be <marvin@42.fr>                    +#+  +:+       +#+         #
+#    By: wgorold <wgorold@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/10/29 15:05:00 by ehugh-be          #+#    #+#              #
-#    Updated: 2019/09/04 18:41:41 by ehugh-be         ###   ########.fr        #
+#    Updated: 2019/10/14 19:00:58 by wgorold          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 MAINLIB = libft.a
 OCL_NAME = libocl.a
-SL_L_N = libstd.n libmtrx.n libvector.n libavl.n liblist.n libprintf.n libhtable.n lib2list.n
+SL_L_N = libstd.n libmtrx.n libvector.n libavl.n liblist.n libprintf.n lib2list.n #libhtable.n
 SL_L_C = $(SL_L_N:.n=.clean)
 SL_L_F = $(SL_L_N:.n=.fclean)
 SL_L_R = $(SL_L_N:.n=.re)

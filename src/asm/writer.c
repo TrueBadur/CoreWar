@@ -6,5 +6,6 @@
 
 void	write_champ(t_champdata *champdata, t_argdata *args)
 {
-
+    (void)champdata;
+    (void)args;
 }

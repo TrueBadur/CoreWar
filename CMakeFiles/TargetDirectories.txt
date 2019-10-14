@@ -1,0 +1,4 @@
+/Users/wgorold/d08_corewar/CMakeFiles/rebuild_cache.dir
+/Users/wgorold/d08_corewar/CMakeFiles/edit_cache.dir
+/Users/wgorold/d08_corewar/CMakeFiles/asm.dir
+/Users/wgorold/d08_corewar/CMakeFiles/corewar.dir
