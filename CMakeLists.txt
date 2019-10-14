@@ -3,8 +3,7 @@ project(CoreWar C)
 
 set(CMAKE_C_STANDARD 99)
 
-include_directories(libft/includes/ ./include ./data)
-
+include_directories(libft/includes/ ./include data/)
 include_directories(include)
 
 aux_source_directory(src/asm src_asm)

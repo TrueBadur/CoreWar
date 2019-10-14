@@ -14,17 +14,15 @@
 #include "corewar.h"
 
 
-// static t_mngr *init_mngr(void)
-// {
-// 	t_mngr *mngr;
+ static t_mngr *init_mngr(void)
+ {
+ 	t_mngr *mngr;
 
-// 	if (!(mngr = ft_memalloc(sizeof(t_mngr))))
-// 		safe_exit(mngr, MALLOC_ERROR);
-// 	return (mngr);
-// }
-
-
-
+	if (!(mngr = ft_memalloc(sizeof(t_mngr))))
+		safe_exit(mngr, MALLOC_ERROR);
+	ft_bzero(mngr->timeline, (MAX_OP_TIME + 1) * sizeof(void*));
+	return (mngr);
+}
 
 static void	champion_introduce(t_mngr *mngr)
 {
@@ -40,23 +38,18 @@ int main(int argc, char **argv)
 {
 	t_mngr *mngr;
 
-	mngr = (t_mngr*)malloc(sizeof(t_mngr));
-	mngr->chmps[0] = NULL;
-    mngr->chmps[1] = NULL;
-    mngr->chmps[2] = NULL;
-    mngr->chmps[3] = NULL;
-	//mngr = init_mngr();
+	mngr = init_mngr();
 	validate_input(mngr, argc, argv);
-	printf("%s\n",mngr->chmps[0]->name);
-    printf("%s\n",mngr->chmps[1]->name);
-    printf("%s\n",mngr->chmps[2]->name);
-    printf("%s\n",mngr->chmps[3]->name);
+//	printf("%s\n",mngr->chmps[0]->name);
+//    printf("%s\n",mngr->chmps[1]->name);
+//    printf("%s\n",mngr->chmps[2]->name);
+//    printf("%s\n",mngr->chmps[3]->name);
 //	printf("%s\n",mngr->chmps[0]->moto);
 	//printf("%s\n",mngr->chmps->code);
-	// init_arena(mngr);
-	// champion_introduce(mngr);
+	 init_arena(mngr);
+	 champion_introduce(mngr);
 	// game_main(mngr);
-	// winer_anounce(mngr);
-	// safe_exit(mngr, SUCCESS);
+	 winer_anounce(mngr);
+	 safe_exit(mngr, SUCCESS);
     return (0);
 }

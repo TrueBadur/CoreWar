@@ -92,6 +92,7 @@ void pars_cor(char *file, t_mngr *mngr, int nbr)
 	if (get4byte(fd) != 0)
         safe_exit(mngr,NOTVALIDN);
     mngr->chmps[nbr]->code = get_code(fd, (size_t)mngr->chmps[nbr]->code_size);
+    mngr->chmp_num++;
 }
 
 
