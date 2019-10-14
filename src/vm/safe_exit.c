@@ -6,7 +6,7 @@
 /*   By: ehugh-be <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/14 16:21:57 by ehugh-be          #+#    #+#             */
-/*   Updated: 2019/10/14 22:27:24 by ehugh-be         ###   ########.fr       */
+/*   Updated: 2019/10/14 22:47:35 by ehugh-be         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ static void	del_time(t_list *lst)
 	t_list_node	*cur;
 	t_list_node	*tmp;
 
+	if (!lst)
+		return ;
 	cur = lst->begin;
 	while(cur)
 	{
@@ -33,8 +35,9 @@ static void	cleanup(t_mngr *mngr)
 
 	i = -1;
 	free(mngr->arena);
-	while (++i < mngr->cars->len / sizeof(void*))
-		free(((t_car**)mngr->cars->data)[i]);
+	if (mngr->cars)
+		while (++i < mngr->cars->len / sizeof(void*))
+			free(((t_car**)mngr->cars->data)[i]);
 	ft_vecdel((void**)&mngr->cars);
 	i = -1;
 	while (++i < MAX_OP_TIME + 1)
