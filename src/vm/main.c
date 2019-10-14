@@ -20,6 +20,7 @@ static t_mngr *init_mngr(void)
 
 	if (!(mngr = ft_memalloc(sizeof(t_mngr))))
 		safe_exit(mngr, MALLOC_ERROR);
+	ft_bzero(mngr->timeline, (MAX_OP_TIME + 1) * sizeof(void*));
 	return (mngr);
 }
 

@@ -6,7 +6,7 @@
 /*   By: ehugh-be <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/14 16:28:19 by ehugh-be          #+#    #+#             */
-/*   Updated: 2019/10/14 20:50:55 by ehugh-be         ###   ########.fr       */
+/*   Updated: 2019/10/14 21:57:10 by ehugh-be         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,16 +29,16 @@ static void init_carrieges(t_mngr *mngr)
 
 	if (!(mngr->cars = ft_vecinit(2 * mngr->chmp_num)))
 		safe_exit(mngr, MALLOC_ERROR);
-	i = mngr->chmp_num;
-	while (--i >= 0)
+	i = -1;
+	while (++i < mngr->chmp_num)
 	{
 		if (!(car = ft_memalloc(sizeof(t_car))))
 			safe_exit(mngr, MALLOC_ERROR);
 		car->id = i;
 		car->pos = i * MEM_SIZE / mngr->chmp_num;
-		if (!ft_vecpush(mngr->cars, &car, sizeof(void *)) ||
-		!ft_vecpush(&mngr->timeline[0], &car, sizeof(void*)))
+		if (!ft_vecpush(mngr->cars, &car, sizeof(void *)))
 			safe_exit(mngr, MALLOC_ERROR);
+		tl_put(mngr, 0, car);
 	}
 }
 
