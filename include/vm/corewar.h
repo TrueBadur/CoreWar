@@ -6,7 +6,7 @@
 /*   By: ehugh-be <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/11 16:27:53 by ehugh-be          #+#    #+#             */
-/*   Updated: 2019/10/14 20:58:04 by ehugh-be         ###   ########.fr       */
+/*   Updated: 2019/10/14 22:15:59 by ehugh-be         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,10 @@
 #ifndef COREWAR_COREWAR_H
 #define COREWAR_COREWAR_H
 
-#include <libstd.h>
-#include "t_list.h"
-#include "t_vec.h"
+#include <libft.h>
 #include "op.h"
+
+#define MALLOC_ERROR_MSG "{Red}Error: \nMemory allocation failed{eof}\n"
 
 #define MAX_OP_TIME 1000
 
@@ -55,7 +55,7 @@ typedef struct	s_chmp
 
 typedef struct	s_mngr
 {
-	t_vector	timeline[MAX_OP_TIME + 1];
+	t_list		*timeline[MAX_OP_TIME + 1];
 	t_vector	*flags; //TODO make flags
 	t_chmp		*chmps;
 	t_vector	*cars;  //TODO chose storage structure for carriges
@@ -71,5 +71,9 @@ void			validate_input(t_mngr *mngr, int argc, char **argv);
 void			game_main(t_mngr *mngr);
 void			safe_exit(t_mngr *mngr, enum e_exit_codes code);
 void			init_arena(t_mngr *mngr);
+/*
+** ----------------------Working with timeline------------------------------- **
+*/
+void			tl_put(t_mngr *mngr, short time, t_car *car);
 
 #endif //COREWAR_COREWAR_H
