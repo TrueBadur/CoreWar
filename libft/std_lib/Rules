@@ -1,0 +1,40 @@
+SRC = $(wildcard *.c)
+OBJ = $(SRC:.c=.o)
+CC = clang
+LIBROOT = ../../
+LIBHPATH = -I $(LIBROOT)includes/
+STOREPATH = $(LIBROOT)lib/
+CFLAGS = -Wall -Wextra -Werror
+ifndef MAINLIB
+	ADD_TO_MAIN_LIB =
+else
+	ADD_TO_MAIN_LIB = $(STOREPATH)$(MAINLIB)($(OBJ))
+endif
+
+.c.a:
+	@$(CC) $(CFLAGS) $(LIBHPATH) -c $< -o $*.o
+	@ar r $@ $*.o
+	@rm $*.o
+
+ifdef DEPS
+all: get_deps $(STOREPATH)$(NAME)($(OBJ)) $(ADD_TO_MAIN_LIB) rem_deps
+#	@rm $(DEPS_SRC)
+else
+all: $(STOREPATH)$(NAME)($(OBJ)) $(ADD_TO_MAIN_LIB)
+endif
+
+get_deps:
+	@cp -p $(DEPS) ./
+
+rem_deps:
+		@rm $(DEPS_SRC)
+
+all: $(STOREPATH)$(NAME)($(OBJ)) $(STOREPATH)$(MAINLIB)($(OBJ))
+
+fclean: clean
+	@/bin/rm -f $(STOREPATH)$(NAME)
+
+clean:
+	@/bin/rm -f $(OBJ)
+
+re: fclean all
