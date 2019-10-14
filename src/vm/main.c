@@ -23,6 +23,16 @@ static t_mngr *init_mngr(void)
 	return (mngr);
 }
 
+static void	champion_introduce(t_mngr *mngr)
+{
+	ft_printf("Champ!\n");
+}
+
+static void	winer_anounce(t_mngr *mngr)
+{
+	ft_printf("Friendship wins!\n");
+}
+
 int main(int argc, char **argv)
 {
 	t_mngr *mngr;
