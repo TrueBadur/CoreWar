@@ -29,9 +29,11 @@
 int main(int argc, char **argv)
 {
 	t_mngr *mngr;
+
 	mngr = (t_mngr*)malloc(sizeof(t_mngr));
 	mngr->chmps = (t_chmp*)malloc(sizeof(t_chmp));
 	//mngr = init_mngr();
+
 	validate_input(mngr, argc, argv);
 	printf("%s\n",mngr->chmps->name);
 	printf("%s\n",mngr->chmps->comment);
