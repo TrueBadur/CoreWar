@@ -6,7 +6,7 @@
 /*   By: ehugh-be <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/11 16:27:53 by ehugh-be          #+#    #+#             */
-/*   Updated: 2019/10/14 16:24:08 by ehugh-be         ###   ########.fr       */
+/*   Updated: 2019/10/14 17:46:50 by ehugh-be         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,30 @@
 #define COREWAR_COREWAR_H
 
 #include <libft.h>
+#include "op.h"
+
 typedef enum 	e_exit_codes
 {
 	SUCCESS,
 	MALLOC_ERROR,
 }				t_eexcode;
+
+typedef struct	s_register
+{
+	char 		reg[REG_SIZE];
+}				t_reg;
+
+typedef	struct	s_car
+{
+	t_reg 		regs[REG_NUMBER];
+	size_t		id;
+	int			live_cycle;
+	int 		car_pos;
+	short		byte_next_op;
+	short		eval_in;
+	char		carry;
+	char		op_code;
+}				t_car;
 
 typedef struct	s_chmp
 {
@@ -38,7 +57,6 @@ typedef struct	s_mngr
 	char 		*arena;
 	int			chmp_num;
 	int 		cycle;
-	int			arena_size;
 	int			live_num;
 	int			cycles_to_die;
 	int			num_checks;
