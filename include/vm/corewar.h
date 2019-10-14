@@ -6,7 +6,7 @@
 /*   By: ehugh-be <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/11 16:27:53 by ehugh-be          #+#    #+#             */
-/*   Updated: 2019/10/14 22:15:59 by ehugh-be         ###   ########.fr       */
+/*   Updated: 2019/10/14 23:18:43 by ehugh-be         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,9 @@ typedef enum 	e_exit_codes
 {
 	SUCCESS,
 	MALLOC_ERROR,
-    FEW_PARAMETR,
-    NOTVALIDN,
+    FEW_ARGUMENTS,
+    INVALID_N,
+    TOO_MANY_CHMPS
 }				t_eexcode;
 
 typedef struct	s_register
@@ -55,7 +56,6 @@ typedef struct	s_chmp
 	size_t 		size;
 	char		*name;
 	char 		*moto;
-	int			code_size;
 	char        *code;
 	int			id;
 }				t_chmp;
@@ -78,7 +78,7 @@ void			validate_input(t_mngr *mngr, int argc, char **argv);
 void			game_main(t_mngr *mngr);
 void			safe_exit(t_mngr *mngr, enum e_exit_codes code);
 void			init_arena(t_mngr *mngr);
-void		    pars_file(char *str, t_mngr *mngr, int nbr);
+void		    parse_file(char *str, t_mngr *mngr, int nbr);
 /*
 ** ----------------------Working with timeline------------------------------- **
 */
