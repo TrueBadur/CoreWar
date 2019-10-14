@@ -12,7 +12,7 @@
 
 #include "corewar.h"
 
-int		byte_atoi(const unsigned char *bytecode, size_t size)
+int		byte_atoi( unsigned char *bytecode, size_t size)
 {
 	int		result;
 	char	sign;
@@ -37,7 +37,7 @@ int		byte_atoi(const unsigned char *bytecode, size_t size)
 int		get4byte(int fd)
 {
 	size_t	size;
-	char buffer[4];
+	unsigned char buffer[4];
 
 	size = read(fd, &buffer, 4);
 	if (size < 4)
@@ -64,7 +64,7 @@ unsigned char	*get_code(int fd, size_t len)
 	unsigned char	*buffer;
 	unsigned char	byte;
 
-	if (!(buffer = (char*)malloc(sizeof(char)*(len))))
+	if (!(buffer = (unsigned char*)malloc(sizeof(unsigned char)*(len))))
 		printf("error");
 	size = read(fd, buffer, len);
 	if (size == -1 || size < (size_t)len || read(fd, &byte, 1) != 0)
@@ -74,51 +74,46 @@ unsigned char	*get_code(int fd, size_t len)
 }
 
 
-void pars_cor(char *file, t_mngr *mngr)
+void pars_cor(char *file, t_mngr *mngr, int nbr)
 {
 	int fd;
-
+    mngr->chmps[nbr] = (t_chmp *) malloc(sizeof(t_chmp));
 	if ((fd = open(file, O_RDONLY)) < 0)
-		printf("error open file");
+        safe_exit(mngr,NOTVALIDN);
 	if (get4byte(fd) != 0xea83f3)
-		printf("bad magic constant\n");
-	mngr->chmps->name = get_str(fd, 128);
+        safe_exit(mngr,NOTVALIDN);
+    mngr->chmps[nbr]->name = get_str(fd, 128);
 	if (get4byte(fd) != 0)
-		printf("no null byte");
-	mngr->chmps->code_size = get4byte(fd);
-
-	if ((mngr->chmps->code_size < 0) || (mngr->chmps->code_size> 683))
-		printf("bad code size");
-	mngr->chmps->comment = get_str(fd, 2048);
+        safe_exit(mngr,NOTVALIDN);
+	mngr->chmps[nbr]->code_size = get4byte(fd);
+	if ((mngr->chmps[nbr]->code_size < 0) || (mngr->chmps[nbr]->code_size> 682))
+        safe_exit(mngr,NOTVALIDN);
+	mngr->chmps[nbr]->moto = get_str(fd, 2048);
 	if (get4byte(fd) != 0)
-		printf("no null byte");
-	mngr->chmps->code = get_code(fd, (size_t)mngr->chmps->code_size);
+        safe_exit(mngr,NOTVALIDN);
+    mngr->chmps[nbr]->code = get_code(fd, (size_t)mngr->chmps[nbr]->code_size);
 }
 
 
 
 
-void		pars_file(char *str, t_mngr *mngr)
+void		pars_file(char *str, t_mngr *mngr, int nbr)
 {
 	int i;
+	int c;
 
-	i = strlen(str);
+	c = 0;
+    if(str == NULL)
+        safe_exit(mngr,NOTVALIDN);
+    if(mngr->chmps[nbr] != NULL)
+        safe_exit(mngr,NOTVALIDN);
+	i = ft_strlen(str);
 	i = i - 4;
-	if (i>0 && !strcmp(str+i, ".cor"))
-		pars_cor(str,mngr);
+	if (i > 0 && !ft_strcmp(str+i, ".cor") && mngr->chmps[nbr] == NULL)
+            pars_cor(str, mngr, nbr);
 	else
-		printf("error\n");
+        safe_exit(mngr,NOTVALIDN);
 }
 
 
-void validate_input(t_mngr *mngr, int argc,char **argv)
-{
-	int i;
 
-	i = 1;
-	while (argc > i)
-	{
-		pars_file(argv[i], mngr);
-		i++;
-	}
-}
