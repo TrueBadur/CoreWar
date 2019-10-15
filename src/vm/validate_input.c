@@ -3,32 +3,37 @@
 /*                                                        :::      ::::::::   */
 /*   validate_input.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ehugh-be <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: blomo <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/14 16:39:49 by ehugh-be          #+#    #+#             */
-/*   Updated: 2019/10/14 23:21:58 by ehugh-be         ###   ########.fr       */
+/*   Updated: 2019/10/15 16:26:03 by blomo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
+#include "error_msgs.h"
 
 int handle_n(t_mngr *mngr, char **argv, int i)
 {
     int nbr;
     nbr = 0;
     argv[i][0] = '\0';
-    i++; //todo not very good
-    if( argv[i] != NULL && (argv[i][0] >= '1' && argv[i][0] <= '4')) //TODO fix for more general
-        nbr = ft_atoi(argv[i]) - 1; //todo check nbr for validness
+
+    if (argv[i + 1] != NULL && !ft_atoi_safe(argv[i + 1], &nbr))
+    {
+        if (!(nbr >= 1 && nbr <= MAX_PLAYERS))
+            safe_exit(mngr, INVALID_N);
+        nbr--;
+    }
     else
         safe_exit(mngr, INVALID_N);
-    if(argv[i+1] != NULL)
-		parse_file(argv[i + 1], mngr, nbr);
+    if(argv[i + 2] != NULL)
+        parse_file(argv[i + 2], mngr, nbr);
     else
         safe_exit(mngr, FEW_ARGUMENTS);
-	argv[i][0] = '\0';
-	argv[i+1][0] = '\0';
-	return (2);
+    argv[i + 1][0] = '\0';
+    argv[i + 2][0] = '\0';
+    return (2);
 }
 
 void parse_flags(t_mngr *mngr, char **argv)
