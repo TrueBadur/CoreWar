@@ -6,13 +6,70 @@
 /*   By: ehugh-be <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/14 16:39:49 by ehugh-be          #+#    #+#             */
-/*   Updated: 2019/10/14 16:40:39 by ehugh-be         ###   ########.fr       */
+/*   Updated: 2019/10/14 23:21:58 by ehugh-be         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
 
-void	validate_input(t_mngr *mngr, int argc, char **argv)
+int handle_n(t_mngr *mngr, char **argv, int i)
 {
+    int nbr;
+    nbr = 0;
+    argv[i][0] = '\0';
+    i++; //todo not very good
+    if( argv[i] != NULL && (argv[i][0] >= '1' && argv[i][0] <= '4')) //TODO fix for more general
+        nbr = ft_atoi(argv[i]) - 1; //todo check nbr for validness
+    else
+        safe_exit(mngr, INVALID_N);
+    if(argv[i+1] != NULL)
+		parse_file(argv[i + 1], mngr, nbr);
+    else
+        safe_exit(mngr, FEW_ARGUMENTS);
+	argv[i][0] = '\0';
+	argv[i+1][0] = '\0';
+	return (2);
+}
 
+void parse_flags(t_mngr *mngr, char **argv)
+{
+    int i;
+
+    i = 0;
+    while(argv[++i])
+    {
+        if(!ft_strcmp(argv[i], "-n"))
+			i += handle_n(mngr, argv, i);
+    }
+}
+void check_players(t_mngr *mngr, char **argv, int argc)
+{
+    int i;
+    int c;
+
+    c = 0;
+    i = 0;
+    while(argc > ++i)
+    {
+        if(argv[i][0])
+        {
+            while(mngr->chmps[c] && c < MAX_PLAYERS)
+                c++;
+            if(c == MAX_PLAYERS)
+                safe_exit(mngr, TOO_MANY_CHMPS);
+			parse_file(argv[i], mngr, c);
+        }
+    }
+}
+
+void validate_input(t_mngr *mngr, int argc, char **argv)
+{
+    int i;
+    char **str;
+
+    i = 1;
+    if(argc == 1)
+        safe_exit(mngr, FEW_ARGUMENTS);
+	parse_flags(mngr, argv);
+    check_players(mngr,argv,argc);
 }
