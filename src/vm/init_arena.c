@@ -6,7 +6,7 @@
 /*   By: ehugh-be <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/14 16:28:19 by ehugh-be          #+#    #+#             */
-/*   Updated: 2019/10/14 23:14:26 by ehugh-be         ###   ########.fr       */
+/*   Updated: 2019/10/15 17:01:09 by ehugh-be         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,9 @@ static void init_carrieges(t_mngr *mngr)
 		if (!ft_vecpush(mngr->cars, &car, sizeof(void *)))
 			safe_exit(mngr, MALLOC_ERROR);
 		tl_put(mngr, 0, car);
+		mngr->num_cars++;
 	}
+	mngr->cycles_to_die = CYCLE_TO_DIE;
 }
 
 void	init_arena(t_mngr *mngr)
