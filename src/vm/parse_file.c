@@ -6,7 +6,7 @@
 /*   By: blomo <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/14 10:04:59 by blomo             #+#    #+#             */
-/*   Updated: 2019/10/15 18:15:58 by blomo            ###   ########.fr       */
+/*   Updated: 2019/10/15 18:36:18 by blomo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ void parse_cor(char *file, t_mngr *mngr, int nbr)
 	int fd;
     if(!(mngr->chmps[nbr] = (t_chmp *) malloc(sizeof(t_chmp))))
         safe_exit(mngr, MALLOC_ERROR);
+    mngr->chmps[nbr]->id = nbr;
 	if ((fd = open(file, O_RDONLY)) < 0)
         safe_exit(mngr, OPEN_ERROR);
 	if (get4byte(mngr, fd) != COREWAR_EXEC_MAGIC)
@@ -79,9 +80,7 @@ void parse_cor(char *file, t_mngr *mngr, int nbr)
 void		parse_file(char *str, t_mngr *mngr, int nbr)
 {
 	int i;
-	int c;
 
-	c = 0;
     if(str == NULL)
         safe_exit(mngr, INVALID_ARGUMENT_NAME);
     if(mngr->chmps[nbr] != NULL)
