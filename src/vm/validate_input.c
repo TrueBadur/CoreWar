@@ -6,12 +6,11 @@
 /*   By: blomo <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/14 16:39:49 by ehugh-be          #+#    #+#             */
-/*   Updated: 2019/10/15 16:26:03 by blomo            ###   ########.fr       */
+/*   Updated: 2019/10/15 18:17:46 by blomo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
-#include "error_msgs.h"
 
 int handle_n(t_mngr *mngr, char **argv, int i)
 {

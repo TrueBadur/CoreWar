@@ -6,7 +6,7 @@
 /*   By: blomo <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/14 10:04:59 by blomo             #+#    #+#             */
-/*   Updated: 2019/10/15 18:36:18 by blomo            ###   ########.fr       */
+/*   Updated: 2019/10/15 19:06:51 by blomo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ char		*get_str(int fd, size_t len, t_mngr *mngr)
 	int	size;
 	char	*buffer;
 	if (!(buffer = (char*)malloc(sizeof(char) * len)))
-        safe_exit(0, MALLOC_ERROR);
+        safe_exit(mngr, MALLOC_ERROR);
 	size = read(fd, buffer, len);
 	if (size == -1 || size < (size_t)len)
         safe_exit(mngr, READ_ERROR);
