@@ -6,7 +6,7 @@
 /*   By: wgorold <wgorold@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/29 17:39:02 by jleann            #+#    #+#             */
-/*   Updated: 2019/10/15 20:44:34 by wgorold          ###   ########.fr       */
+/*   Updated: 2019/10/15 23:14:08 by wgorold          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,13 +103,13 @@ int		check_end_of_line(t_lexdata *dat, char *cur)
 	return (0);
 }
 
-int		process_cmd_name(t_lexdata *dat, char *line, char *cur)
+int		process_cmd(t_lexdata *dat, char *cur, int id_cmd)
 {
 	t_list		lines;
 	char		*start;
+	char		*to_set;
 	int			err;
 
-	(void)line;
 	init_stack_list(&lines);
 	if ((err = search_start_in_lines(dat, &start, &cur)))
 		return (err);
@@ -119,13 +119,18 @@ int		process_cmd_name(t_lexdata *dat, char *line, char *cur)
 		return (err);
 	if (lines.len == 0)										// one line	
 	{										
-		if ((err = short_name(dat, start)))
+		if ((err = short_name(start, &to_set)))
 			return (err);
 	}
 	else													// multi line
 	{
-		if ((err = long_name(dat, start, &lines)))
+		if ((err = long_name(dat, start, &lines, &to_set)))
 			return (err);
 	}
+	if (id_cmd == 1)
+		dat->champ_name = to_set;
+	if (id_cmd == 2)
+		dat->champ_comment = to_set;
+	debug_cmd_name(dat, id_cmd);
 	return (0);
 }

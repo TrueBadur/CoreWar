@@ -12,6 +12,8 @@
 # define ERROR_LEX_SHORT_ARG_CMD_NAME 3
 # define ERROR_LEX_NAME_END_INVALIDE 4
 # define ERROR_LEX_NULL_NODE 5
+# define ERROR_LEX_FD 6
+# define ERROR_LEX_UNDEFINE_CMD 7
 
 # include "ft_list.h"
 # include "libft.h"
@@ -42,19 +44,19 @@ typedef struct		s_lexdata
 	t_list			lines;
 }					t_lexdata;
 
-t_lexdata			*run_lexer(char *fname);
+int					run_lexer(char *fname, t_lexdata **dat);
 void				free_lexdata(t_lexdata *data);
 int					add_line(t_lexdata *dat, char *line);
 void 				init_stack_list(t_list *lst);
 void				init_dat(t_lexdata *dat);
-int					get_fd(char *fname);
+int					get_fd(char *fname, t_lexdata *dat);
 int					error_case(t_lexdata *dat, int error_case);
-int					process_cmd_name(t_lexdata *dat, char *line, char *cur);
+int					process_cmd(t_lexdata *dat, char *cur, int id_cmd);
 int					end_line(char cur);
 int					check_comment(t_lexdata *dat, char *cur);
-int					short_name(t_lexdata *dat, char *line);
-int					long_name(t_lexdata *dat, char *start, t_list *lines);
-void				debug_cmd_name(t_lexdata *dat);
+int					short_name(char *line, char **to_set);
+int					long_name(t_lexdata *dat, char *start, t_list *lines, char **to_set);
+void				debug_cmd_name(t_lexdata *dat, int id_cmd);
 void				free_list(t_list *lst);
 
 #endif //COREWAR_LEXER_H

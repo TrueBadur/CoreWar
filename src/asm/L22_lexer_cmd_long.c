@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   L22_lexer_cmd_name_long.c                          :+:      :+:    :+:   */
+/*   L22_lexer_cmd_long.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: wgorold <wgorold@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/29 17:39:02 by jleann            #+#    #+#             */
-/*   Updated: 2019/10/15 20:41:11 by wgorold          ###   ########.fr       */
+/*   Updated: 2019/10/15 23:26:34 by wgorold          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	get_len(char *start, t_list *lines, int *len)
 	node = lines->begin;
 	node->content_size = tmp;
 	*len = tmp + 1; // for \n
-	ft_printf(">>>>>>>> start = %d\n", *len);
+	//ft_printf(">>>>>>>> start = %d\n", *len);
 	
 	//len_mid
 	node = node->next;
@@ -34,7 +34,7 @@ void	get_len(char *start, t_list *lines, int *len)
 		node->content_size = tmp;
 		*len += tmp + 1;
 		node = node->next;
-		ft_printf(">>>>>>>> mid = %d\n", tmp);
+		//ft_printf(">>>>>>>> mid = %d\n", tmp);
 	}
 
 	// len_of_last
@@ -44,7 +44,7 @@ void	get_len(char *start, t_list *lines, int *len)
 		++idx;
 	*len += idx;
 	node->content_size = idx;
-	ft_printf(">>>>>>>> last = %d\n", idx);
+	//ft_printf(">>>>>>>> last = %d\n", idx);
 }
 
 void	get_copy(char *start, t_list *lines, char *out)
@@ -58,7 +58,7 @@ void	get_copy(char *start, t_list *lines, char *out)
 	ft_strncpy(out, start + 1, node->content_size);
 	len += node->content_size;
 	out[len++] = '\n';
-	ft_printf(">>>>>>>> out_len = %d\n", len);
+	//ft_printf(">>>>>>>> out_len = %d\n", len);
 	
 	//copy_mid
 	node = node->next;
@@ -73,7 +73,7 @@ void	get_copy(char *start, t_list *lines, char *out)
 	ft_strncpy(out + len, (char *)(node->content), node->content_size);
 }
 
-int		long_name(t_lexdata *dat, char *start, t_list *lines)
+int		long_name(t_lexdata *dat, char *start, t_list *lines, char **to_set)
 {
 	int			len;
 	char		*out;
@@ -82,7 +82,6 @@ int		long_name(t_lexdata *dat, char *start, t_list *lines)
 	node = ft_lstnew_node(NULL, 0);
 	node->content = dat->lines.end->content;
 	ft_lstaddend(lines, node);
-	ft_printf(">>>>>>>> num_node = %d\n", lines->len);
 
 	get_len(start, lines, &len);
 
@@ -92,8 +91,7 @@ int		long_name(t_lexdata *dat, char *start, t_list *lines)
 		
 	get_copy(start, lines, out);
 
-	dat->champ_name = out;
+	*to_set = out;
 	free_list(lines);
-	debug_cmd_name(dat);
 	return (0);
 }

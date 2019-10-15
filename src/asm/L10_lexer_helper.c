@@ -6,21 +6,11 @@
 /*   By: wgorold <wgorold@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/29 17:39:02 by jleann            #+#    #+#             */
-/*   Updated: 2019/10/15 21:27:35 by wgorold          ###   ########.fr       */
+/*   Updated: 2019/10/15 23:26:29 by wgorold          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-//#include <libstd.h>
 #include "lexer.h"
-
-int		get_fd(char *fname)
-{
-	int fd;
-
-	if (fname && (fd = open(fname, O_RDONLY)) > 0)
-		return (fd);
-	return (0);
-}
 
 int		add_line(t_lexdata *dat, char *line)
 {
@@ -60,11 +50,16 @@ int		check_comment(t_lexdata *dat, char *cur)
 	return (0);
 }
 
-void	debug_cmd_name(t_lexdata *dat)
+void	debug_cmd_name(t_lexdata *dat, int id_cmd)
 {
-	if (dat->debug_name)
+	if (dat->debug_name == 0)
+		return ;
+	if (id_cmd == 1)
 		ft_printf("\t 🗣  🗣️  🗣️  🗣️  NAME=\n\"%s\"\n",
 			dat->champ_name, ft_strlen(dat->champ_name));
+	if (id_cmd == 2)
+		ft_printf("\t 🗣  🗣️  🗣️  🗣️  COMM=\n\"%s\"\n",
+			dat->champ_comment, ft_strlen(dat->champ_comment));
 }
 
 void	free_list(t_list *lst)

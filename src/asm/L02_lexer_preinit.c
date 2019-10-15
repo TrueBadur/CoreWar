@@ -1,33 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   L01_lexer_init.c                                   :+:      :+:    :+:   */
+/*   L02_lexer_preinit.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: wgorold <wgorold@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/29 17:39:02 by jleann            #+#    #+#             */
-/*   Updated: 2019/10/15 23:26:18 by wgorold          ###   ########.fr       */
+/*   Updated: 2019/10/15 23:26:19 by wgorold          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lexer.h"
 
-void 	init_stack_list(t_list *lst)
+int		get_fd(char *fname, t_lexdata *dat)
 {
-	lst->begin = NULL;
-	lst->end = NULL;
-	lst->len = 0;
-}
+	int fd;
 
-void		init_dat(t_lexdata *dat)
-{
-	dat->debug_fd = 1;
-	dat->debug_gnl = 0;
-	dat->debug_comment = 1;
-	dat->debug_name = 1;
-	
-	dat->fd = -1;
-	init_stack_list(&(dat->lines));
-	init_stack_list(&(dat->token_list));
-	init_stack_list(&(dat->label_list));
+	if (fname && (fd = open(fname, O_RDONLY)) > 0)
+	{
+		dat->fd = fd;
+		if (dat->debug_fd)
+			ft_printf("lexer_fd = %d\n", fd);
+		return (0);
+	}
+	return (ERROR_LEX_FD);
 }
