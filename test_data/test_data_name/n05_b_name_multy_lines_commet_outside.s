@@ -1,4 +1,8 @@
-.name "zork"
+.name # ok1
+"zork
+1234
+3
+"   #ok2
 .comment "just a basic living prog"
 
 l2:		sti r1,%:live,%1
