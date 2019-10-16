@@ -94,6 +94,7 @@ typedef struct	s_mngr
 	int			cycles_to_die;
 	int			num_checks;
 	int 		num_cars;
+	int         winer;
 }				t_mngr;
 
 void			validate_input(t_mngr *mngr, int argc, char **argv);

@@ -1,0 +1,4 @@
+/Users/blomo/corawara/CMakeFiles/rebuild_cache.dir
+/Users/blomo/corawara/CMakeFiles/edit_cache.dir
+/Users/blomo/corawara/CMakeFiles/asm.dir
+/Users/blomo/corawara/CMakeFiles/corewar.dir
