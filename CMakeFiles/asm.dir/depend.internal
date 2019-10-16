@@ -59,18 +59,6 @@ CMakeFiles/asm.dir/src/asm/disassembler.c.o
  libft/includes/t_list.h
  libft/includes/t_vec.h
 CMakeFiles/asm.dir/src/asm/lexer.c.o
- /Users/wgorold/d08_corewar/src/asm/lexer.c
- include/asm/lexer.h
- include/asm/op.h
- libft/includes/btavl.h
- libft/includes/ft_list.h
- libft/includes/ft_printf.h
- libft/includes/get_next_line.h
- libft/includes/libft.h
- libft/includes/libstd.h
- libft/includes/mtrx.h
- libft/includes/t_list.h
- libft/includes/t_vec.h
 CMakeFiles/asm.dir/src/asm/main.c.o
  /Users/wgorold/d08_corewar/src/asm/main.c
  include/asm/assembler.h

@@ -6,7 +6,7 @@
 /*   By: wgorold <wgorold@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/29 17:39:02 by jleann            #+#    #+#             */
-/*   Updated: 2019/10/16 15:16:55 by wgorold          ###   ########.fr       */
+/*   Updated: 2019/10/16 18:22:51 by wgorold          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,24 @@ int		error_case(t_lexdata *dat, int error_case)
 {
 	(void)dat;
 	return (error_case);
+}
+
+int		allowed_char(char cur)
+{
+	if (cur == ' ')
+		return (1);
+	if (cur == '\t')
+		return (1);
+	return (0);
+}
+
+int		not_skip_char(char cur)
+{
+	if (cur == ' ')
+		return (0);
+	if (cur == '\t')
+		return (0);
+	return (1);
 }
 
 int		end_line(char cur)
@@ -76,17 +94,31 @@ void	free_list(t_list *lst)
 	}
 }
 
+char*	back_to_str_label(int id_label)
+{
+	if (id_label == LABEL_ID)
+		return "LABEL_ID";
+	return (NULL);
+}
+
 void	debug_token_list(t_lexdata *dat)
 {
 	t_list_node *node;
+	t_token		*tkn;
 	int idx;
 
 	idx = 0;
 	node = dat->token_list.begin;
 	while (node)
 	{
-		ft_printf("node= %2d\n", idx);
-		ft_printf("\ttype= %2d\n", ((t_token *)(node->content))->type);
+		tkn = (t_token *)(node->content);
+		ft_printf("node=%2d\n", idx);
+		ft_printf("\ttype=      %s %2d\n", back_to_str_label(tkn->type), tkn->type);
+		ft_printf("\tsubtype=  %2d\n", tkn->subtype);
+		ft_printf("\tline_num= %2d\n", tkn->line_num);
+		ft_printf("\tpos_num=  %2d\n", tkn->pos_num);
+		if (tkn->type == LABEL_ID)
+			ft_printf("\tdata=      %s\n", (char *)(tkn->data));
 		ft_printf("\n");
 		node = node->next;
 		idx += 1;

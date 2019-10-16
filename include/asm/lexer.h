@@ -45,6 +45,7 @@ typedef struct		s_lexdata
 	char			debug_gnl;
 	char			debug_comment;
 	char			debug_name;
+	char			debug_happend;
 
 	int				fd;
 	t_list			token_list;
@@ -74,5 +75,8 @@ void				debug_cmd_name(t_lexdata *dat, int id_cmd);
 void				free_list(t_list *lst);
 int					add_label(t_lexdata *dat);
 void				debug_token_list(t_lexdata *dat);
+int					allowed_char(char cur);
+int					not_skip_char(char cur);
+int					add_inst(t_lexdata *dat);
 
 #endif //COREWAR_LEXER_H

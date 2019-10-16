@@ -1,34 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   L01_lexer_init.c                                   :+:      :+:    :+:   */
+/*   L40_lexer_inst.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: wgorold <wgorold@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/29 17:39:02 by jleann            #+#    #+#             */
-/*   Updated: 2019/10/16 17:46:47 by wgorold          ###   ########.fr       */
+/*   Updated: 2019/10/16 19:04:48 by wgorold          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lexer.h"
 
-void 	init_stack_list(t_list *lst)
+int		add_inst(t_lexdata *dat)
 {
-	lst->begin = NULL;
-	lst->end = NULL;
-	lst->len = 0;
-}
-
-void		init_dat(t_lexdata *dat)
-{
-	dat->debug_fd = 0;
-	dat->debug_gnl = 0;
-	dat->debug_comment = 0;
-	dat->debug_name = 0;
-	dat->debug_happend = 1;
 	
-	dat->fd = -1;
-	init_stack_list(&(dat->lines));
-	init_stack_list(&(dat->token_list));
-	init_stack_list(&(dat->label_list));
+
+	return (0);
 }

@@ -3,13 +3,8 @@
         {
             "type": "shell",
             "label": "gcc build active file",
-            "command": "/usr/bin/gcc",
-            "args": [
-                "-g",
-                "${file}",
-                "-o",
-                "${fileDirname}/${fileBasenameNoExtension}"
-            ],
+            "command": "cd /Users/wgorold/d08_corewar/src/asm && make",
+            "args": [],
             "options": {
                 "cwd": "/usr/bin"
             }

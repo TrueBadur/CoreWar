@@ -58,18 +58,6 @@ CMakeFiles/asm.dir/src/asm/disassembler.c.o: libft/includes/mtrx.h
 CMakeFiles/asm.dir/src/asm/disassembler.c.o: libft/includes/t_list.h
 CMakeFiles/asm.dir/src/asm/disassembler.c.o: libft/includes/t_vec.h
 
-CMakeFiles/asm.dir/src/asm/lexer.c.o: src/asm/lexer.c
-CMakeFiles/asm.dir/src/asm/lexer.c.o: include/asm/lexer.h
-CMakeFiles/asm.dir/src/asm/lexer.c.o: include/asm/op.h
-CMakeFiles/asm.dir/src/asm/lexer.c.o: libft/includes/btavl.h
-CMakeFiles/asm.dir/src/asm/lexer.c.o: libft/includes/ft_list.h
-CMakeFiles/asm.dir/src/asm/lexer.c.o: libft/includes/ft_printf.h
-CMakeFiles/asm.dir/src/asm/lexer.c.o: libft/includes/get_next_line.h
-CMakeFiles/asm.dir/src/asm/lexer.c.o: libft/includes/libft.h
-CMakeFiles/asm.dir/src/asm/lexer.c.o: libft/includes/libstd.h
-CMakeFiles/asm.dir/src/asm/lexer.c.o: libft/includes/mtrx.h
-CMakeFiles/asm.dir/src/asm/lexer.c.o: libft/includes/t_list.h
-CMakeFiles/asm.dir/src/asm/lexer.c.o: libft/includes/t_vec.h
 
 CMakeFiles/asm.dir/src/asm/main.c.o: src/asm/main.c
 CMakeFiles/asm.dir/src/asm/main.c.o: include/asm/assembler.h
