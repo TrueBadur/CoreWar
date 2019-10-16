@@ -6,7 +6,7 @@
 /*   By: wgorold <wgorold@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/29 17:39:02 by jleann            #+#    #+#             */
-/*   Updated: 2019/10/15 23:09:43 by wgorold          ###   ########.fr       */
+/*   Updated: 2019/10/16 15:15:36 by wgorold          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,8 @@ int		check_line(t_lexdata *dat, char *line)
 	int		err;
 
 	idx = -1;
+	dat->srt = 0;
+	dat->cur_line = line;
 	while (line[++idx])
 	{
 		cur = idx + line;
@@ -42,8 +44,17 @@ int		check_line(t_lexdata *dat, char *line)
 				return (err);
 			return (0);
 		}
+		else if (*cur == LABEL_CHAR)
+		{
+			dat->end = idx;
+			if ((err = add_label(dat)))
+				return (err);
+			debug_token_list(dat);
+			return (0);
+		}
 		else if (check_comment(dat, cur))
 			return (0);
+		dat->srt += 1; // allow space char
 	}
 	return (0);
 }

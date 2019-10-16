@@ -6,7 +6,7 @@
 /*   By: wgorold <wgorold@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/29 17:39:02 by jleann            #+#    #+#             */
-/*   Updated: 2019/10/15 23:26:29 by wgorold          ###   ########.fr       */
+/*   Updated: 2019/10/16 15:16:55 by wgorold          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,5 +73,22 @@ void	free_list(t_list *lst)
 		to_free = node;
 		node = node->next;
 		free(to_free);
+	}
+}
+
+void	debug_token_list(t_lexdata *dat)
+{
+	t_list_node *node;
+	int idx;
+
+	idx = 0;
+	node = dat->token_list.begin;
+	while (node)
+	{
+		ft_printf("node= %2d\n", idx);
+		ft_printf("\ttype= %2d\n", ((t_token *)(node->content))->type);
+		ft_printf("\n");
+		node = node->next;
+		idx += 1;
 	}
 }

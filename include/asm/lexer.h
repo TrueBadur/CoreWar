@@ -14,6 +14,15 @@
 # define ERROR_LEX_NULL_NODE 5
 # define ERROR_LEX_FD 6
 # define ERROR_LEX_UNDEFINE_CMD 7
+# define ERROR_LEX_NOT_LABEL_CHAR 8
+
+#define BEGIN_ID 0
+#define LABEL_ID 1
+#define CMD_ID 2
+#define ENDL_ID 3
+#define PARAM_ID 4
+#define DELIM_ID 5
+#define END_ID 6
 
 # include "ft_list.h"
 # include "libft.h"
@@ -24,6 +33,7 @@
 typedef struct		s_token
 {
 	char	type;
+	char	subtype;
 	void	*data;
 	int 	line_num;
 	int 	pos_num;
@@ -42,6 +52,10 @@ typedef struct		s_lexdata
 	char 			*champ_comment;
 	t_list			label_list;
 	t_list			lines;
+
+	char			*cur_line;
+	int				srt;
+	int				end;
 }					t_lexdata;
 
 int					run_lexer(char *fname, t_lexdata **dat);
@@ -58,5 +72,7 @@ int					short_name(char *line, char **to_set);
 int					long_name(t_lexdata *dat, char *start, t_list *lines, char **to_set);
 void				debug_cmd_name(t_lexdata *dat, int id_cmd);
 void				free_list(t_list *lst);
+int					add_label(t_lexdata *dat);
+void				debug_token_list(t_lexdata *dat);
 
 #endif //COREWAR_LEXER_H
