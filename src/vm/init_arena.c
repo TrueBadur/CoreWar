@@ -40,6 +40,7 @@ static void init_carrieges(t_mngr *mngr)
 			safe_exit(mngr, MALLOC_ERROR);
 		tl_put(mngr, 0, car);
 		mngr->num_cars++;
+		*(int*)car->regs = -car->id; //TODO deal with endians
 	}
 	mngr->cycles_to_die = CYCLE_TO_DIE;
 }
