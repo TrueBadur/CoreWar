@@ -22,4 +22,3 @@ target_link_libraries(asm ${PROJECT_SOURCE_DIR}/libft/lib/libft.a)
 target_link_libraries(asm ${PROJECT_SOURCE_DIR}/libft/lib/liblist.a)
 
 target_include_directories(asm PUBLIC include/asm)
-
