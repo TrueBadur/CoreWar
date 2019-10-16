@@ -6,7 +6,7 @@
 /*   By: blomo <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/16 15:05:59 by blomo             #+#    #+#             */
-/*   Updated: 2019/10/16 20:30:26 by blomo            ###   ########.fr       */
+/*   Updated: 2019/10/16 21:23:18 by blomo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,16 +28,10 @@ int get_dir(t_mngr *mngr, int poz, int size)
     return (*(int*)buffer);
 }
 
-int get_reg(t_mngr *mngr, t_car *car,  *param)
-{
-    car->pos += 2;
-
-}
-
 void make_live(t_mngr *mngr, t_car *car)
 {
     int dir;
-    car->eval_in // number cycle for job
+    car->eval_in = 10; // number cycle for job
     dir = get_dir(mngr, car->pos + 1, 4);
     car->live_cycle = mngr->cycle;
     if(ft_abs(dir) < MAX_PLAYERS && mngr->chmps[dir])
@@ -61,7 +55,18 @@ void make_st(t_mngr *mngr, t_car *car)
 
 void make_add(t_mngr *mngr, t_car *car)
 {
+    int reg1;
+    int reg2;
+    int reg3;
 
+    reg1 = mngr->arena[(car->pos + 2 + poz) % MEM_SIZE];
+    reg2 = mngr->arena[(car->pos + 3 + poz) % MEM_SIZE];
+    reg3 = mngr->arena[(car->pos + 4 + poz) % MEM_SIZE];
+    *(int*)car->regs[reg3] = *(int*)car->regs[reg1] + *(int*)car->regs[reg2];
+    if(*(int*)car->regs[reg3] == 0)
+        car->carry = 1;
+    else
+        car->carry = 0;
 }
 void make_sub(t_mngr *mngr, t_car *car)
 {
