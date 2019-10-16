@@ -3,13 +3,13 @@ project(CoreWar C)
 
 set(CMAKE_C_STANDARD 99)
 
-include_directories(libft/includes/ ./include)
-
+include_directories(libft/includes/ ./include data/)
 include_directories(include)
 
 aux_source_directory(src/asm src_asm)
 aux_source_directory(src/vm src_vm)
 aux_source_directory(src/ src)
+
 
 add_executable(corewar ${src_vm} ${src})
 target_link_libraries(corewar ${PROJECT_SOURCE_DIR}/libft/lib/libft.a)
