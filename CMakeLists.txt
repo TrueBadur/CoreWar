@@ -9,12 +9,17 @@ include_directories(include)
 
 aux_source_directory(src/asm src_asm)
 aux_source_directory(src/vm src_vm)
+aux_source_directory(src/ src)
 
-add_executable(corewar ${src_vm})
+add_executable(corewar ${src_vm} ${src})
 target_link_libraries(corewar ${PROJECT_SOURCE_DIR}/libft/lib/libft.a)
+target_link_libraries(corewar ${PROJECT_SOURCE_DIR}/libft/lib/liblist.a)
+
 target_include_directories(corewar PUBLIC include/vm)
 
-add_executable(asm ${src_asm})
+add_executable(asm ${src_asm} ${src})
 target_link_libraries(asm ${PROJECT_SOURCE_DIR}/libft/lib/libft.a)
+target_link_libraries(asm ${PROJECT_SOURCE_DIR}/libft/lib/liblist.a)
+
 target_include_directories(asm PUBLIC include/asm)
 
