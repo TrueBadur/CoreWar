@@ -15,6 +15,8 @@
 # define ERROR_LEX_FD 6
 # define ERROR_LEX_UNDEFINE_CMD 7
 # define ERROR_LEX_NOT_LABEL_CHAR 8
+# define ERROR_LEX_INST_NOT_FOUND 9
+# define ERROR_LEX_MALLOC 10
 
 #define BEGIN_ID 0
 #define LABEL_ID 1
@@ -24,11 +26,14 @@
 #define DELIM_ID 5
 #define END_ID 6
 
+#define INST_ID 7
+#define PARAM_REG_ID 8
+
 # include "ft_list.h"
 # include "libft.h"
 //# include "libft_full.h"
 # include <fcntl.h>
-# include "op.h"
+# include "../op.h"
 
 typedef struct		s_token
 {
@@ -78,5 +83,6 @@ void				debug_token_list(t_lexdata *dat);
 int					allowed_char(char cur);
 int					not_skip_char(char cur);
 int					add_inst(t_lexdata *dat);
+int					add_parm(t_lexdata *dat);
 
 #endif //COREWAR_LEXER_H

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   L10_lexer_helper.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wgorold <wgorold@student.42.fr>            +#+  +:+       +#+        */
+/*   By: PhilippNox <PhilippNox@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/29 17:39:02 by jleann            #+#    #+#             */
-/*   Updated: 2019/10/16 18:22:51 by wgorold          ###   ########.fr       */
+/*   Updated: 2019/10/16 23:40:46 by PhilippNox       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,36 +91,5 @@ void	free_list(t_list *lst)
 		to_free = node;
 		node = node->next;
 		free(to_free);
-	}
-}
-
-char*	back_to_str_label(int id_label)
-{
-	if (id_label == LABEL_ID)
-		return "LABEL_ID";
-	return (NULL);
-}
-
-void	debug_token_list(t_lexdata *dat)
-{
-	t_list_node *node;
-	t_token		*tkn;
-	int idx;
-
-	idx = 0;
-	node = dat->token_list.begin;
-	while (node)
-	{
-		tkn = (t_token *)(node->content);
-		ft_printf("node=%2d\n", idx);
-		ft_printf("\ttype=      %s %2d\n", back_to_str_label(tkn->type), tkn->type);
-		ft_printf("\tsubtype=  %2d\n", tkn->subtype);
-		ft_printf("\tline_num= %2d\n", tkn->line_num);
-		ft_printf("\tpos_num=  %2d\n", tkn->pos_num);
-		if (tkn->type == LABEL_ID)
-			ft_printf("\tdata=      %s\n", (char *)(tkn->data));
-		ft_printf("\n");
-		node = node->next;
-		idx += 1;
 	}
 }

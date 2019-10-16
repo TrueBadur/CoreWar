@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   L30_lexer_label.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wgorold <wgorold@student.42.fr>            +#+  +:+       +#+        */
+/*   By: PhilippNox <PhilippNox@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/29 17:39:02 by jleann            #+#    #+#             */
-/*   Updated: 2019/10/16 17:08:00 by wgorold          ###   ########.fr       */
+/*   Updated: 2019/10/17 00:14:06 by PhilippNox       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ int		add_label(t_lexdata *dat)
 	to_add.data = data;
 	to_add.type = LABEL_ID;
 	to_add.subtype = 0;
-	to_add.line_num = (int)(dat->lines.end->content_size);
+	to_add.line_num = (int)(dat->lines.len);
 	to_add.pos_num = dat->srt;
 	//debug_add_label(&to_add);
 	node = ft_lstnew_node(&to_add, sizeof(t_token));

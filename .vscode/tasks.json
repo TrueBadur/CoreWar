@@ -3,7 +3,7 @@
         {
             "type": "shell",
             "label": "gcc build active file",
-            "command": "cd /Users/wgorold/d08_corewar/src/asm && make",
+            "command": "cd /Users/PhilippNox/42_corewar/src/asm && make",
             "args": [],
             "options": {
                 "cwd": "/usr/bin"

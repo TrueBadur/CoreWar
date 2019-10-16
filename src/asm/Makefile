@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: wgorold <wgorold@student.42.fr>            +#+  +:+       +#+         #
+#    By: PhilippNox <PhilippNox@student.42.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/04/03 20:55:37 by wgorold           #+#    #+#              #
-#    Updated: 2019/10/16 18:55:03 by wgorold          ###   ########.fr        #
+#    Updated: 2019/10/17 00:49:42 by PhilippNox       ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -38,7 +38,9 @@ SRC= 	L00_lexer.o L01_lexer_init.o L10_lexer_helper.o \
 		L02_lexer_preinit.o \
 		L20_lexer_cmd.o main_test_lexer.o \
 		L21_lexer_cmd_short.o L22_lexer_cmd_long.o \
-		L30_lexer_label.o L40_lexer_inst.o
+		L30_lexer_label.o L40_lexer_inst.o \
+		get_op_data.o L11_lexer_debug_token.o \
+		L50_lexer_parm.o
 
 PATH_SRC= $(patsubst %.o, $(PATH_O)%.o, $(SRC))
 
@@ -49,6 +51,8 @@ $(FULL_NAME): $(PATH_SRC)
 	@echo "for_test run:"
 	@echo "./build/asm ../../test_data/test_data_name/n10_g_name_one_line.s"
 
+$(PATH_O)get_op_data.o: ../get_op_data.c
+	$(CC) $(CFLAGS) ../get_op_data.c $(FLAG_PATH_OBJ)
 $(PATH_O)main_test_lexer.o: main_test_lexer.c
 	$(CC) $(CFLAGS) main_test_lexer.c $(FLAG_PATH_OBJ)
 $(PATH_O)L00_lexer.o: L00_lexer.c
@@ -59,6 +63,8 @@ $(PATH_O)L02_lexer_preinit.o: L02_lexer_preinit.c
 	$(CC) $(CFLAGS) L02_lexer_preinit.c $(FLAG_PATH_OBJ)
 $(PATH_O)L10_lexer_helper.o: L10_lexer_helper.c
 	$(CC) $(CFLAGS) L10_lexer_helper.c $(FLAG_PATH_OBJ)
+$(PATH_O)L11_lexer_debug_token.o: L11_lexer_debug_token.c
+	$(CC) $(CFLAGS) L11_lexer_debug_token.c $(FLAG_PATH_OBJ)
 $(PATH_O)L20_lexer_cmd.o: L20_lexer_cmd.c
 	$(CC) $(CFLAGS) L20_lexer_cmd.c $(FLAG_PATH_OBJ)
 $(PATH_O)L21_lexer_cmd_short.o: L21_lexer_cmd_short.c
@@ -69,6 +75,8 @@ $(PATH_O)L30_lexer_label.o: L30_lexer_label.c
 	$(CC) $(CFLAGS) L30_lexer_label.c $(FLAG_PATH_OBJ)
 $(PATH_O)L40_lexer_inst.o: L40_lexer_inst.c
 	$(CC) $(CFLAGS) L40_lexer_inst.c $(FLAG_PATH_OBJ)
+$(PATH_O)L50_lexer_parm.o: L50_lexer_parm.c
+	$(CC) $(CFLAGS) L50_lexer_parm.c $(FLAG_PATH_OBJ)
 
 
 mlibft:
