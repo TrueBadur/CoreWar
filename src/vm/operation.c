@@ -6,7 +6,7 @@
 /*   By: blomo <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/16 15:05:59 by blomo             #+#    #+#             */
-/*   Updated: 2019/10/16 21:23:18 by blomo            ###   ########.fr       */
+/*   Updated: 2019/10/16 21:45:46 by blomo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,30 @@ void make_live(t_mngr *mngr, t_car *car)
 
 void make_ld(t_mngr *mngr, t_car *car)
 {
-    int arg2;
-    char
+    int dir;
+    int reg;
+    int ind;
+    if(2arg == t_dir)
+    {
+        dir = get_dir(mngr, car->pos + 1, 4);
+        reg = mngr->arena[(car->pos + 6) % MEM_SIZE];
+        *(int *) car->regs[reg] = dir;
+        if (dir == 0)
+            car->carry = 1;
+        else
+            car->carry = 0;
+    }
+    else
+    {
+        ind = get_dir(mngr, car->pos + 1, 2) % IDX_MOD;
+        dir = get_dir(mngr, car->pos + ind, 4);
+        reg = mngr->arena[(car->pos + 4) % MEM_SIZE];
+        *(int *) car->regs[reg] = dir;
+        if (dir == 0)
+            car->carry = 1;
+        else
+            car->carry = 0;
+    }
 }
 
 
@@ -59,11 +81,11 @@ void make_add(t_mngr *mngr, t_car *car)
     int reg2;
     int reg3;
 
-    reg1 = mngr->arena[(car->pos + 2 + poz) % MEM_SIZE];
-    reg2 = mngr->arena[(car->pos + 3 + poz) % MEM_SIZE];
-    reg3 = mngr->arena[(car->pos + 4 + poz) % MEM_SIZE];
-    *(int*)car->regs[reg3] = *(int*)car->regs[reg1] + *(int*)car->regs[reg2];
-    if(*(int*)car->regs[reg3] == 0)
+    reg1 = mngr->arena[(car->pos + 2) % MEM_SIZE];
+    reg2 = mngr->arena[(car->pos + 3) % MEM_SIZE];
+    reg3 = mngr->arena[(car->pos + 4) % MEM_SIZE];
+    *(int*)car->regs[reg3].reg = *(int*)car->regs[reg1].reg + *(int*)car->regs[reg2].reg;
+    if(*(int*)car->regs[reg3].reg == 0)
         car->carry = 1;
     else
         car->carry = 0;
