@@ -33,6 +33,7 @@ typedef struct			s_list
 
 t_list					*ft_lstinit();
 t_list_node				*ft_lstnew_node(void *content, size_t content_size);
+t_list_node				*ft_lstnew_noc(void *content, size_t content_size);
 void					ft_lstadd(t_list *alst, t_list_node *new);
 void					ft_lstaddend(t_list *alst, t_list_node *new);
 int						ft_lstiter(t_list *list, int (*f)(void *));
