@@ -86,7 +86,7 @@ typedef struct	s_mngr
 	t_list		*timeline[MAX_OP_TIME + 1];
 	t_chmp		*chmps[MAX_PLAYERS];
 	t_vector	*cars;  //TODO chose storage structure for carriges
-	char 		*arena;
+	unsigned char 		*arena;
 	unsigned	flags; //TODO make flags
 	int			chmp_num;
 	int 		cycle;

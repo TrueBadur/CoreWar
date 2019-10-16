@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   op.h                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zaz <marvin@42.fr>                         +#+  +:+       +#+        */
+/*   By: ehugh-be <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/10/04 11:33:27 by zaz               #+#    #+#             */
-/*   Updated: 2013/11/06 14:21:46 by zaz              ###   ########.fr       */
+/*   Updated: 2019/10/16 22:59:45 by ehugh-be         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 */
 
 #define IND_SIZE				2
-#define REG_SIZE				4
+#define REG_SIZE				4u
 #define DIR_SIZE				REG_SIZE
 
 
@@ -25,7 +25,7 @@
 # define IND_CODE				3
 
 
-#define MAX_ARGS_NUMBER			4
+#define MAX_ARGS_NUMBER			4u
 #define MAX_PLAYERS				4
 #define MEM_SIZE				(4*1024)
 #define IDX_MOD					(MEM_SIZE / 8)
@@ -79,7 +79,7 @@ typedef struct	s_op
 {
 	char	*name;
 	char	params_num;
-	char	paramtypes[3];
+	unsigned char	paramtypes[3];
 	int		num_of_ticks;
 	char	is_param_b;
 	char 	t_dir_size;
