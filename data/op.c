@@ -12,6 +12,17 @@
 
 #include "op.h"
 
+typedef struct	s_op
+{
+	char	*name;
+	char	id;
+	char	paramtypes[3];
+	char	smth1;
+	char	*comment;
+	char	smth2;
+	char 	smth3
+}				t_op;
+
 t_op    op_tab[17] =
 {
 	{"live", 1, {T_DIR}, 1, 10, "alive", 0, 0},
@@ -27,7 +38,7 @@ t_op    op_tab[17] =
 		"ou (xor  r1, r2, r3   r1^r2 -> r3", 1, 0},
 	{"zjmp", 1, {T_DIR}, 9, 20, "jump if zero", 0, 1},
 	{"ldi", 3, {T_REG | T_DIR | T_IND, T_DIR | T_REG, T_REG}, 10, 25,
-		"load index", 1, 1},
+		  "load index", 1, 1},
 	{"sti", 3, {T_REG, T_REG | T_DIR | T_IND, T_DIR | T_REG}, 11, 25,
 		"store index", 1, 1},
 	{"fork", 1, {T_DIR}, 12, 800, "fork", 0, 1},
