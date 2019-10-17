@@ -6,7 +6,7 @@
 /*   By: blomo <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/16 15:05:59 by blomo             #+#    #+#             */
-/*   Updated: 2019/10/17 22:36:47 by blomo            ###   ########.fr       */
+/*   Updated: 2019/10/17 22:38:15 by blomo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,7 @@ void make_add_sub(t_mngr *mngr, t_car *car, t_t_op *op)
             *(int *) car->regs[reg3].reg = *(int *) car->regs[reg1].reg - *(int *) car->regs[reg2].reg;
         car->carry = (char)(*(int *)car->regs[reg3].reg == 0);
     }
+
 }
 
 void make_and_or_xor(t_mngr *mngr, t_car *car, t_t_op *op)
