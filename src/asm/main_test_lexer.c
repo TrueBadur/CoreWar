@@ -14,13 +14,13 @@
 #include "read_args.h"
 #include <stdlib.h>
 
-int	main(int argc, char **argv)
-{
-	t_lexdata	*lexdata;
-	int rls;
-
-	(void)argc;
-	rls = run_lexer (argv[1], &lexdata);
-	ft_printf("rls= %d\n", rls);
-    return (rls);
-}
+//int	main(int argc, char **argv)
+//{
+//	t_lexdata	*lexdata;
+//	int rls;
+//
+//	(void)argc;
+//	rls = run_lexer (argv[1], &lexdata);
+//	ft_printf("rls= %d\n", rls);
+//    return (rls);
+//}

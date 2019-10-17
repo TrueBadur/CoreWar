@@ -153,29 +153,30 @@ int		check_line(t_lexdata *dat, char *line)
 
 int		run_lexer(char *fname, t_lexdata **dat_out)
 {
-	(void)dat_out; //malloc
-	t_lexdata		dat;
+	t_lexdata		*dat;
 	char			*line;
 	int				rlt;
 
-	init_dat(&dat);
-	if (get_fd(fname, &dat))
+	dat = (t_lexdata *)malloc(sizeof(t_lexdata));
+	init_dat(dat);
+	if (get_fd(fname, dat))
 		return (ERROR_LEX_FD);
-	while ((rlt = get_next_line(dat.fd, &line)) == 1)
+	while ((rlt = get_next_line(dat->fd, &line)) == 1)
 	{
-		if (add_line(&dat, line))
+		if (add_line(dat, line))
 		{
-			error_case(&dat, ERROR_LEX_NULL_NODE);
+			error_case(dat, ERROR_LEX_NULL_NODE);
 			return (-1);
 		}
-		if (check_line(&dat, line))
+		if (check_line(dat, line))
 			return (-1);
 	}
 
 	if (rlt == -1) //TODO error gnl
 		return (-1);
-	if (dat.debug_out)
-		debug_token_list(&dat);
+	if (dat->debug_out)
+		debug_token_list(dat);
+    *dat_out = dat;
 	return (0);
 }
 

@@ -38,7 +38,7 @@
 # include "libft.h"
 //# include "libft_full.h"
 # include <fcntl.h>
-# include "../op.h"
+# include "op.h"
 
 typedef struct		s_token
 {
