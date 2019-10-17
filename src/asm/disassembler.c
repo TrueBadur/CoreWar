@@ -7,5 +7,6 @@
 
 void 	disassemble(t_argdata *args)
 {
+	(void)args;
 	ft_printf("NOT IMPLEMENTED(disassemble)!");
 }

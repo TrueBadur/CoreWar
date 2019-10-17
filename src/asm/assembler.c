@@ -13,7 +13,9 @@ void 	assemble(t_argdata *args)
 	t_lexdata	*lexdata;
 	t_champdata	*champdata;
 
-	lexdata = run_lexer(args->fname);
+	if (run_lexer(args->fname, &lexdata))
+		exit(1);
+    debug_token_list(lexdata);
 	champdata = run_champgenerator(lexdata);
 	write_champ(champdata, args);
 	free_lexdata(lexdata);

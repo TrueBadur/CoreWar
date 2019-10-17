@@ -14,7 +14,8 @@
 ** Toutes les tailles sont en octets.
 ** On part du principe qu'un int fait 32 bits. Est-ce vrai chez vous ?
 */
-
+#ifndef OP_H
+# define OP_H
 #include <stdint.h>
 
 #define IND_SIZE				2
@@ -88,3 +89,5 @@ typedef struct	s_op
 }				t_op;
 
 t_op	*get_op_info(int id);
+
+#endif
