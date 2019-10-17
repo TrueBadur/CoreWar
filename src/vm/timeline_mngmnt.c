@@ -21,3 +21,15 @@ void	tl_put(t_mngr *mngr, short time, t_car *car)
 	if (mngr->timeline[time]->len && !mngr->timeline[time]->end)
 		safe_exit(mngr, MALLOC_ERROR);
 }
+
+void	tl_car_iter(t_mngr *mngr, void (*f)(t_mngr*, t_car*))
+{
+	t_list_node *lst;
+
+	lst = mngr->timeline[mngr->cycle % MAX_OP_TIME + 1]->begin;
+	while (lst)
+	{
+		f(mngr, (t_car*)lst->content);
+		lst = lst->next;
+	}
+}
