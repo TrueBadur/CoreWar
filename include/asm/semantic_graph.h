@@ -27,6 +27,12 @@ typedef struct		s_semnode
 #define DELIM_ID 5
 #define END_ID 6
 
+
+# define UNEXPECTED_TOKEN_AT_ERR "Unexpected token, "
+# define TOO_MANY_PARAMS_ERR "Too many params, "
+# define UNEXPECTED_EOF_ERR "Unexpected end of file, "
+# define INVALID_PAR_TYPE_ERR "Invalid parameter type, "
+
 t_semnode	*create_node(char id, void (*op) (t_command *, t_token *));
 void		create_link(t_semnode *from, t_semnode *to);
 t_semnode	*look_for(t_semnode *from, char id);
@@ -37,6 +43,6 @@ void	begin_func(t_command *cmd, t_token *token);
 void	label_func(t_command *cmd, t_token *token);
 void	cmd_func(t_command *cmd, t_token *token);
 void	param_func(t_command *cmd, t_token *token);
-
+void    raise_error_sem(const char *str, t_token *token);
 
 #endif //COREWAR_SEMANTIC_GRAPH_H

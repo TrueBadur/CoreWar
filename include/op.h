@@ -15,6 +15,8 @@
 ** On part du principe qu'un int fait 32 bits. Est-ce vrai chez vous ?
 */
 
+#include <stdint.h>
+
 #define IND_SIZE				2
 #define REG_SIZE				4
 #define DIR_SIZE				REG_SIZE
@@ -79,7 +81,7 @@ typedef struct	s_op
 {
 	char	*name;
 	char	params_num;
-	char	paramtypes[3];
+	uint8_t	paramtypes[3];
 	int		num_of_ticks;
 	char	is_param_b;
 	char 	t_dir_size;
