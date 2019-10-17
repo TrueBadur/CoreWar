@@ -6,7 +6,7 @@
 /*   By: wgorold <wgorold@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/29 17:39:02 by jleann            #+#    #+#             */
-/*   Updated: 2019/10/16 17:46:47 by wgorold          ###   ########.fr       */
+/*   Updated: 2019/10/17 16:40:13 by wgorold          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,8 @@ void		init_dat(t_lexdata *dat)
 	dat->debug_gnl = 0;
 	dat->debug_comment = 0;
 	dat->debug_name = 0;
-	dat->debug_happend = 1;
+	dat->debug_happend = 0;
+	dat->debug_out = 0;
 	
 	dat->fd = -1;
 	init_stack_list(&(dat->lines));

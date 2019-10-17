@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   L00_lexer.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: PhilippNox <PhilippNox@student.42.fr>      +#+  +:+       +#+        */
+/*   By: wgorold <wgorold@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/29 17:39:02 by jleann            #+#    #+#             */
-/*   Updated: 2019/10/17 01:08:39 by PhilippNox       ###   ########.fr       */
+/*   Updated: 2019/10/17 16:41:30 by wgorold          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,15 +55,19 @@ int		check_line(t_lexdata *dat, char *line)
 	int		idx;
 	int		err;
 	int		inst_set;
+	int		len;
+	int		line_len;
 
 	idx = -1;
 	inst_set = 0;
 	dat->srt = -1;
 	dat->end = -1;
 	dat->cur_line = line;
-	while (line[++idx])
+	line_len = ft_strlen(line);
+	while (++idx < line_len + 1)
 	{
-		ft_printf("rest=%s\n", line + idx);
+		if (dat->debug_happend)
+			ft_printf("rest=%s\n", line + idx);
 		if (not_skip_char(line[idx]) && dat->srt == -1)
 			dat->srt = idx;
 		if (!not_skip_char(line[idx]) && dat->srt == -1)
@@ -76,50 +80,74 @@ int		check_line(t_lexdata *dat, char *line)
 				if ((err = choice_cmd(dat, line)))
 					return (err);
 				if (dat->debug_happend)
-					ft_printf("happend= cmd\n");
+					ft_printf("\t\t\t\t\t\t\t\thappend= cmd\n");
 				return (0);
 			}
 
 			else if (line[idx] == ' ') // char for end of inst ' '. maybe '%'
 			{
 				dat->end = idx;
+				len = dat->end - dat->srt;
+				if (dat->debug_happend)
+					ft_printf("\t\t\t\tto_check= %.*s\n", len, dat->cur_line + dat->srt);
 				if ((err = add_inst(dat)))
 					return (err);
 				dat->srt = -1;
 				inst_set = 1;
-				ft_printf("happend= %s\n\trest=%s\n", "inst_token", line + idx);
+				if (dat->debug_happend)
+					ft_printf("\t\t\t\t\t\t\t\thappend= %s\n", "inst_token");
 			}
 			
 			else if (line[idx] == LABEL_CHAR)
 			{
 				dat->end = idx;
+				len = dat->end - dat->srt;
+				if (dat->debug_happend)
+					ft_printf("\t\t\t\tto_check= %.*s\n", len, dat->cur_line + dat->srt);
 				if ((err = add_label(dat)))
 					return (err);
 				//TO_DO skip space and lines
 				dat->srt = -1;
-				ft_printf("happend= %s\n\trest=%s\n", "label_token", line + idx);
+				if (dat->debug_happend)
+					ft_printf("\t\t\t\t\t\t\t\thappend= %s\n", "label_token");
 			}
 		}
 		else
 		{
-			if (line[idx] == SEPARATOR_CHAR)
+			if (line[idx] == SEPARATOR_CHAR || line[idx] == '\0')
 			{
+				dat->end = idx;
+				len = dat->end - dat->srt;
+				if (dat->debug_happend)
+					ft_printf("\t\t\t\tto_check= %.*s\n", len, dat->cur_line + dat->srt);
 				if ((err = add_parm(dat)))
 					return (err);
 				dat->srt = -1;
+			}
+			if (line[idx] == SEPARATOR_CHAR)
+			{
+				if ((err = add_token_sep(dat)))
+					return (err);
 				if (dat->debug_happend)
-					ft_printf("happend= parm\n");
-				return (0);
+					ft_printf("\t\t\t\t\t\t\t\thappend= %s\n", "sep_token");
 			}
 		}
 		if (check_comment(dat, line + idx))
 		{
 			if (dat->debug_happend)
-				ft_printf("happend= comment\n");
+				ft_printf("\t\t\t\t\t\t\t\thappend= comment\n");
+			if ((err = add_token_endline(dat)))
+					return (err);
+			if (dat->debug_happend)
+				ft_printf("\t\t\t\t\t\t\t\thappend= %s\n", "endline_token");
 			return (0);
 		}
 	}
-	debug_token_list(dat);
+	if ((err = add_token_endline(dat)))
+		return (err);
+	if (dat->debug_happend)
+		ft_printf("\t\t\t\t\t\t\t\thappend= %s\n", "endline_token");
+	//debug_token_list(dat);
 	return (0);
 }
 
@@ -146,6 +174,8 @@ int		run_lexer(char *fname, t_lexdata **dat_out)
 
 	if (rlt == -1) //TODO error gnl
 		return (-1);
+	if (dat.debug_out)
+		debug_token_list(&dat);
 	return (0);
 }
 

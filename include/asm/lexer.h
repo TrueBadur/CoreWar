@@ -28,6 +28,11 @@
 
 #define INST_ID 7
 #define PARAM_REG_ID 8
+#define PARAM_DIR_ID 9
+#define PARAM_IND_ID 10
+
+#define PARAM_LABEL 11
+#define PARAM_INT 12
 
 # include "ft_list.h"
 # include "libft.h"
@@ -52,6 +57,7 @@ typedef struct		s_lexdata
 	char			debug_comment;
 	char			debug_name;
 	char			debug_happend;
+	char			debug_out;
 
 	int				fd;
 	t_list			token_list;
@@ -86,5 +92,7 @@ int					not_skip_char(char cur);
 int					add_inst(t_lexdata *dat);
 int					add_parm(t_lexdata *dat);
 int					add_token(t_lexdata *dat, char type, char sub_type, char val_type);
+int					add_token_sep(t_lexdata *dat);
+int					add_token_endline(t_lexdata *dat);
 
 #endif //COREWAR_LEXER_H
