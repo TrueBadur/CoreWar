@@ -1,7 +1,9 @@
 file(REMOVE_RECURSE
-  "CMakeFiles/corewar.dir/src/vm/checkop1.c.o"
-  "CMakeFiles/corewar.dir/src/vm/checkop2.c.o"
+  "CMakeFiles/corewar.dir/src/get_op_data.c.o"
+  "CMakeFiles/corewar.dir/src/vm/check_op.c.o"
   "CMakeFiles/corewar.dir/src/vm/game_main_loop.c.o"
+  "CMakeFiles/corewar.dir/src/vm/get_op_func.c.o"
+  "CMakeFiles/corewar.dir/src/vm/get_type.c.o"
   "CMakeFiles/corewar.dir/src/vm/init_arena.c.o"
   "CMakeFiles/corewar.dir/src/vm/main.c.o"
   "CMakeFiles/corewar.dir/src/vm/make_one_turn.c.o"

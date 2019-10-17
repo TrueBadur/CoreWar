@@ -23,7 +23,7 @@ void	handle_op(t_mngr *mngr, t_car *car)
 
 	op = (t_t_op){BYTE_OP, ARG1(BYTE_CODE), ARG2(BYTE_CODE), ARG3(BYTE_CODE)};
 	if ((ret = check_op(&op)) > 0)
-		get_op_func(op.op)(mngr, car);
+		get_op_func(op.op)(mngr, car, &op);
 	car->byte_next_op = FT_ABS(ret);
 }
 

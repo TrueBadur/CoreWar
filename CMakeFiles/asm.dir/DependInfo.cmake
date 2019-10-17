@@ -6,11 +6,14 @@ set(CMAKE_DEPENDS_LANGUAGES
 set(CMAKE_DEPENDS_CHECK_C
   "/Users/blomo/corawara/src/asm/assembler.c" "/Users/blomo/corawara/CMakeFiles/asm.dir/src/asm/assembler.c.o"
   "/Users/blomo/corawara/src/asm/champ_generator.c" "/Users/blomo/corawara/CMakeFiles/asm.dir/src/asm/champ_generator.c.o"
+  "/Users/blomo/corawara/src/asm/cmdgen_funcs.c" "/Users/blomo/corawara/CMakeFiles/asm.dir/src/asm/cmdgen_funcs.c.o"
   "/Users/blomo/corawara/src/asm/disassembler.c" "/Users/blomo/corawara/CMakeFiles/asm.dir/src/asm/disassembler.c.o"
   "/Users/blomo/corawara/src/asm/lexer.c" "/Users/blomo/corawara/CMakeFiles/asm.dir/src/asm/lexer.c.o"
   "/Users/blomo/corawara/src/asm/main.c" "/Users/blomo/corawara/CMakeFiles/asm.dir/src/asm/main.c.o"
   "/Users/blomo/corawara/src/asm/read_args.c" "/Users/blomo/corawara/CMakeFiles/asm.dir/src/asm/read_args.c.o"
+  "/Users/blomo/corawara/src/asm/semgraph_generator.c" "/Users/blomo/corawara/CMakeFiles/asm.dir/src/asm/semgraph_generator.c.o"
   "/Users/blomo/corawara/src/asm/writer.c" "/Users/blomo/corawara/CMakeFiles/asm.dir/src/asm/writer.c.o"
+  "/Users/blomo/corawara/src/get_op_data.c" "/Users/blomo/corawara/CMakeFiles/asm.dir/src/get_op_data.c.o"
   )
 set(CMAKE_C_COMPILER_ID "AppleClang")
 

@@ -118,13 +118,13 @@
 				</MakeCommands>
 			</Target>
 		</Build>
-		<Unit filename="/Users/blomo/corawara/data/op.h">
-			<Option target="corewar"/>
-		</Unit>
 		<Unit filename="/Users/blomo/corawara/src/asm/assembler.c">
 			<Option target="asm"/>
 		</Unit>
 		<Unit filename="/Users/blomo/corawara/src/asm/champ_generator.c">
+			<Option target="asm"/>
+		</Unit>
+		<Unit filename="/Users/blomo/corawara/src/asm/cmdgen_funcs.c">
 			<Option target="asm"/>
 		</Unit>
 		<Unit filename="/Users/blomo/corawara/src/asm/disassembler.c">
@@ -139,16 +139,26 @@
 		<Unit filename="/Users/blomo/corawara/src/asm/read_args.c">
 			<Option target="asm"/>
 		</Unit>
+		<Unit filename="/Users/blomo/corawara/src/asm/semgraph_generator.c">
+			<Option target="asm"/>
+		</Unit>
 		<Unit filename="/Users/blomo/corawara/src/asm/writer.c">
 			<Option target="asm"/>
 		</Unit>
-		<Unit filename="/Users/blomo/corawara/src/vm/checkop1.c">
+		<Unit filename="/Users/blomo/corawara/src/get_op_data.c">
+			<Option target="asm"/>
 			<Option target="corewar"/>
 		</Unit>
-		<Unit filename="/Users/blomo/corawara/src/vm/checkop2.c">
+		<Unit filename="/Users/blomo/corawara/src/vm/check_op.c">
 			<Option target="corewar"/>
 		</Unit>
 		<Unit filename="/Users/blomo/corawara/src/vm/game_main_loop.c">
+			<Option target="corewar"/>
+		</Unit>
+		<Unit filename="/Users/blomo/corawara/src/vm/get_op_func.c">
+			<Option target="corewar"/>
+		</Unit>
+		<Unit filename="/Users/blomo/corawara/src/vm/get_type.c">
 			<Option target="corewar"/>
 		</Unit>
 		<Unit filename="/Users/blomo/corawara/src/vm/init_arena.c">

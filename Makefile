@@ -39,10 +39,10 @@ cmake_force:
 SHELL = /bin/sh
 
 # The CMake executable.
-CMAKE_COMMAND = /private/var/folders/zz/zyxvpxvq6csfxvn_n00012xm0008qd/T/AppTranslocation/FAA46983-DBA0-4BBC-BC25-83E3AA91287F/d/CLion.app/Contents/bin/cmake/mac/bin/cmake
+CMAKE_COMMAND = /private/var/folders/zz/zyxvpxvq6csfxvn_n00012xm0008qd/T/AppTranslocation/B580F247-E367-4C3C-9CFA-08480B130180/d/CLion.app/Contents/bin/cmake/mac/bin/cmake
 
 # The command to remove a file.
-RM = /private/var/folders/zz/zyxvpxvq6csfxvn_n00012xm0008qd/T/AppTranslocation/FAA46983-DBA0-4BBC-BC25-83E3AA91287F/d/CLion.app/Contents/bin/cmake/mac/bin/cmake -E remove -f
+RM = /private/var/folders/zz/zyxvpxvq6csfxvn_n00012xm0008qd/T/AppTranslocation/B580F247-E367-4C3C-9CFA-08480B130180/d/CLion.app/Contents/bin/cmake/mac/bin/cmake -E remove -f
 
 # Escaping for special characters.
 EQUALS = =
@@ -59,7 +59,7 @@ CMAKE_BINARY_DIR = /Users/blomo/corawara
 # Special rule for the target rebuild_cache
 rebuild_cache:
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake to regenerate build system..."
-	/private/var/folders/zz/zyxvpxvq6csfxvn_n00012xm0008qd/T/AppTranslocation/FAA46983-DBA0-4BBC-BC25-83E3AA91287F/d/CLion.app/Contents/bin/cmake/mac/bin/cmake -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
+	/private/var/folders/zz/zyxvpxvq6csfxvn_n00012xm0008qd/T/AppTranslocation/B580F247-E367-4C3C-9CFA-08480B130180/d/CLion.app/Contents/bin/cmake/mac/bin/cmake -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
 .PHONY : rebuild_cache
 
 # Special rule for the target rebuild_cache
@@ -70,7 +70,7 @@ rebuild_cache/fast: rebuild_cache
 # Special rule for the target edit_cache
 edit_cache:
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "No interactive CMake dialog available..."
-	/private/var/folders/zz/zyxvpxvq6csfxvn_n00012xm0008qd/T/AppTranslocation/FAA46983-DBA0-4BBC-BC25-83E3AA91287F/d/CLion.app/Contents/bin/cmake/mac/bin/cmake -E echo No\ interactive\ CMake\ dialog\ available.
+	/private/var/folders/zz/zyxvpxvq6csfxvn_n00012xm0008qd/T/AppTranslocation/B580F247-E367-4C3C-9CFA-08480B130180/d/CLion.app/Contents/bin/cmake/mac/bin/cmake -E echo No\ interactive\ CMake\ dialog\ available.
 .PHONY : edit_cache
 
 # Special rule for the target edit_cache
@@ -190,6 +190,33 @@ src/asm/champ_generator.c.s:
 	$(MAKE) -f CMakeFiles/asm.dir/build.make CMakeFiles/asm.dir/src/asm/champ_generator.c.s
 .PHONY : src/asm/champ_generator.c.s
 
+src/asm/cmdgen_funcs.o: src/asm/cmdgen_funcs.c.o
+
+.PHONY : src/asm/cmdgen_funcs.o
+
+# target to build an object file
+src/asm/cmdgen_funcs.c.o:
+	$(MAKE) -f CMakeFiles/asm.dir/build.make CMakeFiles/asm.dir/src/asm/cmdgen_funcs.c.o
+.PHONY : src/asm/cmdgen_funcs.c.o
+
+src/asm/cmdgen_funcs.i: src/asm/cmdgen_funcs.c.i
+
+.PHONY : src/asm/cmdgen_funcs.i
+
+# target to preprocess a source file
+src/asm/cmdgen_funcs.c.i:
+	$(MAKE) -f CMakeFiles/asm.dir/build.make CMakeFiles/asm.dir/src/asm/cmdgen_funcs.c.i
+.PHONY : src/asm/cmdgen_funcs.c.i
+
+src/asm/cmdgen_funcs.s: src/asm/cmdgen_funcs.c.s
+
+.PHONY : src/asm/cmdgen_funcs.s
+
+# target to generate assembly for a file
+src/asm/cmdgen_funcs.c.s:
+	$(MAKE) -f CMakeFiles/asm.dir/build.make CMakeFiles/asm.dir/src/asm/cmdgen_funcs.c.s
+.PHONY : src/asm/cmdgen_funcs.c.s
+
 src/asm/disassembler.o: src/asm/disassembler.c.o
 
 .PHONY : src/asm/disassembler.o
@@ -298,6 +325,33 @@ src/asm/read_args.c.s:
 	$(MAKE) -f CMakeFiles/asm.dir/build.make CMakeFiles/asm.dir/src/asm/read_args.c.s
 .PHONY : src/asm/read_args.c.s
 
+src/asm/semgraph_generator.o: src/asm/semgraph_generator.c.o
+
+.PHONY : src/asm/semgraph_generator.o
+
+# target to build an object file
+src/asm/semgraph_generator.c.o:
+	$(MAKE) -f CMakeFiles/asm.dir/build.make CMakeFiles/asm.dir/src/asm/semgraph_generator.c.o
+.PHONY : src/asm/semgraph_generator.c.o
+
+src/asm/semgraph_generator.i: src/asm/semgraph_generator.c.i
+
+.PHONY : src/asm/semgraph_generator.i
+
+# target to preprocess a source file
+src/asm/semgraph_generator.c.i:
+	$(MAKE) -f CMakeFiles/asm.dir/build.make CMakeFiles/asm.dir/src/asm/semgraph_generator.c.i
+.PHONY : src/asm/semgraph_generator.c.i
+
+src/asm/semgraph_generator.s: src/asm/semgraph_generator.c.s
+
+.PHONY : src/asm/semgraph_generator.s
+
+# target to generate assembly for a file
+src/asm/semgraph_generator.c.s:
+	$(MAKE) -f CMakeFiles/asm.dir/build.make CMakeFiles/asm.dir/src/asm/semgraph_generator.c.s
+.PHONY : src/asm/semgraph_generator.c.s
+
 src/asm/writer.o: src/asm/writer.c.o
 
 .PHONY : src/asm/writer.o
@@ -325,59 +379,62 @@ src/asm/writer.c.s:
 	$(MAKE) -f CMakeFiles/asm.dir/build.make CMakeFiles/asm.dir/src/asm/writer.c.s
 .PHONY : src/asm/writer.c.s
 
-src/vm/checkop1.o: src/vm/checkop1.c.o
+src/get_op_data.o: src/get_op_data.c.o
 
-.PHONY : src/vm/checkop1.o
-
-# target to build an object file
-src/vm/checkop1.c.o:
-	$(MAKE) -f CMakeFiles/corewar.dir/build.make CMakeFiles/corewar.dir/src/vm/checkop1.c.o
-.PHONY : src/vm/checkop1.c.o
-
-src/vm/checkop1.i: src/vm/checkop1.c.i
-
-.PHONY : src/vm/checkop1.i
-
-# target to preprocess a source file
-src/vm/checkop1.c.i:
-	$(MAKE) -f CMakeFiles/corewar.dir/build.make CMakeFiles/corewar.dir/src/vm/checkop1.c.i
-.PHONY : src/vm/checkop1.c.i
-
-src/vm/checkop1.s: src/vm/checkop1.c.s
-
-.PHONY : src/vm/checkop1.s
-
-# target to generate assembly for a file
-src/vm/checkop1.c.s:
-	$(MAKE) -f CMakeFiles/corewar.dir/build.make CMakeFiles/corewar.dir/src/vm/checkop1.c.s
-.PHONY : src/vm/checkop1.c.s
-
-src/vm/checkop2.o: src/vm/checkop2.c.o
-
-.PHONY : src/vm/checkop2.o
+.PHONY : src/get_op_data.o
 
 # target to build an object file
-src/vm/checkop2.c.o:
-	$(MAKE) -f CMakeFiles/corewar.dir/build.make CMakeFiles/corewar.dir/src/vm/checkop2.c.o
-.PHONY : src/vm/checkop2.c.o
+src/get_op_data.c.o:
+	$(MAKE) -f CMakeFiles/asm.dir/build.make CMakeFiles/asm.dir/src/get_op_data.c.o
+	$(MAKE) -f CMakeFiles/corewar.dir/build.make CMakeFiles/corewar.dir/src/get_op_data.c.o
+.PHONY : src/get_op_data.c.o
 
-src/vm/checkop2.i: src/vm/checkop2.c.i
+src/get_op_data.i: src/get_op_data.c.i
 
-.PHONY : src/vm/checkop2.i
+.PHONY : src/get_op_data.i
 
 # target to preprocess a source file
-src/vm/checkop2.c.i:
-	$(MAKE) -f CMakeFiles/corewar.dir/build.make CMakeFiles/corewar.dir/src/vm/checkop2.c.i
-.PHONY : src/vm/checkop2.c.i
+src/get_op_data.c.i:
+	$(MAKE) -f CMakeFiles/asm.dir/build.make CMakeFiles/asm.dir/src/get_op_data.c.i
+	$(MAKE) -f CMakeFiles/corewar.dir/build.make CMakeFiles/corewar.dir/src/get_op_data.c.i
+.PHONY : src/get_op_data.c.i
 
-src/vm/checkop2.s: src/vm/checkop2.c.s
+src/get_op_data.s: src/get_op_data.c.s
 
-.PHONY : src/vm/checkop2.s
+.PHONY : src/get_op_data.s
 
 # target to generate assembly for a file
-src/vm/checkop2.c.s:
-	$(MAKE) -f CMakeFiles/corewar.dir/build.make CMakeFiles/corewar.dir/src/vm/checkop2.c.s
-.PHONY : src/vm/checkop2.c.s
+src/get_op_data.c.s:
+	$(MAKE) -f CMakeFiles/asm.dir/build.make CMakeFiles/asm.dir/src/get_op_data.c.s
+	$(MAKE) -f CMakeFiles/corewar.dir/build.make CMakeFiles/corewar.dir/src/get_op_data.c.s
+.PHONY : src/get_op_data.c.s
+
+src/vm/check_op.o: src/vm/check_op.c.o
+
+.PHONY : src/vm/check_op.o
+
+# target to build an object file
+src/vm/check_op.c.o:
+	$(MAKE) -f CMakeFiles/corewar.dir/build.make CMakeFiles/corewar.dir/src/vm/check_op.c.o
+.PHONY : src/vm/check_op.c.o
+
+src/vm/check_op.i: src/vm/check_op.c.i
+
+.PHONY : src/vm/check_op.i
+
+# target to preprocess a source file
+src/vm/check_op.c.i:
+	$(MAKE) -f CMakeFiles/corewar.dir/build.make CMakeFiles/corewar.dir/src/vm/check_op.c.i
+.PHONY : src/vm/check_op.c.i
+
+src/vm/check_op.s: src/vm/check_op.c.s
+
+.PHONY : src/vm/check_op.s
+
+# target to generate assembly for a file
+src/vm/check_op.c.s:
+	$(MAKE) -f CMakeFiles/corewar.dir/build.make CMakeFiles/corewar.dir/src/vm/check_op.c.s
+.PHONY : src/vm/check_op.c.s
 
 src/vm/game_main_loop.o: src/vm/game_main_loop.c.o
 
@@ -405,6 +462,60 @@ src/vm/game_main_loop.s: src/vm/game_main_loop.c.s
 src/vm/game_main_loop.c.s:
 	$(MAKE) -f CMakeFiles/corewar.dir/build.make CMakeFiles/corewar.dir/src/vm/game_main_loop.c.s
 .PHONY : src/vm/game_main_loop.c.s
+
+src/vm/get_op_func.o: src/vm/get_op_func.c.o
+
+.PHONY : src/vm/get_op_func.o
+
+# target to build an object file
+src/vm/get_op_func.c.o:
+	$(MAKE) -f CMakeFiles/corewar.dir/build.make CMakeFiles/corewar.dir/src/vm/get_op_func.c.o
+.PHONY : src/vm/get_op_func.c.o
+
+src/vm/get_op_func.i: src/vm/get_op_func.c.i
+
+.PHONY : src/vm/get_op_func.i
+
+# target to preprocess a source file
+src/vm/get_op_func.c.i:
+	$(MAKE) -f CMakeFiles/corewar.dir/build.make CMakeFiles/corewar.dir/src/vm/get_op_func.c.i
+.PHONY : src/vm/get_op_func.c.i
+
+src/vm/get_op_func.s: src/vm/get_op_func.c.s
+
+.PHONY : src/vm/get_op_func.s
+
+# target to generate assembly for a file
+src/vm/get_op_func.c.s:
+	$(MAKE) -f CMakeFiles/corewar.dir/build.make CMakeFiles/corewar.dir/src/vm/get_op_func.c.s
+.PHONY : src/vm/get_op_func.c.s
+
+src/vm/get_type.o: src/vm/get_type.c.o
+
+.PHONY : src/vm/get_type.o
+
+# target to build an object file
+src/vm/get_type.c.o:
+	$(MAKE) -f CMakeFiles/corewar.dir/build.make CMakeFiles/corewar.dir/src/vm/get_type.c.o
+.PHONY : src/vm/get_type.c.o
+
+src/vm/get_type.i: src/vm/get_type.c.i
+
+.PHONY : src/vm/get_type.i
+
+# target to preprocess a source file
+src/vm/get_type.c.i:
+	$(MAKE) -f CMakeFiles/corewar.dir/build.make CMakeFiles/corewar.dir/src/vm/get_type.c.i
+.PHONY : src/vm/get_type.c.i
+
+src/vm/get_type.s: src/vm/get_type.c.s
+
+.PHONY : src/vm/get_type.s
+
+# target to generate assembly for a file
+src/vm/get_type.c.s:
+	$(MAKE) -f CMakeFiles/corewar.dir/build.make CMakeFiles/corewar.dir/src/vm/get_type.c.s
+.PHONY : src/vm/get_type.c.s
 
 src/vm/init_arena.o: src/vm/init_arena.c.o
 
@@ -638,6 +749,9 @@ help:
 	@echo "... src/asm/champ_generator.o"
 	@echo "... src/asm/champ_generator.i"
 	@echo "... src/asm/champ_generator.s"
+	@echo "... src/asm/cmdgen_funcs.o"
+	@echo "... src/asm/cmdgen_funcs.i"
+	@echo "... src/asm/cmdgen_funcs.s"
 	@echo "... src/asm/disassembler.o"
 	@echo "... src/asm/disassembler.i"
 	@echo "... src/asm/disassembler.s"
@@ -650,18 +764,27 @@ help:
 	@echo "... src/asm/read_args.o"
 	@echo "... src/asm/read_args.i"
 	@echo "... src/asm/read_args.s"
+	@echo "... src/asm/semgraph_generator.o"
+	@echo "... src/asm/semgraph_generator.i"
+	@echo "... src/asm/semgraph_generator.s"
 	@echo "... src/asm/writer.o"
 	@echo "... src/asm/writer.i"
 	@echo "... src/asm/writer.s"
-	@echo "... src/vm/checkop1.o"
-	@echo "... src/vm/checkop1.i"
-	@echo "... src/vm/checkop1.s"
-	@echo "... src/vm/checkop2.o"
-	@echo "... src/vm/checkop2.i"
-	@echo "... src/vm/checkop2.s"
+	@echo "... src/get_op_data.o"
+	@echo "... src/get_op_data.i"
+	@echo "... src/get_op_data.s"
+	@echo "... src/vm/check_op.o"
+	@echo "... src/vm/check_op.i"
+	@echo "... src/vm/check_op.s"
 	@echo "... src/vm/game_main_loop.o"
 	@echo "... src/vm/game_main_loop.i"
 	@echo "... src/vm/game_main_loop.s"
+	@echo "... src/vm/get_op_func.o"
+	@echo "... src/vm/get_op_func.i"
+	@echo "... src/vm/get_op_func.s"
+	@echo "... src/vm/get_type.o"
+	@echo "... src/vm/get_type.i"
+	@echo "... src/vm/get_type.s"
 	@echo "... src/vm/init_arena.o"
 	@echo "... src/vm/init_arena.i"
 	@echo "... src/vm/init_arena.s"

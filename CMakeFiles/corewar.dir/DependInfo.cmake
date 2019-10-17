@@ -4,9 +4,11 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_C
-  "/Users/blomo/corawara/src/vm/checkop1.c" "/Users/blomo/corawara/CMakeFiles/corewar.dir/src/vm/checkop1.c.o"
-  "/Users/blomo/corawara/src/vm/checkop2.c" "/Users/blomo/corawara/CMakeFiles/corewar.dir/src/vm/checkop2.c.o"
+  "/Users/blomo/corawara/src/get_op_data.c" "/Users/blomo/corawara/CMakeFiles/corewar.dir/src/get_op_data.c.o"
+  "/Users/blomo/corawara/src/vm/check_op.c" "/Users/blomo/corawara/CMakeFiles/corewar.dir/src/vm/check_op.c.o"
   "/Users/blomo/corawara/src/vm/game_main_loop.c" "/Users/blomo/corawara/CMakeFiles/corewar.dir/src/vm/game_main_loop.c.o"
+  "/Users/blomo/corawara/src/vm/get_op_func.c" "/Users/blomo/corawara/CMakeFiles/corewar.dir/src/vm/get_op_func.c.o"
+  "/Users/blomo/corawara/src/vm/get_type.c" "/Users/blomo/corawara/CMakeFiles/corewar.dir/src/vm/get_type.c.o"
   "/Users/blomo/corawara/src/vm/init_arena.c" "/Users/blomo/corawara/CMakeFiles/corewar.dir/src/vm/init_arena.c.o"
   "/Users/blomo/corawara/src/vm/main.c" "/Users/blomo/corawara/CMakeFiles/corewar.dir/src/vm/main.c.o"
   "/Users/blomo/corawara/src/vm/make_one_turn.c" "/Users/blomo/corawara/CMakeFiles/corewar.dir/src/vm/make_one_turn.c.o"

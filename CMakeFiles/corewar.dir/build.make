@@ -34,10 +34,10 @@ cmake_force:
 SHELL = /bin/sh
 
 # The CMake executable.
-CMAKE_COMMAND = /private/var/folders/zz/zyxvpxvq6csfxvn_n00012xm0008qd/T/AppTranslocation/FAA46983-DBA0-4BBC-BC25-83E3AA91287F/d/CLion.app/Contents/bin/cmake/mac/bin/cmake
+CMAKE_COMMAND = /private/var/folders/zz/zyxvpxvq6csfxvn_n00012xm0008qd/T/AppTranslocation/B580F247-E367-4C3C-9CFA-08480B130180/d/CLion.app/Contents/bin/cmake/mac/bin/cmake
 
 # The command to remove a file.
-RM = /private/var/folders/zz/zyxvpxvq6csfxvn_n00012xm0008qd/T/AppTranslocation/FAA46983-DBA0-4BBC-BC25-83E3AA91287F/d/CLion.app/Contents/bin/cmake/mac/bin/cmake -E remove -f
+RM = /private/var/folders/zz/zyxvpxvq6csfxvn_n00012xm0008qd/T/AppTranslocation/B580F247-E367-4C3C-9CFA-08480B130180/d/CLion.app/Contents/bin/cmake/mac/bin/cmake -E remove -f
 
 # Escaping for special characters.
 EQUALS = =
@@ -57,35 +57,22 @@ include CMakeFiles/corewar.dir/progress.make
 # Include the compile flags for this target's objects.
 include CMakeFiles/corewar.dir/flags.make
 
-CMakeFiles/corewar.dir/src/vm/checkop1.c.o: CMakeFiles/corewar.dir/flags.make
-CMakeFiles/corewar.dir/src/vm/checkop1.c.o: src/vm/checkop1.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/blomo/corawara/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building C object CMakeFiles/corewar.dir/src/vm/checkop1.c.o"
-	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/corewar.dir/src/vm/checkop1.c.o   -c /Users/blomo/corawara/src/vm/checkop1.c
+CMakeFiles/corewar.dir/src/vm/check_op.c.o: CMakeFiles/corewar.dir/flags.make
+CMakeFiles/corewar.dir/src/vm/check_op.c.o: src/vm/check_op.c
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/blomo/corawara/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building C object CMakeFiles/corewar.dir/src/vm/check_op.c.o"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/corewar.dir/src/vm/check_op.c.o   -c /Users/blomo/corawara/src/vm/check_op.c
 
-CMakeFiles/corewar.dir/src/vm/checkop1.c.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/corewar.dir/src/vm/checkop1.c.i"
-	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /Users/blomo/corawara/src/vm/checkop1.c > CMakeFiles/corewar.dir/src/vm/checkop1.c.i
+CMakeFiles/corewar.dir/src/vm/check_op.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/corewar.dir/src/vm/check_op.c.i"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /Users/blomo/corawara/src/vm/check_op.c > CMakeFiles/corewar.dir/src/vm/check_op.c.i
 
-CMakeFiles/corewar.dir/src/vm/checkop1.c.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/corewar.dir/src/vm/checkop1.c.s"
-	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /Users/blomo/corawara/src/vm/checkop1.c -o CMakeFiles/corewar.dir/src/vm/checkop1.c.s
-
-CMakeFiles/corewar.dir/src/vm/checkop2.c.o: CMakeFiles/corewar.dir/flags.make
-CMakeFiles/corewar.dir/src/vm/checkop2.c.o: src/vm/checkop2.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/blomo/corawara/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building C object CMakeFiles/corewar.dir/src/vm/checkop2.c.o"
-	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/corewar.dir/src/vm/checkop2.c.o   -c /Users/blomo/corawara/src/vm/checkop2.c
-
-CMakeFiles/corewar.dir/src/vm/checkop2.c.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/corewar.dir/src/vm/checkop2.c.i"
-	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /Users/blomo/corawara/src/vm/checkop2.c > CMakeFiles/corewar.dir/src/vm/checkop2.c.i
-
-CMakeFiles/corewar.dir/src/vm/checkop2.c.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/corewar.dir/src/vm/checkop2.c.s"
-	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /Users/blomo/corawara/src/vm/checkop2.c -o CMakeFiles/corewar.dir/src/vm/checkop2.c.s
+CMakeFiles/corewar.dir/src/vm/check_op.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/corewar.dir/src/vm/check_op.c.s"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /Users/blomo/corawara/src/vm/check_op.c -o CMakeFiles/corewar.dir/src/vm/check_op.c.s
 
 CMakeFiles/corewar.dir/src/vm/game_main_loop.c.o: CMakeFiles/corewar.dir/flags.make
 CMakeFiles/corewar.dir/src/vm/game_main_loop.c.o: src/vm/game_main_loop.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/blomo/corawara/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building C object CMakeFiles/corewar.dir/src/vm/game_main_loop.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/blomo/corawara/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building C object CMakeFiles/corewar.dir/src/vm/game_main_loop.c.o"
 	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/corewar.dir/src/vm/game_main_loop.c.o   -c /Users/blomo/corawara/src/vm/game_main_loop.c
 
 CMakeFiles/corewar.dir/src/vm/game_main_loop.c.i: cmake_force
@@ -96,9 +83,35 @@ CMakeFiles/corewar.dir/src/vm/game_main_loop.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/corewar.dir/src/vm/game_main_loop.c.s"
 	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /Users/blomo/corawara/src/vm/game_main_loop.c -o CMakeFiles/corewar.dir/src/vm/game_main_loop.c.s
 
+CMakeFiles/corewar.dir/src/vm/get_op_func.c.o: CMakeFiles/corewar.dir/flags.make
+CMakeFiles/corewar.dir/src/vm/get_op_func.c.o: src/vm/get_op_func.c
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/blomo/corawara/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building C object CMakeFiles/corewar.dir/src/vm/get_op_func.c.o"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/corewar.dir/src/vm/get_op_func.c.o   -c /Users/blomo/corawara/src/vm/get_op_func.c
+
+CMakeFiles/corewar.dir/src/vm/get_op_func.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/corewar.dir/src/vm/get_op_func.c.i"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /Users/blomo/corawara/src/vm/get_op_func.c > CMakeFiles/corewar.dir/src/vm/get_op_func.c.i
+
+CMakeFiles/corewar.dir/src/vm/get_op_func.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/corewar.dir/src/vm/get_op_func.c.s"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /Users/blomo/corawara/src/vm/get_op_func.c -o CMakeFiles/corewar.dir/src/vm/get_op_func.c.s
+
+CMakeFiles/corewar.dir/src/vm/get_type.c.o: CMakeFiles/corewar.dir/flags.make
+CMakeFiles/corewar.dir/src/vm/get_type.c.o: src/vm/get_type.c
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/blomo/corawara/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building C object CMakeFiles/corewar.dir/src/vm/get_type.c.o"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/corewar.dir/src/vm/get_type.c.o   -c /Users/blomo/corawara/src/vm/get_type.c
+
+CMakeFiles/corewar.dir/src/vm/get_type.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/corewar.dir/src/vm/get_type.c.i"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /Users/blomo/corawara/src/vm/get_type.c > CMakeFiles/corewar.dir/src/vm/get_type.c.i
+
+CMakeFiles/corewar.dir/src/vm/get_type.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/corewar.dir/src/vm/get_type.c.s"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /Users/blomo/corawara/src/vm/get_type.c -o CMakeFiles/corewar.dir/src/vm/get_type.c.s
+
 CMakeFiles/corewar.dir/src/vm/init_arena.c.o: CMakeFiles/corewar.dir/flags.make
 CMakeFiles/corewar.dir/src/vm/init_arena.c.o: src/vm/init_arena.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/blomo/corawara/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building C object CMakeFiles/corewar.dir/src/vm/init_arena.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/blomo/corawara/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building C object CMakeFiles/corewar.dir/src/vm/init_arena.c.o"
 	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/corewar.dir/src/vm/init_arena.c.o   -c /Users/blomo/corawara/src/vm/init_arena.c
 
 CMakeFiles/corewar.dir/src/vm/init_arena.c.i: cmake_force
@@ -111,7 +124,7 @@ CMakeFiles/corewar.dir/src/vm/init_arena.c.s: cmake_force
 
 CMakeFiles/corewar.dir/src/vm/main.c.o: CMakeFiles/corewar.dir/flags.make
 CMakeFiles/corewar.dir/src/vm/main.c.o: src/vm/main.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/blomo/corawara/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building C object CMakeFiles/corewar.dir/src/vm/main.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/blomo/corawara/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building C object CMakeFiles/corewar.dir/src/vm/main.c.o"
 	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/corewar.dir/src/vm/main.c.o   -c /Users/blomo/corawara/src/vm/main.c
 
 CMakeFiles/corewar.dir/src/vm/main.c.i: cmake_force
@@ -124,7 +137,7 @@ CMakeFiles/corewar.dir/src/vm/main.c.s: cmake_force
 
 CMakeFiles/corewar.dir/src/vm/make_one_turn.c.o: CMakeFiles/corewar.dir/flags.make
 CMakeFiles/corewar.dir/src/vm/make_one_turn.c.o: src/vm/make_one_turn.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/blomo/corawara/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building C object CMakeFiles/corewar.dir/src/vm/make_one_turn.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/blomo/corawara/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building C object CMakeFiles/corewar.dir/src/vm/make_one_turn.c.o"
 	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/corewar.dir/src/vm/make_one_turn.c.o   -c /Users/blomo/corawara/src/vm/make_one_turn.c
 
 CMakeFiles/corewar.dir/src/vm/make_one_turn.c.i: cmake_force
@@ -137,7 +150,7 @@ CMakeFiles/corewar.dir/src/vm/make_one_turn.c.s: cmake_force
 
 CMakeFiles/corewar.dir/src/vm/operation.c.o: CMakeFiles/corewar.dir/flags.make
 CMakeFiles/corewar.dir/src/vm/operation.c.o: src/vm/operation.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/blomo/corawara/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building C object CMakeFiles/corewar.dir/src/vm/operation.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/blomo/corawara/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Building C object CMakeFiles/corewar.dir/src/vm/operation.c.o"
 	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/corewar.dir/src/vm/operation.c.o   -c /Users/blomo/corawara/src/vm/operation.c
 
 CMakeFiles/corewar.dir/src/vm/operation.c.i: cmake_force
@@ -150,7 +163,7 @@ CMakeFiles/corewar.dir/src/vm/operation.c.s: cmake_force
 
 CMakeFiles/corewar.dir/src/vm/parse_file.c.o: CMakeFiles/corewar.dir/flags.make
 CMakeFiles/corewar.dir/src/vm/parse_file.c.o: src/vm/parse_file.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/blomo/corawara/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Building C object CMakeFiles/corewar.dir/src/vm/parse_file.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/blomo/corawara/CMakeFiles --progress-num=$(CMAKE_PROGRESS_9) "Building C object CMakeFiles/corewar.dir/src/vm/parse_file.c.o"
 	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/corewar.dir/src/vm/parse_file.c.o   -c /Users/blomo/corawara/src/vm/parse_file.c
 
 CMakeFiles/corewar.dir/src/vm/parse_file.c.i: cmake_force
@@ -163,7 +176,7 @@ CMakeFiles/corewar.dir/src/vm/parse_file.c.s: cmake_force
 
 CMakeFiles/corewar.dir/src/vm/safe_exit.c.o: CMakeFiles/corewar.dir/flags.make
 CMakeFiles/corewar.dir/src/vm/safe_exit.c.o: src/vm/safe_exit.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/blomo/corawara/CMakeFiles --progress-num=$(CMAKE_PROGRESS_9) "Building C object CMakeFiles/corewar.dir/src/vm/safe_exit.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/blomo/corawara/CMakeFiles --progress-num=$(CMAKE_PROGRESS_10) "Building C object CMakeFiles/corewar.dir/src/vm/safe_exit.c.o"
 	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/corewar.dir/src/vm/safe_exit.c.o   -c /Users/blomo/corawara/src/vm/safe_exit.c
 
 CMakeFiles/corewar.dir/src/vm/safe_exit.c.i: cmake_force
@@ -176,7 +189,7 @@ CMakeFiles/corewar.dir/src/vm/safe_exit.c.s: cmake_force
 
 CMakeFiles/corewar.dir/src/vm/timeline_mngmnt.c.o: CMakeFiles/corewar.dir/flags.make
 CMakeFiles/corewar.dir/src/vm/timeline_mngmnt.c.o: src/vm/timeline_mngmnt.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/blomo/corawara/CMakeFiles --progress-num=$(CMAKE_PROGRESS_10) "Building C object CMakeFiles/corewar.dir/src/vm/timeline_mngmnt.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/blomo/corawara/CMakeFiles --progress-num=$(CMAKE_PROGRESS_11) "Building C object CMakeFiles/corewar.dir/src/vm/timeline_mngmnt.c.o"
 	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/corewar.dir/src/vm/timeline_mngmnt.c.o   -c /Users/blomo/corawara/src/vm/timeline_mngmnt.c
 
 CMakeFiles/corewar.dir/src/vm/timeline_mngmnt.c.i: cmake_force
@@ -189,7 +202,7 @@ CMakeFiles/corewar.dir/src/vm/timeline_mngmnt.c.s: cmake_force
 
 CMakeFiles/corewar.dir/src/vm/validate_input.c.o: CMakeFiles/corewar.dir/flags.make
 CMakeFiles/corewar.dir/src/vm/validate_input.c.o: src/vm/validate_input.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/blomo/corawara/CMakeFiles --progress-num=$(CMAKE_PROGRESS_11) "Building C object CMakeFiles/corewar.dir/src/vm/validate_input.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/blomo/corawara/CMakeFiles --progress-num=$(CMAKE_PROGRESS_12) "Building C object CMakeFiles/corewar.dir/src/vm/validate_input.c.o"
 	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/corewar.dir/src/vm/validate_input.c.o   -c /Users/blomo/corawara/src/vm/validate_input.c
 
 CMakeFiles/corewar.dir/src/vm/validate_input.c.i: cmake_force
@@ -200,11 +213,25 @@ CMakeFiles/corewar.dir/src/vm/validate_input.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/corewar.dir/src/vm/validate_input.c.s"
 	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /Users/blomo/corawara/src/vm/validate_input.c -o CMakeFiles/corewar.dir/src/vm/validate_input.c.s
 
+CMakeFiles/corewar.dir/src/get_op_data.c.o: CMakeFiles/corewar.dir/flags.make
+CMakeFiles/corewar.dir/src/get_op_data.c.o: src/get_op_data.c
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/blomo/corawara/CMakeFiles --progress-num=$(CMAKE_PROGRESS_13) "Building C object CMakeFiles/corewar.dir/src/get_op_data.c.o"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/corewar.dir/src/get_op_data.c.o   -c /Users/blomo/corawara/src/get_op_data.c
+
+CMakeFiles/corewar.dir/src/get_op_data.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/corewar.dir/src/get_op_data.c.i"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /Users/blomo/corawara/src/get_op_data.c > CMakeFiles/corewar.dir/src/get_op_data.c.i
+
+CMakeFiles/corewar.dir/src/get_op_data.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/corewar.dir/src/get_op_data.c.s"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /Users/blomo/corawara/src/get_op_data.c -o CMakeFiles/corewar.dir/src/get_op_data.c.s
+
 # Object files for target corewar
 corewar_OBJECTS = \
-"CMakeFiles/corewar.dir/src/vm/checkop1.c.o" \
-"CMakeFiles/corewar.dir/src/vm/checkop2.c.o" \
+"CMakeFiles/corewar.dir/src/vm/check_op.c.o" \
 "CMakeFiles/corewar.dir/src/vm/game_main_loop.c.o" \
+"CMakeFiles/corewar.dir/src/vm/get_op_func.c.o" \
+"CMakeFiles/corewar.dir/src/vm/get_type.c.o" \
 "CMakeFiles/corewar.dir/src/vm/init_arena.c.o" \
 "CMakeFiles/corewar.dir/src/vm/main.c.o" \
 "CMakeFiles/corewar.dir/src/vm/make_one_turn.c.o" \
@@ -212,14 +239,16 @@ corewar_OBJECTS = \
 "CMakeFiles/corewar.dir/src/vm/parse_file.c.o" \
 "CMakeFiles/corewar.dir/src/vm/safe_exit.c.o" \
 "CMakeFiles/corewar.dir/src/vm/timeline_mngmnt.c.o" \
-"CMakeFiles/corewar.dir/src/vm/validate_input.c.o"
+"CMakeFiles/corewar.dir/src/vm/validate_input.c.o" \
+"CMakeFiles/corewar.dir/src/get_op_data.c.o"
 
 # External object files for target corewar
 corewar_EXTERNAL_OBJECTS =
 
-corewar: CMakeFiles/corewar.dir/src/vm/checkop1.c.o
-corewar: CMakeFiles/corewar.dir/src/vm/checkop2.c.o
+corewar: CMakeFiles/corewar.dir/src/vm/check_op.c.o
 corewar: CMakeFiles/corewar.dir/src/vm/game_main_loop.c.o
+corewar: CMakeFiles/corewar.dir/src/vm/get_op_func.c.o
+corewar: CMakeFiles/corewar.dir/src/vm/get_type.c.o
 corewar: CMakeFiles/corewar.dir/src/vm/init_arena.c.o
 corewar: CMakeFiles/corewar.dir/src/vm/main.c.o
 corewar: CMakeFiles/corewar.dir/src/vm/make_one_turn.c.o
@@ -228,10 +257,12 @@ corewar: CMakeFiles/corewar.dir/src/vm/parse_file.c.o
 corewar: CMakeFiles/corewar.dir/src/vm/safe_exit.c.o
 corewar: CMakeFiles/corewar.dir/src/vm/timeline_mngmnt.c.o
 corewar: CMakeFiles/corewar.dir/src/vm/validate_input.c.o
+corewar: CMakeFiles/corewar.dir/src/get_op_data.c.o
 corewar: CMakeFiles/corewar.dir/build.make
 corewar: libft/lib/libft.a
+corewar: libft/lib/liblist.a
 corewar: CMakeFiles/corewar.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/Users/blomo/corawara/CMakeFiles --progress-num=$(CMAKE_PROGRESS_12) "Linking C executable corewar"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/Users/blomo/corawara/CMakeFiles --progress-num=$(CMAKE_PROGRESS_14) "Linking C executable corewar"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/corewar.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.

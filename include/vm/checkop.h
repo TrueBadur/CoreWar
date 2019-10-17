@@ -20,10 +20,25 @@ typedef struct	s_t_op
 	unsigned char	a3;
 }				t_t_op;
 
-typedef void (*fptr)(t_mngr*, t_car*);
+typedef void (*fptr)(t_mngr*, t_car*, t_t_op*);
 
 short	check_op(t_t_op *op);
 fptr	get_op_func(int id);
+
+void make_live(t_mngr *mngr, t_car *car, t_t_op *op);
+void make_ld_lld(t_mngr *mngr, t_car *car, t_t_op *op);
+void make_st(t_mngr *mngr, t_car *car, t_t_op *op);
+void make_add_sub(t_mngr *mngr, t_car *car, t_t_op *op);
+void make_and_or_xor(t_mngr *mngr, t_car *car, t_t_op *op);
+void make_zjmp(t_mngr *mngr, t_car *car, t_t_op *op);
+void make_ldi_lldi(t_mngr *mngr, t_car *car, t_t_op *op);
+void make_sti(t_mngr *mngr, t_car *car, t_t_op *op);
+void make_fork(t_mngr *mngr, t_car *car, t_t_op *op);
+void make_lfork(t_mngr *mngr, t_car *car, t_t_op *op);
+void make_aff(t_mngr *mngr, t_car *car, t_t_op *op);
+int get_dir(t_mngr *mngr, int poz, int size);
+int check_reg(int reg);
+
 
 #endif //COREWAR_CHECKOP_H
 
