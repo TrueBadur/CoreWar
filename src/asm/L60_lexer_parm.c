@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   L40_lexer_inst.c                                   :+:      :+:    :+:   */
+/*   L60_lexer_parm.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: PhilippNox <PhilippNox@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/29 17:39:02 by jleann            #+#    #+#             */
-/*   Updated: 2019/10/17 01:07:10 by PhilippNox       ###   ########.fr       */
+/*   Updated: 2019/10/17 10:29:38 by PhilippNox       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lexer.h"
 
-int		add_token_inst(t_lexdata *dat, int id_inst)
+int		add_token_parm_r(t_lexdata *dat, int id_r)
 {
 	t_token			to_add;
 	t_list_node		*node;
@@ -21,10 +21,10 @@ int		add_token_inst(t_lexdata *dat, int id_inst)
 	data = (int *)malloc(sizeof(int));
 	if (!data)
 		return (ERROR_LEX_MALLOC);
-	*data = id_inst;
+	*data = id_r;
 	to_add.data = data;
-	to_add.type = INST_ID;
-	to_add.subtype = 0;
+	to_add.type = PARAM_ID;
+	to_add.subtype = PARAM_REG_ID;
 	to_add.line_num = (int)(dat->lines.len);
 	to_add.pos_num = dat->srt;
 	node = ft_lstnew_node(&to_add, sizeof(t_token));
@@ -34,24 +34,18 @@ int		add_token_inst(t_lexdata *dat, int id_inst)
 	return (0);
 }
 
-int		add_inst(t_lexdata *dat)
+int		add_parm(t_lexdata *dat)
 {
-	int		idx;
-	t_op 	*tab;
 	char	*line;
+	int		num;
 	int		tmp;
 
-	idx = 0;
 	line = dat->cur_line + dat->srt;
-	tmp = dat->end - dat->srt;
-	while ((tab = get_op_info(++idx)))
+	if (*line == 'r')
 	{
-		if (ft_strncmp(line, tab->name, tmp) == 0)
-		{
-			if ((tmp = add_token_inst(dat, idx)))
-				return (tmp);
-			return (0);
-		}
+		num = ft_atoi(line);
+		if ((tmp = add_token_parm_r(dat, num)))
+			return (tmp);
 	}
-	return (ERROR_LEX_INST_NOT_FOUND);
+	return (0);
 }

@@ -6,7 +6,7 @@
 #    By: PhilippNox <PhilippNox@student.42.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/04/03 20:55:37 by wgorold           #+#    #+#              #
-#    Updated: 2019/10/17 00:49:42 by PhilippNox       ###   ########.fr        #
+#    Updated: 2019/10/17 10:31:18 by PhilippNox       ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -38,9 +38,10 @@ SRC= 	L00_lexer.o L01_lexer_init.o L10_lexer_helper.o \
 		L02_lexer_preinit.o \
 		L20_lexer_cmd.o main_test_lexer.o \
 		L21_lexer_cmd_short.o L22_lexer_cmd_long.o \
-		L30_lexer_label.o L40_lexer_inst.o \
+		L30_lexer_token.o \
+		L40_lexer_label.o L50_lexer_inst.o \
 		get_op_data.o L11_lexer_debug_token.o \
-		L50_lexer_parm.o
+		L60_lexer_parm.o
 
 PATH_SRC= $(patsubst %.o, $(PATH_O)%.o, $(SRC))
 
@@ -71,12 +72,12 @@ $(PATH_O)L21_lexer_cmd_short.o: L21_lexer_cmd_short.c
 	$(CC) $(CFLAGS) L21_lexer_cmd_short.c $(FLAG_PATH_OBJ)
 $(PATH_O)L22_lexer_cmd_long.o: L22_lexer_cmd_long.c
 	$(CC) $(CFLAGS) L22_lexer_cmd_long.c $(FLAG_PATH_OBJ)
-$(PATH_O)L30_lexer_label.o: L30_lexer_label.c
-	$(CC) $(CFLAGS) L30_lexer_label.c $(FLAG_PATH_OBJ)
-$(PATH_O)L40_lexer_inst.o: L40_lexer_inst.c
-	$(CC) $(CFLAGS) L40_lexer_inst.c $(FLAG_PATH_OBJ)
-$(PATH_O)L50_lexer_parm.o: L50_lexer_parm.c
-	$(CC) $(CFLAGS) L50_lexer_parm.c $(FLAG_PATH_OBJ)
+$(PATH_O)L40_lexer_label.o: L40_lexer_label.c
+	$(CC) $(CFLAGS) L40_lexer_label.c $(FLAG_PATH_OBJ)
+$(PATH_O)L50_lexer_inst.o: L50_lexer_inst.c
+	$(CC) $(CFLAGS) L50_lexer_inst.c $(FLAG_PATH_OBJ)
+$(PATH_O)L60_lexer_parm.o: L60_lexer_parm.c
+	$(CC) $(CFLAGS) L60_lexer_parm.c $(FLAG_PATH_OBJ)
 
 
 mlibft:
