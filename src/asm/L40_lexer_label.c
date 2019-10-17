@@ -6,7 +6,7 @@
 /*   By: PhilippNox <PhilippNox@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/29 17:39:02 by jleann            #+#    #+#             */
-/*   Updated: 2019/10/17 10:29:41 by PhilippNox       ###   ########.fr       */
+/*   Updated: 2019/10/17 10:51:17 by PhilippNox       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,19 +32,29 @@ void	debug_add_label(t_token *tkn)
 {
 	ft_printf("node_ADD\n");
 	ft_printf("\ttype= %2d\n", tkn->type );
-	ft_printf("\tsubtype= %2d\n", tkn->subtype);
+	ft_printf("\tsub_type= %2d\n", tkn->sub_type);
 	ft_printf("\tline_num= %2d\n", tkn->line_num);
 	ft_printf("\tpos_num= %2d\n", tkn->pos_num);
 	ft_printf("\tdata= %s\n", tkn->data);
 }
 
+int		set_data_label(t_lexdata *dat)
+{
+	char	*data;
+	
+	data = ft_strnew(dat->end - dat->srt);
+	if (!data)
+		return (ERROR_LEX_MALLOC_STR);
+	ft_strncpy(data, dat->cur_line + dat->srt, dat->end - dat->srt);
+	((t_token *)(dat->token_list.end->content))->data = data;
+	return (0);
+}
+
 //TO_DO check len. must be len > 0
 int		add_label(t_lexdata *dat)
 {
-	int				idx;
-	t_token			to_add;
-	t_list_node		*node;
-	char			*data;
+	int		idx;
+	int		tmp;
 
 	idx = dat->end;
 	while (--idx >= dat->srt)
@@ -52,20 +62,9 @@ int		add_label(t_lexdata *dat)
 		if (not_label_char(dat->cur_line[idx]))
 			return (ERROR_LEX_NOT_LABEL_CHAR);
 	}
-	//ft_printf("\tft_strnew: start= %d \t end= %d\n", dat->srt, dat->end );
-	data = ft_strnew(dat->end - dat->srt);
-	if (!data)
-		return (ERROR_LEX_MALLOC_STR);
-	ft_strncpy(data, dat->cur_line + dat->srt, dat->end - dat->srt);
-	to_add.data = data;
-	to_add.type = LABEL_ID;
-	to_add.subtype = 0;
-	to_add.line_num = (int)(dat->lines.len);
-	to_add.pos_num = dat->srt;
-	//debug_add_label(&to_add);
-	node = ft_lstnew_node(&to_add, sizeof(t_token));
-	if (!node)
-		return (ERROR_LEX_NULL_NODE);
-	ft_lstaddend(&(dat->token_list), node);
+	if ((tmp = add_token(dat, LABEL_ID, 0, 0)))
+		return (tmp);
+	if ((tmp = set_data_label(dat)))
+		return (tmp);
 	return (0);
 }

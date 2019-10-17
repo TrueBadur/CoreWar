@@ -6,7 +6,7 @@
 /*   By: PhilippNox <PhilippNox@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/29 17:39:02 by jleann            #+#    #+#             */
-/*   Updated: 2019/10/17 10:29:38 by PhilippNox       ###   ########.fr       */
+/*   Updated: 2019/10/17 10:39:24 by PhilippNox       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int		add_token_parm_r(t_lexdata *dat, int id_r)
 	*data = id_r;
 	to_add.data = data;
 	to_add.type = PARAM_ID;
-	to_add.subtype = PARAM_REG_ID;
+	to_add.sub_type = PARAM_REG_ID;
 	to_add.line_num = (int)(dat->lines.len);
 	to_add.pos_num = dat->srt;
 	node = ft_lstnew_node(&to_add, sizeof(t_token));

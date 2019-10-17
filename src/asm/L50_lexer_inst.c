@@ -6,31 +6,21 @@
 /*   By: PhilippNox <PhilippNox@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/29 17:39:02 by jleann            #+#    #+#             */
-/*   Updated: 2019/10/17 10:29:40 by PhilippNox       ###   ########.fr       */
+/*   Updated: 2019/10/17 10:51:07 by PhilippNox       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lexer.h"
 
-int		add_token_inst(t_lexdata *dat, int id_inst)
+int		set_data_inst(t_lexdata *dat, int id_inst)
 {
-	t_token			to_add;
-	t_list_node		*node;
 	int				*data;
 
 	data = (int *)malloc(sizeof(int));
 	if (!data)
 		return (ERROR_LEX_MALLOC);
 	*data = id_inst;
-	to_add.data = data;
-	to_add.type = INST_ID;
-	to_add.subtype = 0;
-	to_add.line_num = (int)(dat->lines.len);
-	to_add.pos_num = dat->srt;
-	node = ft_lstnew_node(&to_add, sizeof(t_token));
-	if (!node)
-		return (ERROR_LEX_NULL_NODE);
-	ft_lstaddend(&(dat->token_list), node);
+	((t_token *)(dat->token_list.end->content))->data = data;
 	return (0);
 }
 
@@ -48,7 +38,11 @@ int		add_inst(t_lexdata *dat)
 	{
 		if (ft_strncmp(line, tab->name, tmp) == 0)
 		{
-			if ((tmp = add_token_inst(dat, idx)))
+			//if ((tmp = add_token_inst(dat, idx)))
+			//	return (tmp);
+			if ((tmp = add_token(dat, INST_ID, 0, 0)))
+				return (tmp);
+			if ((tmp = set_data_inst(dat, idx)))
 				return (tmp);
 			return (0);
 		}

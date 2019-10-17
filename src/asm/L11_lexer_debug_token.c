@@ -6,7 +6,7 @@
 /*   By: PhilippNox <PhilippNox@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/29 17:39:02 by jleann            #+#    #+#             */
-/*   Updated: 2019/10/17 01:05:05 by PhilippNox       ###   ########.fr       */
+/*   Updated: 2019/10/17 10:51:39 by PhilippNox       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ void	debug_token_list(t_lexdata *dat)
 		tkn = (t_token *)(node->content);
 		ft_printf("node=%2d\n", idx);
 		ft_printf("\ttype=      %s %2d\n", back_to_str_label(tkn->type), tkn->type);
-		ft_printf("\tsubtype=  %2d\n", tkn->subtype);
+		ft_printf("\tsub_type= %2d\n", tkn->sub_type);
 		ft_printf("\tline_num= %2d\n", tkn->line_num);
 		ft_printf("\tpos_num=  %2d\n", tkn->pos_num);
 		print_data(tkn->data, tkn->type);

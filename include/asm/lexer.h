@@ -85,5 +85,6 @@ int					allowed_char(char cur);
 int					not_skip_char(char cur);
 int					add_inst(t_lexdata *dat);
 int					add_parm(t_lexdata *dat);
+int					add_token(t_lexdata *dat, char type, char sub_type, char val_type);
 
 #endif //COREWAR_LEXER_H

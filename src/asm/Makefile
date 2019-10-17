@@ -6,7 +6,7 @@
 #    By: PhilippNox <PhilippNox@student.42.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/04/03 20:55:37 by wgorold           #+#    #+#              #
-#    Updated: 2019/10/17 10:31:18 by PhilippNox       ###   ########.fr        #
+#    Updated: 2019/10/17 10:41:01 by PhilippNox       ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -72,6 +72,8 @@ $(PATH_O)L21_lexer_cmd_short.o: L21_lexer_cmd_short.c
 	$(CC) $(CFLAGS) L21_lexer_cmd_short.c $(FLAG_PATH_OBJ)
 $(PATH_O)L22_lexer_cmd_long.o: L22_lexer_cmd_long.c
 	$(CC) $(CFLAGS) L22_lexer_cmd_long.c $(FLAG_PATH_OBJ)
+$(PATH_O)L30_lexer_token.o: L30_lexer_token.c
+	$(CC) $(CFLAGS) L30_lexer_token.c $(FLAG_PATH_OBJ)
 $(PATH_O)L40_lexer_label.o: L40_lexer_label.c
 	$(CC) $(CFLAGS) L40_lexer_label.c $(FLAG_PATH_OBJ)
 $(PATH_O)L50_lexer_inst.o: L50_lexer_inst.c
