@@ -27,9 +27,9 @@
 #define END_ID 6
 
 #define INST_ID 7
-#define PARAM_REG_ID 8
-#define PARAM_DIR_ID 9
-#define PARAM_IND_ID 10
+#define PARAM_REG_ID 1
+#define PARAM_DIR_ID 2
+#define PARAM_IND_ID 4
 
 #define PARAM_LABEL 11
 #define PARAM_INT 12

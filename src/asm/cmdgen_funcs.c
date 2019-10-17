@@ -16,7 +16,7 @@ void	label_func(t_command *cmd, t_token *token)
 
 void	cmd_func(t_command *cmd, t_token *token)
 {
-	cmd->cmd_type = *(char *)(token->data);
+	cmd->cmd_type = *(int *)(token->data);
 }
 
 void	param_func(t_command *cmd, t_token *token)

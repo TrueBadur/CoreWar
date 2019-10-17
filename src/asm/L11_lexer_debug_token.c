@@ -22,8 +22,8 @@ char*	back_str_type(int id_label)
 		return "PARAM_ID";
 	if (id_label == DELIM_ID)
 		return "DELIM_ID";
-	if (id_label == END_ID)
-		return "END_ID";
+	if (id_label == ENDL_ID)
+		return "ENDL_ID";
 	return (NULL);
 }
 
