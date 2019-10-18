@@ -6,7 +6,7 @@
 /*   By: ehugh-be <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/14 21:42:20 by ehugh-be          #+#    #+#             */
-/*   Updated: 2019/10/14 22:15:59 by ehugh-be         ###   ########.fr       */
+/*   Updated: 2019/10/18 20:16:25 by ehugh-be         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,9 @@ void	tl_car_iter(t_mngr *mngr, void (*f)(t_mngr*, t_car*))
 {
 	t_list_node *lst;
 
-	lst = mngr->timeline[mngr->cycle % MAX_OP_TIME + 1]->begin;
+	if (!mngr->timeline[mngr->cycle % (MAX_OP_TIME + 1)])
+		return ;
+	lst = mngr->timeline[mngr->cycle % (MAX_OP_TIME + 1)]->begin;
 	while (lst)
 	{
 		f(mngr, (t_car*)lst->content);
