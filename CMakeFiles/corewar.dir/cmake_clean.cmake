@@ -8,6 +8,8 @@ file(REMOVE_RECURSE
   "CMakeFiles/corewar.dir/src/vm/main.c.o"
   "CMakeFiles/corewar.dir/src/vm/make_one_turn.c.o"
   "CMakeFiles/corewar.dir/src/vm/operation.c.o"
+  "CMakeFiles/corewar.dir/src/vm/operation_vm.c.o"
+  "CMakeFiles/corewar.dir/src/vm/operation_vm1.c.o"
   "CMakeFiles/corewar.dir/src/vm/parse_file.c.o"
   "CMakeFiles/corewar.dir/src/vm/safe_exit.c.o"
   "CMakeFiles/corewar.dir/src/vm/timeline_mngmnt.c.o"

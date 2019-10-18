@@ -173,6 +173,12 @@
 		<Unit filename="/Users/blomo/corawara/src/vm/operation.c">
 			<Option target="corewar"/>
 		</Unit>
+		<Unit filename="/Users/blomo/corawara/src/vm/operation_vm.c">
+			<Option target="corewar"/>
+		</Unit>
+		<Unit filename="/Users/blomo/corawara/src/vm/operation_vm1.c">
+			<Option target="corewar"/>
+		</Unit>
 		<Unit filename="/Users/blomo/corawara/src/vm/parse_file.c">
 			<Option target="corewar"/>
 		</Unit>

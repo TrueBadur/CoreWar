@@ -13,6 +13,8 @@ set(CMAKE_DEPENDS_CHECK_C
   "/Users/blomo/corawara/src/vm/main.c" "/Users/blomo/corawara/CMakeFiles/corewar.dir/src/vm/main.c.o"
   "/Users/blomo/corawara/src/vm/make_one_turn.c" "/Users/blomo/corawara/CMakeFiles/corewar.dir/src/vm/make_one_turn.c.o"
   "/Users/blomo/corawara/src/vm/operation.c" "/Users/blomo/corawara/CMakeFiles/corewar.dir/src/vm/operation.c.o"
+  "/Users/blomo/corawara/src/vm/operation_vm.c" "/Users/blomo/corawara/CMakeFiles/corewar.dir/src/vm/operation_vm.c.o"
+  "/Users/blomo/corawara/src/vm/operation_vm1.c" "/Users/blomo/corawara/CMakeFiles/corewar.dir/src/vm/operation_vm1.c.o"
   "/Users/blomo/corawara/src/vm/parse_file.c" "/Users/blomo/corawara/CMakeFiles/corewar.dir/src/vm/parse_file.c.o"
   "/Users/blomo/corawara/src/vm/safe_exit.c" "/Users/blomo/corawara/CMakeFiles/corewar.dir/src/vm/safe_exit.c.o"
   "/Users/blomo/corawara/src/vm/timeline_mngmnt.c" "/Users/blomo/corawara/CMakeFiles/corewar.dir/src/vm/timeline_mngmnt.c.o"

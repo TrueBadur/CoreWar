@@ -29,10 +29,10 @@ fptr	get_op_func(int id)
             make_zjmp,
             make_ldi_lldi,
             make_sti,
-            make_fork,
+            make_fork_lfork,
             make_ld_lld,
             make_ldi_lldi,
-            make_lfork,
+            make_fork_lfork,
             make_aff
 	};
 
