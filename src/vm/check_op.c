@@ -6,7 +6,7 @@
 /*   By: ehugh-be <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/16 23:15:01 by ehugh-be          #+#    #+#             */
-/*   Updated: 2019/10/16 23:15:30 by ehugh-be         ###   ########.fr       */
+/*   Updated: 2019/10/18 20:39:59 by ehugh-be         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,9 +36,9 @@ static short	check_params(t_t_op *c_op, t_op *smpl, char *size)
 			(szs[c_op->a1] - smpl->t_dir_size * 2 * (c_op->a1 == DIR_CODE)) +
 			(szs[c_op->a2] - smpl->t_dir_size * 2 * (c_op->a2 == DIR_CODE)) +
 			(szs[c_op->a3] - smpl->t_dir_size * 2 * (c_op->a3 == DIR_CODE));
-	if (((1u << c_op->a1) & smpl->paramtypes[0]) &&
-		((1u << c_op->a2) & smpl->paramtypes[1]) &&
-		((1u << c_op->a3) & smpl->paramtypes[2]))
+	if (((1u << (unsigned)(c_op->a1 - 1)) & smpl->paramtypes[0]) &&
+		((1u << (unsigned)(c_op->a2 - 1)) & smpl->paramtypes[1]) &&
+		((1u << (unsigned)(c_op->a3 - 1)) & smpl->paramtypes[2]))
 		return (1);
 	else
 		return (0);
