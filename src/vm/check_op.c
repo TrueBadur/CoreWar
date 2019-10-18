@@ -13,13 +13,14 @@
 #include "corewar.h"
 #include "checkop.h"
 
-static short	single_arg_check(t_op *tmp)
+static short single_arg_check(t_op *tmp, t_t_op *op)
 {
 	char arg_type;
 
 	arg_type = (char)(((tmp->paramtypes[0] & T_REG) == T_REG) * 1 +
 					  ((tmp->paramtypes[0] & T_DIR) == T_DIR) * 2 +
 					  ((tmp->paramtypes[0] & T_IND) == T_IND) * 3);
+	*op = (t_t_op){op->op, arg_type, 0,0};
 	if (arg_type == T_REG)
 		return (OP_SIZE + 1);
 	else if (arg_type == T_IND)
@@ -56,5 +57,5 @@ short	check_op(t_t_op *op)
 	if (tmp->is_param_b)
 		return ((short)(check_params(op, tmp, &ret) ? ret : -ret));
 	else
-		return (single_arg_check(tmp));
+		return (single_arg_check(tmp, op));
 }
