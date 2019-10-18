@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   operation.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: blomo <marvin@42.fr>                       +#+  +:+       +#+        */
+/*   By: ehugh-be <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/16 15:05:59 by blomo             #+#    #+#             */
-/*   Updated: 2019/10/18 16:58:50 by blomo            ###   ########.fr       */
+/*   Updated: 2019/10/18 20:15:07 by ehugh-be         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ void    copy_car(t_car *car,t_car *newcar, int pos)
     i = REG_NUMBER;
     while(i < REG_NUMBER)
     {
-        ft_strcpy(newcar->regs[i],car->regs[i];
+//        ft_strcpy(newcar->regs[i],car->regs[i]);
         i--;
     }
     newcar->id = car->id;
@@ -99,10 +99,11 @@ void make_fork_lfork(t_mngr *mngr, t_car *car, t_t_op *op)
 
     if(!(newcar = (t_car*)malloc(sizeof(t_car))))
         safe_exit(mngr, MALLOC_ERROR);
+    ft_memcpy(car, newcar, sizeof(t_car));
     if (op->op == 12)
         arg1 = (get_dir(mngr, car->pos + 1, 2)) % IDX_MOD;
     else
         arg1 = get_dir(mngr, car->pos + 1, 2);
     mngr->num_cars++;
-    copy_car(car, newcar, arg1);
+//    copy_car(car, newcar, arg1);
 }

@@ -43,8 +43,8 @@ int get_arg(t_mngr *mngr, t_car *car, int *step, int type)
 
 void make_and_or_xor(t_mngr *mngr, t_car *car, t_t_op *op)
 {
-    int arg1;
-    int arg2;
+    unsigned arg1;
+	unsigned arg2;
     int arg3;
     int step;
 
@@ -53,7 +53,7 @@ void make_and_or_xor(t_mngr *mngr, t_car *car, t_t_op *op)
     arg2 = get_arg(mngr, car, &step,op->a2);
     arg3 = mngr->arena[(car->pos + step) % MEM_SIZE];
     if(check_reg(arg3) && op->op == 6)
-        *(int *)car->regs[arg3].reg = arg1 & arg2; // TODO i donot know why
+        *(int *)car->regs[arg3].reg = (int)(arg1 & arg2); // TODO i donot know why
     else if (check_reg(arg3) && op->op == 7)
         *(int *)car->regs[arg3].reg = arg1 | arg2;
     else if (check_reg(arg3) && op->op == 8)
