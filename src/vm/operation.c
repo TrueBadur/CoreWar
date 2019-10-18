@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   operation.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ehugh-be <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: blomo <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/16 15:05:59 by blomo             #+#    #+#             */
-/*   Updated: 2019/10/18 20:15:07 by ehugh-be         ###   ########.fr       */
+/*   Updated: 2019/10/18 22:44:23 by blomo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ void make_ldi_lldi(t_mngr *mngr, t_car *car, t_t_op *op)
     if(check_reg(arg3) && op->op == 10)
         *(int *)car->regs[arg3].reg = (car->pos + arg1 + arg2) % IDX_MOD;
     else if(check_reg(arg3) && op->op == 14)
-        *(int *)car->regs[arg3].reg = (car->pos + arg1 + arg2);
+        *(int *)car->regs[arg3].reg = (car->pos + arg1 + arg2); // lldi в таблице пишет что изменяет каретку, ldi а нет
 }
 
 void make_sti(t_mngr *mngr, t_car *car, t_t_op *op)
@@ -73,25 +73,6 @@ void make_sti(t_mngr *mngr, t_car *car, t_t_op *op)
         *(int *)car->regs[arg1].reg = (car->pos + arg2 + arg3) % IDX_MOD;
 }
 
-void    copy_car(t_car *car,t_car *newcar, int pos)
-{
-    int i;
-
-    i = REG_NUMBER;
-    while(i < REG_NUMBER)
-    {
-//        ft_strcpy(newcar->regs[i],car->regs[i]);
-        i--;
-    }
-    newcar->id = car->id;
-    newcar->pos = pos;
-    newcar->carry = car->carry;
-    newcar->eval_in = car->eval_in;
-    newcar->byte_next_op = car->byte_next_op;
-    newcar->live_cycle = car->live_cycle;
-    newcar->op_code = car->op_code;
-}
-
 void make_fork_lfork(t_mngr *mngr, t_car *car, t_t_op *op)
 {
     t_car *newcar;
@@ -99,11 +80,13 @@ void make_fork_lfork(t_mngr *mngr, t_car *car, t_t_op *op)
 
     if(!(newcar = (t_car*)malloc(sizeof(t_car))))
         safe_exit(mngr, MALLOC_ERROR);
-    ft_memcpy(car, newcar, sizeof(t_car));
+    ft_memcpy(newcar, car, sizeof(t_car));
     if (op->op == 12)
         arg1 = (get_dir(mngr, car->pos + 1, 2)) % IDX_MOD;
     else
         arg1 = get_dir(mngr, car->pos + 1, 2);
     mngr->num_cars++;
-//    copy_car(car, newcar, arg1);
+    if(newcar)
+        newcar->pos = arg1;
+    //TODO нужно добавить каретку newcar к списку кареток
 }

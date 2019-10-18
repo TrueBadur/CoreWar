@@ -17,6 +17,7 @@ void make_live(t_mngr *mngr, t_car *car, t_t_op *op)
 {
     int arg1;
 
+    (void)op;
     arg1 = get_dir(mngr, car->pos + 1, 4);
     if(ft_abs(arg1) < MAX_PLAYERS && mngr->chmps[arg1])
         mngr->winer = arg1;
@@ -78,6 +79,7 @@ void make_zjmp(t_mngr *mngr, t_car *car, t_t_op *op)
 {
     int arg1;
 
+    (void)op;
     arg1 = get_dir(mngr, car->pos + 1, 2) % IDX_MOD;
     if(car->carry == 1)
         car->pos = arg1;
