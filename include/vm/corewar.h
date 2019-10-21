@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   corewar.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: blomo <marvin@42.fr>                       +#+  +:+       +#+        */
+/*   By: ehugh-be <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/11 16:27:53 by ehugh-be          #+#    #+#             */
-/*   Updated: 2019/10/15 21:43:35 by ehugh-be         ###   ########.fr       */
+/*   Updated: 2019/10/21 12:30:37 by ehugh-be         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,12 +93,14 @@ typedef struct	s_mngr
 	t_list		*timeline[MAX_OP_TIME + 1];
 	t_chmp		*chmps[MAX_PLAYERS];
 	t_vector	*cars;  //TODO chose storage structure for carriges
+	t_vector	*dead_cars;
 	unsigned char 		*arena;
 	unsigned	flags; //TODO make flags
 	int			chmp_num;
 	int 		cycle;
 	int			live_num;
 	int			cycles_to_die;
+	int			cycles_delta;
 	int			num_checks;
 	int 		num_cars;
 	int         winer;
