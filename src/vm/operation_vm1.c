@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   operation_vm1.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: blomo <marvin@42.fr>                       +#+  +:+       +#+        */
+/*   By: ehugh-be <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/18 16:23:13 by blomo             #+#    #+#             */
-/*   Updated: 2019/10/18 22:41:20 by blomo            ###   ########.fr       */
+/*   Updated: 2019/10/21 13:42:34 by ehugh-be         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,20 +46,21 @@ void make_and_or_xor(t_mngr *mngr, t_car *car, t_t_op *op)
     unsigned arg1;
 	unsigned arg2;
     int arg3;
-    int step;
+    static char step[3] = {1, 4, 2};
 
-    step = 2;
-    arg1 = get_arg(mngr, car, &step,op->a1);
-    arg2 = get_arg(mngr, car, &step,op->a2);
-    arg3 = mngr->arena[(car->pos + step) % MEM_SIZE];
-    if(check_reg(arg3) && op->op == 6)
-        *(int *)car->regs[arg3].reg = (int)(arg1 & arg2);
-    else if (check_reg(arg3) && op->op == 7)
-        *(int *)car->regs[arg3].reg = (int)(arg1 | arg2);
-    else if (check_reg(arg3) && op->op == 8)
-        *(int *)car->regs[arg3].reg = (int)(arg1 ^ arg2);
-    if (check_reg(arg3))
-        car->carry = (char)(*(int *)car->regs[arg3].reg == 0);
+	arg3 = mngr->arena[(car->pos + step[op->a1] + step[op->a2] + 1) % MEM_SIZE];
+	if (check_reg(arg3))
+	{
+		arg1 = get_arg(mngr, car, &step, op->a1);
+		arg2 = get_arg(mngr, car, &step, op->a2);
+		if(op->op == OP_and)
+			*(int *)car->regs[arg3].reg = (int)(arg1 & arg2);
+		else if (op->op == OP_or)
+			*(int *)car->regs[arg3].reg = (int)(arg1 | arg2);
+		else if (op->op == OP_xor)
+			*(int *)car->regs[arg3].reg = (int)(arg1 ^ arg2);
+		car->carry = (char)(*(int *)car->regs[arg3].reg == 0);
+	}
 }
 
 void make_aff(t_mngr *mngr, t_car *car,t_t_op *op)
@@ -69,5 +70,5 @@ void make_aff(t_mngr *mngr, t_car *car,t_t_op *op)
     (void)op;
     arg1 = mngr->arena[(car->pos + 2) % MEM_SIZE];
     if (check_reg(arg1))
-        write(1,"(char)*(int*)car->regs[arg1].reg",1);
+        write(STDOUT_FILENO, car->regs[arg1].reg, REG_SIZE);
 }

@@ -36,7 +36,7 @@ void make_sti(t_mngr *mngr, t_car *car, t_t_op *op);
 void make_fork_lfork(t_mngr *mngr, t_car *car, t_t_op *op);
 void make_aff(t_mngr *mngr, t_car *car, t_t_op *op);
 int get_dir(t_mngr *mngr, int poz, int size);
-int check_reg(int reg);
+char check_reg(int reg);
 
 
 #endif //COREWAR_CHECKOP_H

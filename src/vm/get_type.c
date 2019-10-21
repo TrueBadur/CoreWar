@@ -27,7 +27,7 @@ int get_dir(t_mngr *mngr, int poz, int size)
     return (*(int*)buffer);
 }
 
-inline int check_reg(int reg)
+inline char check_reg(int reg)
 {
-    return (reg >= 0 && reg <= 15 ? 1 : 0);
+    return ((char)(reg >= 0 && reg <= 15 ? 1 : 0));
 }

@@ -3,13 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   operation_vm.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: blomo <marvin@42.fr>                       +#+  +:+       +#+        */
+/*   By: ehugh-be <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/18 15:41:07 by blomo             #+#    #+#             */
-/*   Updated: 2019/10/18 15:53:08 by blomo            ###   ########.fr       */
+/*   Updated: 2019/10/21 14:08:46 by ehugh-be         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <limits.h>
 #include "corewar.h"
 #include "checkop.h"
 
@@ -32,10 +33,9 @@ void make_ld_lld(t_mngr *mngr, t_car *car, t_t_op *op)
     int indir;
 
     reg = mngr->arena[(car->pos + 4 + (op->a1 == DIR_CODE) * 2) % MEM_SIZE];
-    if(op->op == 2)
-        indir = (op->a1 == IND_CODE) ? get_dir(mngr, car->pos + 2, 2) % IDX_MOD : 2;
-    else
-        indir = (op->a1 == IND_CODE) ? get_dir(mngr, car->pos + 2, 2) : 2;
+    indir = 2;
+    if (op->a1 == IND_CODE)
+    	indir = get_dir(mngr, car->pos + 2, 2) % op->op == OP_ld ? IDX_MOD : INT_MAX;
     dir = get_dir(mngr, car->pos + indir, 4);
     if(check_reg(reg))
         *(int *) car->regs[reg].reg = dir;
@@ -67,7 +67,7 @@ void make_add_sub(t_mngr *mngr, t_car *car, t_t_op *op)
     reg3 = mngr->arena[(car->pos + 4) % MEM_SIZE];
     if(check_reg(reg1) && check_reg(reg2) && check_reg(reg3))
     {
-        if(op->op == 4)
+        if(op->op == OP_add)
             *(int *) car->regs[reg3].reg = *(int *) car->regs[reg1].reg + *(int *) car->regs[reg2].reg;
         else
             *(int *) car->regs[reg3].reg = *(int *) car->regs[reg1].reg - *(int *) car->regs[reg2].reg;
