@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   operation_vm.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ehugh-be <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: blomo <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/18 15:41:07 by blomo             #+#    #+#             */
-/*   Updated: 2019/10/21 14:08:46 by ehugh-be         ###   ########.fr       */
+/*   Updated: 2019/10/21 18:05:55 by blomo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,12 +48,23 @@ void make_st(t_mngr *mngr, t_car *car, t_t_op *op)
     int reg2;
 
     reg1 = mngr->arena[(car->pos + 2) % MEM_SIZE];
-    if (op->a1 == IND_CODE)
-        reg2 = mngr->arena[(car->pos + (get_dir(mngr, car->pos + 3, 2) % IDX_MOD)) % MEM_SIZE];
-    else
-        reg2 = mngr->arena[(car->pos + 3) % MEM_SIZE];
-    if (check_reg(reg1) && check_reg(reg2))
-        *(int*)car->regs[reg2].reg = *(int*)car->regs[reg1].reg;
+    if (check_reg(reg1))
+    {
+        if (op->a2 == REG_CODE)
+        {
+            reg2 = mngr->arena[(car->pos + 3) % MEM_SIZE];
+            if (check_reg(reg2))
+                *(int *) car->regs[reg2].reg = *(int *) car->regs[reg1].reg;
+        }
+        else
+        {
+            reg2 = get_dir(mngr, car->pos + 3, 2) % IDX_MOD + car->pos;
+            mngr->arena[reg2 % MEM_SIZE] = car->regs[reg1].reg[0];
+            mngr->arena[(reg2 + 1) % MEM_SIZE] = car->regs[reg1].reg[1]; //stylecode)))
+            mngr->arena[(reg2 + 2) % MEM_SIZE] = car->regs[reg1].reg[2];
+            mngr->arena[(reg2 + 3) % MEM_SIZE] = car->regs[reg1].reg[3];
+        }
+    }
 }
 
 void make_add_sub(t_mngr *mngr, t_car *car, t_t_op *op)
