@@ -40,12 +40,6 @@ int main(int argc, char **argv)
 
 	mngr = init_mngr();
 	validate_input(mngr, argc, argv);
-//	printf("%s\n",mngr->chmps[0]->name);
-//    printf("%s\n",mngr->chmps[1]->name);
-//    printf("%s\n",mngr->chmps[2]->name);
-//    printf("%s\n",mngr->chmps[3]->name);
-//	printf("%s\n",mngr->chmps[0]->moto);
-	//printf("%s\n",mngr->chmps->code);
 	 init_arena(mngr);
 	 champion_introduce(mngr);
 	 game_main(mngr);
