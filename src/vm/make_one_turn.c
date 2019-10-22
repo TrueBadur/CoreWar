@@ -6,7 +6,7 @@
 /*   By: ehugh-be <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/15 17:06:37 by ehugh-be          #+#    #+#             */
-/*   Updated: 2019/10/17 17:51:34 by ehugh-be         ###   ########.fr       */
+/*   Updated: 2019/10/22 15:15:11 by ehugh-be         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void proceed_cars(t_mngr *mngr, short cur_time)
 			time_to_put = cur_time + get_op_info(op)->num_of_ticks + 1;
 		else
 			time_to_put = cur_time + 1;
-		ft_lstadd(mngr->timeline[time_to_put % (MAX_OP_TIME + 1)],lst);
+		tl_put(mngr, (short)(time_to_put % MAX_OP_TIME), lst);
 	}
 }
 
