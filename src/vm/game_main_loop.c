@@ -6,18 +6,42 @@
 /*   By: ehugh-be <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/14 16:26:51 by ehugh-be          #+#    #+#             */
-/*   Updated: 2019/10/21 16:15:57 by ehugh-be         ###   ########.fr       */
+/*   Updated: 2019/10/22 12:49:30 by ehugh-be         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
 
+t_car	*resurect_car(t_mngr *mngr)
+{
+	if (mngr->dead_cars->len >= sizeof(void*))
+	{
+		mngr->dead_cars->len -= sizeof(void *);
+		return (((t_car **) mngr->dead_cars->data)[mngr->dead_cars->len]);
+	}
+	return (NULL);
+}
+
+t_car	*pop_car(t_vector *vec, int pos)
+{
+	t_car	*tmp_car;
+
+	tmp_car = ((t_car **)vec->data)[pos];
+	((t_car **)vec->data)[pos] = ((t_car**)vec->data)[vec->len - sizeof(void*)];
+	vec->len -= sizeof(void*);
+	return (tmp_car);
+}
+
 void	bury_car(t_mngr *mngr, int i)
 {
-	// push pointer to car to dead_cars
-	// swap cur pointer with the last one and set decrease len
-	// if cycles_delta <= 0 delete car instead of movement
-	// decrease num of cars
+	t_car *car_tmp;
+
+	car_tmp = pop_car(mngr->cars, i);
+	if (mngr->cycles_delta <= 0)
+		free(car_tmp);
+	else
+		ft_vecpush_small(mngr->dead_cars, (long)car_tmp, sizeof(void*));
+	mngr->num_cars--;
 }
 
 void	check_cars(t_mngr *mngr)
