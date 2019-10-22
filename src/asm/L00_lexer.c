@@ -191,7 +191,6 @@ int		check_line(t_lexdata *dat, char *line)
                 if ((err = do_param(dat, line, idx)))
                     return (err);
 			}
-
 		}
 		if (check_comment(dat, line + idx))
 		    return (do_comment(dat));
@@ -219,7 +218,6 @@ int		run_lexer(char *fname, t_lexdata **dat_out)
 		if (check_line(dat, line))
 			return (-1);
 	}
-
 	if (rlt == -1) //TODO error gnl
 		return (-1);
 	if (dat->debug_out)

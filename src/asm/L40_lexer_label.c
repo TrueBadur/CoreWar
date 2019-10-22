@@ -68,3 +68,21 @@ int		add_label(t_lexdata *dat)
 		return (tmp);
 	return (0);
 }
+
+int     update_label(t_lexdata *dat)
+{
+	t_list 		tmp_label;
+	t_list_node *node;
+	t_list_node *to_add;
+	t_list_node pseudo_srt;
+
+	pseudo_srt.next = dat->token_list.begin;
+	if (dat->token_list.begin == NULL)
+		return (0);
+	node = &pseudo_srt;
+	while ((node = node->next))
+	{
+		return (0);
+	}
+	return (0);
+}
