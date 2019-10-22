@@ -6,7 +6,7 @@
 /*   By: ehugh-be <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/14 16:26:51 by ehugh-be          #+#    #+#             */
-/*   Updated: 2019/10/22 12:49:30 by ehugh-be         ###   ########.fr       */
+/*   Updated: 2019/10/22 16:40:13 by ehugh-be         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,8 @@ t_car	*pop_car(t_vector *vec, int pos)
 	t_car	*tmp_car;
 
 	tmp_car = ((t_car **)vec->data)[pos];
-	((t_car **)vec->data)[pos] = ((t_car**)vec->data)[vec->len - sizeof(void*)];
 	vec->len -= sizeof(void*);
+	((t_car **)vec->data)[pos] = ((t_car**)vec->data)[vec->len / sizeof(void*)];
 	return (tmp_car);
 }
 
