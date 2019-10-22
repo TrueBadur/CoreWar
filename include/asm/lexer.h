@@ -58,6 +58,7 @@ typedef struct		s_lexdata
 	char			debug_name;
 	char			debug_happend;
 	char			debug_out;
+    char			debug_done;
 
 	int				fd;
 	t_list			token_list;

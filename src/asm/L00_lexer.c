@@ -50,12 +50,106 @@ int		skip_setter(t_lexdata *dat, char *line, int idx)
 }
 */
 
+
+// check test_data
+int     do_cmd(t_lexdata *dat, char *line)
+{
+    int err;
+
+    if ((err = choice_cmd(dat, line)))
+        return (err);
+    if (dat->debug_happend)
+        ft_printf("\t\t\t\t\t\t\t\thappend= cmd\n");
+    return (0);
+}
+
+int     do_inst(t_lexdata *dat, char *line, int idx, int *inst_set)
+{
+    int		len;
+    int		err;
+
+    dat->end = idx;
+    len = dat->end - dat->srt;
+    if (dat->debug_happend)
+        ft_printf("\t\t\t\tto_check= %.*s\n", len, dat->cur_line + dat->srt);
+    if ((err = add_inst(dat)))
+        return (err);
+    dat->srt = -1;
+    *inst_set = 1;
+    if (dat->debug_happend)
+        ft_printf("\t\t\t\t\t\t\t\thappend= %s\n", "inst_token");
+    return (0);
+}
+
+int     do_label(t_lexdata *dat, int idx)
+{
+    int		len;
+    int		err;
+
+    dat->end = idx;
+    len = dat->end - dat->srt;
+    if (dat->debug_happend)
+        ft_printf("\t\t\t\tto_check= %.*s\n", len, dat->cur_line + dat->srt);
+    if ((err = add_label(dat)))
+        return (err);
+    //TO_DO skip space and lines
+    dat->srt = -1;
+    if (dat->debug_happend)
+        ft_printf("\t\t\t\t\t\t\t\thappend= %s\n", "label_token");
+    return (0);
+}
+
+int     do_param(t_lexdata *dat, char *line, int idx)
+{
+    int		len;
+    int		err;
+
+    dat->end = idx;
+    len = dat->end - dat->srt;
+    if (dat->debug_happend)
+        ft_printf("\t\t\t\tto_check= %.*s\n", len, dat->cur_line + dat->srt);
+    if ((err = add_parm(dat)))
+        return (err);
+    if (line[idx] == SEPARATOR_CHAR)
+    {
+        if ((err = add_token_sep(dat)))
+            return (err);
+        if (dat->debug_happend)
+            ft_printf("\t\t\t\t\t\t\t\thappend= %s\n", "sep_token");
+        dat->srt = -1;
+    }
+    return (0);
+}
+
+int     do_comment(t_lexdata *dat)
+{
+    int err;
+
+    if (dat->debug_happend)
+        ft_printf("\t\t\t\t\t\t\t\thappend= comment\n");
+    if ((err = add_token_endline(dat)))
+        return (err);
+    if (dat->debug_happend)
+        ft_printf("\t\t\t\t\t\t\t\thappend= %s\n", "endline_token");
+    return (0);
+}
+
+int     do_endline(t_lexdata *dat)
+{
+    int		err;
+
+    if ((err = add_token_endline(dat)))
+        return (err);
+    if (dat->debug_happend)
+        ft_printf("\t\t\t\t\t\t\t\thappend= %s\n", "endline_token");
+    return (0);
+}
+
 int		check_line(t_lexdata *dat, char *line)
 {
 	int		idx;
 	int		err;
 	int		inst_set;
-	int		len;
 	int		line_len;
 
 	idx = -1;
@@ -76,79 +170,33 @@ int		check_line(t_lexdata *dat, char *line)
 		if (inst_set == 0)
 		{
 			if (line[idx] == CMD_START)
-			{
-				if ((err = choice_cmd(dat, line)))
-					return (err);
-				if (dat->debug_happend)
-					ft_printf("\t\t\t\t\t\t\t\thappend= cmd\n");
-				return (0);
-			}
+			    return (do_cmd(dat, line));
 
-			else if (line[idx] == ' ') // char for end of inst ' '. maybe '%'
+			else if (line[idx] == ' ') // separator for inst: ' ', '%'
 			{
-				dat->end = idx;
-				len = dat->end - dat->srt;
-				if (dat->debug_happend)
-					ft_printf("\t\t\t\tto_check= %.*s\n", len, dat->cur_line + dat->srt);
-				if ((err = add_inst(dat)))
-					return (err);
-				dat->srt = -1;
-				inst_set = 1;
-				if (dat->debug_happend)
-					ft_printf("\t\t\t\t\t\t\t\thappend= %s\n", "inst_token");
+			    if ((err = do_inst(dat, line, idx, &inst_set)))
+                    return (err);
 			}
 			
 			else if (line[idx] == LABEL_CHAR)
 			{
-				dat->end = idx;
-				len = dat->end - dat->srt;
-				if (dat->debug_happend)
-					ft_printf("\t\t\t\tto_check= %.*s\n", len, dat->cur_line + dat->srt);
-				if ((err = add_label(dat)))
-					return (err);
-				//TO_DO skip space and lines
-				dat->srt = -1;
-				if (dat->debug_happend)
-					ft_printf("\t\t\t\t\t\t\t\thappend= %s\n", "label_token");
+                if ((err = do_label(dat, idx)))
+                    return (err);
 			}
 		}
 		else
 		{
 			if (line[idx] == SEPARATOR_CHAR || line[idx] == '\0')
 			{
-				dat->end = idx;
-				len = dat->end - dat->srt;
-				if (dat->debug_happend)
-					ft_printf("\t\t\t\tto_check= %.*s\n", len, dat->cur_line + dat->srt);
-				if ((err = add_parm(dat)))
-					return (err);
-				dat->srt = -1;
+                if ((err = do_param(dat, line, idx)))
+                    return (err);
 			}
-			if (line[idx] == SEPARATOR_CHAR)
-			{
-				if ((err = add_token_sep(dat)))
-					return (err);
-				if (dat->debug_happend)
-					ft_printf("\t\t\t\t\t\t\t\thappend= %s\n", "sep_token");
-			}
+
 		}
 		if (check_comment(dat, line + idx))
-		{
-			if (dat->debug_happend)
-				ft_printf("\t\t\t\t\t\t\t\thappend= comment\n");
-			if ((err = add_token_endline(dat)))
-					return (err);
-			if (dat->debug_happend)
-				ft_printf("\t\t\t\t\t\t\t\thappend= %s\n", "endline_token");
-			return (0);
-		}
+		    return (do_comment(dat));
 	}
-	if ((err = add_token_endline(dat)))
-		return (err);
-	if (dat->debug_happend)
-		ft_printf("\t\t\t\t\t\t\t\thappend= %s\n", "endline_token");
-	//debug_token_list(dat);
-	return (0);
+	return (do_endline(dat));
 }
 
 int		run_lexer(char *fname, t_lexdata **dat_out)

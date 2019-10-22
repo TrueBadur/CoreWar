@@ -15,6 +15,11 @@ void 	assemble(t_argdata *args)
 
 	if (run_lexer(args->fname, &lexdata))
 		exit(1);
+    if (lexdata->debug_done)
+    {
+        ft_printf("run_lexer - ok\n");
+        exit(0);
+    }
     debug_token_list(lexdata);
 	champdata = run_champgenerator(lexdata);
 	write_champ(champdata, args);
