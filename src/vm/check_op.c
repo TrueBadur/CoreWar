@@ -6,7 +6,7 @@
 /*   By: ehugh-be <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/16 23:15:01 by ehugh-be          #+#    #+#             */
-/*   Updated: 2019/10/21 16:51:46 by ehugh-be         ###   ########.fr       */
+/*   Updated: 2019/10/22 15:43:57 by ehugh-be         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ short	check_op(t_t_op *op)
 	if (op->op >= OP_live && op->op <= OP_aff)
 		tmp = get_op_info(op->op);
 	else
-		return (1);
+		return (-1);
 	if (tmp->is_param_b)
 		return ((short)(check_params(op, tmp, &ret) ? ret : -ret));
 	else
