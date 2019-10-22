@@ -50,8 +50,10 @@ void	make_one_turn(t_mngr *mngr)
 {
 	short	cur_time;
 
-	tl_car_iter(mngr, handle_op);
 	cur_time = (short)(mngr->cycle % (MAX_OP_TIME + 1));
+	if (!mngr->timeline[cur_time] || !mngr->timeline[cur_time]->len)
+		return ;
+	tl_car_iter(mngr, handle_op);
 	proceed_cars(mngr, cur_time);
 }
 
