@@ -1,4 +1,5 @@
 # Prerequisites
+.gitignore
 *.d
 
 # Object files
@@ -52,3 +53,4 @@ Mkfile.old
 dkms.conf
 
 cmake-build-debug/
+.idea/
