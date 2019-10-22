@@ -76,7 +76,7 @@ void make_fork_lfork(t_mngr *mngr, t_car *car, t_t_op *op)
         newcar->pos = arg1;
     ft_vecpush(mngr->cars, &newcar, sizeof(newcar));
     t_car **car_tmp = mngr->cars->data;
-    tl_put(mngr, mngr->cycle + 1 % (MAX_OP_TIME + 1), ft_lstnew_noc(newcar, sizeof(newcar)));
+    tl_put(mngr, (short)((mngr->cycle + 1) % (MAX_OP_TIME + 1)), ft_lstnew_noc(newcar, sizeof(newcar)));
     //TODO нужно добавить каретку newcar к списку кареток
 }
 
