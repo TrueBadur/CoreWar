@@ -14,6 +14,9 @@
 ** Toutes les tailles sont en octets.
 ** On part du principe qu'un int fait 32 bits. Est-ce vrai chez vous ?
 */
+#ifndef OP_H
+# define OP_H
+#include <stdint.h>
 
 #define IND_SIZE				2
 #define REG_SIZE				4u
@@ -69,10 +72,10 @@ typedef char	t_arg_type;
 
 typedef struct		header_s
 {
-  unsigned int		magic;
-  char				prog_name[PROG_NAME_LENGTH + 1];
-  unsigned int		prog_size;
-  char				comment[COMMENT_LENGTH + 1];
+    unsigned int		magic;
+    char				prog_name[PROG_NAME_LENGTH + 1];
+    unsigned int		prog_size;
+    char				comment[COMMENT_LENGTH + 1];
 }					header_t;
 
 typedef struct	s_op
@@ -86,3 +89,5 @@ typedef struct	s_op
 }				t_op;
 
 t_op	*get_op_info(int id);
+
+#endif
