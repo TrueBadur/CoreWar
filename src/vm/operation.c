@@ -6,7 +6,7 @@
 /*   By: blomo <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/16 15:05:59 by blomo             #+#    #+#             */
-/*   Updated: 2019/10/21 17:55:15 by blomo            ###   ########.fr       */
+/*   Updated: 2019/10/22 16:30:30 by ehugh-be         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,9 @@ void make_fork_lfork(t_mngr *mngr, t_car *car, t_t_op *op)
     mngr->num_cars++;
     if(newcar)
         newcar->pos = arg1;
+    ft_vecpush(mngr->cars, &newcar, sizeof(newcar));
+    t_car **car_tmp = mngr->cars->data;
+    tl_put(mngr, mngr->cycle + 1 % (MAX_OP_TIME + 1), ft_lstnew_noc(newcar, sizeof(newcar)));
     //TODO нужно добавить каретку newcar к списку кареток
 }
 
