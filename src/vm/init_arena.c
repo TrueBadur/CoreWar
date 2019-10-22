@@ -6,7 +6,7 @@
 /*   By: ehugh-be <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/14 16:28:19 by ehugh-be          #+#    #+#             */
-/*   Updated: 2019/10/21 13:00:06 by ehugh-be         ###   ########.fr       */
+/*   Updated: 2019/10/22 15:33:15 by ehugh-be         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ static void init_carrieges(t_mngr *mngr)
 		tl_put(mngr, 0, car);
 		mngr->num_cars++;
 		*(int*)car->regs = -car->id; //TODO deal with endians
+		mngr->winner = car->id;
 	}
 }
 
@@ -54,4 +55,5 @@ void	init_arena(t_mngr *mngr)
 	mngr->cycles_to_die = CYCLE_TO_DIE;
 	mngr->cycles_delta = CYCLE_TO_DIE;
 	mngr->dead_cars = ft_vecinit(sizeof(void*) * 8);
+	proceed_cars(mngr, 0);
 }
