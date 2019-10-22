@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_arena.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: blomo <marvin@42.fr>                       +#+  +:+       +#+        */
+/*   By: ehugh-be <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/14 16:28:19 by ehugh-be          #+#    #+#             */
-/*   Updated: 2019/10/15 17:01:09 by ehugh-be         ###   ########.fr       */
+/*   Updated: 2019/10/22 15:32:45 by ehugh-be         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,11 +39,11 @@ static void init_carrieges(t_mngr *mngr)
 		car->pos = i * MEM_SIZE / mngr->chmp_num;
 		if (!ft_vecpush(mngr->cars, &car, sizeof(void *)))
 			safe_exit(mngr, MALLOC_ERROR);
-		tl_put(mngr, 0, car);
+		tl_put(mngr, 0, ft_lstnew_noc(car, sizeof(void *)));
 		mngr->num_cars++;
 		*(int*)car->regs = -car->id; //TODO deal with endians
+		mngr->winner = car->id;
 	}
-	mngr->cycles_to_die = CYCLE_TO_DIE;
 }
 
 void	init_arena(t_mngr *mngr)
@@ -52,4 +52,8 @@ void	init_arena(t_mngr *mngr)
 		safe_exit(mngr, MALLOC_ERROR);
 	put_champs(mngr);
 	init_carrieges(mngr);
+	mngr->cycles_to_die = CYCLE_TO_DIE;
+	mngr->cycles_delta = CYCLE_TO_DIE;
+	mngr->dead_cars = ft_vecinit(sizeof(void*) * 8);
+	proceed_cars(mngr, 0);
 }

@@ -23,6 +23,8 @@ t_list_node	*ft_lsttake(t_list *lst)
 	lst->len -= 1;
 	res->next = NULL;
 	res->prev = NULL;
+	if (lst->begin)
+		lst->begin->prev = NULL;
 	if (lst->len == 0)
 		lst->end = NULL;
 	return (res);

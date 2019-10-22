@@ -48,7 +48,7 @@ int main(int argc, char **argv)
 	//printf("%s\n",mngr->chmps->code);
 	 init_arena(mngr);
 	 champion_introduce(mngr);
-	// game_main(mngr);
+	 game_main(mngr);
 	 winer_anounce(mngr);
 	 safe_exit(mngr, SUCCESS);
     return (0);

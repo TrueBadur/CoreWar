@@ -12,7 +12,7 @@
 
 MAINLIB = libft.a
 OCL_NAME = libocl.a
-SL_L_N = libstd.n libmtrx.n libvector.n libavl.n liblist.n libprintf.n lib2list.n #libhtable.n
+SL_L_N = libstd.n libmtrx.n libvector.n libavl.n lib2list.n liblist.n libprintf.n #libhtable.n
 SL_L_C = $(SL_L_N:.n=.clean)
 SL_L_F = $(SL_L_N:.n=.fclean)
 SL_L_R = $(SL_L_N:.n=.re)
