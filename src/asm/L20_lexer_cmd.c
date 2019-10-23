@@ -19,24 +19,30 @@
 ** 2  - skip line
 */
 
-int		start_name(t_lexdata *dat, char *cur, char **start)
+int		start_name(t_lexdata *dat, int *idx, char **start)
 {
-	if (*cur == ARG_CMD_START)
+	char	*line;
+
+	line = dat->cur_line;
+	if (line[*idx] == ARG_CMD_START)
 	{
-		*start = cur;
+		*start = line + *idx;
 		return (0);
 	}
-	else if (*cur == ' ')
+	else if (line[*idx] == ' ')
 		return (1);
-	else if (check_comment(dat, cur))
+	else if (check_comment_idx(dat, idx))
 		return (2);
-	else if (end_line(*cur))
+	else if (end_line(line[*idx]))
+	{
+		*idx += 1;
 		return (2);
+	}
 	else
-		return (-1);
+		return (1);
 }
 
-int		search_start_in_lines(t_lexdata *dat, char **start, char **cur)
+int		search_start_in_lines(t_lexdata *dat, char **start, int *cur)
 {
 	char	*line;
 	int		rls;
@@ -44,16 +50,19 @@ int		search_start_in_lines(t_lexdata *dat, char **start, char **cur)
 	*start = NULL;
 	while (*start == NULL)
 	{
-		rls = start_name(dat, *cur, start);
+		rls = start_name(dat, cur, start);
 		if (rls == 0 || rls == 1)
 			*cur += 1;
 		else if (rls == 2)
 		{
-			if (get_next_line(dat->fd, &line) != 1)
-				return (ERROR_LEX_NAME_START);
-			if (add_line(dat, line))
-				return (ERROR_LEX_NULL_NODE);
-			*cur = line;
+			ft_printf("Syntax error at token [TOKEN][%03d:%03d] ENDLINE\n", dat->lines.len, *cur);
+			return (ERROR_LEX_NO_CMD_ARG_IN_LINE);
+			// TODO if next_line [002:001]
+			//if (get_next_line(dat->fd, &line) != 1)
+			//	return (ERROR_LEX_NAME_START);
+			//if (add_line(dat, line))
+			//	return (ERROR_LEX_NULL_NODE);
+			//*cur = line;
 		}
 		else if (rls == -1)
 			return (ERROR_LEX_NAME_START);
@@ -103,16 +112,18 @@ int		check_end_of_line(t_lexdata *dat, char *cur)
 	return (0);
 }
 
-int		process_cmd(t_lexdata *dat, char *cur, int id_cmd)
+int		process_cmd(t_lexdata *dat, int idx, int id_cmd)
 {
 	t_list		lines;
 	char		*start;
 	char		*to_set;
 	int			err;
+	char 		*cur;
 
 	init_stack_list(&lines);
-	if ((err = search_start_in_lines(dat, &start, &cur)))
+	if ((err = search_start_in_lines(dat, &start, &idx)))
 		return (err);
+	cur = dat->cur_line + idx;
 	if ((err = search_end_in_lines(dat, &cur, &lines)))
 		return (err);
 	if ((err = check_end_of_line(dat, cur)))
@@ -127,9 +138,9 @@ int		process_cmd(t_lexdata *dat, char *cur, int id_cmd)
 		if ((err = long_name(dat, start, &lines, &to_set)))
 			return (err);
 	}
-	if (id_cmd == 1)
+	if (id_cmd == CMD_ID_NAME)
 		dat->champ_name = to_set;
-	if (id_cmd == 2)
+	if (id_cmd == CMD_ID_COMMENT)
 		dat->champ_comment = to_set;
 	debug_cmd_name(dat, id_cmd);
 	return (0);

@@ -68,6 +68,18 @@ int		check_comment(t_lexdata *dat, char *cur)
 	return (0);
 }
 
+int		check_comment_idx(t_lexdata *dat, int *idx)
+{
+	if (dat->cur_line[*idx] == COMMENT_CHAR)
+	{
+		if (dat->debug_comment)
+			ft_printf("\t ✂️  ✂️  ✂️  ✂️  COMMENT_CHAR=%s\n", dat->cur_line + *idx);
+		*idx += ft_strlen(dat->cur_line + *idx) + 1;
+		return (1);
+	}
+	return (0);
+}
+
 void	debug_cmd_name(t_lexdata *dat, int id_cmd)
 {
 	if (dat->debug_name == 0)

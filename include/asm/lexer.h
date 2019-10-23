@@ -20,6 +20,7 @@
 # define ERROR_LEX_LABEL_UPDATE 11
 # define ERROR_LEX_GNL 12
 # define ERROR_LEX_MALLOC_DAT 13
+# define ERROR_LEX_NO_CMD_ARG_IN_LINE 14
 
 #define BEGIN_ID 0
 #define LABEL_ID 1
@@ -46,6 +47,9 @@
 #define TOKEN_TYPE_LABEL 6
 #define TOKEN_TYPE_P_D_L 7
 #define TOKEN_TYPE_P_I_L 8
+
+#define CMD_ID_NAME 1
+#define CMD_ID_COMMENT 2
 
 # include "ft_list.h"
 # include "libft.h"
@@ -95,9 +99,10 @@ void 				init_stack_list(t_list *lst);
 int					init_dat(t_lexdata **dat);
 int					get_fd(char *fname, t_lexdata *dat);
 int					error_case(t_lexdata *dat, int error_case);
-int					process_cmd(t_lexdata *dat, char *cur, int id_cmd);
+int					process_cmd(t_lexdata *dat, int idx, int id_cmd);
 int					end_line(char cur);
 int					check_comment(t_lexdata *dat, char *cur);
+int					check_comment_idx(t_lexdata *dat, int *idx);
 int					short_name(char *line, char **to_set);
 int					long_name(t_lexdata *dat, char *start, t_list *lines, char **to_set);
 void				debug_cmd_name(t_lexdata *dat, int id_cmd);

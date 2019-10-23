@@ -12,25 +12,29 @@
 
 #include "lexer.h"
 
-int		choice_cmd(t_lexdata *dat, char *line)
+int		choice_cmd(t_lexdata *dat, int idx)
 {
-	char	*cur;
+	char	*line;
 	int		rls;
 
+	line = dat->cur_line;
 	rls = ERROR_LEX_UNDEFINE_CMD;
-	if ((cur = ft_strstr(line, NAME_CMD_STRING)))
-		rls = process_cmd(dat, cur + ft_strlen(NAME_CMD_STRING), 1);
-	else if ((cur = ft_strstr(line, COMMENT_CMD_STRING)))
-		rls = process_cmd(dat, cur + ft_strlen(COMMENT_CMD_STRING), 2);
+
+	//ft_printf("ft_strncmp=%d\n", ft_strncmp(line, NAME_CMD_STRING, ft_strlen(NAME_CMD_STRING)));
+
+	if (ft_strncmp(line, NAME_CMD_STRING, ft_strlen(NAME_CMD_STRING)) == 0)
+		rls = process_cmd(dat, idx + ft_strlen(NAME_CMD_STRING), CMD_ID_NAME);
+	else if (ft_strncmp(line, COMMENT_CMD_STRING, ft_strlen(COMMENT_CMD_STRING)) == 0)
+		rls = process_cmd(dat, idx + ft_strlen(COMMENT_CMD_STRING), CMD_ID_COMMENT);
 	return (rls);
 }
 
 // check test_data
-int     do_cmd(t_lexdata *dat, char *line)
+int     do_cmd(t_lexdata *dat, int idx)
 {
     int err;
 
-    if ((err = choice_cmd(dat, line)))
+    if ((err = choice_cmd(dat, idx)))
         return (err);
     if (dat->debug_happend)
         ft_printf("\t\t\t\t\t\t\t\thappend= cmd\n");
@@ -144,7 +148,7 @@ int		check_line(t_lexdata *dat, char *line)
 		if (inst_set == 0)
 		{
 			if (line[idx] == CMD_START)
-			    return (do_cmd(dat, line));
+			    return (do_cmd(dat, idx));
 
 			else if (line[idx] == ' ') // separator for inst: ' ', '%'
 			{
