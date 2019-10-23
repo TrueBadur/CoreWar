@@ -198,6 +198,6 @@ int     update_label(t_lexdata *dat)
 			tkn->data = tmp;
 		}
 	}
-	clean_all_label(dat);
+	//clean_all_label(dat);
 	return (0);
 }

@@ -10,7 +10,6 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-//#include <libstd.h>
 #include "lexer.h"
 
 int		choice_cmd(t_lexdata *dat, char *line)
@@ -25,31 +24,6 @@ int		choice_cmd(t_lexdata *dat, char *line)
 		rls = process_cmd(dat, cur + ft_strlen(COMMENT_CMD_STRING), 2);
 	return (rls);
 }
-
-/*
-int		skip_setter(t_lexdata *dat, char *line, int idx)
-{
-	dat->srt = -1;
-	dat->end = -1;
-	idx -= 1;
-	while (line[++idx])
-	{
-		
-		if (not_skip_char(line[idx]))
-		{
-			if (dat->srt == -1)
-				dat->srt = idx;
-			else
-			{
-				dat->end = idx;
-				return (idx);
-			}
-		}
-	}
-	return (-1);
-}
-*/
-
 
 // check test_data
 int     do_cmd(t_lexdata *dat, char *line)
@@ -198,34 +172,82 @@ int		check_line(t_lexdata *dat, char *line)
 	return (do_endline(dat));
 }
 
+/*
+**	to_clean
+**		champ_name
+**		champ_comment
+**		label_list (only_nodes)
+**		token_list
+**		lines
+**		t_lexdata *dat
+*/
+int 	clean_n_exit(t_lexdata *dat, int err)
+{
+	t_list_node *node;
+	t_list_node *node_nxt;
+	t_token		*tkn;
+
+	if (dat->champ_name)
+		free(dat->champ_name);
+	if (dat->champ_comment)
+		free(dat->champ_name);
+
+	node = dat->label_list.begin;
+	while (node)
+	{
+		node_nxt = node->next;
+		free(node);
+		node = node_nxt;
+	}
+
+	node = dat->token_list.begin;
+	while (node)
+	{
+		node_nxt = node->next;
+		tkn = (t_token *)(node->content);
+		if (tkn->label)
+			free(tkn->label);
+		free(node->content);
+		free(node);
+		node = node_nxt;
+	}
+
+	node = dat->lines.begin;
+	while (node)
+	{
+		node_nxt = node->next;
+		free(node->content);
+		free(node);
+		node = node_nxt;
+	}
+
+	free(dat);
+	return (err);
+}
+
 int		run_lexer(char *fname, t_lexdata **dat_out)
 {
 	t_lexdata		*dat;
 	char			*line;
-	int				rlt;
+	int				tmp;
 
-	dat = (t_lexdata *)malloc(sizeof(t_lexdata));
-	init_dat(dat);
+	if ((tmp = init_dat(&dat)))
+		return (clean_n_exit(dat, tmp));
 	if (get_fd(fname, dat))
-		return (ERROR_LEX_FD);
-	while ((rlt = get_next_line(dat->fd, &line)) == 1)
+		return (clean_n_exit(dat, ERROR_LEX_FD));
+	while ((tmp = get_next_line(dat->fd, &line)) == 1)
 	{
-		if (add_line(dat, line))
-		{
-			error_case(dat, ERROR_LEX_NULL_NODE);
-			return (-1);
-		}
-		if (check_line(dat, line))
-			return (-1);
+		if ((tmp = add_line(dat, line)))
+			return (clean_n_exit(dat, tmp));
+		if ((tmp = check_line(dat, line)))
+			return (clean_n_exit(dat, tmp));
 	}
-	if (rlt == -1) //TODO error gnl
-		return (-1);
-	if ((rlt = update_label(dat)))
-		return (rlt);
+	if (tmp == -1)
+		return (clean_n_exit(dat, ERROR_LEX_GNL));
+	if ((tmp = update_label(dat)))
+		return (clean_n_exit(dat, tmp));
 	if (dat->debug_out)
 		debug_token_list(dat);
-	//if (dat->debug_out)
-	//	debug_label_list(dat);
     *dat_out = dat;
 	return (0);
 }

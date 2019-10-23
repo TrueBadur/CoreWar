@@ -49,7 +49,11 @@ void    print_commands(t_champdata *data)
 	t_champdata	*champdata;
 
 	if ((err = run_lexer(args->fname, &lexdata)))
+	{
+		if (lexdata->debug_err)
+			ft_printf("ERROR=%d\n", err);
 		exit(err);
+	}
     if (lexdata->debug_done)
     {
         ft_printf("run_lexer - ok\n");

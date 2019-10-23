@@ -22,6 +22,7 @@ FLAGS= -Wall -Wextra -Werror -g
 CFLAGS= -c $(FLAGS)
 
 PATH_H=../../include/asm
+PATH_H2=../../include
 PATH_B=./build/
 PATH_O=./obj/
 PATH_LIB=../../libft
@@ -32,30 +33,31 @@ PATH_LIB_A=$(PATH_LIB)/lib
 #PATH_LIB_A=$(PATH_LIB)/build
 FULL_NAME=$(PATH_B)$(NAME)
 
-FLAG_PATH_OBJ= -o $@ -I$(PATH_LIB_H) -I$(PATH_H)
+FLAG_PATH_OBJ= -o $@ -I$(PATH_LIB_H) -I$(PATH_H) -I$(PATH_H2)
 
 SRC= 	L00_lexer.o L01_lexer_init.o L10_lexer_helper.o \
 		L02_lexer_preinit.o \
-		L20_lexer_cmd.o main_test_lexer.o \
+		L20_lexer_cmd.o main.o \
 		L21_lexer_cmd_short.o L22_lexer_cmd_long.o \
 		L30_lexer_token.o \
 		L40_lexer_label.o L50_lexer_inst.o \
 		get_op_data.o L11_lexer_debug_token.o \
-		L60_lexer_parm.o
+		L60_lexer_parm.o \
+
 
 PATH_SRC= $(patsubst %.o, $(PATH_O)%.o, $(SRC))
 
 all: $(FULL_NAME)
 	
 $(FULL_NAME): $(PATH_SRC)
-	$(CC) $(FLAGS) -o $(FULL_NAME) $(PATH_O)*.o -L$(PATH_LIB_A) -lft -L$(PATH_LIB_A) -llist -I$(PATH_H) -I$(PATH_LIB_H) $(PATH_LIB_A)/liblist.a
+	$(CC) $(FLAGS) -o $(FULL_NAME) $(PATH_O)*.o -L$(PATH_LIB_A) -lft -L$(PATH_LIB_A) -llist -I$(PATH_H) -I$(PATH_H2) -I$(PATH_LIB_H) $(PATH_LIB_A)/liblist.a
 	@echo "for_test run:"
 	@echo "./build/asm ../../test_data/test_data_name/n10_g_name_one_line.s"
 
 $(PATH_O)get_op_data.o: ../get_op_data.c
 	$(CC) $(CFLAGS) ../get_op_data.c $(FLAG_PATH_OBJ)
-$(PATH_O)main_test_lexer.o: main_test_lexer.c
-	$(CC) $(CFLAGS) main_test_lexer.c $(FLAG_PATH_OBJ)
+$(PATH_O)main.o: main.c
+	$(CC) $(CFLAGS) main.c $(FLAG_PATH_OBJ)
 $(PATH_O)L00_lexer.o: L00_lexer.c
 	$(CC) $(CFLAGS) L00_lexer.c $(FLAG_PATH_OBJ)
 $(PATH_O)L01_lexer_init.o: L01_lexer_init.c

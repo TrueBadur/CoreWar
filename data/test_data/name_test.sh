@@ -1,7 +1,7 @@
 #!/bin/bash
 
-PATH_ASM_ORG=../data/asm
-PATH_ASM=../src/asm/build/asm
+PATH_ASM_ORG=../asm
+PATH_ASM=../../cmake-build-debug/asm
 PATH_TEST=./test_data_name/
 
 o_flag=''

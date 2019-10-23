@@ -18,6 +18,8 @@
 # define ERROR_LEX_INST_NOT_FOUND 9
 # define ERROR_LEX_MALLOC 10
 # define ERROR_LEX_LABEL_UPDATE 11
+# define ERROR_LEX_GNL 12
+# define ERROR_LEX_MALLOC_DAT 13
 
 #define BEGIN_ID 0
 #define LABEL_ID 1
@@ -72,6 +74,7 @@ typedef struct		s_lexdata
 	char			debug_happend;
 	char			debug_out;
     char			debug_done;
+	char			debug_err;
 
 	int				fd;
 	t_list			token_list;
@@ -89,7 +92,7 @@ int					run_lexer(char *fname, t_lexdata **dat);
 void				free_lexdata(t_lexdata *data);
 int					add_line(t_lexdata *dat, char *line);
 void 				init_stack_list(t_list *lst);
-void				init_dat(t_lexdata *dat);
+int					init_dat(t_lexdata **dat);
 int					get_fd(char *fname, t_lexdata *dat);
 int					error_case(t_lexdata *dat, int error_case);
 int					process_cmd(t_lexdata *dat, char *cur, int id_cmd);
