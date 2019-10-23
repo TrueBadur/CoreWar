@@ -39,6 +39,8 @@ int get_dir(t_mngr *mngr, int poz, int size);
 char check_reg(int reg);
 int get_indir(t_mngr *mngr, t_car *car, int pos);
 int get_reg(t_mngr *mngr,t_car *car, int pos);
+t_car	*resurect_car(t_mngr *mngr);
+
 
 
 #endif //COREWAR_CHECKOP_H

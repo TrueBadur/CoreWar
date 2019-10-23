@@ -6,7 +6,7 @@
 /*   By: blomo <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/16 15:05:59 by blomo             #+#    #+#             */
-/*   Updated: 2019/10/22 16:30:30 by ehugh-be         ###   ########.fr       */
+/*   Updated: 2019/10/23 17:28:23 by blomo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void make_ldi_lldi(t_mngr *mngr, t_car *car, t_t_op *op)
     int arg3;
     static char step[3] = {1, 4, 2};
 
-    arg3 = mngr->arena[(car->pos + 2 + step[op->a1] + step[op->a2]) % MEM_SIZE];
+    arg3 = mngr->arena[(car->pos + 2 + step[op->a1] + step[op->a2]) % MEM_SIZE] - 1;
     if (check_reg(arg3))
     {
         if (op->a1 == DIR_CODE)
@@ -43,7 +43,7 @@ void make_sti(t_mngr *mngr, t_car *car, t_t_op *op)
     int pos;
     static char step[3] = {1, 4, 2};
 
-    arg1 = mngr->arena[(car->pos + 2) % MEM_SIZE];
+    arg1 = mngr->arena[(car->pos + 2) % MEM_SIZE] - 1;
     if (check_reg(arg1))
     {
         if (op->a2 == DIR_CODE)
@@ -64,9 +64,15 @@ void make_fork_lfork(t_mngr *mngr, t_car *car, t_t_op *op)
     t_car *newcar;
     int arg1;
 
-    if(!(newcar = (t_car*)malloc(sizeof(t_car))))
-        safe_exit(mngr, MALLOC_ERROR);
+    newcar = resurect_car(mngr);
+    if (newcar == NULL)
+    {
+        if(!(newcar = (t_car*)malloc(sizeof(t_car))))
+            safe_exit(mngr, MALLOC_ERROR);
+
+    }
     ft_memcpy(newcar, car, sizeof(t_car));
+    ft_vecpush(mngr->cars, &newcar, sizeof(newcar));
     if (op->op == 12)
         arg1 = (get_dir(mngr, car->pos + 1, 2)) % IDX_MOD;
     else
@@ -74,7 +80,6 @@ void make_fork_lfork(t_mngr *mngr, t_car *car, t_t_op *op)
     mngr->num_cars++;
     if(newcar)
         newcar->pos = arg1;
-    ft_vecpush(mngr->cars, &newcar, sizeof(newcar));
     t_car **car_tmp = mngr->cars->data;
     tl_put(mngr, (short)((mngr->cycle + 1) % (MAX_OP_TIME + 1)), ft_lstnew_noc(newcar, sizeof(newcar)));
     //TODO нужно добавить каретку newcar к списку кареток
@@ -87,7 +92,7 @@ void make_and_or_xor(t_mngr *mngr, t_car *car, t_t_op *op)
     int arg3;
     static char step[3] = {1, 4, 2};
 
-    arg3 = mngr->arena[(car->pos + 2 + step[op->a1] + step[op->a2]) % MEM_SIZE];
+    arg3 = mngr->arena[(car->pos + 2 + step[op->a1] + step[op->a2]) % MEM_SIZE] - 1;
     if (check_reg(arg3))
     {
         if (op->a1 == DIR_CODE)
@@ -115,7 +120,7 @@ void make_aff(t_mngr *mngr, t_car *car,t_t_op *op)
     int arg1;
 
     (void)op;
-    arg1 = mngr->arena[(car->pos + 2) % MEM_SIZE];
+    arg1 = mngr->arena[(car->pos + 2) % MEM_SIZE] - 1;
     if (check_reg(arg1))
         write(STDOUT_FILENO, car->regs[arg1].reg, REG_SIZE);
 }

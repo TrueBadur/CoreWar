@@ -39,10 +39,10 @@ cmake_force:
 SHELL = /bin/sh
 
 # The CMake executable.
-CMAKE_COMMAND = /private/var/folders/zz/zyxvpxvq6csfxvn_n00012xm0008qd/T/AppTranslocation/5FBE5062-0ABB-4F20-BA67-D75C34FC0831/d/CLion.app/Contents/bin/cmake/mac/bin/cmake
+CMAKE_COMMAND = /private/var/folders/zz/zyxvpxvq6csfxvn_n00012xm0008qd/T/AppTranslocation/E7A22BEC-4E1C-476E-8460-E011F68086F7/d/CLion.app/Contents/bin/cmake/mac/bin/cmake
 
 # The command to remove a file.
-RM = /private/var/folders/zz/zyxvpxvq6csfxvn_n00012xm0008qd/T/AppTranslocation/5FBE5062-0ABB-4F20-BA67-D75C34FC0831/d/CLion.app/Contents/bin/cmake/mac/bin/cmake -E remove -f
+RM = /private/var/folders/zz/zyxvpxvq6csfxvn_n00012xm0008qd/T/AppTranslocation/E7A22BEC-4E1C-476E-8460-E011F68086F7/d/CLion.app/Contents/bin/cmake/mac/bin/cmake -E remove -f
 
 # Escaping for special characters.
 EQUALS = =
@@ -59,7 +59,7 @@ CMAKE_BINARY_DIR = /Users/blomo/corawara
 # Special rule for the target rebuild_cache
 rebuild_cache:
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake to regenerate build system..."
-	/private/var/folders/zz/zyxvpxvq6csfxvn_n00012xm0008qd/T/AppTranslocation/5FBE5062-0ABB-4F20-BA67-D75C34FC0831/d/CLion.app/Contents/bin/cmake/mac/bin/cmake -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
+	/private/var/folders/zz/zyxvpxvq6csfxvn_n00012xm0008qd/T/AppTranslocation/E7A22BEC-4E1C-476E-8460-E011F68086F7/d/CLion.app/Contents/bin/cmake/mac/bin/cmake -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
 .PHONY : rebuild_cache
 
 # Special rule for the target rebuild_cache
@@ -70,7 +70,7 @@ rebuild_cache/fast: rebuild_cache
 # Special rule for the target edit_cache
 edit_cache:
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "No interactive CMake dialog available..."
-	/private/var/folders/zz/zyxvpxvq6csfxvn_n00012xm0008qd/T/AppTranslocation/5FBE5062-0ABB-4F20-BA67-D75C34FC0831/d/CLion.app/Contents/bin/cmake/mac/bin/cmake -E echo No\ interactive\ CMake\ dialog\ available.
+	/private/var/folders/zz/zyxvpxvq6csfxvn_n00012xm0008qd/T/AppTranslocation/E7A22BEC-4E1C-476E-8460-E011F68086F7/d/CLion.app/Contents/bin/cmake/mac/bin/cmake -E echo No\ interactive\ CMake\ dialog\ available.
 .PHONY : edit_cache
 
 # Special rule for the target edit_cache
@@ -652,33 +652,6 @@ src/vm/operation_vm.c.s:
 	$(MAKE) -f CMakeFiles/corewar.dir/build.make CMakeFiles/corewar.dir/src/vm/operation_vm.c.s
 .PHONY : src/vm/operation_vm.c.s
 
-src/vm/operation_vm1.o: src/vm/operation_vm1.c.o
-
-.PHONY : src/vm/operation_vm1.o
-
-# target to build an object file
-src/vm/operation_vm1.c.o:
-	$(MAKE) -f CMakeFiles/corewar.dir/build.make CMakeFiles/corewar.dir/src/vm/operation_vm1.c.o
-.PHONY : src/vm/operation_vm1.c.o
-
-src/vm/operation_vm1.i: src/vm/operation_vm1.c.i
-
-.PHONY : src/vm/operation_vm1.i
-
-# target to preprocess a source file
-src/vm/operation_vm1.c.i:
-	$(MAKE) -f CMakeFiles/corewar.dir/build.make CMakeFiles/corewar.dir/src/vm/operation_vm1.c.i
-.PHONY : src/vm/operation_vm1.c.i
-
-src/vm/operation_vm1.s: src/vm/operation_vm1.c.s
-
-.PHONY : src/vm/operation_vm1.s
-
-# target to generate assembly for a file
-src/vm/operation_vm1.c.s:
-	$(MAKE) -f CMakeFiles/corewar.dir/build.make CMakeFiles/corewar.dir/src/vm/operation_vm1.c.s
-.PHONY : src/vm/operation_vm1.c.s
-
 src/vm/parse_file.o: src/vm/parse_file.c.o
 
 .PHONY : src/vm/parse_file.o
@@ -854,9 +827,6 @@ help:
 	@echo "... src/vm/operation_vm.o"
 	@echo "... src/vm/operation_vm.i"
 	@echo "... src/vm/operation_vm.s"
-	@echo "... src/vm/operation_vm1.o"
-	@echo "... src/vm/operation_vm1.i"
-	@echo "... src/vm/operation_vm1.s"
 	@echo "... src/vm/parse_file.o"
 	@echo "... src/vm/parse_file.i"
 	@echo "... src/vm/parse_file.s"

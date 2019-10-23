@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   corewar.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ehugh-be <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: blomo <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/11 16:27:53 by ehugh-be          #+#    #+#             */
-/*   Updated: 2019/10/22 15:32:45 by ehugh-be         ###   ########.fr       */
+/*   Updated: 2019/10/23 17:44:50 by blomo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +96,7 @@ typedef struct	s_mngr
 	t_vector	*dead_cars;
 	unsigned char 		*arena;
 	unsigned	flags; //TODO make flags
+	int         dump_nbr;
 	int			chmp_num;
 	int 		cycle;
 	int			live_num;

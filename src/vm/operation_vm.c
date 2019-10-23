@@ -6,7 +6,7 @@
 /*   By: blomo <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/18 15:41:07 by blomo             #+#    #+#             */
-/*   Updated: 2019/10/21 18:05:55 by blomo            ###   ########.fr       */
+/*   Updated: 2019/10/23 17:27:05 by blomo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,12 @@ void make_live(t_mngr *mngr, t_car *car, t_t_op *op)
     int arg1;
 
     (void)op;
-    arg1 = get_dir(mngr, car->pos + 1, 4);
+    arg1 = get_dir(mngr, car->pos + 1, 4) ;
     if(ft_abs(arg1) < MAX_PLAYERS && mngr->chmps[arg1])
+    {
         mngr->winner = arg1;
+        //ft_printf("this player {\\76}\"%s\"{eof} say allive \n", mngr->chmps[arg1]->name);
+    }
     car->live_cycle = mngr->cycle;
     mngr->live_num++;
 }
@@ -32,7 +35,7 @@ void make_ld_lld(t_mngr *mngr, t_car *car, t_t_op *op)
     int reg;
     int indir;
 
-    reg = mngr->arena[(car->pos + 4 + (op->a1 == DIR_CODE) * 2) % MEM_SIZE];
+    reg = mngr->arena[(car->pos + 4 + (op->a1 == DIR_CODE) * 2) % MEM_SIZE] - 1;
     indir = 2;
     if (op->a1 == IND_CODE)
     	indir = get_dir(mngr, car->pos + 2, 2) % op->op == OP_ld ? IDX_MOD : INT_MAX;
@@ -47,12 +50,12 @@ void make_st(t_mngr *mngr, t_car *car, t_t_op *op)
     int reg1;
     int reg2;
 
-    reg1 = mngr->arena[(car->pos + 2) % MEM_SIZE];
+    reg1 = mngr->arena[(car->pos + 2) % MEM_SIZE] - 1;
     if (check_reg(reg1))
     {
         if (op->a2 == REG_CODE)
         {
-            reg2 = mngr->arena[(car->pos + 3) % MEM_SIZE];
+            reg2 = mngr->arena[(car->pos + 3) % MEM_SIZE] - 1;
             if (check_reg(reg2))
                 *(int *) car->regs[reg2].reg = *(int *) car->regs[reg1].reg;
         }
@@ -73,9 +76,9 @@ void make_add_sub(t_mngr *mngr, t_car *car, t_t_op *op)
     int reg2;
     int reg3;
 
-    reg1 = mngr->arena[(car->pos + 2) % MEM_SIZE];
-    reg2 = mngr->arena[(car->pos + 3) % MEM_SIZE];
-    reg3 = mngr->arena[(car->pos + 4) % MEM_SIZE];
+    reg1 = mngr->arena[(car->pos + 2) % MEM_SIZE] - 1;
+    reg2 = mngr->arena[(car->pos + 3) % MEM_SIZE] - 1;
+    reg3 = mngr->arena[(car->pos + 4) % MEM_SIZE] - 1;
     if(check_reg(reg1) && check_reg(reg2) && check_reg(reg3))
     {
         if(op->op == OP_add)
