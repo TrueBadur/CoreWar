@@ -38,23 +38,12 @@ void	debug_add_label(t_token *tkn)
 	ft_printf("\tdata= %s\n", tkn->data);
 }
 
-int		set_data_label(t_lexdata *dat)
-{
-	char	*data;
-	
-	data = ft_strnew(dat->end - dat->srt);
-	if (!data)
-		return (ERROR_LEX_MALLOC_STR);
-	ft_strncpy(data, dat->cur_line + dat->srt, dat->end - dat->srt);
-	((t_token *)(dat->token_list.end->content))->data = data;
-	return (0);
-}
-
 //TO_DO check len. must be len > 0
 int		add_label(t_lexdata *dat)
 {
 	int		idx;
 	int		tmp;
+	char	*data;
 
 	idx = dat->end;
 	while (--idx >= dat->srt)
@@ -62,27 +51,15 @@ int		add_label(t_lexdata *dat)
 		if (not_label_char(dat->cur_line[idx]))
 			return (ERROR_LEX_NOT_LABEL_CHAR);
 	}
-	if ((tmp = add_token(dat, LABEL_ID, 0, 0)))
-		return (tmp);
-	if ((tmp = set_data_label(dat)))
-		return (tmp);
-	return (0);
-}
 
-int     update_label(t_lexdata *dat)
-{
-	t_list 		tmp_label;
-	t_list_node *node;
-	t_list_node *to_add;
-	t_list_node pseudo_srt;
 
-	pseudo_srt.next = dat->token_list.begin;
-	if (dat->token_list.begin == NULL)
-		return (0);
-	node = &pseudo_srt;
-	while ((node = node->next))
-	{
-		return (0);
-	}
+	data = ft_strnew(dat->end - dat->srt);
+	if (!data)
+		return (ERROR_LEX_MALLOC_STR);
+	ft_strncpy(data, dat->cur_line + dat->srt, dat->end - dat->srt);
+
+
+	if ((tmp = add_token_str(dat, TOKEN_TYPE_LABEL, data)))
+		return (tmp);
 	return (0);
 }

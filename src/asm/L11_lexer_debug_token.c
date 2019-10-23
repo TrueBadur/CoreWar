@@ -62,6 +62,18 @@ void	print_data(void *data, int type, int val_type)
 		ft_printf("\t\t\t\t\tdata=      %d\n", *(int *)(data));
 }
 
+void	debug_token(t_token *tkn, int idx)
+{
+	ft_printf("node=%2d\n", idx);
+	ft_printf("\ttype=     %2d %s\n",  tkn->type, back_str_type(tkn->type));
+	ft_printf("\tsub_type= %2d %s\n", tkn->sub_type, back_str_sub_type(tkn->sub_type));
+	ft_printf("\tval_type= %2d %s\n", tkn->val_type, back_str_val_type(tkn->val_type));
+	ft_printf("\t[%2d, %2d]\n", tkn->line_num, tkn->pos_num);
+	ft_printf("\tdata   =  %2d\n", tkn->data);
+	ft_printf("\tlabel  =  %s\n", tkn->label);
+	ft_printf("\n");
+}
+
 void	debug_token_list(t_lexdata *dat)
 {
 	t_list_node *node;
@@ -73,14 +85,24 @@ void	debug_token_list(t_lexdata *dat)
 	while (node)
 	{
 		tkn = (t_token *)(node->content);
-		ft_printf("node=%2d\n", idx);
-		ft_printf("\ttype=     %2d %s\n",  tkn->type, back_str_type(tkn->type));
-		ft_printf("\tsub_type= %2d %s\n", tkn->sub_type, back_str_sub_type(tkn->sub_type));
-		ft_printf("\tval_type= %2d %s\n", tkn->val_type, back_str_val_type(tkn->val_type));
-		ft_printf("\tline_num= %2d\n", tkn->line_num);
-		ft_printf("\tpos_num=  %2d\n", tkn->pos_num);
-		print_data(tkn->data, tkn->type, tkn->val_type);
-		ft_printf("\n");
+		debug_token(tkn, idx);
+		node = node->next;
+		idx += 1;
+	}
+}
+
+void	debug_label_list(t_lexdata *dat)
+{
+	t_list_node *node;
+	t_token		*tkn;
+	int idx;
+
+	idx = 0;
+	node = dat->label_list.begin;
+	while (node)
+	{
+		tkn = (t_token *)(node->content);
+		debug_token(tkn, idx);
 		node = node->next;
 		idx += 1;
 	}

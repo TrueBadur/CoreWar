@@ -17,6 +17,7 @@
 # define ERROR_LEX_NOT_LABEL_CHAR 8
 # define ERROR_LEX_INST_NOT_FOUND 9
 # define ERROR_LEX_MALLOC 10
+# define ERROR_LEX_LABEL_UPDATE 11
 
 #define BEGIN_ID 0
 #define LABEL_ID 1
@@ -34,6 +35,16 @@
 #define PARAM_LABEL 11
 #define PARAM_INT 12
 
+#define TOKEN_TYPE_INST 0
+#define TOKEN_TYPE_DELIM 1
+#define TOKEN_TYPE_END 2
+#define TOKEN_TYPE_P_R 3
+#define TOKEN_TYPE_P_D_I 4
+#define TOKEN_TYPE_P_I_I 5
+#define TOKEN_TYPE_LABEL 6
+#define TOKEN_TYPE_P_D_L 7
+#define TOKEN_TYPE_P_I_L 8
+
 # include "ft_list.h"
 # include "libft.h"
 //# include "libft_full.h"
@@ -42,11 +53,12 @@
 
 typedef struct		s_token
 {
+	char	token_type;
 	char	type;
 	char 	sub_type;
 	char 	val_type;
-	void	*data;
-	int		dat;
+	void	*label;
+	int		data;
 	int 	line_num;
 	int 	pos_num;
 }					t_token;
@@ -93,8 +105,14 @@ int					allowed_char(char cur);
 int					not_skip_char(char cur);
 int					add_inst(t_lexdata *dat);
 int					add_parm(t_lexdata *dat);
-int					add_token(t_lexdata *dat, char type, char sub_type, char val_type);
+int					add_token(t_lexdata *dat, char token_type, int data, char *label);
 int					add_token_sep(t_lexdata *dat);
 int					add_token_endline(t_lexdata *dat);
+int					add_token_nodata(t_lexdata *dat, char token_type);
+int					add_token_data(t_lexdata *dat, char token_type, int data);
+int					add_token_str(t_lexdata *dat, char token_type, char *label);
+int					update_label(t_lexdata *dat);
+void				debug_token(t_token *tkn, int idx);
+void				debug_label_list(t_lexdata *dat);
 
 #endif //COREWAR_LEXER_H

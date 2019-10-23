@@ -12,18 +12,6 @@
 
 #include "lexer.h"
 
-int		set_data_inst(t_lexdata *dat, int id_inst)
-{
-	int				*data;
-
-	data = (int *)malloc(sizeof(int));
-	if (!data)
-		return (ERROR_LEX_MALLOC);
-	*data = id_inst;
-	((t_token *)(dat->token_list.end->content))->data = data;
-	return (0);
-}
-
 int		add_inst(t_lexdata *dat)
 {
 	int		idx;
@@ -38,11 +26,7 @@ int		add_inst(t_lexdata *dat)
 	{
 		if (ft_strncmp(line, tab->name, tmp) == 0)
 		{
-			//if ((tmp = add_token_inst(dat, idx)))
-			//	return (tmp);
-			if ((tmp = add_token(dat, INST_ID, 0, 0)))
-				return (tmp);
-			if ((tmp = set_data_inst(dat, idx)))
+			if ((tmp = add_token_data(dat, TOKEN_TYPE_INST, idx)))
 				return (tmp);
 			return (0);
 		}

@@ -44,11 +44,12 @@ void    print_commands(t_champdata *data)
 
     void 	assemble(t_argdata *args)
 {
+	int 		err;
 	t_lexdata	*lexdata;
 	t_champdata	*champdata;
 
-	if (run_lexer(args->fname, &lexdata))
-		exit(1);
+	if ((err = run_lexer(args->fname, &lexdata)))
+		exit(err);
     if (lexdata->debug_done)
     {
         ft_printf("run_lexer - ok\n");

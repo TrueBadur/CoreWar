@@ -63,7 +63,7 @@ int     do_cmd(t_lexdata *dat, char *line)
     return (0);
 }
 
-int     do_inst(t_lexdata *dat, char *line, int idx, int *inst_set)
+int     do_inst(t_lexdata *dat, int idx, int *inst_set)
 {
     int		len;
     int		err;
@@ -112,7 +112,7 @@ int     do_param(t_lexdata *dat, char *line, int idx)
         return (err);
     if (line[idx] == SEPARATOR_CHAR)
     {
-        if ((err = add_token_sep(dat)))
+        if ((err = add_token_nodata(dat, TOKEN_TYPE_DELIM)))
             return (err);
         if (dat->debug_happend)
             ft_printf("\t\t\t\t\t\t\t\thappend= %s\n", "sep_token");
@@ -127,7 +127,7 @@ int     do_comment(t_lexdata *dat)
 
     if (dat->debug_happend)
         ft_printf("\t\t\t\t\t\t\t\thappend= comment\n");
-    if ((err = add_token_endline(dat)))
+    if ((err = add_token_nodata(dat, TOKEN_TYPE_END)))
         return (err);
     if (dat->debug_happend)
         ft_printf("\t\t\t\t\t\t\t\thappend= %s\n", "endline_token");
@@ -138,7 +138,7 @@ int     do_endline(t_lexdata *dat)
 {
     int		err;
 
-    if ((err = add_token_endline(dat)))
+    if ((err = add_token_nodata(dat, TOKEN_TYPE_END)))
         return (err);
     if (dat->debug_happend)
         ft_printf("\t\t\t\t\t\t\t\thappend= %s\n", "endline_token");
@@ -174,7 +174,7 @@ int		check_line(t_lexdata *dat, char *line)
 
 			else if (line[idx] == ' ') // separator for inst: ' ', '%'
 			{
-			    if ((err = do_inst(dat, line, idx, &inst_set)))
+			    if ((err = do_inst(dat, idx, &inst_set)))
                     return (err);
 			}
 			
@@ -220,8 +220,12 @@ int		run_lexer(char *fname, t_lexdata **dat_out)
 	}
 	if (rlt == -1) //TODO error gnl
 		return (-1);
+	if ((rlt = update_label(dat)))
+		return (rlt);
 	if (dat->debug_out)
 		debug_token_list(dat);
+	//if (dat->debug_out)
+	//	debug_label_list(dat);
     *dat_out = dat;
 	return (0);
 }
