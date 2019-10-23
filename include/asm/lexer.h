@@ -46,6 +46,7 @@ typedef struct		s_token
 	char 	sub_type;
 	char 	val_type;
 	void	*data;
+	int		dat;
 	int 	line_num;
 	int 	pos_num;
 }					t_token;

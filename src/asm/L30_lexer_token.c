@@ -22,6 +22,7 @@ int		add_token(t_lexdata *dat, char type, char sub_type, char val_type)
 	to_add.val_type = val_type;
 	to_add.line_num = (int)(dat->lines.len);
 	to_add.pos_num = dat->srt;
+	to_add.dat = -1;
 	node = ft_lstnew_node(&to_add, sizeof(t_token));
 	if (!node)
 		return (ERROR_LEX_NULL_NODE);
@@ -31,34 +32,18 @@ int		add_token(t_lexdata *dat, char type, char sub_type, char val_type)
 
 int		add_token_sep(t_lexdata *dat)
 {
-	t_token			to_add;
-	t_list_node		*node;
+	int	err;
 
-	to_add.type = DELIM_ID;
-	to_add.sub_type = 0;
-	to_add.val_type = 0;
-	to_add.line_num = (int)(dat->lines.len);
-	to_add.pos_num = dat->srt;
-	node = ft_lstnew_node(&to_add, sizeof(t_token));
-	if (!node)
-		return (ERROR_LEX_NULL_NODE);
-	ft_lstaddend(&(dat->token_list), node);
+	if ((err = add_token(dat, DELIM_ID, 0, 0)))
+		return (err);
 	return (0);
 }
 
 int		add_token_endline(t_lexdata *dat)
 {
-	t_token			to_add;
-	t_list_node		*node;
+	int	err;
 
-	to_add.type = END_ID;
-	to_add.sub_type = 0;
-	to_add.val_type = 0;
-	to_add.line_num = (int)(dat->lines.len);
-	to_add.pos_num = dat->srt;
-	node = ft_lstnew_node(&to_add, sizeof(t_token));
-	if (!node)
-		return (ERROR_LEX_NULL_NODE);
-	ft_lstaddend(&(dat->token_list), node);
+	if ((err = add_token(dat, END_ID, 0, 0)))
+		return (err);
 	return (0);
 }
