@@ -51,7 +51,7 @@ int		add_token_endline(t_lexdata *dat)
 	t_token			to_add;
 	t_list_node		*node;
 
-	to_add.type = END_ID;
+	to_add.type = ENDL_ID;
 	to_add.sub_type = 0;
 	to_add.val_type = 0;
 	to_add.line_num = (int)(dat->lines.len);
