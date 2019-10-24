@@ -25,6 +25,25 @@
 # define ERROR_LEX_CMD_ARG_NOT_IN_LINE 14
 # define ERROR_LEX_CMD_NO_END 15
 
+#define ERROR_LEX_CMD_DOUBLE_NAME 16
+#define LEX_ERR_MSG_DOUBLE_NAME 		"\033[31;1mLexer_ERROR: Double .name command\n\033[0m"
+#define ERROR_LEX_CMD_DOUBLE_COMMENT 17
+#define LEX_ERR_MSG_DOUBLE_COMMENT		"\033[31;1mLexer_ERROR: Double .comment command\n\033[0m"
+#define ERR_LEX__ID_LONG_NAME 18
+#define LEX_ERR_MSG_LONG_NAME			"\033[31;1mLexer_ERROR: Size of .name more than should be. %d vs %d\n\033[0m"
+#define ERR_LEX__ID_LONG_COMMENT 19
+#define LEX_ERR_MSG_LONG_COMMENT		"\033[31;1mLexer_ERROR: Size of .comment more than should be. %d vs %d\n\033[0m"
+#define ERR_LEX__ID_LABEL_EMPTY 20
+#define LEX_ERR_MSG_LABEL_EMPTY		"\033[31;1mLexer_ERROR: Empty label\n\033[0m"
+#define ERR_LEX__ID_ATOI 21
+#define LEX_ERR_MSG_ATOI		"\033[31;1mLexer_ERROR: Empty something\n\033[0m"
+
+
+#define LEX_ERR_MSG_BAD_CMD_NO_START 	"\033[31;1mLexer_ERROR: line of command isn't complete. No char \"\n\033[0m"
+#define LEX_ERR_MSG_BAD_CHAR_START 		"\033[31;1mLexer_ERROR: bad char in start at argument of command. \"%s\"\n\033[0m"
+#define LEX_ERR_MSG_BAD_CMD_END 		"\033[31;1mLexer_ERROR: end of command argument has trash. \"%s\"\n\033[0m"
+#define LEX_ERR_MSG_BAD_CMD_NO_END 		"\033[31;1mLexer_ERROR: Argument of command has no end.\n\033[0m"
+
 #define BEGIN_ID 0
 #define LABEL_ID 1
 #define CMD_ID 2
@@ -53,19 +72,6 @@
 #define TOKEN_TYPE_LABEL 6
 #define TOKEN_TYPE_P_D_L 7
 #define TOKEN_TYPE_P_I_L 8
-
-#define LEX_ERR_MSG_BAD_CMD_NO_START 	"\033[31;1mLexer_ERROR: line of command isn't complete. No char \"\n\033[0m"
-#define LEX_ERR_MSG_BAD_CHAR_START 		"\033[31;1mLexer_ERROR: bad char in start at argument of command. \"%s\"\n\033[0m"
-#define LEX_ERR_MSG_BAD_CMD_END 		"\033[31;1mLexer_ERROR: end of command argument has trash. \"%s\"\n\033[0m"
-#define LEX_ERR_MSG_BAD_CMD_NO_END 		"\033[31;1mLexer_ERROR: Argument of command has no end.\n\033[0m"
-#define ERROR_LEX_CMD_DOUBLE_NAME 16
-#define LEX_ERR_MSG_DOUBLE_NAME 		"\033[31;1mLexer_ERROR: Double .name command\n\033[0m"
-#define ERROR_LEX_CMD_DOUBLE_COMMENT 17
-#define LEX_ERR_MSG_DOUBLE_COMMENT		"\033[31;1mLexer_ERROR: Double .comment command\n\033[0m"
-#define ERR_LEX__ID_LONG_NAME 18
-#define LEX_ERR_MSG_LONG_NAME			"\033[31;1mLexer_ERROR: Size of .name more than should be. %d vs %d\n\033[0m"
-#define ERR_LEX__ID_LONG_COMMENT 19
-#define LEX_ERR_MSG_LONG_COMMENT		"\033[31;1mLexer_ERROR: Size of .comment more than should be. %d vs %d\n\033[0m"
 
 # include "ft_list.h"
 # include "libft.h"
