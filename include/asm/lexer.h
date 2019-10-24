@@ -39,6 +39,9 @@
 #define PARAM_LABEL 11
 #define PARAM_INT 12
 
+#define CMD_ID_NAME 1
+#define CMD_ID_COMMENT 2
+
 #define TOKEN_TYPE_INST 0
 #define TOKEN_TYPE_DELIM 1
 #define TOKEN_TYPE_END 2
@@ -49,10 +52,14 @@
 #define TOKEN_TYPE_P_D_L 7
 #define TOKEN_TYPE_P_I_L 8
 
-#define LEX_ERR_MSG_BAD_CMD_NO_START 	"Lexer_ERROR: line of command isn't complete. No char \"\n"
-#define LEX_ERR_MSG_BAD_CHAR_START 		"Lexer_ERROR: bad char in start at argument of command. \"%s\"\n"
-#define LEX_ERR_MSG_BAD_CMD_END 		"Lexer_ERROR: end of command argument has trash. \"%s\"\n"
-#define LEX_ERR_MSG_BAD_CMD_NO_END 		"Lexer_ERROR: Argument of command has no end.\n"
+#define LEX_ERR_MSG_BAD_CMD_NO_START 	"\033[31;1mLexer_ERROR: line of command isn't complete. No char \"\n\033[0m"
+#define LEX_ERR_MSG_BAD_CHAR_START 		"\033[31;1mLexer_ERROR: bad char in start at argument of command. \"%s\"\n\033[0m"
+#define LEX_ERR_MSG_BAD_CMD_END 		"\033[31;1mLexer_ERROR: end of command argument has trash. \"%s\"\n\033[0m"
+#define LEX_ERR_MSG_BAD_CMD_NO_END 		"\033[31;1mLexer_ERROR: Argument of command has no end.\n\033[0m"
+#define ERROR_LEX_CMD_DOUBLE_NAME 16
+#define LEX_ERR_MSG_DOUBLE_NAME 		"\033[31;1mLexer_ERROR: Double .name command\n\033[0m"
+#define ERROR_LEX_CMD_DOUBLE_COMMENT 17
+#define LEX_ERR_MSG_DOUBLE_COMMENT		"\033[31;1mLexer_ERROR: Double .comment command\n\033[0m"
 
 # include "ft_list.h"
 # include "libft.h"

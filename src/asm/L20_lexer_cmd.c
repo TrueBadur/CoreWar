@@ -116,6 +116,21 @@ int		cmd_exit(t_list *lines, int out)
 	return (out);
 }
 
+int 	check_double_cmd(t_lexdata *dat, int id_cmd)
+{
+	if (id_cmd == CMD_ID_NAME && dat->champ_name != NULL)
+	{
+		ft_printf(LEX_ERR_MSG_DOUBLE_NAME);
+		return (ERROR_LEX_CMD_DOUBLE_NAME);
+	}
+		if (id_cmd == CMD_ID_COMMENT && dat->champ_comment != NULL)
+	{
+		ft_printf(LEX_ERR_MSG_DOUBLE_COMMENT);
+		return (ERROR_LEX_CMD_DOUBLE_COMMENT);
+	}
+	return (0);
+}
+
 int		process_cmd(t_lexdata *dat, char *cur, int id_cmd)
 {
 	t_list		lines;
@@ -123,6 +138,8 @@ int		process_cmd(t_lexdata *dat, char *cur, int id_cmd)
 	char		*to_set;
 	int			err;
 
+	if ((err = check_double_cmd(dat, id_cmd)))
+		return (err);
 	init_stack_list(&lines);
 	if ((err = search_start_in_lines(dat, &start, &cur)))
 		return (cmd_exit(&lines, err));
@@ -140,9 +157,9 @@ int		process_cmd(t_lexdata *dat, char *cur, int id_cmd)
 		if ((err = long_name(dat, start, &lines, &to_set)))
 			return (cmd_exit(&lines, err));
 	}
-	if (id_cmd == 1)
+	if (id_cmd == CMD_ID_NAME)
 		dat->champ_name = to_set;
-	if (id_cmd == 2)
+	if (id_cmd == CMD_ID_COMMENT)
 		dat->champ_comment = to_set;
 	debug_cmd_name(dat, id_cmd);
 	return (cmd_exit(&lines, 0));

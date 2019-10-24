@@ -19,9 +19,9 @@ int		choice_cmd(t_lexdata *dat, char *line)
 
 	rls = ERROR_LEX_UNDEFINE_CMD;
 	if ((cur = ft_strstr(line, NAME_CMD_STRING)))
-		rls = process_cmd(dat, cur + ft_strlen(NAME_CMD_STRING), 1);
+		rls = process_cmd(dat, cur + ft_strlen(NAME_CMD_STRING), CMD_ID_NAME);
 	else if ((cur = ft_strstr(line, COMMENT_CMD_STRING)))
-		rls = process_cmd(dat, cur + ft_strlen(COMMENT_CMD_STRING), 2);
+		rls = process_cmd(dat, cur + ft_strlen(COMMENT_CMD_STRING), CMD_ID_COMMENT);
 	return (rls);
 }
 
