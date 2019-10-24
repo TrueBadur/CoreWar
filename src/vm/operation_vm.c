@@ -6,7 +6,7 @@
 /*   By: blomo <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/18 15:41:07 by blomo             #+#    #+#             */
-/*   Updated: 2019/10/24 21:21:15 by blomo            ###   ########.fr       */
+/*   Updated: 2019/10/24 21:52:29 by blomo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,7 @@ void make_zjmp(t_mngr *mngr, t_car *car, t_t_op *op)
 
     (void)op;
     arg1 = get_dir(mngr, car->pos + 1, 2) % IDX_MOD;
-    ft_printf("make %d dir = %d\n", arg1);
+    ft_printf("make %d dir = %d\n",op->op, arg1);
     if(car->carry == 1)
         car->pos += arg1;
 }
