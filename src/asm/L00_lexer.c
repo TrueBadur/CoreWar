@@ -146,7 +146,7 @@ int		check_line(t_lexdata *dat, char *line)
 			if (line[idx] == CMD_START)
 			    return (do_cmd(dat, line));
 
-			else if (line[idx] == ' ') // separator for inst: ' ', '%'
+			else if (allowed_skip_char(line[idx]) || line[idx] == '\0') // separator for inst: ' ', '%'
 			{
 			    if ((err = do_inst(dat, idx, &inst_set)))
                     return (err);

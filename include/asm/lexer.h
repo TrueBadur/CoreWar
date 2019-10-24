@@ -14,8 +14,10 @@
 # define ERROR_LEX_NULL_NODE 5
 # define ERROR_LEX_FD 6
 # define ERROR_LEX_UNDEFINE_CMD 7
-# define ERROR_LEX_NOT_LABEL_CHAR 8
-# define ERROR_LEX_INST_NOT_FOUND 9
+# define ERR_LEX__ID_NOT_LABEL_CHAR 8
+# define LEX_ERR_MSG_NOT_LABEL_CHAR		"\033[31;1mLexer_ERROR: Label name contain not allowed char in \"%.*s\" <- \'%c\' \n\033[0m"
+# define ERR_LEX__ID_INST_NOT_FOUND 9
+# define LEX_ERR_MSG_INST_NOT_FOUND		"\033[31;1mLexer_ERROR: Bad instruction \"%.*s\"\n\033[0m"
 # define ERROR_LEX_MALLOC 10
 # define ERROR_LEX_LABEL_UPDATE 11
 # define ERROR_LEX_GNL 12

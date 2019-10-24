@@ -25,7 +25,7 @@ void	setup_dat(t_lexdata *dat)
 	dat->debug_gnl = 0;
 	dat->debug_comment = 0;
 	dat->debug_name = 0;
-	dat->debug_happend = 0;
+	dat->debug_happend = 1;
 	dat->debug_out = 0;
     dat->debug_done = 1;
 	dat->debug_err = 1;
