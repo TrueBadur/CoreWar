@@ -34,9 +34,9 @@ static short	check_params(t_t_op *c_op, t_op *smp, char *size)
 	static char szs[3] = {1, 4, 2};
 
 	*size = OP_BASE +
-			(szs[c_op->a1] - smp->t_dir_size * 2 * (c_op->a1 == DIR_CODE)) +
-			(szs[c_op->a2] - smp->t_dir_size * 2 * (c_op->a2 == DIR_CODE)) +
-			(szs[c_op->a3] - smp->t_dir_size * 2 * (c_op->a3 == DIR_CODE));
+			(szs[c_op->a1 - 1] - smp->t_dir_size * 2 * (c_op->a1 == DIR_CODE)) +
+			(szs[c_op->a2 - 1] - smp->t_dir_size * 2 * (c_op->a2 == DIR_CODE)) +
+			(szs[c_op->a3 - 1] - smp->t_dir_size * 2 * (c_op->a3 == DIR_CODE));
 	if (((1u << (unsigned)(c_op->a1 - 1)) & smp->prm_tp[0]) && (!smp->prm_tp[1]
 	|| ((1u << (unsigned)(c_op->a2 - 1)) & smp->prm_tp[1])) && (!smp->prm_tp[2]
 	|| ((1u << (unsigned)(c_op->a3 - 1)) & smp->prm_tp[2])))

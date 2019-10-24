@@ -6,28 +6,22 @@
 /*   By: blomo <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/17 17:14:19 by blomo             #+#    #+#             */
-/*   Updated: 2019/10/23 19:58:18 by blomo            ###   ########.fr       */
+/*   Updated: 2019/10/24 15:52:52 by blomo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
 #include "checkop.h"
 
-int get_dir(t_mngr *mngr, int poz, int size)
+int get_dir(t_mngr *mngr, int pos, int size)
 {
-    unsigned char buffer[4];
-    int i;
+    char buffer[size];
     int c;
 
-    ft_bzero(buffer,4);
-    i = 3;
-    c = 0;
-    while (--size >= 0)
-    {
-        buffer[i] = mngr->arena[(poz + c++) % MEM_SIZE];
-        i--;
-    }
-    return (*(int*)buffer);
+    c = -1;
+    while (++c < size)
+        buffer[size - c - 1] = (char)mngr->arena[(pos + c) % MEM_SIZE];
+    return (size == 2 ? *(short*)buffer : *(int*)buffer);
 }
 
 inline char check_reg(int reg)

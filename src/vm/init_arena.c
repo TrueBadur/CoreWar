@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_arena.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ehugh-be <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: blomo <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/14 16:28:19 by ehugh-be          #+#    #+#             */
-/*   Updated: 2019/10/22 15:32:45 by ehugh-be         ###   ########.fr       */
+/*   Updated: 2019/10/24 14:37:59 by blomo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ static void init_carrieges(t_mngr *mngr)
 			safe_exit(mngr, MALLOC_ERROR);
 		tl_put(mngr, 0, ft_lstnew_noc(car, sizeof(void *)));
 		mngr->num_cars++;
-		*(int*)car->regs = -car->id; //TODO deal with endians
+		*(int*)car->regs = -car->id -1 - i; //TODO deal with endians
 		mngr->winner = car->id;
 	}
 }

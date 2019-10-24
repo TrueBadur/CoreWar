@@ -35,7 +35,7 @@ void make_ldi_lldi(t_mngr *mngr, t_car *car, t_t_op *op);
 void make_sti(t_mngr *mngr, t_car *car, t_t_op *op);
 void make_fork_lfork(t_mngr *mngr, t_car *car, t_t_op *op);
 void make_aff(t_mngr *mngr, t_car *car, t_t_op *op);
-int get_dir(t_mngr *mngr, int poz, int size);
+int get_dir(t_mngr *mngr, int pos, int size);
 char check_reg(int reg);
 int get_indir(t_mngr *mngr, t_car *car, int pos);
 int get_reg(t_mngr *mngr,t_car *car, int pos);
