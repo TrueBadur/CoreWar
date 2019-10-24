@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   make_one_turn.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ehugh-be <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: blomo <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/15 17:06:37 by ehugh-be          #+#    #+#             */
-/*   Updated: 2019/10/22 15:15:11 by ehugh-be         ###   ########.fr       */
+/*   Updated: 2019/10/24 19:16:44 by blomo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void proceed_cars(t_mngr *mngr, short cur_time)
 		car = (t_car*)lst->content;
 		op = (char)mngr->arena[car->pos];
 		if (OP_live <= op && OP_aff >= op)
-			time_to_put = cur_time + get_op_info(op)->num_of_ticks + 1;
+			time_to_put = cur_time + get_op_info(op)->num_of_ticks;
 		else
 			time_to_put = cur_time + 1;
 		tl_put(mngr, (short)(time_to_put % MAX_OP_TIME), lst);
