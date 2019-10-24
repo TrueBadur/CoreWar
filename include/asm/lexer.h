@@ -60,6 +60,10 @@
 #define LEX_ERR_MSG_DOUBLE_NAME 		"\033[31;1mLexer_ERROR: Double .name command\n\033[0m"
 #define ERROR_LEX_CMD_DOUBLE_COMMENT 17
 #define LEX_ERR_MSG_DOUBLE_COMMENT		"\033[31;1mLexer_ERROR: Double .comment command\n\033[0m"
+#define ERR_LEX__ID_LONG_NAME 18
+#define LEX_ERR_MSG_LONG_NAME			"\033[31;1mLexer_ERROR: Size of .name more than should be. %d vs %d\n\033[0m"
+#define ERR_LEX__ID_LONG_COMMENT 19
+#define LEX_ERR_MSG_LONG_COMMENT		"\033[31;1mLexer_ERROR: Size of .comment more than should be. %d vs %d\n\033[0m"
 
 # include "ft_list.h"
 # include "libft.h"

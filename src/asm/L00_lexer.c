@@ -190,7 +190,7 @@ int 	clean_n_exit(t_lexdata *dat, int err)
 	if (dat->champ_name)
 		free(dat->champ_name);
 	if (dat->champ_comment)
-		free(dat->champ_name);
+		free(dat->champ_comment);
 
 	node = dat->label_list.begin;
 	while (node)

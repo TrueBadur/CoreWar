@@ -131,6 +131,21 @@ int 	check_double_cmd(t_lexdata *dat, int id_cmd)
 	return (0);
 }
 
+int 	check_size(t_lexdata *dat, int id_cmd)
+{
+	if (id_cmd == CMD_ID_NAME && (ft_strlen(dat->champ_name) > PROG_NAME_LENGTH))
+	{
+		ft_printf(LEX_ERR_MSG_LONG_NAME, ft_strlen(dat->champ_name), PROG_NAME_LENGTH);
+		return (ERR_LEX__ID_LONG_NAME);
+	}
+	if (id_cmd == CMD_ID_COMMENT && (ft_strlen(dat->champ_comment) > COMMENT_LENGTH))
+	{
+		ft_printf(LEX_ERR_MSG_LONG_COMMENT, ft_strlen(dat->champ_comment), COMMENT_LENGTH);
+		return (ERR_LEX__ID_LONG_COMMENT);
+	}
+	return (0);
+}
+
 int		process_cmd(t_lexdata *dat, char *cur, int id_cmd)
 {
 	t_list		lines;
@@ -161,6 +176,8 @@ int		process_cmd(t_lexdata *dat, char *cur, int id_cmd)
 		dat->champ_name = to_set;
 	if (id_cmd == CMD_ID_COMMENT)
 		dat->champ_comment = to_set;
+	if ((err = check_size(dat, id_cmd)))
+		return (cmd_exit(&lines, err));
 	debug_cmd_name(dat, id_cmd);
 	return (cmd_exit(&lines, 0));
 }
