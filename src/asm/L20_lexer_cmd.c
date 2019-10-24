@@ -26,7 +26,7 @@ int		start_name(t_lexdata *dat, char *cur, char **start)
 		*start = cur;
 		return (0);
 	}
-	else if (*cur == ' ')
+	else if (allowed_skip_char(*cur))
 		return (1);
 	else if (check_comment(dat, cur))
 		return (2);
@@ -38,7 +38,6 @@ int		start_name(t_lexdata *dat, char *cur, char **start)
 
 int		search_start_in_lines(t_lexdata *dat, char **start, char **cur)
 {
-	char	*line;
 	int		rls;
 
 	*start = NULL;
@@ -47,16 +46,18 @@ int		search_start_in_lines(t_lexdata *dat, char **start, char **cur)
 		rls = start_name(dat, *cur, start);
 		if (rls == 0 || rls == 1)
 			*cur += 1;
-		else if (rls == 2)
-		{
-			if (get_next_line(dat->fd, &line) != 1)
-				return (ERROR_LEX_NAME_START);
-			if (add_line(dat, line))
-				return (ERROR_LEX_NULL_NODE);
-			*cur = line;
-		}
-		else if (rls == -1)
+		else if (rls == 2) {
+			ft_printf(LEX_ERR_MSG_BAD_CMD_NO_START);
+			return (ERROR_LEX_CMD_ARG_NOT_IN_LINE);
+			//if (get_next_line(dat->fd, &line) != 1)
+			//	return (ERROR_LEX_NAME_START);
+			//if (add_line(dat, line))
+			//	return (ERROR_LEX_NULL_NODE);
+			//*cur = line;
+		} else if (rls == -1) {
+			ft_printf(LEX_ERR_MSG_BAD_CHAR_START, *cur);
 			return (ERROR_LEX_NAME_START);
+		}
 	}
 	return (0);
 }
@@ -81,7 +82,10 @@ int		search_end_in_lines(t_lexdata *dat, char **cur, t_list *lines)
 			node->content = line;
 		ft_lstaddend(lines, node);
 		if (get_next_line(dat->fd, &line) != 1)
-			return (ERROR_LEX_NAME_START);
+		{
+			ft_printf(LEX_ERR_MSG_BAD_CMD_NO_END);
+			return (ERROR_LEX_CMD_NO_END);
+		}
 		if (add_line(dat, line))
 				return (ERROR_LEX_NULL_NODE);
 		*cur = line;
@@ -96,11 +100,20 @@ int		check_end_of_line(t_lexdata *dat, char *cur)
 	{
 		if (check_comment(dat, cur))
 			break ;
-		else if (*cur != ' ')
+		else if (not_allowed_skip_char(*cur))
+		{
+			ft_printf(LEX_ERR_MSG_BAD_CMD_END, cur);
 			return (ERROR_LEX_NAME_END_INVALIDE);
+		}
 		cur += 1;
 	}
 	return (0);
+}
+
+int		cmd_exit(t_list *lines, int out)
+{
+	free_list(lines);
+	return (out);
 }
 
 int		process_cmd(t_lexdata *dat, char *cur, int id_cmd)
@@ -112,25 +125,25 @@ int		process_cmd(t_lexdata *dat, char *cur, int id_cmd)
 
 	init_stack_list(&lines);
 	if ((err = search_start_in_lines(dat, &start, &cur)))
-		return (err);
+		return (cmd_exit(&lines, err));
 	if ((err = search_end_in_lines(dat, &cur, &lines)))
-		return (err);
+		return (cmd_exit(&lines, err));
 	if ((err = check_end_of_line(dat, cur)))
-		return (err);
+		return (cmd_exit(&lines, err));
 	if (lines.len == 0)										// one line	
 	{										
 		if ((err = short_name(start, &to_set)))
-			return (err);
+			return (cmd_exit(&lines, err));
 	}
 	else													// multi line
 	{
 		if ((err = long_name(dat, start, &lines, &to_set)))
-			return (err);
+			return (cmd_exit(&lines, err));
 	}
 	if (id_cmd == 1)
 		dat->champ_name = to_set;
 	if (id_cmd == 2)
 		dat->champ_comment = to_set;
 	debug_cmd_name(dat, id_cmd);
-	return (0);
+	return (cmd_exit(&lines, 0));
 }

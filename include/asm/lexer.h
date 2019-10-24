@@ -20,6 +20,8 @@
 # define ERROR_LEX_LABEL_UPDATE 11
 # define ERROR_LEX_GNL 12
 # define ERROR_LEX_MALLOC_DAT 13
+# define ERROR_LEX_CMD_ARG_NOT_IN_LINE 14
+# define ERROR_LEX_CMD_NO_END 15
 
 #define BEGIN_ID 0
 #define LABEL_ID 1
@@ -46,6 +48,11 @@
 #define TOKEN_TYPE_LABEL 6
 #define TOKEN_TYPE_P_D_L 7
 #define TOKEN_TYPE_P_I_L 8
+
+#define LEX_ERR_MSG_BAD_CMD_NO_START 	"Lexer_ERROR: line of command isn't complete. No char \"\n"
+#define LEX_ERR_MSG_BAD_CHAR_START 		"Lexer_ERROR: bad char in start at argument of command. \"%s\"\n"
+#define LEX_ERR_MSG_BAD_CMD_END 		"Lexer_ERROR: end of command argument has trash. \"%s\"\n"
+#define LEX_ERR_MSG_BAD_CMD_NO_END 		"Lexer_ERROR: Argument of command has no end.\n"
 
 # include "ft_list.h"
 # include "libft.h"
@@ -117,5 +124,7 @@ int					add_token_str(t_lexdata *dat, char token_type, char *label);
 int					update_label(t_lexdata *dat);
 void				debug_token(t_token *tkn, int idx);
 void				debug_label_list(t_lexdata *dat);
+int					allowed_skip_char(char cur);
+int					not_allowed_skip_char(char cur);
 
 #endif //COREWAR_LEXER_H

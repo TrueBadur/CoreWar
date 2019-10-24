@@ -17,7 +17,7 @@ for f in $PATH_TEST*.s
 do
   clear
   echo -e "\n\033[0;107;30mProcessing $f file...\033[0m"
-  cat $f
+  cat -n $f
   echo -e "\n\033[0;36m"
   #../src/asm/build/asm $f
   if [ ! -z "${c_flag}" ]; then
