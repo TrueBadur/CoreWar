@@ -2,18 +2,38 @@
 
 PATH_ASM_ORG=../asm
 PATH_ASM=../../cmake-build-debug/asm
-PATH_TEST=./error/
+names=(./test_files/*)
+CHS=""
 
 o_flag=''
 c_flag=''
-while getopts 'oc' flag; do
+t_flag=''
+while getopts 'oct' flag; do
   case "${flag}" in
     o) o_flag='true' ;;
     c) c_flag='true' ;;
+    t) t_flag='true' ;;
   esac
 done
 
-for f in $PATH_TEST*.s
+echo ""
+echo "-o for run original asm"
+echo "-c for run both"
+echo -e "-t run tmp_test.s in root of this folder. example: \033[0;36m./name_test.sh -c -t\033[0m"
+echo ""
+
+if [ -z "${t_flag}" ]; then
+  PS3="Please enter path: "
+  select name in "${names[@]}"; do
+      echo "You have chosen $name"
+      CHS=$name
+      break
+  done
+  else
+    CHS=.
+fi
+
+for f in $CHS/*.s
 do
   clear
   echo -e "\n\033[0;107;30mProcessing $f file...\033[0m"
@@ -32,4 +52,4 @@ do
   echo -e "\n\033[0m"
   read -p "Press enter to continue"
 done
-rm $PATH_TEST*.cor
+rm $CHS/*.cor
