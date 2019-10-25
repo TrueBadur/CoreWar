@@ -30,12 +30,6 @@ void	tl_car_iter(t_mngr *mngr, void (*f)(t_mngr*, t_car*))
 	lst = mngr->timeline[mngr->cycle % (MAX_OP_TIME + 1)]->begin;
 	while (lst)
 	{
-		car = (t_car*)lst->content;
-		if (car->just_forked)
-		{
-			car->just_forked = 0;
-			break;
-		}
 		f(mngr, (t_car*)lst->content);
 		lst = lst->next;
 	}
