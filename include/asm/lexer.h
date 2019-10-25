@@ -37,6 +37,10 @@
 #define LEX_ERR_MSG_LABEL_EMPTY		"\033[31;1mLexer_ERROR: Empty label\n\033[0m"
 #define ERR_LEX__ID_ATOI 21
 #define LEX_ERR_MSG_ATOI		"\033[31;1mLexer_ERROR: Empty something\n\033[0m"
+#define ERR_LEX__ID_BEFORE_CMD 22
+#define LEX_ERR_MSG_BEFORE_CMD		"\033[31;1mLexer_ERROR: Something before command\n\033[0m"
+#define ERR_LEX__ID_BAD_AFTER_INST 23
+#define LEX_ERR_MSG_BAD_AFTER_INST	"\033[31;1mLexer_ERROR: Bad char after inst\n\033[0m"
 
 
 #define LEX_ERR_MSG_BAD_CMD_NO_START 	"\033[31;1mLexer_ERROR: line of command isn't complete. No char \"\n\033[0m"
@@ -143,7 +147,17 @@ int					add_token_str(t_lexdata *dat, char token_type, char *label);
 int					update_label(t_lexdata *dat);
 void				debug_token(t_token *tkn, int idx);
 void				debug_label_list(t_lexdata *dat);
-int					allowed_skip_char(char cur);
-int					not_allowed_skip_char(char cur);
+int					skip_char(char cur);
+int					special_char(char cur);
+int					end_line_or_separ(char cur);
+int 				clean_n_exit(t_lexdata *dat, int err);
+int    				do_cmd(t_lexdata *dat, char *line);
+int   				do_inst(t_lexdata *dat, int idx, int *inst_set);
+int     			do_label(t_lexdata *dat, int idx);
+int     			do_param(t_lexdata *dat, char *line, int idx);
+int     			do_comment(t_lexdata *dat);
+int     			do_sepr(t_lexdata *dat, int idx);
+int     			do_endline(t_lexdata *dat);
+
 
 #endif //COREWAR_LEXER_H

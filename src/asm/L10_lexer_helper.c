@@ -32,7 +32,7 @@ int		error_case(t_lexdata *dat, int error_case)
 	return (error_case);
 }
 
-int		allowed_char(char cur)
+int		skip_char(char cur)
 {
 	if (cur == ' ')
 		return (1);
@@ -43,25 +43,40 @@ int		allowed_char(char cur)
 
 int		not_skip_char(char cur)
 {
-	if (cur == ' ')
-		return (0);
-	if (cur == '\t')
-		return (0);
-	return (1);
+	return (!skip_char(cur));
 }
 
-int		allowed_skip_char(char cur)
+/*
+** add#
+** add:
+** add%
+** add\0
+** add,
+*/
+int		special_char(char cur)
 {
-	if (cur == ' ')
+	if (cur == COMMENT_CHAR)
 		return (1);
-	if (cur == '\t')
+	if (cur == DIRECT_CHAR)
+		return (1);
+	if (cur == SEPARATOR_CHAR)
+		return (1);
+	if (cur == '-')
+		return (1);
+	if (cur == '\0')
 		return (1);
 	return (0);
 }
 
-int		not_allowed_skip_char(char cur)
+int		end_line_or_separ(char cur)
 {
-	return (!allowed_skip_char(cur));
+	if (cur == COMMENT_CHAR)
+		return (1);
+	if (cur == '\0')
+		return (1);
+	if (cur == SEPARATOR_CHAR)
+		return (1);
+	return (0);
 }
 
 int		end_line(char cur)
