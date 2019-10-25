@@ -14,9 +14,35 @@
 # define ERROR_LEX_NULL_NODE 5
 # define ERROR_LEX_FD 6
 # define ERROR_LEX_UNDEFINE_CMD 7
-# define ERROR_LEX_NOT_LABEL_CHAR 8
-# define ERROR_LEX_INST_NOT_FOUND 9
+# define ERR_LEX__ID_NOT_LABEL_CHAR 8
+# define LEX_ERR_MSG_NOT_LABEL_CHAR		"\033[31;1mLexer_ERROR: Label name contain not allowed char in \"%.*s\" <- \'%c\' \n\033[0m"
+# define ERR_LEX__ID_INST_NOT_FOUND 9
+# define LEX_ERR_MSG_INST_NOT_FOUND		"\033[31;1mLexer_ERROR: Bad instruction \"%.*s\"\n\033[0m"
 # define ERROR_LEX_MALLOC 10
+# define ERROR_LEX_LABEL_UPDATE 11
+# define ERROR_LEX_GNL 12
+# define ERROR_LEX_MALLOC_DAT 13
+# define ERROR_LEX_CMD_ARG_NOT_IN_LINE 14
+# define ERROR_LEX_CMD_NO_END 15
+
+#define ERROR_LEX_CMD_DOUBLE_NAME 16
+#define LEX_ERR_MSG_DOUBLE_NAME 		"\033[31;1mLexer_ERROR: Double .name command\n\033[0m"
+#define ERROR_LEX_CMD_DOUBLE_COMMENT 17
+#define LEX_ERR_MSG_DOUBLE_COMMENT		"\033[31;1mLexer_ERROR: Double .comment command\n\033[0m"
+#define ERR_LEX__ID_LONG_NAME 18
+#define LEX_ERR_MSG_LONG_NAME			"\033[31;1mLexer_ERROR: Size of .name more than should be. %d vs %d\n\033[0m"
+#define ERR_LEX__ID_LONG_COMMENT 19
+#define LEX_ERR_MSG_LONG_COMMENT		"\033[31;1mLexer_ERROR: Size of .comment more than should be. %d vs %d\n\033[0m"
+#define ERR_LEX__ID_LABEL_EMPTY 20
+#define LEX_ERR_MSG_LABEL_EMPTY		"\033[31;1mLexer_ERROR: Empty label\n\033[0m"
+#define ERR_LEX__ID_ATOI 21
+#define LEX_ERR_MSG_ATOI		"\033[31;1mLexer_ERROR: Empty something\n\033[0m"
+
+
+#define LEX_ERR_MSG_BAD_CMD_NO_START 	"\033[31;1mLexer_ERROR: line of command isn't complete. No char \"\n\033[0m"
+#define LEX_ERR_MSG_BAD_CHAR_START 		"\033[31;1mLexer_ERROR: bad char in start at argument of command. \"%s\"\n\033[0m"
+#define LEX_ERR_MSG_BAD_CMD_END 		"\033[31;1mLexer_ERROR: end of command argument has trash. \"%s\"\n\033[0m"
+#define LEX_ERR_MSG_BAD_CMD_NO_END 		"\033[31;1mLexer_ERROR: Argument of command has no end.\n\033[0m"
 
 #define BEGIN_ID 0
 #define LABEL_ID 1
@@ -34,6 +60,19 @@
 #define PARAM_LABEL 11
 #define PARAM_INT 12
 
+#define CMD_ID_NAME 1
+#define CMD_ID_COMMENT 2
+
+#define TOKEN_TYPE_INST 0
+#define TOKEN_TYPE_DELIM 1
+#define TOKEN_TYPE_END 2
+#define TOKEN_TYPE_P_R 3
+#define TOKEN_TYPE_P_D_I 4
+#define TOKEN_TYPE_P_I_I 5
+#define TOKEN_TYPE_LABEL 6
+#define TOKEN_TYPE_P_D_L 7
+#define TOKEN_TYPE_P_I_L 8
+
 # include "ft_list.h"
 # include "libft.h"
 //# include "libft_full.h"
@@ -42,10 +81,12 @@
 
 typedef struct		s_token
 {
+	char	token_type;
 	char	type;
 	char 	sub_type;
 	char 	val_type;
-	void	*data;
+	void	*label;
+	int		data;
 	int 	line_num;
 	int 	pos_num;
 }					t_token;
@@ -58,6 +99,8 @@ typedef struct		s_lexdata
 	char			debug_name;
 	char			debug_happend;
 	char			debug_out;
+    char			debug_done;
+	char			debug_err;
 
 	int				fd;
 	t_list			token_list;
@@ -75,7 +118,7 @@ int					run_lexer(char *fname, t_lexdata **dat);
 void				free_lexdata(t_lexdata *data);
 int					add_line(t_lexdata *dat, char *line);
 void 				init_stack_list(t_list *lst);
-void				init_dat(t_lexdata *dat);
+int					init_dat(t_lexdata **dat);
 int					get_fd(char *fname, t_lexdata *dat);
 int					error_case(t_lexdata *dat, int error_case);
 int					process_cmd(t_lexdata *dat, char *cur, int id_cmd);
@@ -91,8 +134,16 @@ int					allowed_char(char cur);
 int					not_skip_char(char cur);
 int					add_inst(t_lexdata *dat);
 int					add_parm(t_lexdata *dat);
-int					add_token(t_lexdata *dat, char type, char sub_type, char val_type);
+int					add_token(t_lexdata *dat, char token_type, int data, char *label);
 int					add_token_sep(t_lexdata *dat);
 int					add_token_endline(t_lexdata *dat);
+int					add_token_nodata(t_lexdata *dat, char token_type);
+int					add_token_data(t_lexdata *dat, char token_type, int data);
+int					add_token_str(t_lexdata *dat, char token_type, char *label);
+int					update_label(t_lexdata *dat);
+void				debug_token(t_token *tkn, int idx);
+void				debug_label_list(t_lexdata *dat);
+int					allowed_skip_char(char cur);
+int					not_allowed_skip_char(char cur);
 
 #endif //COREWAR_LEXER_H

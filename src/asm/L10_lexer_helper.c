@@ -50,6 +50,20 @@ int		not_skip_char(char cur)
 	return (1);
 }
 
+int		allowed_skip_char(char cur)
+{
+	if (cur == ' ')
+		return (1);
+	if (cur == '\t')
+		return (1);
+	return (0);
+}
+
+int		not_allowed_skip_char(char cur)
+{
+	return (!allowed_skip_char(cur));
+}
+
 int		end_line(char cur)
 {
 	if (cur == '\0')

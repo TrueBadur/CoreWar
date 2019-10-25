@@ -44,12 +44,22 @@ void    print_commands(t_champdata *data)
 
     void 	assemble(t_argdata *args)
 {
+	int 		err;
 	t_lexdata	*lexdata;
 	t_champdata	*champdata;
 
-	if (run_lexer(args->fname, &lexdata))
-		exit(1);
-//    debug_token_list(lexdata);
+	if ((err = run_lexer(args->fname, &lexdata)))
+	{
+		if (lexdata->debug_err)
+			ft_printf("ERROR=%d\n", err);
+		exit(err);
+	}
+    if (lexdata->debug_done)
+    {
+        ft_printf("run_lexer - ok\n");
+        exit(0);
+    }
+    debug_token_list(lexdata);
 	champdata = run_champgenerator(lexdata);
 	print_commands(champdata);
 	write_champ(champdata, args);

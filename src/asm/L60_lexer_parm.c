@@ -12,27 +12,47 @@
 
 #include "lexer.h"
 
-int		set_data_parm_int(t_lexdata *dat, int id_r)
-{
-	int				*data;
-
-	data = (int *)malloc(sizeof(int));
-	if (!data)
-		return (ERROR_LEX_MALLOC);
-	*data = id_r;
-	((t_token *)(dat->token_list.end->content))->data = data;
-	return (0);
-}
-
-int		set_data_parm_label(t_lexdata *dat, int idx_srt)
+int		add_token_parm_label(t_lexdata *dat, char token_type, int idx_srt)
 {
 	char	*data;
-	
+	int		tmp;
+
 	data = ft_strnew(dat->end - dat->srt - idx_srt);
 	if (!data)
 		return (ERROR_LEX_MALLOC_STR);
 	ft_strncpy(data, dat->cur_line + dat->srt + idx_srt, dat->end - dat->srt - idx_srt);
-	((t_token *)(dat->token_list.end->content))->data = data;
+	if ((tmp = add_token_str(dat, token_type, data)))
+		return (tmp);
+	return (0);
+}
+
+int 	check_atoi(int *to_set, char *line)
+{
+	int idx;
+	int to_check;
+
+	*to_set = ft_atoi(line);
+	to_check = *to_set;
+	if (to_check < 0)
+	{
+		if (*line != '-')
+			return (1);
+		else
+			line += 1;
+	}
+	idx = 1;
+	while (to_check / (10 * idx))
+		idx += 1;
+	while (--idx > 0)
+	{
+		if ((to_check / (10 * idx)) % 10 != (*line - 48))
+			return (1);
+		else
+			line += 1;
+	}
+	//ft_printf("check_atoi= %d vs %d\n", to_check % 10, *line - 48);
+	if (to_check % 10 != (*line - 48))
+		return (1);
 	return (0);
 }
 
@@ -40,13 +60,17 @@ int		add_parm(t_lexdata *dat)
 {
 	char	*line;
 	int		tmp;
+	int		val;
 
 	line = dat->cur_line + dat->srt;
 	if (*line == 'r')
 	{
-		if ((tmp = add_token(dat, PARAM_ID, PARAM_REG_ID, 0)))
-			return (tmp);
-		if ((tmp = set_data_parm_int(dat, ft_atoi(line + 1))))
+		if (check_atoi(&val, line + 1))
+		{
+			ft_printf(LEX_ERR_MSG_ATOI);
+			return (ERR_LEX__ID_ATOI);
+		}
+		if ((tmp = add_token_data(dat, TOKEN_TYPE_P_R, val)))
 			return (tmp);
 		if (dat->debug_happend)
 					ft_printf("\t\t\t\t\t\t\t\thappend= parm_reg\n");
@@ -56,9 +80,7 @@ int		add_parm(t_lexdata *dat)
 	{
 		if (line[1] == LABEL_CHAR) // label
 		{
-			if ((tmp = add_token(dat, PARAM_ID, PARAM_DIR_ID, PARAM_LABEL)))
-				return (tmp);
-			if ((tmp = set_data_parm_label(dat, 2)))
+			if ((tmp = add_token_parm_label(dat, TOKEN_TYPE_P_D_L, 2)))
 				return (tmp);
 			if (dat->debug_happend)
 					ft_printf("\t\t\t\t\t\t\t\thappend= parm_dir_label\n");
@@ -66,9 +88,12 @@ int		add_parm(t_lexdata *dat)
 		}
 		else
 		{
-			if ((tmp = add_token(dat, PARAM_ID, PARAM_DIR_ID, PARAM_INT)))
-				return (tmp);
-			if ((tmp = set_data_parm_int(dat, ft_atoi(line + 1))))
+			if (check_atoi(&val, line + 1))
+			{
+				ft_printf(LEX_ERR_MSG_ATOI);
+				return (ERR_LEX__ID_ATOI);
+			}
+			if ((tmp = add_token_data(dat, TOKEN_TYPE_P_D_I, val)))
 				return (tmp);
 			if (dat->debug_happend)
 					ft_printf("\t\t\t\t\t\t\t\thappend= parm_dir_int\n");
@@ -79,9 +104,8 @@ int		add_parm(t_lexdata *dat)
 	{
 		if (line[0] == LABEL_CHAR) // label
 		{
-			if ((tmp = add_token(dat, PARAM_ID, PARAM_IND_ID, PARAM_LABEL)))
-				return (tmp);
-			if ((tmp = set_data_parm_label(dat, 1)))
+
+			if ((tmp = add_token_parm_label(dat, TOKEN_TYPE_P_I_L, 1)))
 				return (tmp);
 			if (dat->debug_happend)
 					ft_printf("\t\t\t\t\t\t\t\thappend= parm_ind_label\n");
@@ -89,15 +113,17 @@ int		add_parm(t_lexdata *dat)
 		}
 		else
 		{
-			if ((tmp = add_token(dat, PARAM_ID, PARAM_IND_ID, PARAM_INT)))
-				return (tmp);
-			if ((tmp = set_data_parm_int(dat, ft_atoi(line))))
+			if (check_atoi(&val, line))
+			{
+				ft_printf(LEX_ERR_MSG_ATOI);
+				return (ERR_LEX__ID_ATOI);
+			}
+			if ((tmp = add_token_data(dat, TOKEN_TYPE_P_I_I, val)))
 				return (tmp);
 			if (dat->debug_happend)
 					ft_printf("\t\t\t\t\t\t\t\thappend= parm_ind_int\n");
 			return (0);
 		}
 	}
-	
 	return (0);
 }
