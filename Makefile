@@ -39,10 +39,10 @@ cmake_force:
 SHELL = /bin/sh
 
 # The CMake executable.
-CMAKE_COMMAND = /private/var/folders/zz/zyxvpxvq6csfxvn_n00012xm0008qd/T/AppTranslocation/1FB74389-BE2A-4A62-8268-7D4AEF6AD5AB/d/CLion.app/Contents/bin/cmake/mac/bin/cmake
+CMAKE_COMMAND = /private/var/folders/zz/zyxvpxvq6csfxvn_n00012xm0008qd/T/AppTranslocation/81E40B26-544C-41B7-89C8-4AAAA24C0403/d/CLion.app/Contents/bin/cmake/mac/bin/cmake
 
 # The command to remove a file.
-RM = /private/var/folders/zz/zyxvpxvq6csfxvn_n00012xm0008qd/T/AppTranslocation/1FB74389-BE2A-4A62-8268-7D4AEF6AD5AB/d/CLion.app/Contents/bin/cmake/mac/bin/cmake -E remove -f
+RM = /private/var/folders/zz/zyxvpxvq6csfxvn_n00012xm0008qd/T/AppTranslocation/81E40B26-544C-41B7-89C8-4AAAA24C0403/d/CLion.app/Contents/bin/cmake/mac/bin/cmake -E remove -f
 
 # Escaping for special characters.
 EQUALS = =
@@ -59,7 +59,7 @@ CMAKE_BINARY_DIR = /Users/blomo/corawara
 # Special rule for the target rebuild_cache
 rebuild_cache:
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake to regenerate build system..."
-	/private/var/folders/zz/zyxvpxvq6csfxvn_n00012xm0008qd/T/AppTranslocation/1FB74389-BE2A-4A62-8268-7D4AEF6AD5AB/d/CLion.app/Contents/bin/cmake/mac/bin/cmake -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
+	/private/var/folders/zz/zyxvpxvq6csfxvn_n00012xm0008qd/T/AppTranslocation/81E40B26-544C-41B7-89C8-4AAAA24C0403/d/CLion.app/Contents/bin/cmake/mac/bin/cmake -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
 .PHONY : rebuild_cache
 
 # Special rule for the target rebuild_cache
@@ -70,7 +70,7 @@ rebuild_cache/fast: rebuild_cache
 # Special rule for the target edit_cache
 edit_cache:
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "No interactive CMake dialog available..."
-	/private/var/folders/zz/zyxvpxvq6csfxvn_n00012xm0008qd/T/AppTranslocation/1FB74389-BE2A-4A62-8268-7D4AEF6AD5AB/d/CLion.app/Contents/bin/cmake/mac/bin/cmake -E echo No\ interactive\ CMake\ dialog\ available.
+	/private/var/folders/zz/zyxvpxvq6csfxvn_n00012xm0008qd/T/AppTranslocation/81E40B26-544C-41B7-89C8-4AAAA24C0403/d/CLion.app/Contents/bin/cmake/mac/bin/cmake -E echo No\ interactive\ CMake\ dialog\ available.
 .PHONY : edit_cache
 
 # Special rule for the target edit_cache
@@ -135,6 +135,33 @@ corewar: cmake_check_build_system
 corewar/fast:
 	$(MAKE) -f CMakeFiles/corewar.dir/build.make CMakeFiles/corewar.dir/build
 .PHONY : corewar/fast
+
+libft/std_lib/lib2list/ft_lsttake.o: libft/std_lib/lib2list/ft_lsttake.c.o
+
+.PHONY : libft/std_lib/lib2list/ft_lsttake.o
+
+# target to build an object file
+libft/std_lib/lib2list/ft_lsttake.c.o:
+	$(MAKE) -f CMakeFiles/corewar.dir/build.make CMakeFiles/corewar.dir/libft/std_lib/lib2list/ft_lsttake.c.o
+.PHONY : libft/std_lib/lib2list/ft_lsttake.c.o
+
+libft/std_lib/lib2list/ft_lsttake.i: libft/std_lib/lib2list/ft_lsttake.c.i
+
+.PHONY : libft/std_lib/lib2list/ft_lsttake.i
+
+# target to preprocess a source file
+libft/std_lib/lib2list/ft_lsttake.c.i:
+	$(MAKE) -f CMakeFiles/corewar.dir/build.make CMakeFiles/corewar.dir/libft/std_lib/lib2list/ft_lsttake.c.i
+.PHONY : libft/std_lib/lib2list/ft_lsttake.c.i
+
+libft/std_lib/lib2list/ft_lsttake.s: libft/std_lib/lib2list/ft_lsttake.c.s
+
+.PHONY : libft/std_lib/lib2list/ft_lsttake.s
+
+# target to generate assembly for a file
+libft/std_lib/lib2list/ft_lsttake.c.s:
+	$(MAKE) -f CMakeFiles/corewar.dir/build.make CMakeFiles/corewar.dir/libft/std_lib/lib2list/ft_lsttake.c.s
+.PHONY : libft/std_lib/lib2list/ft_lsttake.c.s
 
 src/asm/assembler.o: src/asm/assembler.c.o
 
@@ -770,6 +797,9 @@ help:
 	@echo "... edit_cache"
 	@echo "... asm"
 	@echo "... corewar"
+	@echo "... libft/std_lib/lib2list/ft_lsttake.o"
+	@echo "... libft/std_lib/lib2list/ft_lsttake.i"
+	@echo "... libft/std_lib/lib2list/ft_lsttake.s"
 	@echo "... src/asm/assembler.o"
 	@echo "... src/asm/assembler.i"
 	@echo "... src/asm/assembler.s"

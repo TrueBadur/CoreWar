@@ -39,7 +39,7 @@ static void init_carrieges(t_mngr *mngr)
 		car->pos = i * MEM_SIZE / mngr->chmp_num;
 		if (!ft_vecpush(mngr->cars, &car, sizeof(void *)))
 			safe_exit(mngr, MALLOC_ERROR);
-		tl_put(mngr, 0, ft_lstnew_noc(car, sizeof(void *)));
+        tl_put(mngr, 0, ft_lstnew_noc(car, sizeof(void *)), 0);
 		mngr->num_cars++;
 		*(int*)car->regs = -car->id -1 - i; //TODO deal with endians
 		mngr->winner = car->id;

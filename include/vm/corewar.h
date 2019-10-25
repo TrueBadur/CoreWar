@@ -77,6 +77,7 @@ typedef	struct	s_car
 	short		eval_in;
 	char		carry;
 	char		op_code;
+	char        just_forked;
 }				t_car;
 
 typedef struct	s_chmp
@@ -117,7 +118,7 @@ void			proceed_cars(t_mngr *mngr, short cur_time);
 /*
 ** ----------------------Working with timeline------------------------------- **
 */
-void			tl_put(t_mngr *mngr, short time, t_list_node *lst);
+void tl_put(t_mngr *mngr, short time, t_list_node *lst, int addlast);
 void			tl_car_iter(t_mngr *mngr, void (*f)(t_mngr*, t_car*));
 
 /*

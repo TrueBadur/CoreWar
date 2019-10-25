@@ -11,7 +11,7 @@ aux_source_directory(src/vm src_vm)
 aux_source_directory(src/ src)
 
 
-add_executable(corewar ${src_vm} ${src})
+add_executable(corewar ${src_vm} ${src} libft/std_lib/lib2list/ft_lsttake.c)
 target_link_libraries(corewar ${PROJECT_SOURCE_DIR}/libft/lib/libft.a)
 target_link_libraries(corewar ${PROJECT_SOURCE_DIR}/libft/lib/liblist.a)
 

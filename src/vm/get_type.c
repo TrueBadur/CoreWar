@@ -6,7 +6,7 @@
 /*   By: blomo <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/17 17:14:19 by blomo             #+#    #+#             */
-/*   Updated: 2019/10/24 15:52:52 by blomo            ###   ########.fr       */
+/*   Updated: 2019/10/25 16:33:17 by blomo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int get_dir(t_mngr *mngr, int pos, int size)
 {
     char buffer[size];
     int c;
-
+    //ft_printf(" get_dir %d  mngr = %d",pos,mngr->arena[pos+1]);
     c = -1;
     while (++c < size)
         buffer[size - c - 1] = (char)mngr->arena[(pos + c) % MEM_SIZE];

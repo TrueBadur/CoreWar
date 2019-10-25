@@ -6,7 +6,7 @@
 /*   By: blomo <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/15 17:06:37 by ehugh-be          #+#    #+#             */
-/*   Updated: 2019/10/24 19:16:44 by blomo            ###   ########.fr       */
+/*   Updated: 2019/10/25 19:40:26 by blomo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ void proceed_cars(t_mngr *mngr, short cur_time)
 	char		op;
 	int			time_to_put;
 
+	t_list *tmp = mngr->timeline[cur_time];
 	while ((lst = ft_lsttake(mngr->timeline[cur_time])))
 	{
 		car = (t_car*)lst->content;
@@ -42,7 +43,7 @@ void proceed_cars(t_mngr *mngr, short cur_time)
 			time_to_put = cur_time + get_op_info(op)->num_of_ticks;
 		else
 			time_to_put = cur_time + 1;
-		tl_put(mngr, (short)(time_to_put % MAX_OP_TIME), lst);
+        tl_put(mngr, (short) (time_to_put % (MAX_OP_TIME + 1)), lst, 1);
 	}
 }
 

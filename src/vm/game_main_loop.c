@@ -6,7 +6,7 @@
 /*   By: blomo <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/14 16:26:51 by ehugh-be          #+#    #+#             */
-/*   Updated: 2019/10/23 18:52:28 by blomo            ###   ########.fr       */
+/*   Updated: 2019/10/25 19:39:46 by blomo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,39 +71,35 @@ void	dump_arena(t_mngr *mngr)
     int i;
     int j;
 
-    j = 0;
-    i = 0;
-    while (i < 64)
+    i = -1;
+    while (++i < 64)
     {
         if(i == 0)
             ft_printf("0x0000 : ");
         else
-            ft_printf("%#.4x : ", i*64);
-        while(j < 64)
+            ft_printf("%#.4x : ", i * 64);
+		j = -1;
+        while(++j < 64)
         {
-            if(mngr->arena[j + 64*i] < 16)
-            {
-                ft_printf("0");
-                ft_printf("%x ", mngr->arena[j + 64 * i]);
-            }
+            if(mngr->arena[j + 64 * i] < 16)
+                ft_printf("0%x ", mngr->arena[j + 64 * i]);
             else
                 ft_printf("{\\76}%x {eof}", mngr->arena[j + 64 * i]);
-            j++;
         }
         printf("\n");
-        j = 0;
-        i++;
     }
     exit(0);
 }
 
 #define DUMP_TIME 1
-
+#define CYCLE_DEBUG 1
 void	game_main(t_mngr *mngr)
 {
 	while (mngr->num_cars)
 	{
-		make_one_turn(mngr);
+	    if (CYCLE_DEBUG)
+		    ft_printf("Now in cycle {Red}%d{eof}\n", mngr->cycle);
+	    make_one_turn(mngr);
         if (mngr->flags & DUMP && mngr->cycle == mngr->dump_nbr)
             dump_arena(mngr);
         if (mngr->cycle >= mngr->cycles_to_die || mngr->cycles_delta <= 0)
