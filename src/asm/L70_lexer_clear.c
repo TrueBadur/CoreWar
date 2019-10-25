@@ -21,12 +21,21 @@
 **		lines
 **		t_lexdata *dat
 */
+
+void		print_error(t_lexdata *dat, int err)
+{
+	if (err == ERR_LEX__ID_NOT_LABEL_CHAR)
+		ft_printf(LEX_ERR_MSG_NOT_LABEL_CHAR, dat->end - dat->srt,
+				  dat->cur_line + dat->srt, dat->cur_line[dat->cur_idx]);
+}
+
 int 	clean_n_exit(t_lexdata *dat, int err)
 {
 	t_list_node *node;
 	t_list_node *node_nxt;
 	t_token		*tkn;
 
+	print_error(dat, err);
 	if (dat->champ_name)
 		free(dat->champ_name);
 	if (dat->champ_comment)

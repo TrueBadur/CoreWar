@@ -116,6 +116,7 @@ typedef struct		s_lexdata
 	char			*cur_line;
 	int				srt;
 	int				end;
+	int				cur_idx;
 }					t_lexdata;
 
 int					run_lexer(char *fname, t_lexdata **dat);
@@ -158,6 +159,7 @@ int     			do_param(t_lexdata *dat, char *line, int idx);
 int     			do_comment(t_lexdata *dat);
 int     			do_sepr(t_lexdata *dat, int idx);
 int     			do_endline(t_lexdata *dat);
+void				print_error(t_lexdata *dat, int err);
 
 
 #endif //COREWAR_LEXER_H

@@ -54,12 +54,9 @@ int		add_label(t_lexdata *dat)
 	idx = dat->end;
 	while (--idx >= dat->srt)
 	{
+		dat->cur_idx = idx;
 		if (not_label_char(dat->cur_line[idx]))
-		{
-			ft_printf(LEX_ERR_MSG_NOT_LABEL_CHAR, dat->end - dat->srt,
-						dat->cur_line + dat->srt, dat->cur_line[idx]);
 			return (ERR_LEX__ID_NOT_LABEL_CHAR);
-		}
 	}
 
 	data = ft_strnew(dat->end - dat->srt);
