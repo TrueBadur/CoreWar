@@ -56,3 +56,4 @@ cmake-build-debug/
 wgorold_libft
 README_wgorold
 .vscode/
+.idea/
