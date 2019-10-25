@@ -28,30 +28,43 @@ int		add_token_parm_label(t_lexdata *dat, char token_type, int idx_srt)
 
 int 	check_atoi(int *to_set, char *line)
 {
-	int idx;
+	int ord;
+	int sig;
 	int to_check;
 
 	*to_set = ft_atoi(line);
 	to_check = *to_set;
+	sig = 1;
 	if (to_check < 0)
 	{
+		ft_printf("check_atoi= '-' vs %c\n", *line);
 		if (*line != '-')
 			return (1);
 		else
+		{
+			line += 1;
+			sig = -1;
+		}
+	}
+	if (*to_set != 0)
+	{
+		while (*line == '0')
 			line += 1;
 	}
-	idx = 1;
-	while (to_check / (10 * idx))
-		idx += 1;
-	while (--idx > 0)
+	ord = 10;
+	while (to_check / ord)
+		ord *= 10;
+	while (ord > 10)
 	{
-		if ((to_check / (10 * idx)) % 10 != (*line - 48))
+		ord /= 10;
+		ft_printf("check_atoi[%d, %d, %d]= %d vs %d\n", ord, to_check, sig * to_check / ord, sig * (to_check / ord) % 10, *line - 48);
+		if (sig * (to_check / ord) % 10 != (*line - 48))
 			return (1);
 		else
 			line += 1;
 	}
-	//ft_printf("check_atoi= %d vs %d\n", to_check % 10, *line - 48);
-	if (to_check % 10 != (*line - 48))
+	ft_printf("check_atoi= %d vs %d\n", to_check % 10, *line - 48);
+	if (sig * to_check % 10 != (*line - 48))
 		return (1);
 	return (0);
 }

@@ -19,7 +19,7 @@ done
 echo ""
 echo "-o for run original asm"
 echo "-c for run both"
-echo -e "-t run tmp_test.s in root of this folder. example: \033[0;36m./name_test.sh -c -t\033[0m"
+echo -e "-t run tmp_test.s in root of this folder. example: \033[0;36m./run_test.sh -c -t\033[0m"
 echo ""
 
 if [ -z "${t_flag}" ]; then

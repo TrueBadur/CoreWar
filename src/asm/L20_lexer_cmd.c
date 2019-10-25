@@ -26,7 +26,7 @@ int		start_name(t_lexdata *dat, char *cur, char **start)
 		*start = cur;
 		return (0);
 	}
-	else if (allowed_skip_char(*cur))
+	else if (skip_char(*cur))
 		return (1);
 	else if (check_comment(dat, cur))
 		return (2);
@@ -100,7 +100,7 @@ int		check_end_of_line(t_lexdata *dat, char *cur)
 	{
 		if (check_comment(dat, cur))
 			break ;
-		else if (not_allowed_skip_char(*cur))
+		else if (not_skip_char(*cur))
 		{
 			ft_printf(LEX_ERR_MSG_BAD_CMD_END, cur);
 			return (ERROR_LEX_NAME_END_INVALIDE);
