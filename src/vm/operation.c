@@ -60,9 +60,6 @@ void make_sti(t_mngr *mngr, t_car *car, t_t_op *op)
             arg2 = (op->a2 == REG_CODE) ? get_reg(mngr, car, 3) : get_indir(mngr, car, 3);
         arg3 = (op->a3 == REG_CODE) ? get_reg(mngr, car, 3 + step[op->a2 - 1]) : get_dir(mngr, car->pos + 3 + step[op->a2 - 1], 2);
         pos = (arg2 + arg3) % IDX_MOD + car->pos;
-        arg2 = -1;
-        while (++arg2 < REG_SIZE)
-            mngr->arena[(pos + 3 - arg2  + MEM_SIZE) % MEM_SIZE] = car->regs[arg1].reg[arg2];
         if (mngr->flags & V)
         {
             ft_printf("P    %d  |  %s r%d %d %d\n", car->id + 1, "sti", arg1 + 1, arg2, arg3);
@@ -70,6 +67,10 @@ void make_sti(t_mngr *mngr, t_car *car, t_t_op *op)
                       pos % MEM_SIZE);
             print_addr(mngr, car->pos, 3 + step[op->a2 - 1] + step[op->a3 - 1]);
         }
+        arg2 = -1;
+        while (++arg2 < REG_SIZE)
+            mngr->arena[(pos + 3 - arg2  + MEM_SIZE) % MEM_SIZE] = car->regs[arg1].reg[arg2];
+
     }
 }
 
