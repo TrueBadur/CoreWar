@@ -14,12 +14,39 @@
 # define ERROR_LEX_NULL_NODE 5
 # define ERROR_LEX_FD 6
 # define ERROR_LEX_UNDEFINE_CMD 7
-# define ERROR_LEX_NOT_LABEL_CHAR 8
-# define ERROR_LEX_INST_NOT_FOUND 9
+# define ERR_LEX__ID_NOT_LABEL_CHAR 8
+# define LEX_ERR_MSG_NOT_LABEL_CHAR		"\033[31;1mLexer_ERROR: Label name contain not allowed char in \"%.*s\" <- \'%c\' \n\033[0m"
+# define ERR_LEX__ID_INST_NOT_FOUND 9
+# define LEX_ERR_MSG_INST_NOT_FOUND		"\033[31;1mLexer_ERROR: Bad instruction \"%.*s\"\n\033[0m"
 # define ERROR_LEX_MALLOC 10
 # define ERROR_LEX_LABEL_UPDATE 11
 # define ERROR_LEX_GNL 12
 # define ERROR_LEX_MALLOC_DAT 13
+# define ERROR_LEX_CMD_ARG_NOT_IN_LINE 14
+# define ERROR_LEX_CMD_NO_END 15
+
+#define ERROR_LEX_CMD_DOUBLE_NAME 16
+#define LEX_ERR_MSG_DOUBLE_NAME 		"\033[31;1mLexer_ERROR: Double .name command\n\033[0m"
+#define ERROR_LEX_CMD_DOUBLE_COMMENT 17
+#define LEX_ERR_MSG_DOUBLE_COMMENT		"\033[31;1mLexer_ERROR: Double .comment command\n\033[0m"
+#define ERR_LEX__ID_LONG_NAME 18
+#define LEX_ERR_MSG_LONG_NAME			"\033[31;1mLexer_ERROR: Size of .name more than should be. %d vs %d\n\033[0m"
+#define ERR_LEX__ID_LONG_COMMENT 19
+#define LEX_ERR_MSG_LONG_COMMENT		"\033[31;1mLexer_ERROR: Size of .comment more than should be. %d vs %d\n\033[0m"
+#define ERR_LEX__ID_LABEL_EMPTY 20
+#define LEX_ERR_MSG_LABEL_EMPTY		"\033[31;1mLexer_ERROR: Empty label\n\033[0m"
+#define ERR_LEX__ID_ATOI 21
+#define LEX_ERR_MSG_ATOI		"\033[31;1mLexer_ERROR: Empty something\n\033[0m"
+#define ERR_LEX__ID_BEFORE_CMD 22
+#define LEX_ERR_MSG_BEFORE_CMD		"\033[31;1mLexer_ERROR: Something before command\n\033[0m"
+#define ERR_LEX__ID_BAD_AFTER_INST 23
+#define LEX_ERR_MSG_BAD_AFTER_INST	"\033[31;1mLexer_ERROR: Bad char after inst\n\033[0m"
+
+
+#define LEX_ERR_MSG_BAD_CMD_NO_START 	"\033[31;1mLexer_ERROR: line of command isn't complete. No char \"\n\033[0m"
+#define LEX_ERR_MSG_BAD_CHAR_START 		"\033[31;1mLexer_ERROR: bad char in start at argument of command. \"%s\"\n\033[0m"
+#define LEX_ERR_MSG_BAD_CMD_END 		"\033[31;1mLexer_ERROR: end of command argument has trash. \"%s\"\n\033[0m"
+#define LEX_ERR_MSG_BAD_CMD_NO_END 		"\033[31;1mLexer_ERROR: Argument of command has no end.\n\033[0m"
 
 #define BEGIN_ID 0
 #define LABEL_ID 1
@@ -36,6 +63,9 @@
 
 #define PARAM_LABEL 11
 #define PARAM_INT 12
+
+#define CMD_ID_NAME 1
+#define CMD_ID_COMMENT 2
 
 #define TOKEN_TYPE_INST 0
 #define TOKEN_TYPE_DELIM 1
@@ -117,5 +147,17 @@ int					add_token_str(t_lexdata *dat, char token_type, char *label);
 int					update_label(t_lexdata *dat);
 void				debug_token(t_token *tkn, int idx);
 void				debug_label_list(t_lexdata *dat);
+int					skip_char(char cur);
+int					special_char(char cur);
+int					end_line_or_separ(char cur);
+int 				clean_n_exit(t_lexdata *dat, int err);
+int    				do_cmd(t_lexdata *dat, char *line);
+int   				do_inst(t_lexdata *dat, int idx, int *inst_set);
+int     			do_label(t_lexdata *dat, int idx);
+int     			do_param(t_lexdata *dat, char *line, int idx);
+int     			do_comment(t_lexdata *dat);
+int     			do_sepr(t_lexdata *dat, int idx);
+int     			do_endline(t_lexdata *dat);
+
 
 #endif //COREWAR_LEXER_H

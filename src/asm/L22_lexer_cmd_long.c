@@ -92,6 +92,5 @@ int		long_name(t_lexdata *dat, char *start, t_list *lines, char **to_set)
 	get_copy(start, lines, out);
 
 	*to_set = out;
-	free_list(lines);
 	return (0);
 }

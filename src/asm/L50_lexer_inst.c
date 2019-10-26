@@ -22,7 +22,7 @@ int		add_inst(t_lexdata *dat)
 	idx = 0;
 	line = dat->cur_line + dat->srt;
 	tmp = dat->end - dat->srt;
-	while ((tab = get_op_info(++idx)))
+	while ((tab = get_op_info(++idx)) && tab->name != NULL)
 	{
 		if (ft_strncmp(line, tab->name, tmp) == 0)
 		{
@@ -31,5 +31,6 @@ int		add_inst(t_lexdata *dat)
 			return (0);
 		}
 	}
-	return (ERROR_LEX_INST_NOT_FOUND);
+	ft_printf(LEX_ERR_MSG_INST_NOT_FOUND, tmp, line);
+	return (ERR_LEX__ID_INST_NOT_FOUND);
 }

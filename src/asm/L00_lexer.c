@@ -12,113 +12,6 @@
 
 #include "lexer.h"
 
-int		choice_cmd(t_lexdata *dat, char *line)
-{
-	char	*cur;
-	int		rls;
-
-	rls = ERROR_LEX_UNDEFINE_CMD;
-	if ((cur = ft_strstr(line, NAME_CMD_STRING)))
-		rls = process_cmd(dat, cur + ft_strlen(NAME_CMD_STRING), 1);
-	else if ((cur = ft_strstr(line, COMMENT_CMD_STRING)))
-		rls = process_cmd(dat, cur + ft_strlen(COMMENT_CMD_STRING), 2);
-	return (rls);
-}
-
-// check test_data
-int     do_cmd(t_lexdata *dat, char *line)
-{
-    int err;
-
-    if ((err = choice_cmd(dat, line)))
-        return (err);
-    if (dat->debug_happend)
-        ft_printf("\t\t\t\t\t\t\t\thappend= cmd\n");
-    return (0);
-}
-
-int     do_inst(t_lexdata *dat, int idx, int *inst_set)
-{
-    int		len;
-    int		err;
-
-    dat->end = idx;
-    len = dat->end - dat->srt;
-    if (dat->debug_happend)
-        ft_printf("\t\t\t\tto_check= %.*s\n", len, dat->cur_line + dat->srt);
-    if ((err = add_inst(dat)))
-        return (err);
-    dat->srt = -1;
-    *inst_set = 1;
-    if (dat->debug_happend)
-        ft_printf("\t\t\t\t\t\t\t\thappend= %s\n", "inst_token");
-    return (0);
-}
-
-int     do_label(t_lexdata *dat, int idx)
-{
-    int		len;
-    int		err;
-
-    dat->end = idx;
-    len = dat->end - dat->srt;
-    if (dat->debug_happend)
-        ft_printf("\t\t\t\tto_check= %.*s\n", len, dat->cur_line + dat->srt);
-    if ((err = add_label(dat)))
-        return (err);
-    //TO_DO skip space and lines
-    dat->srt = -1;
-    if (dat->debug_happend)
-        ft_printf("\t\t\t\t\t\t\t\thappend= %s\n", "label_token");
-    return (0);
-}
-
-int     do_param(t_lexdata *dat, char *line, int idx)
-{
-    int		len;
-    int		err;
-
-    dat->end = idx;
-    len = dat->end - dat->srt;
-    if (dat->debug_happend)
-        ft_printf("\t\t\t\tto_check= %.*s\n", len, dat->cur_line + dat->srt);
-    if ((err = add_parm(dat)))
-        return (err);
-    if (line[idx] == SEPARATOR_CHAR)
-    {
-        if ((err = add_token_nodata(dat, TOKEN_TYPE_DELIM)))
-            return (err);
-        if (dat->debug_happend)
-            ft_printf("\t\t\t\t\t\t\t\thappend= %s\n", "sep_token");
-        dat->srt = -1;
-    }
-    return (0);
-}
-
-int     do_comment(t_lexdata *dat)
-{
-    int err;
-
-    if (dat->debug_happend)
-        ft_printf("\t\t\t\t\t\t\t\thappend= comment\n");
-    if ((err = add_token_nodata(dat, TOKEN_TYPE_END)))
-        return (err);
-    if (dat->debug_happend)
-        ft_printf("\t\t\t\t\t\t\t\thappend= %s\n", "endline_token");
-    return (0);
-}
-
-int     do_endline(t_lexdata *dat)
-{
-    int		err;
-
-    if ((err = add_token_nodata(dat, TOKEN_TYPE_END)))
-        return (err);
-    if (dat->debug_happend)
-        ft_printf("\t\t\t\t\t\t\t\thappend= %s\n", "endline_token");
-    return (0);
-}
-
 int		check_line(t_lexdata *dat, char *line)
 {
 	int		idx;
@@ -138,15 +31,14 @@ int		check_line(t_lexdata *dat, char *line)
 			ft_printf("rest=%s\n", line + idx);
 		if (not_skip_char(line[idx]) && dat->srt == -1)
 			dat->srt = idx;
-		if (!not_skip_char(line[idx]) && dat->srt == -1)
+		if (skip_char(line[idx]) && dat->srt == -1)
 			continue;
 		
 		if (inst_set == 0)
 		{
-			if (line[idx] == CMD_START)
+			if (line[idx] == CMD_START) // and dat->srt == -1
 			    return (do_cmd(dat, line));
-
-			else if (line[idx] == ' ') // separator for inst: ' ', '%'
+			else if (skip_char(line[idx]) || special_char(line[idx]))
 			{
 			    if ((err = do_inst(dat, idx, &inst_set)))
                     return (err);
@@ -160,69 +52,22 @@ int		check_line(t_lexdata *dat, char *line)
 		}
 		else
 		{
-			if (line[idx] == SEPARATOR_CHAR || line[idx] == '\0')
+			if (dat->srt != idx
+			&& (end_line_or_separ(line[idx]) || skip_char(line[idx])))
 			{
                 if ((err = do_param(dat, line, idx)))
                     return (err);
 			}
 		}
+		if (line[idx] == SEPARATOR_CHAR)
+		{
+			if ((err = do_sepr(dat, idx)))
+				return (err);
+		}
 		if (check_comment(dat, line + idx))
 		    return (do_comment(dat));
 	}
 	return (do_endline(dat));
-}
-
-/*
-**	to_clean
-**		champ_name
-**		champ_comment
-**		label_list (only_nodes)
-**		token_list
-**		lines
-**		t_lexdata *dat
-*/
-int 	clean_n_exit(t_lexdata *dat, int err)
-{
-	t_list_node *node;
-	t_list_node *node_nxt;
-	t_token		*tkn;
-
-	if (dat->champ_name)
-		free(dat->champ_name);
-	if (dat->champ_comment)
-		free(dat->champ_name);
-
-	node = dat->label_list.begin;
-	while (node)
-	{
-		node_nxt = node->next;
-		free(node);
-		node = node_nxt;
-	}
-
-	node = dat->token_list.begin;
-	while (node)
-	{
-		node_nxt = node->next;
-		tkn = (t_token *)(node->content);
-		if (tkn->label)
-			free(tkn->label);
-		free(node->content);
-		free(node);
-		node = node_nxt;
-	}
-
-	node = dat->lines.begin;
-	while (node)
-	{
-		node_nxt = node->next;
-		free(node->content);
-		free(node);
-		node = node_nxt;
-	}
-
-	free(dat);
-	return (err);
 }
 
 int		run_lexer(char *fname, t_lexdata **dat_out)
@@ -250,10 +95,4 @@ int		run_lexer(char *fname, t_lexdata **dat_out)
 		debug_token_list(dat);
     *dat_out = dat;
 	return (0);
-}
-
-
-void		free_lexdata(t_lexdata *data)
-{
-	(void)data;
 }

@@ -26,15 +26,64 @@ int		add_token_parm_label(t_lexdata *dat, char token_type, int idx_srt)
 	return (0);
 }
 
+int 	check_atoi(int *to_set, char *line)
+{
+	int ord;
+	int sig;
+	int to_check;
+
+	*to_set = ft_atoi(line);
+	to_check = *to_set;
+	sig = 1;
+	if (to_check < 0)
+	{
+		ft_printf("check_atoi= '-' vs %c\n", *line);
+		if (*line != '-')
+			return (1);
+		else
+		{
+			line += 1;
+			sig = -1;
+		}
+	}
+	if (*to_set != 0)
+	{
+		while (*line == '0')
+			line += 1;
+	}
+	ord = 10;
+	while (to_check / ord)
+		ord *= 10;
+	while (ord > 10)
+	{
+		ord /= 10;
+		ft_printf("check_atoi[%d, %d, %d]= %d vs %d\n", ord, to_check, sig * to_check / ord, sig * (to_check / ord) % 10, *line - 48);
+		if (sig * (to_check / ord) % 10 != (*line - 48))
+			return (1);
+		else
+			line += 1;
+	}
+	ft_printf("check_atoi= %d vs %d\n", to_check % 10, *line - 48);
+	if (sig * to_check % 10 != (*line - 48))
+		return (1);
+	return (0);
+}
+
 int		add_parm(t_lexdata *dat)
 {
 	char	*line;
 	int		tmp;
+	int		val;
 
 	line = dat->cur_line + dat->srt;
 	if (*line == 'r')
 	{
-		if ((tmp = add_token_data(dat, TOKEN_TYPE_P_R, ft_atoi(line + 1))))
+		if (check_atoi(&val, line + 1))
+		{
+			ft_printf(LEX_ERR_MSG_ATOI);
+			return (ERR_LEX__ID_ATOI);
+		}
+		if ((tmp = add_token_data(dat, TOKEN_TYPE_P_R, val)))
 			return (tmp);
 		if (dat->debug_happend)
 					ft_printf("\t\t\t\t\t\t\t\thappend= parm_reg\n");
@@ -52,7 +101,12 @@ int		add_parm(t_lexdata *dat)
 		}
 		else
 		{
-			if ((tmp = add_token_data(dat, TOKEN_TYPE_P_D_I, ft_atoi(line + 1))))
+			if (check_atoi(&val, line + 1))
+			{
+				ft_printf(LEX_ERR_MSG_ATOI);
+				return (ERR_LEX__ID_ATOI);
+			}
+			if ((tmp = add_token_data(dat, TOKEN_TYPE_P_D_I, val)))
 				return (tmp);
 			if (dat->debug_happend)
 					ft_printf("\t\t\t\t\t\t\t\thappend= parm_dir_int\n");
@@ -72,7 +126,12 @@ int		add_parm(t_lexdata *dat)
 		}
 		else
 		{
-			if ((tmp = add_token_data(dat, TOKEN_TYPE_P_I_I, ft_atoi(line))))
+			if (check_atoi(&val, line))
+			{
+				ft_printf(LEX_ERR_MSG_ATOI);
+				return (ERR_LEX__ID_ATOI);
+			}
+			if ((tmp = add_token_data(dat, TOKEN_TYPE_P_I_I, val)))
 				return (tmp);
 			if (dat->debug_happend)
 					ft_printf("\t\t\t\t\t\t\t\thappend= parm_ind_int\n");

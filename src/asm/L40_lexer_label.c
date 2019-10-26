@@ -45,19 +45,27 @@ int		add_label(t_lexdata *dat)
 	int		tmp;
 	char	*data;
 
+	if (dat->srt == dat->end)
+	{
+		ft_printf(LEX_ERR_MSG_LABEL_EMPTY);
+		return (ERR_LEX__ID_LABEL_EMPTY);
+	}
+
 	idx = dat->end;
 	while (--idx >= dat->srt)
 	{
 		if (not_label_char(dat->cur_line[idx]))
-			return (ERROR_LEX_NOT_LABEL_CHAR);
+		{
+			ft_printf(LEX_ERR_MSG_NOT_LABEL_CHAR, dat->end - dat->srt,
+						dat->cur_line + dat->srt, dat->cur_line[idx]);
+			return (ERR_LEX__ID_NOT_LABEL_CHAR);
+		}
 	}
-
 
 	data = ft_strnew(dat->end - dat->srt);
 	if (!data)
 		return (ERROR_LEX_MALLOC_STR);
 	ft_strncpy(data, dat->cur_line + dat->srt, dat->end - dat->srt);
-
 
 	if ((tmp = add_token_str(dat, TOKEN_TYPE_LABEL, data)))
 		return (tmp);
