@@ -1,12 +1,8 @@
-//
-// Created by Jasper Leann on 11/10/2019.
-//
+#ifndef ASSEMBLER_H
+# define ASSEMBLER_H
 
-#ifndef COREWAR_ASSEMBLER_H
-#define COREWAR_ASSEMBLER_H
-
-#include "read_args.h"
+# include "read_args.h"
 
 void	assemble(t_argdata *args);
 
-#endif //COREWAR_ASSEMBLER_H
+#endif

@@ -1,15 +1,3 @@
-;******************************************************************************;
-;                                                                              ;
-;                                                         :::      ::::::::    ;
-;    champ.s                                            :+:      :+:    :+:    ;
-;                                                     +:+ +:+         +:+      ;
-;    By: aelola <aelola@student.42.fr>              +#+  +:+       +#+         ;
-;                                                 +#+#+#+#+#+   +#+            ;
-;    Created: 2014/02/25 11:56:47 by aelola            #+#    #+#              ;
-;    Updated: 2014/02/25 11:56:48 by aelola           ###   ########.fr        ;
-;                                                                              ;
-;******************************************************************************;
-
 .name		"lazer"
 .comment	"Mundo dit beaucoup son nom pour pas l'oublier, pck c deja arriver!"
 
@@ -109,7 +97,6 @@ mov_init:
 	ld		%4, r8
 	ld		%0, r4
 	ld		%1111638594, r6
-	# zjmp	%:mov_init
 
 mov:
 	live	%99
