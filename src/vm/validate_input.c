@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "corewar.h"
+#include "limits.h"
 
 int handle_n(t_mngr *mngr, char **argv, int i)
 {
@@ -42,29 +43,40 @@ void parse_dump(t_mngr *mngr, char **argv, int i)
 
     nbr = 0;
     argv[i][0] = '\0';
-    if (argv[i + 1] != NULL && !ft_atoi_safe(argv[i + 1], &nbr) && mngr->dump_nbr == -1)
+    if (argv[i + 1] != NULL && !ft_atoi_safe(argv[i + 1], &nbr) && !(mngr->flags & DUMP))
     {
-        if (!(nbr >= 0 && nbr <= 1000000))
+        if (!(nbr >= 0 && nbr < INT_MAX))
             safe_exit(mngr, INVALID_N);
     }
     else
         safe_exit(mngr, INVALID_N);
-    mngr->flags = DUMP;
+    mngr->flags = mngr->flags | DUMP;
     mngr->dump_nbr = nbr;
     argv[i + 1][0] = '\0';
 }
+
+void parse_v(t_mngr *mngr, char **argv, int i)
+{
+    argv[i][0] = '\0';
+    if (!(mngr->flags & V))
+        mngr->flags = mngr->flags | V;
+    else
+        safe_exit(mngr, INVALID_N);
+}
+
 void parse_flags(t_mngr *mngr, char **argv)
 {
     int i;
 
     i = 0;
-    mngr->dump_nbr = -1;
     while(argv[++i])
     {
-        if(!ft_strcmp(argv[i], "-n"))
+        if (!ft_strcmp(argv[i], "-n"))
 			i += handle_n(mngr, argv, i);
-        if(!ft_strcmp(argv[i], "-dump"))
+        if (!ft_strcmp(argv[i], "-dump"))
             parse_dump(mngr, argv, i);
+        if (!(ft_strcmp(argv[i], "-v")))
+            parse_v(mngr, argv ,i);
     }
 }
 void check_players(t_mngr *mngr, char **argv, int argc)

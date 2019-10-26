@@ -23,6 +23,7 @@
 
 #define MAX_OP_TIME 1000
 #define DUMP ((unsigned int)1 << (unsigned int)4)
+#define V ((unsigned int)1 << (unsigned int)5)
 
 typedef enum	e_operation_codes
 {

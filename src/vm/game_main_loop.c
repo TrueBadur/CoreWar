@@ -81,10 +81,14 @@ void	dump_arena(t_mngr *mngr)
 		j = -1;
         while(++j < 64)
         {
-            if(mngr->arena[j + 64 * i] < 16)
-                ft_printf("0%x ", mngr->arena[j + 64 * i]);
+            if(mngr->arena[j + 64 * i] <=9 && mngr->arena[j + 64 * i] > 0)
+                ft_printf("{Green}0%x {eof}", mngr->arena[j + 64 * i]);
+            else if (mngr->arena[j + 64 * i] == 0)
+                ft_printf("{Black}0%x {eof}", mngr->arena[j + 64 * i]);
+            else if (mngr->arena[j + 64 * i] < 16)
+                ft_printf("{\\200}0%x {eof}", mngr->arena[j + 64 * i]);
             else
-                ft_printf("{\\76}%x {eof}", mngr->arena[j + 64 * i]);
+                ft_printf("{Red}%x {eof}", mngr->arena[j + 64 * i]);
         }
         printf("\n");
     }
@@ -92,7 +96,7 @@ void	dump_arena(t_mngr *mngr)
 }
 
 #define DUMP_TIME 1
-#define CYCLE_DEBUG 1
+#define CYCLE_DEBUG 0
 void	game_main(t_mngr *mngr)
 {
 	while (mngr->num_cars)

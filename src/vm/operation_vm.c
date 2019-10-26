@@ -16,18 +16,23 @@
 
 void make_live(t_mngr *mngr, t_car *car, t_t_op *op)
 {
-    int arg1;
+    int arg;
+    int mod_arg;
+    int i;
 
+    i = 0;
     (void)op;
-    arg1 = ft_abs(get_dir(mngr, car->pos + 1, 4));
-    ft_printf("CAR {Red}%d{eof} doing \"live\" %d\n", car->id, -arg1); //TODO move under if with flag check
-    if(arg1 - 1 < MAX_PLAYERS && mngr->chmps[arg1 - 1])
+    arg = get_dir(mngr, car->pos + 1, 4);
+    mod_arg = ft_abs(arg) - 1;
+    if (arg < 0 && mod_arg < MAX_PLAYERS && mngr->chmps[mod_arg])
     {
-        mngr->winner = arg1 - 1;
-        ft_printf("this player {\\76}\"%s\"{eof} say alive \n", mngr->chmps[arg1 - 1]->name);
+        mngr->winner = mod_arg;
+        i = 1;
     }
     car->live_cycle = mngr->cycle;
     mngr->live_num++;
+    if(mngr->flags & V)
+        print_live(mngr, car, i, arg);
 }
 
 void make_ld_lld(t_mngr *mngr, t_car *car, t_t_op *op)
@@ -41,10 +46,14 @@ void make_ld_lld(t_mngr *mngr, t_car *car, t_t_op *op)
     if (op->a1 == IND_CODE)
         indir = get_dir(mngr, car->pos + 2, 2) % (op->op == OP_ld ? IDX_MOD : INT_MAX);
     dir = get_dir(mngr, car->pos + indir, 4);
-    ft_printf("CAR {Red}%d{eof} doing \"%s\" {\\200}%d {Green}r%d{eof}\n", car->id, op->op == OP_ld ? "ld" : "lld", dir, reg + 1);
     if(check_reg(reg))
         *(int *) car->regs[reg].reg = dir;
     car->carry = (char)(dir == 0);
+    if(mngr->flags & V)
+    {
+        ft_printf("P    %d  |  %s %d r%d\n", car->id + 1, op->op == OP_ld ? "ld" : "lld", dir, reg + 1);
+        print_addr(mngr, car->pos,op->a1 == IND_CODE ? 5 : 7);
+    }
 }
 
 void make_st(t_mngr *mngr, t_car *car, t_t_op *op)
@@ -54,7 +63,6 @@ void make_st(t_mngr *mngr, t_car *car, t_t_op *op)
     int c;
 
     reg1 = mngr->arena[(car->pos + 2) % MEM_SIZE] - 1;
-    ft_printf("CAR {Red}%d{eof} doing \"st\" {Green}r%d{eof} ", car->id, reg1 + 1);
     if (check_reg(reg1))
     {
         if (op->a2 == REG_CODE)
@@ -62,17 +70,18 @@ void make_st(t_mngr *mngr, t_car *car, t_t_op *op)
             reg2 = mngr->arena[(car->pos + 3) % MEM_SIZE] - 1;
             if (check_reg(reg2))
                 ft_memcpy(car->regs + reg2, car->regs + reg1, sizeof(char) * REG_SIZE);
-            ft_printf("from {Green}r%d{eof}", reg2 + 1);
-            ft_printf(" r%d = %d\n", reg2 + 1, car->regs[reg2]);
-
         }
         else
         {
             reg2 = (get_dir(mngr, car->pos + 3, 2) % IDX_MOD) + car->pos;
             c = -1;
-            ft_printf("{\\200}%d{eof}\n", reg2 - car->pos);
             while (++c < REG_SIZE)
                 mngr->arena[(reg2 + 3 - c  + MEM_SIZE) % MEM_SIZE] = car->regs[reg1].reg[c];
+        }
+        if (mngr->flags & V)
+        {
+            print_st(car, reg1, reg2, op);
+            print_addr(mngr, car->pos,op->a2 == REG_CODE ? 4 : 5);
         }
     }
 }
@@ -87,7 +96,6 @@ void make_add_sub(t_mngr *mngr, t_car *car, t_t_op *op)
     reg1 = mngr->arena[(car->pos + 2) % MEM_SIZE] - 1;
     reg2 = mngr->arena[(car->pos + 3) % MEM_SIZE] - 1;
     reg3 = mngr->arena[(car->pos + 4) % MEM_SIZE] - 1;
-    ft_printf("CAR {Red}%d{eof} doing %s r1 = %d r2 = %d r3 = %d\n",car->id, op->op == OP_add ? "add" : "sub", reg1 + 1, reg2 + 1, reg3 + 1);
     if(check_reg(reg1) && check_reg(reg2) && check_reg(reg3))
     {
         if(op->op == OP_add)
@@ -97,20 +105,24 @@ void make_add_sub(t_mngr *mngr, t_car *car, t_t_op *op)
         *(int *)car->regs[reg3].reg = res;
         car->carry = (char)(*(int *)car->regs[reg3].reg == 0);
     }
+    if (mngr->flags & V)
+    {
+        ft_printf("P    %d  |  %s r%d r%d r%d\n", car->id + 1, op->op == OP_add ? "add" : "sub", reg1 + 1, reg2 + 1, reg3 + 1);
+        print_addr(mngr, car->pos, 5);
+    }
 }
 
 void make_zjmp(t_mngr *mngr, t_car *car, t_t_op *op)
 {
-    int arg1;
+    int arg;
 
     (void)op;
-    arg1 = get_dir(mngr, car->pos + 1, 2) % IDX_MOD;
-    ft_printf("CAR {Red}%d{eof} doing %s dir = %d ", car->id, "zjmp", arg1);
+    arg = get_dir(mngr, car->pos + 1, 2) % IDX_MOD;
     if(car->carry == 1)
+        car->pos = (car->pos + arg - 3) % MEM_SIZE;
+    if (mngr->flags & V)
     {
-        car->pos = (car->pos + arg1 - 3) % MEM_SIZE;
-        ft_printf("ok\n");
+        ft_printf("P    %d  |  %s %d %s\n", car->id + 1,"zjmp", arg, car->carry == 1 ? "OK" : "FAILED");
+        print_addr(mngr, car->pos, 5);
     }
-    else
-        ft_printf("failed\n");
 }

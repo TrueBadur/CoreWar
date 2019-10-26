@@ -40,6 +40,11 @@ char check_reg(int reg);
 int get_indir(t_mngr *mngr, t_car *car, int pos);
 int get_reg(t_mngr *mngr,t_car *car, int pos);
 t_car	*resurect_car(t_mngr *mngr);
+void    print_live(t_mngr *mngr,t_car *car, int say, int arg);
+void print_addr(t_mngr *mngr, int pos, int adv);
+void print_st(t_car *car, int reg1, int reg2, t_t_op *op);
+
+
 
 
 
