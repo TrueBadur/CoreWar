@@ -118,11 +118,12 @@ void make_zjmp(t_mngr *mngr, t_car *car, t_t_op *op)
 
     (void)op;
     arg = get_dir(mngr, car->pos + 1, 2) % IDX_MOD;
-    if(car->carry == 1)
-        car->pos = (car->pos + arg - 3) % MEM_SIZE;
     if (mngr->flags & V)
     {
         ft_printf("P    %d  |  %s %d %s\n", car->id + 1,"zjmp", arg, car->carry == 1 ? "OK" : "FAILED");
-        print_addr(mngr, car->pos, 5);
+        print_addr(mngr, car->pos, 3);
     }
+    if(car->carry == 1)
+        car->pos = (car->pos + arg - 3) % MEM_SIZE;
+
 }

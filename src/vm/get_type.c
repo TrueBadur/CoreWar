@@ -17,7 +17,7 @@ int get_dir(t_mngr *mngr, int pos, int size)
 {
     char buffer[size];
     int c;
-    //ft_printf(" get_dir %d  mngr = %d",pos,mngr->arena[pos+1]);
+
     c = -1;
     while (++c < size)
         buffer[size - c - 1] = (char)mngr->arena[(pos + c) % MEM_SIZE];
