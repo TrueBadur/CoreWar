@@ -201,6 +201,7 @@ int     update_label(t_lexdata *dat)
 			tkn->data = tmp;
 		}
 	}
+	dat->labels_num = dat->label_list.len;
 	//clean_all_label(dat);
 	return (0);
 }

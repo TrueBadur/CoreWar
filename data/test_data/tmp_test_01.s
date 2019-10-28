@@ -1,3 +1,3 @@
 .name		"name"
 .comment 	"comment"
-ld %, r1
+ld %-2147483648, r1
