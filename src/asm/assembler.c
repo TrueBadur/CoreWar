@@ -35,7 +35,6 @@ void	assemble(t_argdata *args)
 		exit(0);
 	}
 	lexdata->labels_num = 50;
-	args->ofname = "../keke";
 	champdata = run_champgenerator(lexdata);
 	write_champ(champdata, args);
 	free_lexdata(lexdata);

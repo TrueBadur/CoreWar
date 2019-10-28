@@ -30,7 +30,7 @@ void		read_params(t_command *cmd, t_list_node **lst)
 		if (token->type != DELIM_ID)
 			break ;
 		else
-			eat(lst, 0);
+			eat(lst, DELIM_ID);
 		cur_par++;
 	}
 }
@@ -41,10 +41,15 @@ void		read_command(t_command *cmd, t_list_node **lst)
 
 	token = eat(lst, 0);
 	if (token->type == LABEL_ID)
+	{
 		cmd->label = token;
+		token = eat(lst, LABEL_ID);
+	}
+	token = eat(lst, 0);
 	if (token->type == INST_ID)
 	{
 		cmd->cmd_type = (char)(token->data);
+		eat(lst, INST_ID);
 		read_params(cmd, lst);
 	}
 	eat(lst, ENDL_ID);

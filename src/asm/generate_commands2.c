@@ -21,7 +21,7 @@ t_token		*eat(t_list_node **lst, char type)
 	token = (*lst)->content;
 	if (!type || token->type == type)
 	{
-		(*lst) = (*lst)->next;
+		(*lst) = !type ? (*lst) : (*lst)->next;
 		return (token);
 	}
 	else
