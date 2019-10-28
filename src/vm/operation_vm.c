@@ -6,7 +6,7 @@
 /*   By: blomo <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/18 15:41:07 by blomo             #+#    #+#             */
-/*   Updated: 2019/10/25 17:22:00 by blomo            ###   ########.fr       */
+/*   Updated: 2019/10/28 13:31:18 by blomo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ void make_ld_lld(t_mngr *mngr, t_car *car, t_t_op *op)
     car->carry = (char)(dir == 0);
     if(mngr->flags & V)
     {
-        ft_printf("P    %d  |  %s %d r%d\n", car->id + 1, op->op == OP_ld ? "ld" : "lld", dir, reg + 1);
+        ft_printf("P    %d | {Blue}%s{eof} %d r%d\n", car->id + 1, op->op == OP_ld ? "ld" : "lld", dir, reg + 1);
         print_addr(mngr, car->pos,op->a1 == IND_CODE ? 5 : 7);
     }
 }
@@ -107,7 +107,7 @@ void make_add_sub(t_mngr *mngr, t_car *car, t_t_op *op)
     }
     if (mngr->flags & V)
     {
-        ft_printf("P    %d  |  %s r%d r%d r%d\n", car->id + 1, op->op == OP_add ? "add" : "sub", reg1 + 1, reg2 + 1, reg3 + 1);
+        ft_printf("P    %d | {Blue}%s{eof} r%d r%d r%d\n", car->id + 1, op->op == OP_add ? "add" : "sub", reg1 + 1, reg2 + 1, reg3 + 1);
         print_addr(mngr, car->pos, 5);
     }
 }
@@ -120,7 +120,7 @@ void make_zjmp(t_mngr *mngr, t_car *car, t_t_op *op)
     arg = get_dir(mngr, car->pos + 1, 2) % IDX_MOD;
     if (mngr->flags & V)
     {
-        ft_printf("P    %d  |  %s %d %s\n", car->id + 1,"zjmp", arg, car->carry == 1 ? "OK" : "FAILED");
+        ft_printf("P    %d | {Blue}%s{eof} %d %s\n", car->id + 1,"zjmp", arg, car->carry == 1 ? "OK" : "FAILED");
         print_addr(mngr, car->pos, 3);
     }
     if(car->carry == 1)

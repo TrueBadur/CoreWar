@@ -6,7 +6,7 @@
 /*   By: blomo <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/16 15:05:59 by blomo             #+#    #+#             */
-/*   Updated: 2019/10/25 19:29:48 by blomo            ###   ########.fr       */
+/*   Updated: 2019/10/28 13:31:18 by blomo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,8 @@ void make_ldi_lldi(t_mngr *mngr, t_car *car, t_t_op *op)
         *(int*)car->regs[arg3].reg = res;
         if (mngr->flags & V)
         {
-            ft_printf("P    %d  |  %s %d %d r%d\n", car->id + 1, op->op == OP_ldi ? "ldi" :"lldi", arg1, arg2, arg3 + 1);
-            ft_printf("        |  -> load from %d + %d = %d (with pc and mod %d)\n", arg1, arg2, arg1 + arg2, (car->pos + arg1 + arg2) % MEM_SIZE);
+            ft_printf("P    %d | {Blue}%s{eof} %d %d r%d\n", car->id + 1, op->op == OP_ldi ? "ldi" :"lldi", arg1, arg2, arg3 + 1);
+            ft_printf("       | -> load from %d + %d = %d (with pc and mod %d)\n", arg1, arg2, arg1 + arg2, (car->pos + arg1 + arg2) % MEM_SIZE);
             print_addr(mngr, car->pos, 2 + step[op->a2 - 1] + step[op->a2 - 1] + step[op->a3 - 1]);
         }
     }
@@ -62,8 +62,8 @@ void make_sti(t_mngr *mngr, t_car *car, t_t_op *op)
         pos = (arg2 + arg3) % IDX_MOD + car->pos;
         if (mngr->flags & V)
         {
-            ft_printf("P    %d  |  %s r%d %d %d\n", car->id + 1, "sti", arg1 + 1, arg2, arg3);
-            ft_printf("        |  -> load from %d + %d = %d (with pc and mod %d)\n", arg2, arg3, arg2 + arg3,
+            ft_printf("P    %d | {Blue}%s{eof} r%d %d %d\n", car->id + 1, "sti", arg1 + 1, arg2, arg3);
+            ft_printf("       | -> store to %d + %d = %d (with pc and mod %d)\n", arg2, arg3, arg2 + arg3,
                       pos % MEM_SIZE);
             print_addr(mngr, car->pos, 3 + step[op->a2 - 1] + step[op->a3 - 1]);
         }
@@ -99,7 +99,7 @@ void make_fork_lfork(t_mngr *mngr, t_car *car, t_t_op *op)
     tl_put(mngr, (short) (mngr->cycle % (MAX_OP_TIME + 1)), ft_lstnew_noc(newcar, sizeof(newcar)), 0);
     if (mngr->flags & V)
     {
-        ft_printf("P    %d  |  %s %d (%d)\n", car->id + 1, op->op == OP_fork ? "fork" : "lfork", arg1,newcar->pos);
+        ft_printf("P    %d | {Blue}%s{eof} %d (%d)\n", car->id + 1, op->op == OP_fork ? "fork" : "lfork", arg1,newcar->pos);
         print_addr(mngr, car->pos, 3);
     }
 }
@@ -134,7 +134,7 @@ void make_and_or_xor(t_mngr *mngr, t_car *car, t_t_op *op)
         car->carry = (char)(*(int *)car->regs[arg3].reg == 0);
         if (mngr->flags & V)
         {
-            ft_printf("P    %d  |  %s %d %d r%d\n", car->id + 1, op->op == OP_and ? "and" : op->op == OP_or ? "or" : "xor", arg1, arg2, arg3 + 1);
+            ft_printf("P    %d | {Blue}%s{eof} %d %d r%d\n", car->id + 1, op->op == OP_and ? "and" : op->op == OP_or ? "or" : "xor", arg1, arg2, arg3 + 1);
             print_addr(mngr, car->pos, 5);
         }
     }
@@ -148,7 +148,7 @@ void make_aff(t_mngr *mngr, t_car *car,t_t_op *op)
     arg1 = mngr->arena[(car->pos + 2) % MEM_SIZE] - 1;
     if (mngr->flags & V)
     {
-        ft_printf("P    %d  |  %s %d\n", car->id + 1, "aff", arg1);
+        ft_printf("P    %d | {Blue}%s{eof} %d\n", car->id + 1, "aff", arg1);
         print_addr(mngr, car->pos, 3);
     }
     if (check_reg(arg1))

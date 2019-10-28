@@ -6,7 +6,7 @@
 /*   By: blomo <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/14 16:26:51 by ehugh-be          #+#    #+#             */
-/*   Updated: 2019/10/25 19:53:06 by blomo            ###   ########.fr       */
+/*   Updated: 2019/10/28 16:37:53 by blomo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,17 +92,18 @@ void	dump_arena(t_mngr *mngr)
         }
         printf("\n");
     }
-    exit(0);
+   safe_exit(mngr,CALL_DUMP);
 }
 
 #define DUMP_TIME 1
 #define CYCLE_DEBUG 0
+
 void	game_main(t_mngr *mngr)
 {
 	while (mngr->num_cars)
 	{
-	    if (CYCLE_DEBUG)
-		    ft_printf("Now in cycle {Red}%d{eof}\n", mngr->cycle);
+		if (CYCLE_DEBUG)
+			ft_printf("Now in cycle {Red}%d{eof}\n", mngr->cycle);
 	    make_one_turn(mngr);
         if (mngr->flags & DUMP && mngr->cycle == mngr->dump_nbr)
             dump_arena(mngr);
