@@ -16,9 +16,9 @@
 #include "champ_generator.h"
 #include "writer.h"
 
-void 	assemble(t_argdata *args)
+void	assemble(t_argdata *args)
 {
-	int 		err;
+	int			err;
 	t_lexdata	*lexdata;
 	t_champdata	*champdata;
 
@@ -29,13 +29,12 @@ void 	assemble(t_argdata *args)
 			ft_printf("ERROR=%d\n", err);
 		exit(err);
 	}
-    if (lexdata->debug_done)
-    {
-        ft_printf("run_lexer - ok\n");
-        exit(0);
-    }
-    lexdata->labels_num = 50;
-    args->ofname = "../keke";
+	if (lexdata->debug_done)
+	{
+		ft_printf("run_lexer - ok\n");
+		exit(0);
+	}
+	lexdata->labels_num = 50;
 	champdata = run_champgenerator(lexdata);
 	write_champ(champdata, args);
 	free_lexdata(lexdata);

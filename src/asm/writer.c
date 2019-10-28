@@ -33,8 +33,13 @@ void	write_champ(t_champdata *champdata, t_argdata *args)
 {
 	int fd;
 
-	fd = (open(args->ofname, O_CREAT | O_WRONLY | O_TRUNC, S_IRWXU | S_IRWXG
-	| S_IRWXO));
+	if ((fd = (open(args->ofname,
+			O_CREAT | O_WRONLY | O_TRUNC, S_IRWXU | S_IRWXG | S_IRWXO))) == -1)
+	{
+		ft_fdprintf(STDERR_FILENO, "Cannot create file(((\n");
+		exit(2);
+	}
+
 	write_uint32_to_bin(fd,0xea83f3);
 	write(fd, champdata->champ_name, 128);
 	write(fd, "\0\0\0\0", 4);
