@@ -24,7 +24,7 @@ int		choice_cmd(t_lexdata *dat, char *line)
 //		ft_printf(LEX_ERR_MSG_BEFORE_CMD);
 //		return (ERR_LEX__ID_BEFORE_CMD);
 //	}
-	rls = ERROR_LEX_UNDEFINE_CMD;
+	rls = ERR_LEX__ID_UNDEFINE_CMD;
 	if ((cur = ft_strstr(line, NAME_CMD_STRING)))
 		rls = process_cmd(dat, cur + ft_strlen(NAME_CMD_STRING), CMD_ID_NAME);
 	else if ((cur = ft_strstr(line, COMMENT_CMD_STRING)))
@@ -54,10 +54,7 @@ int     do_inst(t_lexdata *dat, int idx, int *inst_set)
 	// or '#''\0' can be for inst of 0 args
 	// ',' bad in any case
 	if(dat->cur_line[idx] == SEPARATOR_CHAR)
-	{
-		ft_printf(LEX_ERR_MSG_BAD_AFTER_INST);
 		return (ERR_LEX__ID_BAD_AFTER_INST);
-	}
 	dat->end = idx;
 	len = dat->end - dat->srt;
 	if (dat->debug_happend)

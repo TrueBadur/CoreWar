@@ -38,7 +38,8 @@ int		check_line(t_lexdata *dat, char *line)
 		{
 			if (line[idx] == CMD_START) // and dat->srt == -1
 			    return (do_cmd(dat, line));
-			else if (skip_char(line[idx]) || special_char(line[idx]))
+			else if (dat->srt != idx
+			&& (skip_char(line[idx]) || special_char(line[idx])))
 			{
 			    if ((err = do_inst(dat, idx, &inst_set)))
                     return (err);
@@ -79,7 +80,7 @@ int		run_lexer(char *fname, t_lexdata **dat_out)
 	if ((tmp = init_dat(&dat)))
 		return (clean_n_exit(dat, tmp));
 	if (get_fd(fname, dat))
-		return (clean_n_exit(dat, ERROR_LEX_FD));
+		return (clean_n_exit(dat, ERR_LEX__ID_FD));
 	while ((tmp = get_next_line(dat->fd, &line)) == 1)
 	{
 		if ((tmp = add_line(dat, line)))
@@ -88,7 +89,7 @@ int		run_lexer(char *fname, t_lexdata **dat_out)
 			return (clean_n_exit(dat, tmp));
 	}
 	if (tmp == -1)
-		return (clean_n_exit(dat, ERROR_LEX_GNL));
+		return (clean_n_exit(dat, ERR_LEX__ID_GNL));
 	if ((tmp = update_label(dat)))
 		return (clean_n_exit(dat, tmp));
 	if (dat->debug_out)

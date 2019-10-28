@@ -38,13 +38,14 @@ void	setup_dat(t_lexdata *dat)
 	dat->champ_name = NULL;
 	dat->champ_comment = NULL;
 	dat->cur_line = NULL;
+	dat->err_line = -1;
 }
 
 int		init_dat(t_lexdata **dat)
 {
 	*dat = (t_lexdata *)malloc(sizeof(t_lexdata));
 	if (!*dat)
-		return (ERROR_LEX_MALLOC_DAT);
+		return (ERR_LEX__ID_MALLOC_DAT);
 	setup_dat(*dat);
 	return (0);
 }

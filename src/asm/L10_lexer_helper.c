@@ -20,7 +20,7 @@ int		add_line(t_lexdata *dat, char *line)
 		ft_printf("gnl = %s\n", line);
 	node = ft_lstnew_node(NULL, 0);
 	if (!node)
-		return (ERROR_LEX_NULL_NODE);
+		return (ERR_LEX__ID_NULL_NODE);
 	node->content = line;
 	ft_lstaddend(&(dat->lines), node);
 	return (0);

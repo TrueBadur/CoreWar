@@ -23,5 +23,5 @@ int		get_fd(char *fname, t_lexdata *dat)
 			ft_printf("lexer_fd = %d\n", fd);
 		return (0);
 	}
-	return (ERROR_LEX_FD);
+	return (ERR_LEX__ID_FD);
 }

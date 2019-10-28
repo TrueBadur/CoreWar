@@ -46,10 +46,7 @@ int		add_label(t_lexdata *dat)
 	char	*data;
 
 	if (dat->srt == dat->end)
-	{
-		ft_printf(LEX_ERR_MSG_LABEL_EMPTY);
 		return (ERR_LEX__ID_LABEL_EMPTY);
-	}
 
 	idx = dat->end;
 	while (--idx >= dat->srt)
@@ -61,7 +58,7 @@ int		add_label(t_lexdata *dat)
 
 	data = ft_strnew(dat->end - dat->srt);
 	if (!data)
-		return (ERROR_LEX_MALLOC_STR);
+		return (ERR_LEX__ID_MALLOC_STR);
 	ft_strncpy(data, dat->cur_line + dat->srt, dat->end - dat->srt);
 
 	if ((tmp = add_token_str(dat, TOKEN_TYPE_LABEL, data)))
