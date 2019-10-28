@@ -86,7 +86,6 @@
 
 # include "ft_list.h"
 # include "libft.h"
-//# include "libft_full.h"
 # include <fcntl.h>
 # include "op.h"
 
@@ -119,6 +118,7 @@ typedef struct		s_lexdata
 	char 			*champ_comment;
 	t_list			label_list;
 	t_list			lines;
+	unsigned		labels_num;
 
 	char			*cur_line;
 	int				srt;

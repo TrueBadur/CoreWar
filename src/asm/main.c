@@ -33,6 +33,6 @@ int	main(int argc, char **argv)
 		assemble(args);
 	else
 		disassemble(args);
-	free_argdata(args);
+	//free_argdata(args);
     return (0);
 }

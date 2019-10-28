@@ -1,12 +1,8 @@
-//
-// Created by Jasper Leann on 11/10/2019.
-//
+#ifndef DISAAEMBLER_H
+# define DISAAEMBLER_H
 
-#ifndef COREWAR_DISAAEMBLER_H
-#define COREWAR_DISAAEMBLER_H
-
-#include "read_args.h"
+# include "read_args.h"
 
 void	disassemble(t_argdata *args);
 
-#endif //COREWAR_DISAAEMBLER_H
+#endif
