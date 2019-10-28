@@ -13,6 +13,7 @@
 #ifndef LIBFT_H
 # define LIBFT_H
 # include <stdlib.h>
+# include "ft_list.h"
 # include "get_next_line.h"
 # include "t_vec.h"
 # include "btavl.h"
@@ -20,7 +21,6 @@
 # include <unistd.h>
 # include <string.h>
 # include "ft_printf.h"
-# include "ft_list.h"
 //# include "t_list.h"
 # include "libstd.h"
 
