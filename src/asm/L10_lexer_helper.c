@@ -57,6 +57,8 @@ int		special_char(char cur)
 {
 	if (cur == COMMENT_CHAR)
 		return (1);
+	if (cur == COMMENT_CHAR_ADV)
+		return (1);
 	if (cur == DIRECT_CHAR)
 		return (1);
 	if (cur == SEPARATOR_CHAR)
@@ -71,6 +73,8 @@ int		special_char(char cur)
 int		end_line_or_separ(char cur)
 {
 	if (cur == COMMENT_CHAR)
+		return (1);
+	if (cur == COMMENT_CHAR_ADV)
 		return (1);
 	if (cur == '\0')
 		return (1);
@@ -88,7 +92,7 @@ int		end_line(char cur)
 
 int		check_comment(t_lexdata *dat, char *cur)
 {
-	if (*cur == COMMENT_CHAR)
+	if (*cur == COMMENT_CHAR || *cur == COMMENT_CHAR_ADV)
 	{
 		if (dat->debug_comment)
 			ft_printf("\t ✂️  ✂️  ✂️  ✂️  COMMENT_CHAR=%s\n", cur);
