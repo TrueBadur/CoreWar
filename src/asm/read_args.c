@@ -77,5 +77,6 @@ t_argdata		*read_args(int argc, char **argv)
 	check_for_conflict(res);
 	if (!res->flags.fdisassemble && !res->flags.fassemble)
 		check_extension(res);
+	create_ofname(res);
 	return (res);
 }

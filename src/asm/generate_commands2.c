@@ -29,11 +29,11 @@ t_token		*eat(t_list_node **lst, char type)
 	return (NULL);
 }
 
-size_t 		calc_command_size(t_command *cmd)
+size_t		calc_command_size(t_command *cmd)
 {
 	t_op	*cur_op;
-	size_t 	size;
-	int cur_par;
+	size_t	size;
+	int		cur_par;
 
 	cur_op = get_op_info(cmd->cmd_type);
 	size = 1;
@@ -43,7 +43,7 @@ size_t 		calc_command_size(t_command *cmd)
 	{
 		if (cmd->params[cur_par]->sub_type == T_REG)
 			size += 1;
-		else if (cmd->params[cur_par]->sub_type== T_IND)
+		else if (cmd->params[cur_par]->sub_type == T_IND)
 			size += 2;
 		else if (cmd->params[cur_par]->sub_type == T_DIR)
 			size += cur_op->t_dir_size ? 2 : 4;

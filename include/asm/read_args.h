@@ -12,7 +12,7 @@
 #ifndef READ_ARGS_H
 # define READ_ARGS_H
 
-#define USAGE "SOME USAGE" // TODO: Rewrite
+#define USAGE "-a - force assemble\n-d - force disassemble\n-o - set output"
 #define OUTPUT_FNAME_EXPECTED_ERR "Output filename expected!"
 #define INCOMPATIBLE_ARG_COMB_ERR "Incompatible arguments combination!"
 #define NO_FILE_PROVIDED_ERR "No file provided!"
@@ -34,5 +34,5 @@ typedef struct	s_argdata
 }				t_argdata;
 
 t_argdata	*read_args(int argc, char **argv);
-
+void		create_ofname(t_argdata *args);
 #endif
