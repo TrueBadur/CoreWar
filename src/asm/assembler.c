@@ -23,18 +23,12 @@ void	assemble(t_argdata *args)
 	t_champdata	*champdata;
 
 	if ((err = run_lexer(args->fname, &lexdata)))
-	{
-		ft_printf("ERROR IN LEXER!!!");
-		if (lexdata->debug_err)
-			ft_printf("ERROR=%d\n", err);
 		exit(err);
-	}
 	if (lexdata->debug_done)
 	{
 		ft_printf("run_lexer - ok\n");
 		exit(0);
 	}
-	lexdata->labels_num = 50;
 	champdata = run_champgenerator(lexdata);
 	write_champ(champdata, args);
 	free_lexdata(lexdata);

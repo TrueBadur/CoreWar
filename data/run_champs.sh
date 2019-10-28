@@ -6,12 +6,10 @@ CHS="./champs"
 
 o_flag=''
 c_flag=''
-t_flag=''
-while getopts 'oct' flag; do
+while getopts 'oc' flag; do
   case "${flag}" in
     o) o_flag='true' ;;
     c) c_flag='true' ;;
-    t) t_flag='true' ;;
   esac
 done
 
@@ -29,9 +27,12 @@ do
   echo -e "\n\033[0;36m"
   #../src/asm/build/asm $f
   if [ ! -z "${c_flag}" ]; then
-    $PATH_ASM $f
-    echo -e "\n\033[0;35m"
     $PATH_ASM_ORG $f
+    mv $(dirname $f)/$(basename $f .s).cor $(dirname $f)/org_$(basename $f .s).cor
+    echo -e "\n\033[0;35m"
+    $PATH_ASM $f
+    echo $(dirname $f)/$(basename $f .s).cor vs $(dirname $f)/org_$(basename $f .s).cor
+    cmp -l $(dirname $f)/$(basename $f .s).cor $(dirname $f)/org_$(basename $f .s).cor
   elif [ ! -z "${o_flag}" ]; then
     $PATH_ASM_ORG $f
   else
