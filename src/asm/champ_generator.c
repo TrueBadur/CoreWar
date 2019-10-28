@@ -29,11 +29,11 @@ t_champdata	*run_champgenerator(t_lexdata *data)
 
 void		raise_error_sem(const char *str, t_token *token)
 {
-    if (token)
-        ft_printf("%s at: (%d, %d)\n",str, token->line_num, token->pos_num);
-    else
-        ft_printf("%s\n", str);
-    exit(2);
+	if (token)
+		ft_printf("%s at: (%d, %d)\n", str, token->line_num, token->pos_num);
+	else
+		ft_printf("%s\n", str);
+	exit(2);
 }
 
 void		free_champdata(t_champdata *data)

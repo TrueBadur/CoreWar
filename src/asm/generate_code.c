@@ -45,10 +45,10 @@ void		write_int32(char **dest, int32_t value)
 	write_int16(dest, ((int16_t *)(&value))[0]);
 }
 
-void		write_command(char	*dest, t_command *cmd)
+void		write_command(char *dest, t_command *cmd)
 {
 	t_op	*opdata;
-	char 	cur_par;
+	char	cur_par;
 
 	opdata = get_op_info(cmd->cmd_type);
 	*dest++ = cmd->cmd_type;
@@ -79,7 +79,6 @@ void		generate_code(t_champdata *data)
 
 	data->exec_code = ft_memalloc(data->size);
 	cur_cmd = data->commands.begin;
-
 	while (cur_cmd)
 	{
 		cmd = cur_cmd->content;
