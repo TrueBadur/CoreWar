@@ -87,7 +87,7 @@ int		long_name(t_lexdata *dat, char *start, t_list *lines, char **to_set)
 
 	out = ft_strnew(len);		// malloc
 	if (!out)
-		return (ERROR_LEX_MALLOC_STR);
+		return (ERR_LEX__ID_MALLOC_STR);
 		
 	get_copy(start, lines, out);
 

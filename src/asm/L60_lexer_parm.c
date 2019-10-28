@@ -19,7 +19,7 @@ int		add_token_parm_label(t_lexdata *dat, char token_type, int idx_srt)
 
 	data = ft_strnew(dat->end - dat->srt - idx_srt);
 	if (!data)
-		return (ERROR_LEX_MALLOC_STR);
+		return (ERR_LEX__ID_MALLOC_STR);
 	ft_strncpy(data, dat->cur_line + dat->srt + idx_srt, dat->end - dat->srt - idx_srt);
 	if ((tmp = add_token_str(dat, token_type, data)))
 		return (tmp);
@@ -79,10 +79,7 @@ int		add_parm(t_lexdata *dat)
 	if (*line == 'r')
 	{
 		if (check_atoi(&val, line + 1))
-		{
-			ft_printf(LEX_ERR_MSG_ATOI);
 			return (ERR_LEX__ID_ATOI);
-		}
 		if ((tmp = add_token_data(dat, TOKEN_TYPE_P_R, val)))
 			return (tmp);
 		if (dat->debug_happend)
@@ -102,10 +99,7 @@ int		add_parm(t_lexdata *dat)
 		else
 		{
 			if (check_atoi(&val, line + 1))
-			{
-				ft_printf(LEX_ERR_MSG_ATOI);
 				return (ERR_LEX__ID_ATOI);
-			}
 			if ((tmp = add_token_data(dat, TOKEN_TYPE_P_D_I, val)))
 				return (tmp);
 			if (dat->debug_happend)
@@ -127,10 +121,7 @@ int		add_parm(t_lexdata *dat)
 		else
 		{
 			if (check_atoi(&val, line))
-			{
-				ft_printf(LEX_ERR_MSG_ATOI);
 				return (ERR_LEX__ID_ATOI);
-			}
 			if ((tmp = add_token_data(dat, TOKEN_TYPE_P_I_I, val)))
 				return (tmp);
 			if (dat->debug_happend)

@@ -31,6 +31,5 @@ int		add_inst(t_lexdata *dat)
 			return (0);
 		}
 	}
-	ft_printf(LEX_ERR_MSG_INST_NOT_FOUND, tmp, line);
 	return (ERR_LEX__ID_INST_NOT_FOUND);
 }
