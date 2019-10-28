@@ -69,6 +69,8 @@ void		print_error(t_lexdata *dat, int err)
 		ft_printf(LEX_ERR_MSG_GNL);
 	else if (err == ERR_LEX__ID_MALLOC_DAT)
 		ft_printf(LEX_ERR_MSG_MALLOC_DAT);
+	else if (err == ERR_LEX__ID_EMPTY_PARAM)
+		ft_printf(LEX_ERR_MSG_EMPTY_PARAM);
 	ft_printf("\n\033[0m");
 }
 
