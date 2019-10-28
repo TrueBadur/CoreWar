@@ -48,11 +48,13 @@
 # define ERR_LEX__ID_LABEL_EMPTY 20
 # define LEX_ERR_MSG_LABEL_EMPTY		"Empty label"
 # define ERR_LEX__ID_ATOI 21
-# define LEX_ERR_MSG_ATOI		"Empty param"
+# define LEX_ERR_MSG_ATOI		"No numerical param"
 # define ERR_LEX__ID_BEFORE_CMD 22
 # define LEX_ERR_MSG_BEFORE_CMD		"Something before command"
 # define ERR_LEX__ID_BAD_AFTER_INST 23
 # define LEX_ERR_MSG_BAD_AFTER_INST	"Bad char after inst"
+# define ERR_LEX__ID_EMPTY_PARAM 24
+# define LEX_ERR_MSG_EMPTY_PARAM	"Empty param"
 
 
 #define BEGIN_ID 0
@@ -107,6 +109,7 @@ typedef struct		s_lexdata
 	char			debug_gnl;
 	char			debug_comment;
 	char			debug_name;
+	char			debug_atoi;
 	char			debug_happend;
 	char			debug_out;
     char			debug_done;
