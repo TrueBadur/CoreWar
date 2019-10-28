@@ -107,3 +107,9 @@ void	debug_label_list(t_lexdata *dat)
 		idx += 1;
 	}
 }
+
+//void	print_error(int err_id, char *str, ...)
+//{
+//	ft_printf(str, ...);
+//	return (err_id);
+//}

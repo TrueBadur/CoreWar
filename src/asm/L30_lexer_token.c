@@ -84,7 +84,7 @@ int		add_token(t_lexdata *dat, char token_type, int data, char *label)
 	to_add.label = label;
 	node = ft_lstnew_node(&to_add, sizeof(t_token));
 	if (!node)
-		return (ERROR_LEX_NULL_NODE);
+		return (ERR_LEX__ID_NULL_NODE);
 	ft_lstaddend(&(dat->token_list), node);
 	return (0);
 }
@@ -119,7 +119,7 @@ int		add_token_str(t_lexdata *dat, char token_type, char *label)
 		// for label idx. Check func update_label
 		node = ft_lstnew_node(NULL, 0);
 		if (!node)
-			return (ERROR_LEX_NULL_NODE);
+			return (ERR_LEX__ID_NULL_NODE);
 		node->content = dat->token_list.end->content;
 		ft_lstaddend(&(dat->label_list), node);
 	}
@@ -192,9 +192,12 @@ int     update_label(t_lexdata *dat)
 		tkn = (t_token *)(node->content);
 		if (tkn->token_type == TOKEN_TYPE_P_D_L || tkn->token_type == TOKEN_TYPE_P_I_L)
 		{
+			dat->cur_line = tkn->label;
+			dat->err_line = tkn->line_num;
+			dat->srt = tkn->pos_num;
 			tmp = get_idx_label(dat, tkn->label);
 			if (tmp < 0)
-				return (ERROR_LEX_LABEL_UPDATE);
+				return (ERR_LEX__ID_LABEL_UPDATE);
 			tkn->data = tmp;
 		}
 	}
