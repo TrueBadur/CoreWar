@@ -4,8 +4,9 @@
 
 #ifndef COREWAR_LEXER_H
 # define COREWAR_LEXER_H
-# define CMD_START '.'
-# define ARG_CMD_START '"'
+# define CMD_START			'.'
+# define ARG_CMD_START		'"'
+# define COMMENT_CHAR_ADV	';'
 
 # define ERR_LEX__ID_BAD_ARG_START 1
 # define ERR_LEX_MSG_BAD_ARG_START 		"bad char in start of argument. \"%s\""
