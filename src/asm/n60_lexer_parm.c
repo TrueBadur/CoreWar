@@ -118,8 +118,12 @@ int		add_parm(t_lexdata *dat)
 			ft_printf("\t\t\t\t\t\t\t\thappend= parm_reg\n");
 		return (0);
 	}
-	else if (*line == DIRECT_CHAR && (err = process_dir(dat, line)))
-		return (err);
+	else if (*line == DIRECT_CHAR)
+	{
+		if ((err = process_dir(dat, line)))
+			return (err);
+		return (0);
+	}
 	else if ((err = process_indir(dat, line)))
 		return (err);
 	return (0);

@@ -181,5 +181,9 @@ void				process_token_type(char tkn_typ, char *type,
 					char *sub, char *val);
 int					update_label(t_lexdata *dat);
 int					get_idx_label(t_lexdata *dat, char *label);
+int					add_parm(t_lexdata *dat);
+int					choice_cmd(t_lexdata *dat, char *line);
+int					add_inst(t_lexdata *dat);
+int					add_label(t_lexdata *dat);
 
 #endif

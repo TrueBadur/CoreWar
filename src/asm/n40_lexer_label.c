@@ -26,16 +26,6 @@ int		not_label_char(char to_test)
 	return (1);
 }
 
-void	debug_add_label(t_token *tkn)
-{
-	ft_printf("node_ADD\n");
-	ft_printf("\ttype= %2d\n", tkn->type);
-	ft_printf("\tsub_type= %2d\n", tkn->sub_type);
-	ft_printf("\tline_num= %2d\n", tkn->line_num);
-	ft_printf("\tpos_num= %2d\n", tkn->pos_num);
-	ft_printf("\tdata= %s\n", tkn->data);
-}
-
 int		add_label(t_lexdata *dat)
 {
 	int		idx;
