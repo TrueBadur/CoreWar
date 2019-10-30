@@ -43,6 +43,12 @@ t_car	*resurect_car(t_mngr *mngr);
 void    print_live(t_mngr *mngr,t_car *car, int say, int arg);
 void print_addr(t_mngr *mngr, int pos, int adv);
 void print_st(t_car *car, int reg1, int reg2, t_t_op *op);
+void copy_reg_to_arena(t_mngr *mngr,t_car *car, int reg1, int reg2);
+int get_arg(t_mngr *mngr, t_car *car, int op, int pos);
+void print_sti(t_car *car, int arg1, int arg2, int arg3);
+int get_arg_indir(t_mngr *mngr, t_car *car, int op, int pos);
+
+
 
 
 

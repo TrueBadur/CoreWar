@@ -6,7 +6,7 @@
 /*   By: blomo <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/16 15:05:59 by blomo             #+#    #+#             */
-/*   Updated: 2019/10/28 13:31:18 by blomo            ###   ########.fr       */
+/*   Updated: 2019/10/30 17:06:56 by blomo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,24 +21,24 @@ void make_ldi_lldi(t_mngr *mngr, t_car *car, t_t_op *op)
     int arg2;
     int arg3;
     int res;
-    static char step[4] = {1, 2, 2};
+    static char step[3] = {ARG_REG_S, IND_SIZE, IND_SIZE};
 
-    arg3 = mngr->arena[(car->pos + 2 + step[op->a1 - 1] + step[op->a2 - 1]) % MEM_SIZE] - 1;
+    res = OP_BASE + step[op->a1 - 1] + step[op->a2 - 1];
+    arg3 = mngr->arena[(car->pos + res) % MEM_SIZE] - 1;
     if (check_reg(arg3))
     {
-        if (op->a1 == DIR_CODE)
-            arg1 = get_dir(mngr, car->pos + 2, 2);
-        else
-            arg1 = (op->a1 == REG_CODE) ? get_reg(mngr, car, 2) : get_indir(mngr, car, 2);
-        arg2 = (op->a2 == REG_CODE) ? get_reg(mngr, car, 2 + step[op->a1 - 1]) : get_dir(mngr, car->pos + 2 + step[op->a1 - 1], 2);
+		arg1 = get_arg_indir(mngr, car, op->a1, OP_BASE);
+		arg2 = get_arg_indir(mngr, car, op->a1, OP_BASE + step[op->a1 - 1]);
         res = (car->pos + arg1 + arg2) % (op->op == OP_ldi ? IDX_MOD : INT_MAX);
-        res = get_dir(mngr, res,4);
+        res = get_dir(mngr, res,DIR_SIZE);
         *(int*)car->regs[arg3].reg = res;
-        if (mngr->flags & V)
+        if (mngr->flags & FLAG_V)
         {
-            ft_printf("P    %d | {Blue}%s{eof} %d %d r%d\n", car->id + 1, op->op == OP_ldi ? "ldi" :"lldi", arg1, arg2, arg3 + 1);
-            ft_printf("       | -> load from %d + %d = %d (with pc and mod %d)\n", arg1, arg2, arg1 + arg2, (car->pos + arg1 + arg2) % MEM_SIZE);
-            print_addr(mngr, car->pos, 2 + step[op->a2 - 1] + step[op->a2 - 1] + step[op->a3 - 1]);
+            ft_printf("P    %d | {Blue}%s{eof} %d %d r%d\n", car->id + 1,
+            		op->op == OP_ldi ? "ldi" :"lldi", arg1, arg2, arg3 + 1);
+            ft_printf("       | -> load from %d + %d = %d "
+					  "(with pc and mod %d)\n", arg1, arg2, arg1 + arg2,
+					  (car->pos + arg1 + arg2) % MEM_SIZE);
         }
     }
 }
@@ -49,28 +49,24 @@ void make_sti(t_mngr *mngr, t_car *car, t_t_op *op)
     int arg2;
     int arg3;
     int pos;
-    static char step[4] = {1, 2, 2};
+    static char step[3] = {ARG_REG_S, IND_SIZE, IND_SIZE};
 
-    arg1 = mngr->arena[(car->pos + 2) % MEM_SIZE] - 1;
+    arg1 = mngr->arena[(car->pos + OP_BASE) % MEM_SIZE] - 1;
     if (check_reg(arg1))
     {
+    	pos = OP_BASE + ARG_REG_S;
         if (op->a2 == DIR_CODE)
-            arg2 = get_dir(mngr, car->pos + 3, 2);
+            arg2 = get_dir(mngr, car->pos + pos, IND_SIZE);
         else
-            arg2 = (op->a2 == REG_CODE) ? get_reg(mngr, car, 3) : get_indir(mngr, car, 3);
-        arg3 = (op->a3 == REG_CODE) ? get_reg(mngr, car, 3 + step[op->a2 - 1]) : get_dir(mngr, car->pos + 3 + step[op->a2 - 1], 2);
+            arg2 = (op->a2 == REG_CODE) ? get_reg(mngr, car, pos) :
+            		get_indir(mngr, car, pos);
+        pos += step[op->a2 - 1];
+        arg3 = (op->a3 == REG_CODE) ? get_reg(mngr, car, pos) :
+        		get_dir(mngr, car->pos + pos, IND_SIZE);
         pos = (arg2 + arg3) % IDX_MOD + car->pos;
-        if (mngr->flags & V)
-        {
-            ft_printf("P    %d | {Blue}%s{eof} r%d %d %d\n", car->id + 1, "sti", arg1 + 1, arg2, arg3);
-            ft_printf("       | -> store to %d + %d = %d (with pc and mod %d)\n", arg2, arg3, arg2 + arg3,
-                      pos % MEM_SIZE);
-            print_addr(mngr, car->pos, 3 + step[op->a2 - 1] + step[op->a3 - 1]);
-        }
-        arg2 = -1;
-        while (++arg2 < REG_SIZE)
-            mngr->arena[(pos + 3 - arg2  + MEM_SIZE) % MEM_SIZE] = car->regs[arg1].reg[arg2];
-
+        if (mngr->flags & FLAG_V)
+			print_sti(car, arg1, arg2, arg3);
+		copy_reg_to_arena(mngr, car, arg1, pos);
     }
 }
 
@@ -84,24 +80,22 @@ void make_fork_lfork(t_mngr *mngr, t_car *car, t_t_op *op)
     {
         if(!(newcar = (t_car*)malloc(sizeof(t_car))))
             safe_exit(mngr, MALLOC_ERROR);
-
     }
     ft_memcpy(newcar, car, sizeof(t_car));
     ft_vecpush(mngr->cars, &newcar, sizeof(newcar));
     if (op->op == 12)
-        arg1 = (get_dir(mngr, car->pos + 1, 2)) % IDX_MOD;
+        arg1 = (get_dir(mngr, car->pos + (int)OP_SIZE, IND_SIZE)) % IDX_MOD;
     else
-        arg1 = get_dir(mngr, car->pos + 1, 2);
+        arg1 = get_dir(mngr, car->pos + (int)OP_SIZE, IND_SIZE);
     mngr->num_cars++;
     newcar->pos = (arg1 + car->pos) % MEM_SIZE;
     newcar->just_forked = 1;
     newcar->id = mngr->num_cars - 1;
-    tl_put(mngr, (short) (mngr->cycle % (MAX_OP_TIME + 1)), ft_lstnew_noc(newcar, sizeof(newcar)), 0);
-    if (mngr->flags & V)
-    {
-        ft_printf("P    %d | {Blue}%s{eof} %d (%d)\n", car->id + 1, op->op == OP_fork ? "fork" : "lfork", arg1,newcar->pos);
-        print_addr(mngr, car->pos, 3);
-    }
+    tl_put(mngr, (short) (mngr->cycle % (MAX_OP_TIME + 1)),
+    		ft_lstnew_noc(newcar, sizeof(newcar)), 0);
+    if (mngr->flags & FLAG_V)
+        ft_printf("P    %d | {Blue}%s{eof} %d (%d)\n", car->id + 1,
+        		op->op == OP_fork ? "fork" : "lfork", arg1,newcar->pos);
 }
 
 void make_and_or_xor(t_mngr *mngr, t_car *car, t_t_op *op)
@@ -110,33 +104,25 @@ void make_and_or_xor(t_mngr *mngr, t_car *car, t_t_op *op)
     unsigned arg2;
     int arg3;
     int res;
-    static char step[3] = {1, 4, 2};
+    static char step[3] = {ARG_REG_S, DIR_SIZE, IND_SIZE};
 
-    res = 0;
-    arg3 = mngr->arena[(car->pos + 2 + step[op->a1 - 1] + step[op->a2 - 1]) % MEM_SIZE] - 1;
+    res = OP_BASE + step[op->a1 - 1] + step[op->a2 - 1];
+    arg3 = mngr->arena[(car->pos + res) % MEM_SIZE] - 1;
     if (check_reg(arg3))
     {
-        if (op->a1 == DIR_CODE)
-            arg1 = get_dir(mngr, car->pos + 2, 4);
-        else
-            arg1 = (op->a1 == REG_CODE) ? get_reg(mngr, car, 2) : get_indir(mngr, car, 2);
-        if (op->a2 == DIR_CODE)
-            arg2 = get_dir(mngr, car->pos + 2 + step[op->a1 - 1], 4);
-        else
-            arg2 = (op->a1 == REG_CODE) ? get_reg(mngr, car, 2 + step[op->a1 - 1]) : get_indir(mngr, car, 2 + step[op->a1 - 1]);
+        arg1 = get_arg(mngr, car, op->a1, OP_BASE);
+		arg2 = get_arg(mngr, car, op->a2, OP_BASE + step[op->a1 - 1]);
         if(op->op == OP_and)
-            res = (int)(arg1 & arg2);
+			*(int*)car->regs[arg3].reg = (int)(arg1 & arg2);
         else if (op->op == OP_or)
-            res = (int)(arg1 | arg2);
+			*(int*)car->regs[arg3].reg = (int)(arg1 | arg2);
         else if (op->op == OP_xor)
-            res = (int)(arg1 ^ arg2);
-       *(int*)car->regs[arg3].reg = res;
+			*(int*)car->regs[arg3].reg = (int)(arg1 ^ arg2);
         car->carry = (char)(*(int *)car->regs[arg3].reg == 0);
-        if (mngr->flags & V)
-        {
-            ft_printf("P    %d | {Blue}%s{eof} %d %d r%d\n", car->id + 1, op->op == OP_and ? "and" : op->op == OP_or ? "or" : "xor", arg1, arg2, arg3 + 1);
-            print_addr(mngr, car->pos, 5);
-        }
+        if (mngr->flags & FLAG_V)
+            ft_printf("P    %d | {Blue}%s{eof} %d %d r%d\n", car->id + 1,
+            		op->op == OP_and ? "and" : op->op == OP_or ? "or" : "xor",
+            		arg1, arg2, arg3 + 1);
     }
 }
 
@@ -145,12 +131,12 @@ void make_aff(t_mngr *mngr, t_car *car,t_t_op *op)
     int arg1;
 
     (void)op;
-    arg1 = mngr->arena[(car->pos + 2) % MEM_SIZE] - 1;
-    if (mngr->flags & V)
+    arg1 = mngr->arena[(car->pos + OP_BASE) % MEM_SIZE] - 1;
+    if (mngr->flags & FLAG_V)
     {
-        ft_printf("P    %d | {Blue}%s{eof} %d\n", car->id + 1, "aff", arg1);
-        print_addr(mngr, car->pos, 3);
+        ft_printf("P    %d | {Blue}%s{eof} %d\n", car->id + 1, "aff",
+        		arg1 + 1);
     }
     if (check_reg(arg1))
-        write(STDOUT_FILENO, car->regs[arg1].reg, REG_SIZE);
+        write(STDOUT_FILENO, (char*)car->regs[arg1].reg, ARG_REG_S);
 }
