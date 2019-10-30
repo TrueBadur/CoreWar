@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include "champ_generator.h"
-#include "debug_funcs.h"
 
 void		read_params(t_command *cmd, t_list_node **lst)
 {
@@ -23,15 +22,12 @@ void		read_params(t_command *cmd, t_list_node **lst)
 	cur_par = 0;
 	while (cur_par < opdata->params_num)
 	{
+		if (cur_par != 0)
+			eat(lst, DELIM_ID);
 		token = eat(lst, PARAM_ID);
 		if (((uint8_t)(token->sub_type) & opdata->paramtypes[cur_par]) == 0)
 			raise_error_sem(INVALID_PAR_TYPE_ERR, token);
 		cmd->params[cur_par] = token;
-		token = (*lst)->content;
-		if (token->type != DELIM_ID)
-			break ;
-		else
-			eat(lst, DELIM_ID);
 		cur_par++;
 	}
 }
@@ -44,7 +40,7 @@ void		read_command(t_command *cmd, t_list_node **lst)
 	if (token->type == LABEL_ID)
 	{
 		cmd->label = token;
-		token = eat(lst, LABEL_ID);
+		eat(lst, LABEL_ID);
 	}
 	token = eat(lst, 0);
 	if (token->type == INST_ID)
@@ -120,6 +116,5 @@ void		generate_commands(t_champdata *cdata, t_lexdata *ldata)
 	larr = ft_memalloc(sizeof(size_t) * ldata->labels_num);
 	read_tokens(ldata, cdata, larr);
 	replace_labels(&(cdata->commands), larr);
-	//print_labels(larr, ldata->labels_num);
 	free(larr);
 }
