@@ -50,10 +50,7 @@ void make_ld_lld(t_mngr *mngr, t_car *car, t_t_op *op)
         *(int *) car->regs[reg].reg = dir;
     car->carry = (char)(dir == 0);
     if(mngr->flags & V)
-    {
         ft_printf("P    %d | {Blue}%s{eof} %d r%d\n", car->id + 1, op->op == OP_ld ? "ld" : "lld", dir, reg + 1);
-        print_addr(mngr, car->pos,op->a1 == IND_CODE ? 5 : 7);
-    }
 }
 
 void make_st(t_mngr *mngr, t_car *car, t_t_op *op)
@@ -79,10 +76,7 @@ void make_st(t_mngr *mngr, t_car *car, t_t_op *op)
                 mngr->arena[(reg2 + 3 - c  + MEM_SIZE) % MEM_SIZE] = car->regs[reg1].reg[c];
         }
         if (mngr->flags & V)
-        {
             print_st(car, reg1, reg2, op);
-            print_addr(mngr, car->pos,op->a2 == REG_CODE ? 4 : 5);
-        }
     }
 }
 
@@ -106,10 +100,7 @@ void make_add_sub(t_mngr *mngr, t_car *car, t_t_op *op)
         car->carry = (char)(*(int *)car->regs[reg3].reg == 0);
     }
     if (mngr->flags & V)
-    {
         ft_printf("P    %d | {Blue}%s{eof} r%d r%d r%d\n", car->id + 1, op->op == OP_add ? "add" : "sub", reg1 + 1, reg2 + 1, reg3 + 1);
-        print_addr(mngr, car->pos, 5);
-    }
 }
 
 void make_zjmp(t_mngr *mngr, t_car *car, t_t_op *op)
@@ -119,10 +110,7 @@ void make_zjmp(t_mngr *mngr, t_car *car, t_t_op *op)
     (void)op;
     arg = get_dir(mngr, car->pos + 1, 2) % IDX_MOD;
     if (mngr->flags & V)
-    {
         ft_printf("P    %d | {Blue}%s{eof} %d %s\n", car->id + 1,"zjmp", arg, car->carry == 1 ? "OK" : "FAILED");
-        print_addr(mngr, car->pos, 3);
-    }
     if(car->carry == 1)
         car->pos = (car->pos + arg - 3) % MEM_SIZE;
 
