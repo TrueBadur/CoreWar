@@ -1,14 +1,26 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   debug_funcs.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jleann <marvin@42.fr>                      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/10/30 16:07:16 by jleann            #+#    #+#             */
+/*   Updated: 2019/10/30 16:07:19 by jleann           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "lexer.h"
 #include "champ_generator.h"
 
-char 		*get_par_type(char type)
+char		*get_par_type(char type)
 {
 	if (type == T_REG)
-		return "T_REG";
+		return ("T_REG");
 	else if (type == T_DIR)
-		return "T_DIR";
+		return ("T_DIR");
 	else if (type == T_IND)
-		return "T_IND";
+		return ("T_IND");
 	return ("");
 }
 
@@ -25,7 +37,8 @@ void		print_command(t_command *cmd)
 		cur = 0;
 		while (cur < get_op_info(cmd->cmd_type)->params_num)
 		{
-			ft_printf("PARAM TYPE: %s\n", get_par_type(cmd->params[cur]->sub_type));
+			ft_printf("PARAM TYPE: %s\n",
+					get_par_type(cmd->params[cur]->sub_type));
 			ft_printf("PARAM VALUE: %d\n\n", cmd->params[cur]->data);
 			cur++;
 		}
@@ -54,4 +67,3 @@ void		print_labels(size_t *larr, unsigned labels_num)
 	}
 	ft_printf("\n");
 }
-

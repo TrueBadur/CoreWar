@@ -40,5 +40,17 @@ void		raise_error_sem(const char *str, t_token *token)
 
 void		free_champdata(t_champdata *data)
 {
-	(void)data;
+	t_list_node	*tmp;
+	t_list_node	*tmpn;
+
+	free(data->exec_code);
+	tmp = data->commands.begin;
+	while (tmp)
+	{
+		tmpn = tmp->next;
+		free(tmp->content);
+		free(tmp);
+		tmp = tmpn;
+	}
+	free(data);
 }
