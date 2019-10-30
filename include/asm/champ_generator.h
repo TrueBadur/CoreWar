@@ -44,7 +44,9 @@ size_t				calc_command_size(t_command *cmd);
 # define UNEXPECTED_TOKEN_AT_ERR "Unexpected token, "
 # define UNEXPECTED_EOF_ERR "Unexpected end of file, "
 # define INVALID_PAR_TYPE_ERR "Invalid parameter type, "
-
+# define NO_CHAMP_NAME_PROVIDED_ERR "No champ name provided!"
+# define NO_CHAMP_COMMENT_PROVIDED_ERR "No champ comment provided!"
+# define NO_CHAMP_CODE_PROVIDED_ERR "No champ code provided!"
 # define T_REG_CODE 1U
 # define T_DIR_CODE 2U
 # define T_IND_CODE 3U
