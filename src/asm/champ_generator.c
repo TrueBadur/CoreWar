@@ -14,17 +14,21 @@
 #include "libstd.h"
 #include "champ_generator.h"
 #include "lexer.h"
-#include "debug_funcs.h"
 
 t_champdata	*run_champgenerator(t_lexdata *data)
 {
 	t_champdata	*res;
 
 	res = ft_memalloc(sizeof(t_champdata));
+	if (!data->champ_name)
+		raise_error_sem(NO_CHAMP_NAME_PROVIDED_ERR, NULL);
+	if (!data->champ_comment)
+		raise_error_sem(NO_CHAMP_COMMENT_PROVIDED_ERR, NULL);
+	if (data->token_list.len == 0)
+		raise_error_sem(NO_CHAMP_CODE_PROVIDED_ERR, NULL);
 	ft_strcpy(res->champ_name, data->champ_name);
 	ft_strcpy(res->champ_comment, data->champ_comment);
 	generate_commands(res, data);
-	//print_commands(res->commands.begin);
 	generate_code(res);
 	return (res);
 }

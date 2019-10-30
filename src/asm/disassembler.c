@@ -23,7 +23,6 @@ void	raise_error_dis(const char *str)
 
 void	*check_header(int fd, t_headdata *headdata)
 {
-	int		res;
 	void	*exec_code;
 
 	if (read_int32(fd) != COREWAR_EXEC_MAGIC)
