@@ -144,7 +144,7 @@ int					check_comment(t_lexdata *dat, char *cur);
 int					short_name(char *line, char **to_set);
 int					long_name(t_lexdata *dat, char *start, t_list *lines, char **to_set);
 void				debug_cmd_name(t_lexdata *dat, int id_cmd);
-void				free_list(t_list *lst);
+void				free_nodes_list(t_list *lst);
 int					add_label(t_lexdata *dat);
 void				debug_token_list(t_lexdata *dat);
 int					allowed_char(char cur);
@@ -157,7 +157,6 @@ int					add_token_endline(t_lexdata *dat);
 int					add_token_nodata(t_lexdata *dat, char token_type);
 int					add_token_data(t_lexdata *dat, char token_type, int data);
 int					add_token_str(t_lexdata *dat, char token_type, char *label);
-int					update_label(t_lexdata *dat);
 void				debug_token(t_token *tkn, int idx);
 void				debug_label_list(t_lexdata *dat);
 int					skip_char(char cur);
@@ -172,6 +171,18 @@ int     			do_comment(t_lexdata *dat);
 int     			do_sepr(t_lexdata *dat, int idx);
 int     			do_endline(t_lexdata *dat);
 void				print_error(t_lexdata *dat, int err);
+void				debug_rest(t_lexdata *dat, char *line, int idx);
+char				*back_str_type(int id_label);
+char				*back_str_sub_type(int id_label);
+char				*back_str_val_type(int id_label);
+int					check_size(t_lexdata *dat, int id_cmd);
+int					check_double_cmd(t_lexdata *dat, int id_cmd);
+int					cmd_exit(t_list *lines, int out);
+int					check_end_of_line(t_lexdata *dat, char *cur);
+void				process_token_type(char tkn_typ, char *type, char *sub, char *val);
+int					update_label(t_lexdata *dat);
+int					get_idx_label(t_lexdata *dat, char *label);
+void				clean_all_label(t_lexdata *dat);
 
 
 #endif //COREWAR_LEXER_H

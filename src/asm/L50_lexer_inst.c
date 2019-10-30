@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   L50_lexer_inst.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: PhilippNox <PhilippNox@student.42.fr>      +#+  +:+       +#+        */
+/*   By: wgorold <wgorold@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/05/29 17:39:02 by jleann            #+#    #+#             */
-/*   Updated: 2019/10/17 10:51:07 by PhilippNox       ###   ########.fr       */
+/*   Created: 2019/05/29 17:39:02 by wgorold           #+#    #+#             */
+/*   Updated: 2019/10/30 13:50:36 by wgorold          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 int		add_inst(t_lexdata *dat)
 {
+	t_op	*tab;
 	int		idx;
-	t_op 	*tab;
 	char	*line;
 	int		tmp;
 

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   L21_lexer_cmd_name_short.c                         :+:      :+:    :+:   */
+/*   L21_lexer_cmd_short.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: wgorold <wgorold@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/05/29 17:39:02 by jleann            #+#    #+#             */
-/*   Updated: 2019/10/15 23:16:57 by wgorold          ###   ########.fr       */
+/*   Created: 2019/05/29 17:39:02 by wgorold           #+#    #+#             */
+/*   Updated: 2019/10/30 13:50:20 by wgorold          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@ int		short_name(char *start, char **to_set)
 		if (start[idx] == ARG_CMD_START)
 			end = idx;
 	}
-	//ft_printf("\tstart= %d\tend= %d\n", start, end);
 	out = ft_strnew(end - 1);
 	if (!out)
 		return (ERR_LEX__ID_MALLOC_STR);
