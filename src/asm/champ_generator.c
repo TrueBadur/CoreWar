@@ -10,10 +10,11 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <ft_printf.h>
+#include "ft_printf.h"
 #include "libstd.h"
 #include "champ_generator.h"
 #include "lexer.h"
+#include "debug_funcs.h"
 
 t_champdata	*run_champgenerator(t_lexdata *data)
 {
@@ -23,6 +24,7 @@ t_champdata	*run_champgenerator(t_lexdata *data)
 	ft_strcpy(res->champ_name, data->champ_name);
 	ft_strcpy(res->champ_comment, data->champ_comment);
 	generate_commands(res, data);
+	print_commands(res->commands.begin);
 	generate_code(res);
 	return (res);
 }

@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "champ_generator.h"
+#include "debug_funcs.h"
 
 void		read_params(t_command *cmd, t_list_node **lst)
 {
@@ -84,7 +85,7 @@ void		read_tokens(t_lexdata *ldata, t_champdata *cdata, size_t *larr)
 	}
 }
 
-void		replace_labels(t_list *cmds, size_t *larr, unsigned labels_num)
+void		replace_labels(t_list *cmds, size_t *larr)
 {
 	t_command	*cur_cmd;
 	t_list_node	*cur_node;
@@ -92,7 +93,7 @@ void		replace_labels(t_list *cmds, size_t *larr, unsigned labels_num)
 	t_op		*cur_op;
 
 	cur_node = cmds->begin;
-	while (cur_node->next)
+	while (cur_node)
 	{
 		cur_cmd = cur_node->content;
 		if (cur_cmd->cmd_type > 0)
@@ -118,6 +119,7 @@ void		generate_commands(t_champdata *cdata, t_lexdata *ldata)
 
 	larr = ft_memalloc(sizeof(size_t) * ldata->labels_num);
 	read_tokens(ldata, cdata, larr);
-	replace_labels(&(cdata->commands), larr, ldata->labels_num);
+	replace_labels(&(cdata->commands), larr);
+	print_labels(larr, ldata->labels_num);
 	free(larr);
 }
