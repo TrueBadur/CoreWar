@@ -15,7 +15,14 @@
 int		do_cmd(t_lexdata *dat, char *line)
 {
 	int err;
+	int idx;
 
+	idx = -1;
+	while (line[++idx] && line[idx] != CMD_START)
+	{
+		if (not_skip_char(line[idx]))
+			return (ERR_LEX__ID_BEFORE_CMD);
+	}
 	if ((err = choice_cmd(dat, line)))
 		return (err);
 	if (dat->debug_happend)
