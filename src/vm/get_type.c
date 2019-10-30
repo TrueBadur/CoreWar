@@ -6,7 +6,7 @@
 /*   By: blomo <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/17 17:14:19 by blomo             #+#    #+#             */
-/*   Updated: 2019/10/30 16:49:48 by blomo            ###   ########.fr       */
+/*   Updated: 2019/10/30 19:01:50 by blomo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,12 @@ int get_indir(t_mngr *mngr, t_car *car, int pos)
     return(reg);
 }
 
-int get_reg(t_mngr *mngr, t_car *car, int pos)
+int get_reg(t_mngr *mngr, int pos)
+{
+	mngr->arena[pos % MEM_SIZE] - 1;
+}
+
+int get_arg_reg(t_mngr *mngr, t_car *car, int pos)
 {
     int reg;
     int arg;
@@ -61,6 +66,7 @@ void copy_reg_to_arena(t_mngr *mngr, t_car *car, int reg1, int reg2)
 				car->regs[reg1].reg[c];
 }
 
+
 int get_arg(t_mngr *mngr, t_car *car, int op, int pos)
 {
 	int arg1;
@@ -68,7 +74,7 @@ int get_arg(t_mngr *mngr, t_car *car, int op, int pos)
 	if (op == DIR_CODE)
 		arg1 = get_dir(mngr, car->pos + pos, DIR_SIZE);
 	else
-		arg1 = (op == REG_CODE) ? get_reg(mngr, car, pos) : get_indir(mngr, car, pos);
+		arg1 = (op == REG_CODE) ? get_arg_reg(mngr, car, pos) : get_indir(mngr, car, pos);
 	return (arg1);
 }
 
@@ -79,6 +85,6 @@ int get_arg_indir(t_mngr *mngr, t_car *car, int op, int pos)
 	if (op == DIR_CODE)
 		arg1 = get_dir(mngr, car->pos + pos, IND_SIZE);
 	else
-		arg1 = (op == REG_CODE) ? get_reg(mngr, car, pos) : get_indir(mngr, car, pos);
+		arg1 = (op == REG_CODE) ? get_arg_reg(mngr, car, pos) : get_indir(mngr, car, pos);
 	return (arg1);
 }

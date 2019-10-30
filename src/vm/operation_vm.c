@@ -6,7 +6,7 @@
 /*   By: blomo <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/18 15:41:07 by blomo             #+#    #+#             */
-/*   Updated: 2019/10/30 16:32:23 by blomo            ###   ########.fr       */
+/*   Updated: 2019/10/30 16:32:45 by blomo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,26 +84,24 @@ void	make_st(t_mngr *mngr, t_car *car, t_t_op *op)
 
 void	make_add_sub(t_mngr *mngr, t_car *car, t_t_op *op)
 {
-	int reg1;
-	int reg2;
-	int reg3;
+	t_int3 arg;
 	int res;
 
-	reg1 = mngr->arena[(car->pos + OP_BASE) % MEM_SIZE] - 1;
-	reg2 = mngr->arena[(car->pos + OP_BASE + ARG_REG_S) % MEM_SIZE] - 1;
-	reg3 = mngr->arena[(car->pos + OP_BASE + ARG_REG_S * 2) % MEM_SIZE] - 1;
-	if (check_reg(reg1) && check_reg(reg2) && check_reg(reg3))
+	arg.x = mngr->arena[(car->pos + OP_BASE) % MEM_SIZE] - 1;
+	arg.y = mngr->arena[(car->pos + OP_BASE + ARG_REG_S) % MEM_SIZE] - 1;
+	arg.z = mngr->arena[(car->pos + OP_BASE + ARG_REG_S * 2) % MEM_SIZE] - 1;
+	if (check_reg(arg.x) && check_reg(arg.y) && check_reg(arg.z))
 	{
         if (op->op == OP_add)
-        	res = *(int *) car->regs[reg1].reg + *(int *) car->regs[reg2].reg;
+        	res = *(int *) car->regs[arg.x].reg + *(int *) car->regs[arg.y].reg;
         else
-        	res = *(int *) car->regs[reg1].reg - *(int *) car->regs[reg2].reg;
-        *(int *)car->regs[reg3].reg = res;
-        car->carry = (char)(*(int *)car->regs[reg3].reg == 0);
+        	res = *(int *) car->regs[arg.x].reg - *(int *) car->regs[arg.y].reg;
+        *(int *)car->regs[arg.z].reg = res;
+        car->carry = (char)(*(int *)car->regs[arg.z].reg == 0);
 	}
 	if (mngr->flags & FLAG_V)
 		ft_printf("P    %d | {Blue}%s{eof} r%d r%d r%d\n", car->id + 1,
-				op->op == OP_add ? "add" : "sub", reg1 + 1, reg2 + 1, reg3 + 1);
+				op->op == OP_add ? "add" : "sub", arg.x + 1, arg.y + 1, arg.z + 1);
 }
 
 void	make_zjmp(t_mngr *mngr, t_car *car, t_t_op *op)
