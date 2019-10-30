@@ -60,7 +60,8 @@ typedef enum 	e_exit_codes
     INVALID_SIZE_BYTE_CHAMPION,
     INVALID_FILE_EXTENSION,
     INVALID_ARRAY_CHAMPION,
-    INVALID_ARGUMENT_NAME
+    INVALID_ARGUMENT_NAME,
+    CALL_DUMP
 }				t_eexcode;
 
 typedef struct	s_register
