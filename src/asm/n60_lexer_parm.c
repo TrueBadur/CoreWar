@@ -102,7 +102,6 @@ int		process_indir(t_lexdata *dat, char *line)
 int		add_parm(t_lexdata *dat)
 {
 	char	*line;
-	int		tmp;
 	int		val;
 	int		err;
 
@@ -112,8 +111,8 @@ int		add_parm(t_lexdata *dat)
 		dat->srt += 1;
 		if ((err = check_atoi(dat, &val)))
 			return (err);
-		if ((tmp = add_token_data(dat, TOKEN_TYPE_P_R, val)))
-			return (tmp);
+		if ((err = add_token_data(dat, TOKEN_TYPE_P_R, val)))
+			return (err);
 		if (dat->debug_happend)
 			ft_printf("\t\t\t\t\t\t\t\thappend= parm_reg\n");
 		return (0);

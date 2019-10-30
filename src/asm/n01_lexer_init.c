@@ -47,8 +47,3 @@ int		init_dat(t_lexdata **dat)
 	setup_dat(*dat);
 	return (0);
 }
-
-void	free_lexdata(t_lexdata *data)
-{
-	clean_n_exit(data, 0);
-}
