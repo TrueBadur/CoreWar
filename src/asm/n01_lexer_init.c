@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   L01_lexer_init.c                                   :+:      :+:    :+:   */
+/*   n01_lexer_init.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: wgorold <wgorold@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/29 17:39:02 by wgorold           #+#    #+#             */
-/*   Updated: 2019/10/30 13:50:02 by wgorold          ###   ########.fr       */
+/*   Updated: 2019/10/30 18:21:39 by wgorold          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ void	setup_dat(t_lexdata *dat)
 	dat->debug_happend = 0;
 	dat->debug_out = 0;
 	dat->debug_done = 0;
-	dat->debug_err = 1;
 	init_stack_list(&(dat->lines));
 	init_stack_list(&(dat->token_list));
 	init_stack_list(&(dat->label_list));

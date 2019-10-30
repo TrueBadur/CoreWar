@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   L20_lexer_cmd.c                                    :+:      :+:    :+:   */
+/*   n23_lexer_cmd_check.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: wgorold <wgorold@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/29 17:39:02 by wgorold           #+#    #+#             */
-/*   Updated: 2019/10/30 13:50:17 by wgorold          ###   ########.fr       */
+/*   Updated: 2019/10/30 18:21:49 by wgorold          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,6 @@ int		check_size(t_lexdata *dat, int id_cmd)
 		return (ERR_LEX__ID_LONG_NAME);
 	if (id_cmd == CMD_ID_COMMENT
 		&& (ft_strlen(dat->champ_comment) > COMMENT_LENGTH))
-		return (ERR_LEX__ID_LONG_COMMENT);
+		return (ERR_LEX__ID_LONG_CMT);
 	return (0);
 }

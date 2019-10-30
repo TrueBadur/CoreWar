@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   L70_lexer_clear.c                                  :+:      :+:    :+:   */
+/*   n70_lexer_clear.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: wgorold <wgorold@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/29 17:39:02 by wgorold           #+#    #+#             */
-/*   Updated: 2019/10/30 13:50:44 by wgorold          ###   ########.fr       */
+/*   Updated: 2019/10/30 18:21:56 by wgorold          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,8 @@ void	print_msg_error_adv(t_lexdata *dat, int err)
 {
 	if (err == ERR_LEX__ID_BAD_CMD_END)
 		ft_printf(LEX_ERR_MSG_BAD_CMD_END, dat->cur_line);
-	else if (err == ERR_LEX__ID_BAD_CMD_NO_START)
-		ft_printf(LEX_ERR_MSG_BAD_CMD_NO_START);
+	else if (err == ERR_LEX__ID_C_NO_START)
+		ft_printf(LEX_ERR_MSG_C_NO_START);
 	else if (err == ERR_LEX__ID_BAD_ARG_START)
 		ft_printf(ERR_LEX_MSG_BAD_ARG_START, dat->cur_line);
 	else if (err == ERR_LEX__ID_CMD_NO_END)
@@ -52,8 +52,8 @@ void	print_msg_error_adv(t_lexdata *dat, int err)
 
 void	print_msg_error(t_lexdata *dat, int err)
 {
-	if (err == ERR_LEX__ID_NOT_LABEL_CHAR)
-		ft_printf(LEX_ERR_MSG_NOT_LABEL_CHAR, dat->end - dat->srt,
+	if (err == ERR_LEX__ID_NO_LAB_CHAR)
+		ft_printf(ERR_LAB, dat->end - dat->srt,
 		dat->cur_line + dat->srt, dat->cur_line[dat->cur_idx]);
 	else if (err == ERR_LEX__ID_INST_NOT_FOUND)
 		ft_printf(LEX_ERR_MSG_INST_NOT_FOUND,
@@ -65,8 +65,8 @@ void	print_msg_error(t_lexdata *dat, int err)
 	else if (err == ERR_LEX__ID_LONG_NAME)
 		ft_printf(LEX_ERR_MSG_LONG_NAME,
 		ft_strlen(dat->champ_name), PROG_NAME_LENGTH);
-	else if (err == ERR_LEX__ID_LONG_COMMENT)
-		ft_printf(LEX_ERR_MSG_LONG_COMMENT,
+	else if (err == ERR_LEX__ID_LONG_CMT)
+		ft_printf(LEX_ERR_MSG_LONG_CMT,
 		ft_strlen(dat->champ_comment), COMMENT_LENGTH);
 	else if (err == ERR_LEX__ID_LABEL_EMPTY)
 		ft_printf(LEX_ERR_MSG_LABEL_EMPTY);

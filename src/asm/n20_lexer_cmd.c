@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   L20_lexer_cmd.c                                    :+:      :+:    :+:   */
+/*   n20_lexer_cmd.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: wgorold <wgorold@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/29 17:39:02 by wgorold           #+#    #+#             */
-/*   Updated: 2019/10/30 13:50:17 by wgorold          ###   ########.fr       */
+/*   Updated: 2019/10/30 18:21:46 by wgorold          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ int		search_start_in_lines(t_lexdata *dat, char **start, char **cur)
 		if (rls == 0 || rls == 1)
 			*cur += 1;
 		else if (rls == 2)
-			return (ERR_LEX__ID_BAD_CMD_NO_START);
+			return (ERR_LEX__ID_C_NO_START);
 		else if (rls == -1)
 			return (ERR_LEX__ID_BAD_ARG_START);
 	}

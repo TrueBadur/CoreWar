@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   L40_lexer_label.c                                  :+:      :+:    :+:   */
+/*   n40_lexer_label.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: wgorold <wgorold@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/29 17:39:02 by wgorold           #+#    #+#             */
-/*   Updated: 2019/10/30 13:50:33 by wgorold          ###   ########.fr       */
+/*   Updated: 2019/10/30 18:21:53 by wgorold          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ int		add_label(t_lexdata *dat)
 	{
 		dat->cur_idx = idx;
 		if (not_label_char(dat->cur_line[idx]))
-			return (ERR_LEX__ID_NOT_LABEL_CHAR);
+			return (ERR_LEX__ID_NO_LAB_CHAR);
 	}
 	data = ft_strnew(dat->end - dat->srt);
 	if (!data)
