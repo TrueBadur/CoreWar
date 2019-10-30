@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   validate_input.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: blomo <marvin@42.fr>                       +#+  +:+       +#+        */
+/*   By: ehugh-be <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/14 16:39:49 by ehugh-be          #+#    #+#             */
-/*   Updated: 2019/10/23 19:26:54 by blomo            ###   ########.fr       */
+/*   Updated: 2019/10/30 13:09:26 by ehugh-be         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,14 +64,14 @@ void parse_v(t_mngr *mngr, char **argv, int i)
         safe_exit(mngr, INVALID_N);
 }
 
-void parse_visu(t_mngr *mngr, char **argv, int i)
-{
-	argv[i][0] = '\0';
-	if (!(mngr->flags & VIS))
-		mngr->flags = mngr->flags | VIS;
-	else
-		safe_exit(mngr, INVALID_N);
-}
+//void parse_visu(t_mngr *mngr, char **argv, int i)
+//{
+//	argv[i][0] = '\0';
+//	if (!(mngr->flags & VIS))
+//		mngr->flags = mngr->flags | VIS;
+//	else
+//		safe_exit(mngr, INVALID_N);
+//}
 
 void parse_flags(t_mngr *mngr, char **argv)
 {
@@ -86,8 +86,8 @@ void parse_flags(t_mngr *mngr, char **argv)
             parse_dump(mngr, argv, i);
         if (!(ft_strcmp(argv[i], "-v")))
             parse_v(mngr, argv ,i);
-		if (!(ft_strcmp(argv[i], "-visu")))
-			parse_visu(mngr, argv ,i);
+//		if (!(ft_strcmp(argv[i], "-visu")))
+//			parse_visu(mngr, argv ,i);
     }
 }
 void check_players(t_mngr *mngr, char **argv, int argc)
