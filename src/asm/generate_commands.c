@@ -23,15 +23,12 @@ void		read_params(t_command *cmd, t_list_node **lst)
 	cur_par = 0;
 	while (cur_par < opdata->params_num)
 	{
+		if (cur_par != 0)
+			eat(lst, DELIM_ID);
 		token = eat(lst, PARAM_ID);
 		if (((uint8_t)(token->sub_type) & opdata->paramtypes[cur_par]) == 0)
 			raise_error_sem(INVALID_PAR_TYPE_ERR, token);
 		cmd->params[cur_par] = token;
-		token = (*lst)->content;
-		if (token->type != DELIM_ID)
-			break ;
-		else
-			eat(lst, DELIM_ID);
 		cur_par++;
 	}
 }
@@ -120,6 +117,6 @@ void		generate_commands(t_champdata *cdata, t_lexdata *ldata)
 	larr = ft_memalloc(sizeof(size_t) * ldata->labels_num);
 	read_tokens(ldata, cdata, larr);
 	replace_labels(&(cdata->commands), larr);
-	print_labels(larr, ldata->labels_num);
+	//print_labels(larr, ldata->labels_num);
 	free(larr);
 }
