@@ -6,7 +6,7 @@
 /*   By: blomo <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/16 15:05:59 by blomo             #+#    #+#             */
-/*   Updated: 2019/10/31 19:02:50 by blomo            ###   ########.fr       */
+/*   Updated: 2019/10/31 21:28:51 by blomo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,13 @@ void make_ldi_lldi(t_mngr *mngr, t_car *car, t_t_op *op)
 {
 	t_int3	args;
 	int res;
+	static char step[3] = {ARG_REG_S, IND_SIZE, IND_SIZE};
+
+	res = OP_BASE + step[op->a1 - 1] + step[op->a2 - 1];
 
 	if (get_args(mngr, car, op, &args))
 	{
+		args.z = mngr->arena[(car->pos + res) % MEM_SIZE] - 1;
 		res = (car->pos + args.x + args.y) % (op->op == OP_ldi ? IDX_MOD : INT_MAX);
 		res = get_dir(mngr, &res, DIR_SIZE);
 		*(int*)car->regs[args.z].reg = res;
@@ -74,7 +78,6 @@ void make_fork_lfork(t_mngr *mngr, t_car *car, t_t_op *op)
     if (op->op == 12)
         args.x = args.x % IDX_MOD;
     mngr->num_cars++;
-
     newcar->pos = ft_mod(args.x + car->pos, MEM_SIZE);
     newcar->just_forked = 1;
     newcar->id = mngr->next_id++;

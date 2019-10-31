@@ -6,7 +6,7 @@
 /*   By: blomo <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/16 15:05:59 by blomo             #+#    #+#             */
-/*   Updated: 2019/10/30 17:06:56 by blomo            ###   ########.fr       */
+/*   Updated: 2019/10/31 19:46:22 by blomo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void    print_live(t_mngr *mngr, t_car *car, int say, int arg)
 void print_st(t_car *car, int reg1, int reg2, t_t_op *op)
 {
     if (op->a2 == REG_CODE)
-        ft_printf("P    %d | {Blue}%s{eof} r%d r%d\n", car->id + 1, "st", reg1 + 1, reg2 + 1);
+        ft_printf("P    %d | {Blue}%s{eof} r%d %d\n", car->id + 1, "st", reg1 + 1, reg2 + 1);
     else
     {
         ft_printf("P    %d | {Blue}%s{eof} r%d %d\n", car->id + 1, "st", reg1 + 1, reg2);

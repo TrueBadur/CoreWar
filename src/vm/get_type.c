@@ -6,7 +6,7 @@
 /*   By: blomo <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/17 17:14:19 by blomo             #+#    #+#             */
-/*   Updated: 2019/10/31 19:28:34 by blomo            ###   ########.fr       */
+/*   Updated: 2019/10/31 21:21:45 by blomo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,8 @@ int get_indir(t_mngr *mngr, t_car *car, int *step, int mod)
 
 	in_dir = get_dir(mngr, step ,2) % mod;
 	pos_indir = car->pos + in_dir;
+	while(pos_indir < 0)
+		pos_indir = MEM_SIZE + pos_indir;
 	reg = get_dir(mngr, &pos_indir, 4);
 	return(reg);
 }
@@ -80,7 +82,7 @@ int  get_args(t_mngr *mngr, t_car *car, t_t_op *op, t_int3 *arg)
 
 	i = -1;
 	op_inf = get_op_info(op->op);
-	if(op->op == 13)
+	if(op->op == OP_lld || op->op == OP_lldi)
 		mod = INT_MAX;
 	else
 		mod = IDX_MOD;
@@ -96,7 +98,7 @@ int  get_args(t_mngr *mngr, t_car *car, t_t_op *op, t_int3 *arg)
 		}
 		else if (arg_type == IND_CODE)
 		{
-			if(op->op == 3)
+			if(op->op == OP_st)
 				((int *) arg)[i] = get_indir_pos(mngr, car, &step, mod);
 			else
 				((int *) arg)[i] = get_indir(mngr, car, &step, mod);

@@ -37,7 +37,7 @@ void proceed_cars(t_mngr *mngr, short cur_time)
 	int			time_to_put;
 
 	t_list *tmp = mngr->timeline[cur_time];
-	while ((lst = ft_lsttakeend(mngr->timeline[cur_time])))
+	while ((lst = ft_lsttake(mngr->timeline[cur_time])))
 	{
 		car = (t_car*)lst->content;
 		op = (char)mngr->arena[car->pos];
@@ -46,7 +46,7 @@ void proceed_cars(t_mngr *mngr, short cur_time)
 		else
 			time_to_put = cur_time + 1;
 		car->eval_in = (short) (time_to_put % (MAX_OP_TIME + 1));
-        tl_put(mngr, car->eval_in, lst, 0);
+        tl_put(mngr, car->eval_in, lst, 1);
 	}
 }
 

@@ -6,7 +6,7 @@
 /*   By: blomo <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/18 15:41:07 by blomo             #+#    #+#             */
-/*   Updated: 2019/10/31 19:20:38 by blomo            ###   ########.fr       */
+/*   Updated: 2019/10/31 21:20:54 by blomo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,12 +37,12 @@ void	make_live(t_mngr *mngr, t_car *car, t_t_op *op)
 void	make_ld_lld(t_mngr *mngr, t_car *car, t_t_op *op)
 {
 	t_int3	args;
-
+	int step;
 
 	if (get_args(mngr, car, op, &args))
 	{
-		args.y = mngr->arena[(car->pos + OP_BASE + IND_SIZE + (op->a1 == DIR_CODE) * 2)
-						  % MEM_SIZE] - 1;
+		step = car->pos + (int)OP_BASE + IND_SIZE + (op->a1 == DIR_CODE) * 2;
+		args.y = get_reg(mngr, &step);
 		*(int *) car->regs[args.y].reg = args.x;
 		car->carry = (char) (args.x == 0);
 		if (mngr->flags & FLAG_V)
@@ -54,24 +54,25 @@ void	make_ld_lld(t_mngr *mngr, t_car *car, t_t_op *op)
 void	make_st(t_mngr *mngr, t_car *car, t_t_op *op)
 {
 	t_int3 args;
+	int step;
 
-
+	step = car->pos + (int)OP_BASE;
 	if (get_args(mngr, car, op, &args))
 	{
+		args.x = get_reg(mngr, &step);
 		if (op->a2 == REG_CODE)
 		{
-			args.x = mngr->arena[(car->pos + OP_BASE) % MEM_SIZE] - 1;
-			args.y = mngr->arena[(car->pos + OP_BASE + ARG_REG_S) % MEM_SIZE] -
-					 1;
+			args.y = get_reg(mngr, &step);
 			ft_memcpy(car->regs + args.y, car->regs + args.x,
 					  sizeof(char) * REG_SIZE);
 		}
 		else
-			{
-			//args.y = mngr->arena[(car->pos + OP_BASE + ARG_REG_S) % MEM_SIZE] - 1;
-			args.x = mngr->arena[(car->pos + OP_BASE) % MEM_SIZE] - 1;
-			copy_reg_to_arena(mngr, car, args.x, args.y);
+		{
+			step = car->pos + args.y;
+			copy_reg_to_arena(mngr, car, args.x, step);
 		}
+
+
 		if (mngr->flags & FLAG_V)
 			print_st(car, args.x, args.y, op);
 	}
@@ -81,7 +82,6 @@ void	make_add_sub(t_mngr *mngr, t_car *car, t_t_op *op)
 {
 	t_int3 arg;
 	int res;
-
 
 	arg.x = mngr->arena[(car->pos + OP_BASE) % MEM_SIZE] - 1;
 	arg.y = mngr->arena[(car->pos + OP_BASE + ARG_REG_S) % MEM_SIZE] - 1;
