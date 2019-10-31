@@ -45,11 +45,15 @@ void    print_live(t_mngr *mngr, t_car *car, int say, int arg)
 void print_st(t_car *car, int reg1, int reg2, t_t_op *op)
 {
     if (op->a2 == REG_CODE)
+    {
         ft_printf("P    %d | {Blue}%s{eof} r%d %d\n", car->id + 1, "st", reg1 + 1, reg2 + 1);
+        ft_printf("for test 2 registra %d = %d\n", *(int *) car->regs[reg1].reg, *(int *) car->regs[reg2].reg); // proverka chto 2 registra odinakovie
+    }
+
     else
     {
         ft_printf("P    %d | {Blue}%s{eof} r%d %d\n", car->id + 1, "st", reg1 + 1, reg2);
-        //ft_printf("        |  -> load from %d + %d = %d \n", car->pos, reg2, car->pos + reg2);
+        ft_printf("test  tek poz = %d znachenie %.8x skopirovano po addres %d\n",car->pos, *(int *) car->regs[reg1].reg, get_addr_arena(car->pos + reg2)); // chto eto nachinaetsya po adresy
     }
 }
 
@@ -57,4 +61,5 @@ void print_sti(t_car *car, int arg1, int arg2, int arg3)
 {
 	ft_printf("P    %d | {Blue}%s{eof} r%d %d %d\n", car->id + 1, "sti", arg1 + 1, arg2, arg3);
 	ft_printf("       | -> store to %d + %d = %d (with pc and mod %d)\n", arg2, arg3, arg2 + arg3, ((arg2 + arg3) % IDX_MOD + car->pos) % MEM_SIZE);
+    ft_printf("test eto znachenie %.8x skopirovano po adresy %d \n", *(int *) car->regs[arg1].reg), get_addr_arena(((arg2 + arg3) % IDX_MOD + car->pos)); // test
 }

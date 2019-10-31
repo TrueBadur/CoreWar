@@ -14,6 +14,11 @@
 #include "checkop.h"
 #include <limits.h>
 
+int get_addr_arena(int adr)
+{
+    return ((adr < 0) ? (adr % MEM_SIZE) + MEM_SIZE : (adr % MEM_SIZE));
+}
+
 int get_dir(t_mngr *mngr, int *pos, int size)
 {
     char buffer[size];
@@ -21,7 +26,7 @@ int get_dir(t_mngr *mngr, int *pos, int size)
 
     c = -1;
     while (++c < size)
-        buffer[size - c - 1] = (char)mngr->arena[(*pos + c) % MEM_SIZE];
+        buffer[size - c - 1] = (char)mngr->arena[get_addr_arena(*pos + c)];
     *pos += size;
     return (size == 2 ? *(short*)buffer : *(int*)buffer);
 }
@@ -37,15 +42,14 @@ void copy_reg_to_arena(t_mngr *mngr, t_car *car, int reg1, int reg2)
 
 	c = -1;
 	while (++c < REG_SIZE)
-		mngr->arena[(reg2 + OP_BASE + ARG_REG_S - c + MEM_SIZE) % MEM_SIZE] =
-				car->regs[reg1].reg[c];
+		mngr->arena[get_addr_arena(reg2 + c)] = car->regs[reg1].reg[REG_SIZE - 1 - c];
 }
 
 int		get_reg(t_mngr *mngr, int *step)
 {
 	int reg;
 
-	reg = mngr->arena[*step % MEM_SIZE] - 1;
+	reg = mngr->arena[get_addr_arena(*step)] - 1;
 	*step += 1;
 	return (reg);
 }
@@ -56,10 +60,8 @@ int get_indir(t_mngr *mngr, t_car *car, int *step, int mod)
 	int in_dir;
 	int pos_indir;
 
-	in_dir = get_dir(mngr, step ,2) % mod;
+	in_dir = get_dir(mngr, step ,IND_SIZE) % mod;
 	pos_indir = car->pos + in_dir;
-	while(pos_indir < 0)
-		pos_indir = MEM_SIZE + pos_indir;
 	reg = get_dir(mngr, &pos_indir, 4);
 	return(reg);
 }
@@ -69,7 +71,6 @@ int get_indir_pos(t_mngr *mngr, t_car *car, int *step, int mod)
 	int in_dir;
 
 	in_dir = get_dir(mngr, step ,2) % mod;
-
 	return(in_dir);
 }
 
@@ -82,7 +83,7 @@ int  get_args(t_mngr *mngr, t_car *car, t_t_op *op, t_int3 *arg)
 
 	i = -1;
 	op_inf = get_op_info(op->op);
-	if(op->op == OP_lld || op->op == OP_lldi)
+	if(op->op == OP_lld)
 		mod = INT_MAX;
 	else
 		mod = IDX_MOD;
