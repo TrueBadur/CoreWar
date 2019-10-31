@@ -6,7 +6,7 @@
 /*   By: ehugh-be <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/15 17:06:37 by ehugh-be          #+#    #+#             */
-/*   Updated: 2019/10/30 16:18:23 by ehugh-be         ###   ########.fr       */
+/*   Updated: 2019/10/30 19:42:48 by ehugh-be         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	handle_op(t_mngr *mngr, t_car *car)
 	op = (t_t_op){BYTE_OP, ARG1(BYTE_CODE), ARG2(BYTE_CODE), ARG3(BYTE_CODE)};
 	if ((ret = check_op(&op)) > 0)
 		get_op_func(op.op)(mngr, car, &op);
-	if (ret > 1)
+	if (ret)
 		print_addr(mngr, car->pos, FT_ABS(ret));
 	car->pos = (car->pos + FT_ABS(ret)) % MEM_SIZE;
 }
@@ -45,7 +45,8 @@ void proceed_cars(t_mngr *mngr, short cur_time)
 			time_to_put = cur_time + get_op_info(op)->num_of_ticks;
 		else
 			time_to_put = cur_time + 1;
-        tl_put(mngr, (short) (time_to_put % (MAX_OP_TIME + 1)), lst, 1);
+		car->eval_in = (short) (time_to_put % (MAX_OP_TIME + 1));
+        tl_put(mngr, car->eval_in, lst, 1);
 	}
 }
 

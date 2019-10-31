@@ -38,7 +38,6 @@ void    print_live(t_mngr *mngr, t_car *car, int say, int arg)
     ft_printf("P    %d | {Blue}live{eof} %d\n", car->id + 1, arg);
     if (say)
         ft_printf("Player %d (%s) is said to be alive\n", mod_arg + 1, mngr->chmps[mod_arg]->name);
-    print_addr(mngr, car->pos, 5);
 }
 
 void print_st(t_car *car, int reg1, int reg2, t_t_op *op)

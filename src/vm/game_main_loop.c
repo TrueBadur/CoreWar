@@ -6,7 +6,7 @@
 /*   By: ehugh-be <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/14 16:26:51 by ehugh-be          #+#    #+#             */
-/*   Updated: 2019/10/30 14:42:22 by ehugh-be         ###   ########.fr       */
+/*   Updated: 2019/10/30 21:43:40 by ehugh-be         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,11 +32,42 @@ t_car	*pop_car(t_vector *vec, int pos)
 	return (tmp_car);
 }
 
+void ft_lstdel_by_val(t_list *lst, int (*f)(void*, void*), void *cmp)
+{
+	t_list_node *node;
+
+	node = lst->begin;
+	while(node)
+	{
+		if (!f(node->content, cmp))
+		{
+			if (node->prev)
+				node->prev->next = node->next;
+			else
+				lst->begin = node->next;
+			if (node->next)
+				node->next->prev = node->prev;
+			else
+				lst->end = node->prev;
+			lst->len -= 1;
+			free(node);
+			return ;
+		}
+		node = node->next;
+	}
+}
+
+int car_in_lst(void *lst_cont, void *car_cont)
+{
+	return (lst_cont != car_cont);
+}
+
 void	bury_car(t_mngr *mngr, int i)
 {
 	t_car *car_tmp;
 
 	car_tmp = pop_car(mngr->cars, i);
+	ft_lstdel_by_val(mngr->timeline[car_tmp->eval_in], car_in_lst, car_tmp);
 	if (mngr->cycles_delta <= 0)
 		free(car_tmp);
 	else
@@ -62,7 +93,7 @@ void	check_cars(t_mngr *mngr)
 		ft_printf("{\\35}Cycles to die{eof} is now {\\92}%d{eof}\n",
 				  mngr->cycles_delta);
 	}
-	while (++i < mngr->cars->len / sizeof(void*))
+	while (++i < mngr->cars->len / sizeof(void*)) //todo replace with iterating from end to start
 	{
 		if (cars[i]->live_cycle < mngr->cycle - mngr->cycles_delta || mngr->cycles_delta <= 0)
 			bury_car(mngr, i--);
