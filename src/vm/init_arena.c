@@ -35,12 +35,13 @@ static void init_carrieges(t_mngr *mngr)
 	{
 		if (!(car = ft_memalloc(sizeof(t_car))))
 			safe_exit(mngr, MALLOC_ERROR);
-		car->id = i;
+		car->id = mngr->next_id;
 		car->pos = i * MEM_SIZE / mngr->chmp_num;
 		if (!ft_vecpush(mngr->cars, &car, sizeof(void *)))
 			safe_exit(mngr, MALLOC_ERROR);
         tl_put(mngr, 0, ft_lstnew_noc(car, sizeof(void *)), 0);
 		mngr->num_cars++;
+		mngr->next_id++;
 		*(int*)car->regs = -car->id -1 - i; //TODO deal with endians
 		mngr->winner = car->id;
 	}

@@ -93,7 +93,7 @@ void make_fork_lfork(t_mngr *mngr, t_car *car, t_t_op *op)
     mngr->num_cars++;
     newcar->pos = (arg1 + car->pos) % MEM_SIZE;
     newcar->just_forked = 1;
-    newcar->id = mngr->num_cars - 1;
+    newcar->id = mngr->next_id++;
     tl_put(mngr, (short) (mngr->cycle % (MAX_OP_TIME + 1)), ft_lstnew_noc(newcar, sizeof(newcar)), 0);
     if (mngr->flags & V)
         ft_printf("P    %d | {Blue}%s{eof} %d (%d)\n", car->id + 1, op->op == OP_fork ? "fork" : "lfork", arg1,newcar->pos);
