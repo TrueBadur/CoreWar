@@ -38,6 +38,7 @@ void	make_ld_lld(t_mngr *mngr, t_car *car, t_t_op *op)
 {
 	t_int3	args;
 
+
 	if (get_args(mngr, car, op, &args))
 	{
 		args.y = mngr->arena[(car->pos + OP_BASE + IND_SIZE + (op->a1 == DIR_CODE) * 2)
@@ -53,6 +54,7 @@ void	make_ld_lld(t_mngr *mngr, t_car *car, t_t_op *op)
 void	make_st(t_mngr *mngr, t_car *car, t_t_op *op)
 {
 	t_int3 args;
+
 
 	if (get_args(mngr, car, op, &args))
 	{
@@ -80,6 +82,7 @@ void	make_add_sub(t_mngr *mngr, t_car *car, t_t_op *op)
 	t_int3 arg;
 	int res;
 
+
 	arg.x = mngr->arena[(car->pos + OP_BASE) % MEM_SIZE] - 1;
 	arg.y = mngr->arena[(car->pos + OP_BASE + ARG_REG_S) % MEM_SIZE] - 1;
 	arg.z = mngr->arena[(car->pos + OP_BASE + ARG_REG_S * 2) % MEM_SIZE] - 1;
@@ -99,6 +102,7 @@ void	make_add_sub(t_mngr *mngr, t_car *car, t_t_op *op)
 
 void	make_zjmp(t_mngr *mngr, t_car *car, t_t_op *op)
 {
+
 	t_int3 args;
 	get_args(mngr, car, op, &args);
 

@@ -110,6 +110,7 @@ typedef struct	s_mngr
 	int			num_checks;
 	int 		num_cars;
 	int         winner;
+	unsigned	next_id;
 }				t_mngr;
 
 void			validate_input(t_mngr *mngr, int argc, char **argv);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   make_one_turn.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: blomo <marvin@42.fr>                       +#+  +:+       +#+        */
+/*   By: ehugh-be <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/15 17:06:37 by ehugh-be          #+#    #+#             */
-/*   Updated: 2019/10/25 19:40:26 by blomo            ###   ########.fr       */
+/*   Updated: 2019/10/31 12:02:52 by ehugh-be         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@ void	handle_op(t_mngr *mngr, t_car *car)
 	op = (t_t_op){BYTE_OP, ARG1(BYTE_CODE), ARG2(BYTE_CODE), ARG3(BYTE_CODE)};
 	if ((ret = check_op(&op)) > 0)
 		get_op_func(op.op)(mngr, car, &op);
+	if (ret)
+		print_addr(mngr, car->pos, FT_ABS(ret));
 	car->pos = (car->pos + FT_ABS(ret)) % MEM_SIZE;
 }
 
@@ -35,7 +37,7 @@ void proceed_cars(t_mngr *mngr, short cur_time)
 	int			time_to_put;
 
 	t_list *tmp = mngr->timeline[cur_time];
-	while ((lst = ft_lsttake(mngr->timeline[cur_time])))
+	while ((lst = ft_lsttakeend(mngr->timeline[cur_time])))
 	{
 		car = (t_car*)lst->content;
 		op = (char)mngr->arena[car->pos];
@@ -43,7 +45,8 @@ void proceed_cars(t_mngr *mngr, short cur_time)
 			time_to_put = cur_time + get_op_info(op)->num_of_ticks;
 		else
 			time_to_put = cur_time + 1;
-        tl_put(mngr, (short) (time_to_put % (MAX_OP_TIME + 1)), lst, 1);
+		car->eval_in = (short) (time_to_put % (MAX_OP_TIME + 1));
+        tl_put(mngr, car->eval_in, lst, 0);
 	}
 }
 

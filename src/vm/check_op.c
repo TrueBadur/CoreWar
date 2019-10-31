@@ -6,7 +6,7 @@
 /*   By: ehugh-be <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/16 23:15:01 by ehugh-be          #+#    #+#             */
-/*   Updated: 2019/10/22 15:43:57 by ehugh-be         ###   ########.fr       */
+/*   Updated: 2019/10/30 17:22:33 by ehugh-be         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,11 +32,13 @@ static short single_arg_check(t_op *tmp, t_t_op *op)
 static short	check_params(t_t_op *c_op, t_op *smp, char *size)
 {
 	static char szs[3] = {1, 4, 2};
+	int i;
 
-	*size = OP_BASE +
-			(szs[c_op->a1 - 1] - smp->t_dir_size * 2 * (c_op->a1 == DIR_CODE)) +
-			(szs[c_op->a2 - 1] - smp->t_dir_size * 2 * (c_op->a2 == DIR_CODE)) +
-			(szs[c_op->a3 - 1] - smp->t_dir_size * 2 * (c_op->a3 == DIR_CODE));
+	i = -1;
+	*size = OP_BASE;
+	while (++i < smp->params_num)
+		*size += szs[((unsigned char*)c_op)[i + 1] - 1] - smp->t_dir_size * 2 *
+				(((unsigned char*)c_op)[i + 1] == DIR_CODE);
 	if (((1u << (unsigned)(c_op->a1 - 1)) & smp->prm_tp[0]) && (!smp->prm_tp[1]
 	|| ((1u << (unsigned)(c_op->a2 - 1)) & smp->prm_tp[1])) && (!smp->prm_tp[2]
 	|| ((1u << (unsigned)(c_op->a3 - 1)) & smp->prm_tp[2])))

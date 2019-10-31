@@ -50,17 +50,19 @@ void make_sti(t_mngr *mngr, t_car *car, t_t_op *op)
 			print_sti(car, args.x, args.y, args.z);
 	}
 }
+//todo move to lib
+int ft_mod(int a, int b)
+{
+	int r = a % b;
+	return r < 0 ? r + b : r;
+}
 
 void make_fork_lfork(t_mngr *mngr, t_car *car, t_t_op *op)
 {
 	t_int3	args;
-	int res;
+	t_car *newcar;
 
 	get_args(mngr, car, op, &args);
-
-    t_car *newcar;
-    int arg1;
-
     newcar = resurect_car(mngr);
     if (newcar == NULL)
     {
@@ -72,13 +74,13 @@ void make_fork_lfork(t_mngr *mngr, t_car *car, t_t_op *op)
     if (op->op == 12)
         args.x = args.x % IDX_MOD;
     mngr->num_cars++;
-    newcar->pos = (args.x + car->pos) % MEM_SIZE;
-    newcar->id = mngr->num_cars - 1;
-    tl_put(mngr, (short) (mngr->cycle % (MAX_OP_TIME + 1)),
-    		ft_lstnew_noc(newcar, sizeof(newcar)), 0);
+
+    newcar->pos = ft_mod(args.x + car->pos, MEM_SIZE);
+    newcar->just_forked = 1;
+    newcar->id = mngr->next_id++;
+    tl_put(mngr, (short) (mngr->cycle % (MAX_OP_TIME + 1)), ft_lstnew_noc(newcar, sizeof(newcar)), 0);
     if (mngr->flags & FLAG_V)
-        ft_printf("P    %d | {Blue}%s{eof} %d (%d)\n", car->id + 1,
-        		op->op == OP_fork ? "fork" : "lfork", args.x,newcar->pos);
+        ft_printf("P    %d | {Blue}%s{eof} %d (%d)\n", car->id + 1, op->op == OP_fork ? "fork" : "lfork", args.x,newcar->pos);
 }
 
 
