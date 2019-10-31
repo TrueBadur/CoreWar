@@ -48,7 +48,7 @@ void print_st(t_car *car, int reg1, int reg2, t_t_op *op)
         ft_printf("P    %d | {Blue}%s{eof} r%d r%d\n", car->id + 1, "st", reg1 + 1, reg2 + 1);
     else
     {
-        ft_printf("P    %d | {Blue}%s{eof} r%d %d\n", car->id + 1, "st", reg1 + 1, reg2 - car->pos);
+        ft_printf("P    %d | {Blue}%s{eof} r%d %d\n", car->id + 1, "st", reg1 + 1, reg2);
         //ft_printf("        |  -> load from %d + %d = %d \n", car->pos, reg2, car->pos + reg2);
     }
 }
