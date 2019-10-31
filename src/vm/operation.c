@@ -71,6 +71,12 @@ void make_sti(t_mngr *mngr, t_car *car, t_t_op *op)
 
     }
 }
+//todo move to lib
+int ft_mod(int a, int b)
+{
+	int r = a % b;
+	return r < 0 ? r + b : r;
+}
 
 void make_fork_lfork(t_mngr *mngr, t_car *car, t_t_op *op)
 {
@@ -82,7 +88,6 @@ void make_fork_lfork(t_mngr *mngr, t_car *car, t_t_op *op)
     {
         if(!(newcar = (t_car*)malloc(sizeof(t_car))))
             safe_exit(mngr, MALLOC_ERROR);
-
     }
     ft_memcpy(newcar, car, sizeof(t_car));
     ft_vecpush(mngr->cars, &newcar, sizeof(newcar));
@@ -91,7 +96,7 @@ void make_fork_lfork(t_mngr *mngr, t_car *car, t_t_op *op)
     else
         arg1 = get_dir(mngr, car->pos + 1, 2);
     mngr->num_cars++;
-    newcar->pos = (arg1 + car->pos) % MEM_SIZE;
+    newcar->pos = ft_mod(arg1 + car->pos, MEM_SIZE);
     newcar->just_forked = 1;
     newcar->id = mngr->next_id++;
     tl_put(mngr, (short) (mngr->cycle % (MAX_OP_TIME + 1)), ft_lstnew_noc(newcar, sizeof(newcar)), 0);
