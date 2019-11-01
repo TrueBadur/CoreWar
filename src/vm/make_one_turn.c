@@ -6,7 +6,7 @@
 /*   By: ehugh-be <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/15 17:06:37 by ehugh-be          #+#    #+#             */
-/*   Updated: 2019/10/31 12:02:52 by ehugh-be         ###   ########.fr       */
+/*   Updated: 2019/11/01 18:54:24 by ehugh-be         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,10 @@ void	handle_op(t_mngr *mngr, t_car *car)
 	short ret;
 	t_t_op	op;
 
-	op = (t_t_op){BYTE_OP, ARG1(BYTE_CODE), ARG2(BYTE_CODE), ARG3(BYTE_CODE)};
+	op = (t_t_op){car->op_code, ARG1(BYTE_CODE), ARG2(BYTE_CODE), ARG3(BYTE_CODE)};
 	if ((ret = check_op(&op)) > 0)
 		get_op_func(op.op)(mngr, car, &op);
-	if (ret)
+	if (ft_abs(ret) > 1 && mngr->flags & FLAG_V)
 		print_addr(mngr, car->pos, FT_ABS(ret));
 	car->pos = (car->pos + FT_ABS(ret)) % MEM_SIZE;
 }
@@ -45,6 +45,7 @@ void proceed_cars(t_mngr *mngr, short cur_time)
 			time_to_put = cur_time + get_op_info(op)->num_of_ticks;
 		else
 			time_to_put = cur_time + 1;
+		car->op_code = op;
 		car->eval_in = (short) (time_to_put % (MAX_OP_TIME + 1));
         tl_put(mngr, car->eval_in, lst, 1);
 	}
