@@ -57,11 +57,12 @@ unsigned char *get_code(t_mngr *mngr, int fd, size_t len)
 void parse_cor(char *file, t_mngr *mngr, int nbr)
 {
 	int fd;
-    if(!(mngr->chmps[nbr] = (t_chmp *) malloc(sizeof(t_chmp))))
-        safe_exit(mngr, MALLOC_ERROR);
-    mngr->chmps[nbr]->id = nbr;
+
 	if ((fd = open(file, O_RDONLY)) < 0)
         safe_exit(mngr, OPEN_ERROR);
+	if(!(mngr->chmps[nbr] = (t_chmp *) malloc(sizeof(t_chmp))))
+		safe_exit(mngr, MALLOC_ERROR);
+	mngr->chmps[nbr]->id = nbr;
 	if (get4byte(mngr, fd) != COREWAR_EXEC_MAGIC)
         safe_exit(mngr, INVALID_EXEC_MAGIC);
     mngr->chmps[nbr]->name = get_str(fd, 128, mngr);
