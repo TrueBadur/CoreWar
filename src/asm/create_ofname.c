@@ -35,7 +35,7 @@ char	*disassemble_case(char *str)
 
 	size = ft_strlen(str) - 1;
 	res = ft_memalloc(size);
-	ft_strncat(res, str, size);
+	ft_strncat(res, str, size - 2);
 	res[size - 2] = 's';
 	return (res);
 }
