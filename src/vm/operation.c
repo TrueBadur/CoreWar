@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   operation.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: blomo <marvin@42.fr>                       +#+  +:+       +#+        */
+/*   By: ehugh-be <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/16 15:05:59 by blomo             #+#    #+#             */
-/*   Updated: 2019/10/31 21:28:51 by blomo            ###   ########.fr       */
+/*   Updated: 2019/11/01 16:30:35 by ehugh-be         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,11 @@ void make_ldi_lldi(t_mngr *mngr, t_car *car, t_t_op *op)
 	static char step[3] = {ARG_REG_S, IND_SIZE, IND_SIZE};
 
 	res = OP_BASE + step[op->a1 - 1] + step[op->a2 - 1];
+	ft_bzero(&args, sizeof(t_int3));
+	args.z = 1;
 	if (get_args(mngr, car, op, &args))
 	{
-		args.z = mngr->arena[get_addr_arena(car->pos + res)] - 1;
+//		args.z = mngr->arena[get_addr_arena(car->pos + res)] - 1;
 		res = car->pos + ((args.x + args.y) % (op->op == OP_ldi ? IDX_MOD : INT_MAX));
 		res = get_dir(mngr, &res, DIR_SIZE);
 		*(int*)car->regs[args.z].reg = res;
@@ -45,6 +47,8 @@ void make_sti(t_mngr *mngr, t_car *car, t_t_op *op)
 	t_int3	args;
 	int res;
 
+	ft_bzero(&args, sizeof(t_int3));
+	args.x = 1;
 	if (get_args(mngr, car, op, &args))
 	{
 		res = car->pos + ((args.y + args.z) % IDX_MOD);
@@ -66,6 +70,7 @@ void make_fork_lfork(t_mngr *mngr, t_car *car, t_t_op *op)
 	t_int3	args;
 	t_car *newcar;
 
+	ft_bzero(&args, sizeof(t_int3));
 	get_args(mngr, car, op, &args);
     newcar = resurect_car(mngr);
     if (newcar == NULL)
@@ -91,6 +96,8 @@ void make_and_or_xor(t_mngr *mngr, t_car *car, t_t_op *op)
 {
 	t_int3	args;
 
+	ft_bzero(&args, sizeof(t_int3));
+	args.z = 1;
 	if (get_args(mngr, car, op, &args))
 	{
 		if(op->op == OP_and)
@@ -105,7 +112,7 @@ void make_and_or_xor(t_mngr *mngr, t_car *car, t_t_op *op)
             ft_printf("P    %d | {Blue}%s{eof} %d %d r%d\n", car->id + 1,
                       op->op == OP_and ? "and" : op->op == OP_or ? "or" : "xor",
                       args.x, args.y, args.z + 1);
-            ft_printf("test r1 = %d r2 = %d  res = %d \n",*(int*)car->regs[args.x].reg,*(int*)car->regs[args.y].reg,*(int*)car->regs[args.z].reg ); // test
+//            ft_printf("test r1 = %d r2 = %d  res = %d \n",*(int*)car->regs[args.x].reg,*(int*)car->regs[args.y].reg,*(int*)car->regs[args.z].reg ); // test
         }
 
 	}
