@@ -6,7 +6,7 @@
 /*   By: ehugh-be <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/14 16:26:51 by ehugh-be          #+#    #+#             */
-/*   Updated: 2019/10/31 18:42:53 by ehugh-be         ###   ########.fr       */
+/*   Updated: 2019/11/01 21:16:16 by ehugh-be         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,8 @@ void	bury_car(t_mngr *mngr, int i)
 	else
 		ft_vecpush_small(mngr->dead_cars, (long)car_tmp, sizeof(void*));
 	mngr->num_cars--;
-	ft_printf("{\\200}Process {Red}%d {\\200}hasn't lived for {Red}%d"
+	if (mngr->flags & FLAG_V)
+		ft_printf("{\\200}Process {Red}%d {\\200}hasn't lived for {Red}%d"
 "{\\200} (CTD {Red}%d{eof})\n", car_tmp->id + 1, mngr->cycle - car_tmp->live_cycle,
 mngr->cycles_delta);
 }
@@ -95,7 +96,8 @@ void	check_cars(t_mngr *mngr)
 	{
 		mngr->cycles_delta -= CYCLE_DELTA;
 		mngr->num_checks = 0;
-		ft_printf("{\\35}Cycles to die{eof} is now {\\92}%d{eof}\n",
+		if (mngr->flags & FLAG_V)
+			ft_printf("{\\35}Cycles to die{eof} is now {\\92}%d{eof}\n",
 				  mngr->cycles_delta);
 	}
 	if (mngr->cycles_delta > 0)
@@ -118,16 +120,24 @@ void	dump_arena(t_mngr *mngr)
 		j = -1;
         while(++j < 64)
         {
-            if(mngr->arena[j + 64 * i] <=9 && mngr->arena[j + 64 * i] > 0)
-                ft_printf("{Green}0%x {eof}", mngr->arena[j + 64 * i]);
-            else if (mngr->arena[j + 64 * i] == 0)
-                ft_printf("{Black}0%x {eof}", mngr->arena[j + 64 * i]);
-            else if (mngr->arena[j + 64 * i] < 16)
-                ft_printf("{\\200}0%x {eof}", mngr->arena[j + 64 * i]);
-            else
-                ft_printf("{Red}%x {eof}", mngr->arena[j + 64 * i]);
+//            if(mngr->arena[j + 64 * i] <=9 && mngr->arena[j + 64 * i] > 0)
+//                ft_printf("{Green}0%x {eof}", mngr->arena[j + 64 * i]);
+//            else if (mngr->arena[j + 64 * i] == 0)
+//                ft_printf("{Black}0%x {eof}", mngr->arena[j + 64 * i]);
+//            else if (mngr->arena[j + 64 * i] < 16)
+//                ft_printf("{\\200}0%x {eof}", mngr->arena[j + 64 * i]);
+//            else
+//                ft_printf("{Red}%x {eof}", mngr->arena[j + 64 * i]);
+			if(mngr->arena[j + 64 * i] <=9 && mngr->arena[j + 64 * i] > 0)
+				ft_printf("0%x ", mngr->arena[j + 64 * i]);
+			else if (mngr->arena[j + 64 * i] == 0)
+				ft_printf("0%x ", mngr->arena[j + 64 * i]);
+			else if (mngr->arena[j + 64 * i] < 16)
+				ft_printf("0%x ", mngr->arena[j + 64 * i]);
+			else
+				ft_printf("%x ", mngr->arena[j + 64 * i]);
         }
-        printf("\n");
+        ft_printf("\n");
     }
    safe_exit(mngr,CALL_DUMP);
 }
@@ -145,7 +155,7 @@ void	game_main(t_mngr *mngr)
         if (mngr->cycle >= mngr->cycles_to_die || mngr->cycles_delta <= 0)
             check_cars(mngr);
 		mngr->cycle++;
-		if (CYCLE_DEBUG)
+		if (mngr->flags & FLAG_V)
 			ft_printf("Now in cycle {Red}%d{eof}\n", mngr->cycle);
 	}
 }
