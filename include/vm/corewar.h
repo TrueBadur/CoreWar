@@ -67,6 +67,16 @@ typedef enum 	e_exit_codes
     CALL_DUMP
 }				t_eexcode;
 
+typedef struct	s_stats
+{
+	unsigned int	cars[MAX_PLAYERS + 1];
+	unsigned int	dies[MAX_PLAYERS + 1];
+	int				cycles_to_die;
+	int				cycles_to_die_new;
+	int 			cycle;
+	int 			total;
+}				t_stats;
+
 typedef struct	s_register
 {
 	char 		reg[REG_SIZE];
@@ -116,6 +126,7 @@ typedef struct	s_mngr
 
 void			validate_input(t_mngr *mngr, int argc, char **argv);
 void			game_main(t_mngr *mngr);
+
 void			safe_exit(t_mngr *mngr, enum e_exit_codes code);
 void			init_arena(t_mngr *mngr);
 void		    parse_file(char *str, t_mngr *mngr, int nbr);
@@ -130,6 +141,18 @@ void			tl_car_iter(t_mngr *mngr, void (*f)(t_mngr*, t_car*));
 /*
 ** -----------------------------Operations----------------------------------- **
 */
+
+/*
+** -----------------------------Statistic------------------------------------ **
+*/
+void 	add_dies_stats(int reg);
+void 	add_cars_stats(int reg);
+void	refresh_stats();
+t_stats	*get_stats(void);
+void	show_stats();
+void	set_cycles_die(int to_set);
+void	set_cycles_die_new(int to_set);
+void	set_cycle(int to_set);
 
 
 #endif //COREWAR_COREWAR_H

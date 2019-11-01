@@ -42,7 +42,7 @@ static void init_carrieges(t_mngr *mngr)
         tl_put(mngr, 0, ft_lstnew_noc(car, sizeof(void *)), 0);
 		mngr->num_cars++;
 		mngr->next_id++;
-		*(int*)car->regs = -car->id -1 - i; //TODO deal with endians
+		*(int*)car->regs = -car->id -1; //TODO deal with endians
 		mngr->winner = car->id;
 	}
 }

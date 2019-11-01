@@ -84,6 +84,9 @@ void	check_cars(t_mngr *mngr)
 	t_car	**cars;
 	int		i;
 
+	refresh_stats();
+	set_cycles_die(mngr->cycles_delta);
+	set_cycle(mngr->cycle);
 	mngr->num_checks++;
 	cars = mngr->cars->data;
 	i = -1;
@@ -95,11 +98,18 @@ void	check_cars(t_mngr *mngr)
 			ft_printf("{\\35}Cycles to die{eof} is now {\\92}%d{eof}\n",
 				  mngr->cycles_delta);
 	}
+	set_cycles_die_new(mngr->cycles_delta);
 	while (++i < mngr->cars->len / sizeof(void*)) //todo replace with iterating from end to start
 	{
+		//ft_printf("reg=%d\n", *(int*)cars[i]->regs);
+		add_cars_stats(*(int*)cars[i]->regs);
 		if (cars[i]->live_cycle < mngr->cycle - mngr->cycles_delta || mngr->cycles_delta <= 0)
+		{
+			add_dies_stats(*(int*)cars[i]->regs);
 			bury_car(mngr, i--);
+		}
 	}
+	show_stats();
 	if (mngr->cycles_delta > 0)
 		mngr->cycles_to_die += mngr->cycles_delta;
 	mngr->live_num = 0;
