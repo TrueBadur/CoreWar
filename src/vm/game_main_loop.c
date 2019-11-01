@@ -73,7 +73,8 @@ void	bury_car(t_mngr *mngr, int i)
 	else
 		ft_vecpush_small(mngr->dead_cars, (long)car_tmp, sizeof(void*));
 	mngr->num_cars--;
-	ft_printf("{\\200}Process {Red}%d {\\200}hasn't lived for {Red}%d"
+	if (!(mngr->flags & FLAG_S))
+		ft_printf("{\\200}Process {Red}%d {\\200}hasn't lived for {Red}%d"
 "{\\200} (CTD {Red}%d{eof})\n", car_tmp->id, mngr->cycle - car_tmp->live_cycle,
 mngr->cycles_delta);
 }
@@ -90,7 +91,8 @@ void	check_cars(t_mngr *mngr)
 	{
 		mngr->cycles_delta -= CYCLE_DELTA;
 		mngr->num_checks = 0;
-		ft_printf("{\\35}Cycles to die{eof} is now {\\92}%d{eof}\n",
+		if (!(mngr->flags & FLAG_S))
+			ft_printf("{\\35}Cycles to die{eof} is now {\\92}%d{eof}\n",
 				  mngr->cycles_delta);
 	}
 	while (++i < mngr->cars->len / sizeof(void*)) //todo replace with iterating from end to start
@@ -145,7 +147,8 @@ void	game_main(t_mngr *mngr)
         if (mngr->cycle >= mngr->cycles_to_die || mngr->cycles_delta <= 0)
             check_cars(mngr);
 		mngr->cycle++;
-		if (CYCLE_DEBUG)
-			ft_printf("Now in cycle {Red}%d{eof}\n", mngr->cycle);
+		if (!(mngr->flags & FLAG_S))
+			if (CYCLE_DEBUG)
+				ft_printf("Now in cycle {Red}%d{eof}\n", mngr->cycle);
 	}
 }

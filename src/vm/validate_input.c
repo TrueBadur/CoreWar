@@ -59,6 +59,15 @@ void parse_v(t_mngr *mngr, char **argv, int i)
         safe_exit(mngr, INVALID_N);
 }
 
+void parse_s(t_mngr *mngr, char **argv, int i)
+{
+	argv[i][0] = '\0';
+	if (!(mngr->flags & FLAG_S))
+		mngr->flags = mngr->flags | FLAG_S;
+	else
+		safe_exit(mngr, INVALID_N);
+}
+
 void parse_flags(t_mngr *mngr, char **argv)
 {
     int i;
@@ -72,6 +81,8 @@ void parse_flags(t_mngr *mngr, char **argv)
             parse_dump(mngr, argv, i);
         if (!(ft_strcmp(argv[i], "-v")))
             parse_v(mngr, argv ,i);
+		if (!(ft_strcmp(argv[i], "-s")))
+			parse_s(mngr, argv ,i);
     }
 }
 void check_players(t_mngr *mngr, char **argv, int argc)

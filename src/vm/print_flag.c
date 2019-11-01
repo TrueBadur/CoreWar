@@ -18,6 +18,8 @@ void print_addr(t_mngr *mngr, int pos, int adv)
 {
     int i;
 
+	if (mngr->flags & FLAG_S)
+		return ;
     i = -1;
     ft_printf("{Green}ADV %d{eof} ({Green}%#.4x -> %#.4x{eof}) ", adv,
     		pos, (pos + adv) % MEM_SIZE);

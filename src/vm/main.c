@@ -29,6 +29,8 @@ static void	champion_introduce(t_mngr *mngr)
  	int i;
 
  	i = -1;
+	if (mngr->flags & FLAG_S)
+		return ;
  	ft_printf("Introducing contestants...\n");
 	while (++i < 4)
 	{
@@ -40,7 +42,8 @@ static void	champion_introduce(t_mngr *mngr)
 
 static void	winer_anounce(t_mngr *mngr)
 {
-	ft_printf("Contestant %d. \"%s\", has won !\n", mngr->winner + 1, mngr->chmps[mngr->winner]->name);
+	if (!(mngr->flags & FLAG_S))
+		ft_printf("Contestant %d. \"%s\", has won !\n", mngr->winner + 1, mngr->chmps[mngr->winner]->name);
 }
 
 int main(int argc, char **argv)
