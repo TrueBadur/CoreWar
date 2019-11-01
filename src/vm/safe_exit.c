@@ -34,9 +34,12 @@ void		rm_chmp(t_chmp *chmp)
 {
 	if (!chmp)
 		return ;
-	free(chmp->name);
-	free(chmp->moto);
-	free(chmp->code);
+	if (chmp->name)
+		free(chmp->name);
+	if (chmp->moto)
+		free(chmp->moto);
+	if (chmp->code)
+		free(chmp->code);
 	free(chmp);
 }
 
