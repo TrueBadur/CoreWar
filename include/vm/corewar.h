@@ -6,7 +6,7 @@
 /*   By: blomo <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/11 16:27:53 by ehugh-be          #+#    #+#             */
-/*   Updated: 2019/10/23 17:44:50 by blomo            ###   ########.fr       */
+/*   Updated: 2019/10/30 14:37:38 by blomo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,12 @@
 #include <sys/stat.h>
 #include <fcntl.h>
 #include <stdio.h>
+#include <ncurses.h>
 
 #define MAX_OP_TIME 1000
-#define DUMP ((unsigned int)1 << (unsigned int)4)
-#define V ((unsigned int)1 << (unsigned int)5)
+#define FLAG_DUMP ((unsigned int)1 << (unsigned int)4)
+#define FLAG_V ((unsigned int)1 << (unsigned int)5)
+#define ARG_REG_S 1
 
 typedef enum	e_operation_codes
 {

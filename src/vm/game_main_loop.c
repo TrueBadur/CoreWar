@@ -140,7 +140,7 @@ void	game_main(t_mngr *mngr)
 	while (mngr->num_cars)
 	{
 	    make_one_turn(mngr);
-        if (mngr->flags & DUMP && mngr->cycle == mngr->dump_nbr)
+        if (mngr->flags & FLAG_DUMP && mngr->cycle == mngr->dump_nbr)
             dump_arena(mngr);
         if (mngr->cycle >= mngr->cycles_to_die || mngr->cycles_delta <= 0)
             check_cars(mngr);
