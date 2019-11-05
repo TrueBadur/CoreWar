@@ -12,6 +12,9 @@
 
 #include "corewar.h"
 
+# define COL_SEP 100
+# define LIN_SHIFT 2
+# define RND 1
 
 void	show_bar_gen(t_stats *st)
 {
@@ -40,12 +43,12 @@ void	print_gen(t_stats *st)
 	lin = 9;
 	per = 100.0 * st->total_die / st->total;
 
-	mvprintw(lin++, 100, "Death wave  = \t%d", st->death_wave);
-	mvprintw(lin++, 100, "Cycle       = \t%d", st->cycle);
-	mvprintw(lin++, 100, "Num cars    = \t%d", st->total);
-	mvprintw(lin++, 100, "Num dies    = %3.0f%%\t%d", per, st->total_die);
-	mvprintw(lin++, 100, "Cycle 2 die = \t%d -> %d", st->cycles_to_die, st->cycles_to_die_new);
-	move(lin++, 100);
+	mvprintw(lin++, COL_SEP, "Death wave  = \t%d", st->death_wave);
+	mvprintw(lin++, COL_SEP, "Cycle       = \t%d", st->cycle);
+	mvprintw(lin++, COL_SEP, "Num cars    = \t%d", st->total);
+	mvprintw(lin++, COL_SEP, "Num dies    = %3.0f%%\t%d", per, st->total_die);
+	mvprintw(lin++, COL_SEP, "Cycle 2 die = \t%d -> %d", st->cycles_to_die, st->cycles_to_die_new);
+	move(lin++, COL_SEP);
 	show_bar_gen(st);
 }
 
@@ -86,6 +89,7 @@ void	show_stats()
 	int		idx;
 	double	per;
 	double	pop;
+	int		lin;
 
 	st = get_stats();
 	recalc_total();
@@ -96,18 +100,22 @@ void	show_stats()
 	//show_skull_two();
 	//show_skull_three();
 	//show_nuke();
-	st->images[rand() % IMG_NUM]();
+	if (RND < IMG_NUM)
+		st->images[rand() % RND]();
+	else
+		st->images[rand() % IMG_NUM]();
 	show_time_to_die();
-	print_gen (st);
+	print_gen(st);
 	idx = -1;
+	lin = 16;
 	while (++idx < MAX_PLAYERS + 1)
 	{
 		attron(COLOR_PAIR(idx + PLAYER_SHIFT));
-		mvprintw((idx + 2) * 10, 100,"idx=%d", idx + 1);
+		mvprintw(lin++, COL_SEP,"idx=%d", idx + 1);
 		pop = 100.0 * st->cars[idx] / st->total;
 		per = 100.0 * st->dies[idx] / st->cars[idx];
-		mvprintw((idx + 2) * 10 + 1, 100, "p%d_cars    = %3.0f%%\t%d", idx + 1, pop, st->cars[idx]);
-		mvprintw((idx + 2) * 10 + 2, 100, "p%d_dies    = ", idx + 1);
+		mvprintw(lin++, COL_SEP, "p%d_cars    = %3.0f%%\t%d", idx + 1, pop, st->cars[idx]);
+		mvprintw(lin++, COL_SEP, "p%d_dies    = ", idx + 1);
 		if ((int)per == 100)
 			attron(COLOR_PAIR(DOOM));
 		else if ((int)per > 0)
@@ -115,9 +123,9 @@ void	show_stats()
 		printw("%3.0f%%", per);
 		attron(COLOR_PAIR(idx + PLAYER_SHIFT));
 		printw("\t%d", st->dies[idx]);
-		move((idx + 2) * 10 + 3, 100);
+		move(lin++, COL_SEP);
 		show_bar(idx, st);
-
+		lin += LIN_SHIFT;
 	}
 	curs_set(0);
 	refresh();
