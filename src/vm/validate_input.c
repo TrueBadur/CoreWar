@@ -3,18 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   validate_input.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: blomo <marvin@42.fr>                       +#+  +:+       +#+        */
+/*   By: ehugh-be <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/14 16:39:49 by ehugh-be          #+#    #+#             */
-/*   Updated: 2019/10/15 18:17:46 by blomo            ###   ########.fr       */
+/*   Updated: 2019/10/30 13:43:08 by blomo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
+#include "limits.h"
 
 int handle_n(t_mngr *mngr, char **argv, int i)
 {
     int nbr;
+
     nbr = 0;
     argv[i][0] = '\0';
 
@@ -35,6 +37,28 @@ int handle_n(t_mngr *mngr, char **argv, int i)
     return (2);
 }
 
+void parse_dump(t_mngr *mngr, char **argv, int i)
+{
+    int nbr;
+
+    nbr = 0;
+    argv[i][0] = '\0';
+    if (!(argv[i + 1] != NULL && !ft_atoi_safe(argv[i + 1], &nbr) && !(mngr->flags & FLAG_DUMP)))
+        safe_exit(mngr, INVALID_N);
+    mngr->flags = mngr->flags | FLAG_DUMP;
+    mngr->dump_nbr = nbr;
+    argv[i + 1][0] = '\0';
+}
+
+void parse_v(t_mngr *mngr, char **argv, int i)
+{
+    argv[i][0] = '\0';
+    if (!(mngr->flags & FLAG_V))
+        mngr->flags = mngr->flags | FLAG_V;
+    else
+        safe_exit(mngr, INVALID_N);
+}
+
 void parse_flags(t_mngr *mngr, char **argv)
 {
     int i;
@@ -42,8 +66,12 @@ void parse_flags(t_mngr *mngr, char **argv)
     i = 0;
     while(argv[++i])
     {
-        if(!ft_strcmp(argv[i], "-n"))
+        if (!ft_strcmp(argv[i], "-n"))
 			i += handle_n(mngr, argv, i);
+        if (!ft_strcmp(argv[i], "-dump"))
+            parse_dump(mngr, argv, i);
+        if (!(ft_strcmp(argv[i], "-v")))
+            parse_v(mngr, argv ,i);
     }
 }
 void check_players(t_mngr *mngr, char **argv, int argc)
@@ -68,10 +96,6 @@ void check_players(t_mngr *mngr, char **argv, int argc)
 
 void validate_input(t_mngr *mngr, int argc, char **argv)
 {
-    int i;
-    char **str;
-
-    i = 1;
     if(argc == 1)
         safe_exit(mngr, FEW_ARGUMENTS);
 	parse_flags(mngr, argv);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   corewar.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ehugh-be <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: blomo <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/11 16:27:53 by ehugh-be          #+#    #+#             */
-/*   Updated: 2019/10/22 15:32:45 by ehugh-be         ###   ########.fr       */
+/*   Updated: 2019/10/30 14:37:38 by blomo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,12 @@
 #include <sys/stat.h>
 #include <fcntl.h>
 #include <stdio.h>
+#include <ncurses.h>
 
 #define MAX_OP_TIME 1000
-#define DUMP ((unsigned int)1 << (unsigned int)4)
+#define FLAG_DUMP ((unsigned int)1 << (unsigned int)4)
+#define FLAG_V ((unsigned int)1 << (unsigned int)5)
+#define ARG_REG_S 1
 
 typedef enum	e_operation_codes
 {
@@ -59,7 +62,8 @@ typedef enum 	e_exit_codes
     INVALID_SIZE_BYTE_CHAMPION,
     INVALID_FILE_EXTENSION,
     INVALID_ARRAY_CHAMPION,
-    INVALID_ARGUMENT_NAME
+    INVALID_ARGUMENT_NAME,
+    CALL_DUMP
 }				t_eexcode;
 
 typedef struct	s_register
@@ -77,6 +81,7 @@ typedef	struct	s_car
 	short		eval_in;
 	char		carry;
 	char		op_code;
+	char        just_forked;
 }				t_car;
 
 typedef struct	s_chmp
@@ -96,6 +101,7 @@ typedef struct	s_mngr
 	t_vector	*dead_cars;
 	unsigned char 		*arena;
 	unsigned	flags; //TODO make flags
+	int         dump_nbr;
 	int			chmp_num;
 	int 		cycle;
 	int			live_num;
@@ -104,6 +110,7 @@ typedef struct	s_mngr
 	int			num_checks;
 	int 		num_cars;
 	int         winner;
+	unsigned	next_id;
 }				t_mngr;
 
 void			validate_input(t_mngr *mngr, int argc, char **argv);
@@ -116,7 +123,7 @@ void			proceed_cars(t_mngr *mngr, short cur_time);
 /*
 ** ----------------------Working with timeline------------------------------- **
 */
-void			tl_put(t_mngr *mngr, short time, t_list_node *lst);
+void tl_put(t_mngr *mngr, short time, t_list_node *lst, int addlast);
 void			tl_car_iter(t_mngr *mngr, void (*f)(t_mngr*, t_car*));
 
 /*

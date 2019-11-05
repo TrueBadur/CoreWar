@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.14.2)
 project(CoreWar C)
 
 set(CMAKE_C_STANDARD 99)
-
+set(CMAKE_C_FLAGS ${CMAKE_C_FLAGS} "-lncurses")
 include_directories(libft/includes/ ./include data/)
 include_directories(include)
 
