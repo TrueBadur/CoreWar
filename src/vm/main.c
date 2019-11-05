@@ -46,27 +46,9 @@ static void	winer_anounce(t_mngr *mngr)
 		ft_printf("Contestant %d. \"%s\", has won !\n", mngr->winner + 1, mngr->chmps[mngr->winner]->name);
 }
 
-#include <ncurses.h>
-void	init_visu()
-{
-	initscr();
-	keypad(stdscr, TRUE);
-	noecho();
-	start_color();
-	init_pair(1, COLOR_WHITE, COLOR_BLACK);
-	init_pair(2, COLOR_CYAN, COLOR_BLACK);
-	init_pair(3, COLOR_GREEN, COLOR_BLACK);
-	init_pair(4, COLOR_BLUE, COLOR_BLACK);
-	init_pair(5, COLOR_RED, COLOR_BLACK);
-	init_pair(6, COLOR_MAGENTA, COLOR_BLACK);
-	border(0, 0, 0, 0, 0, 0, 0, 0);
-	refresh();
-}
-
 int main(int argc, char **argv)
 {
 	t_mngr *mngr;
-
 	init_visu();
 	mngr = init_mngr();
 	validate_input(mngr, argc, argv);

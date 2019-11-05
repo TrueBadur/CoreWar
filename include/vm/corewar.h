@@ -21,12 +21,27 @@
 #include <fcntl.h>
 #include <stdio.h>
 #include <ncurses.h>
+#include <stdlib.h>
 
 #define MAX_OP_TIME 1000
 #define FLAG_DUMP ((unsigned int)1 << (unsigned int)4)
 #define FLAG_V ((unsigned int)1 << (unsigned int)5)
 #define FLAG_S ((unsigned int)1 << (unsigned int)6)
 #define ARG_REG_S 1
+
+#define PLAYER_SHIFT 1
+#define P1 1
+#define P2 2
+#define P3 3
+#define P4 4
+#define PU 5
+#define DEF 6
+#define BLOOD 7
+#define BRUTAL 8
+#define RIP 9
+#define DOOM 10
+
+#define IMG_NUM 4
 
 typedef enum	e_operation_codes
 {
@@ -69,12 +84,15 @@ typedef enum 	e_exit_codes
 
 typedef struct	s_stats
 {
+	unsigned int	death_wave;
 	unsigned int	cars[MAX_PLAYERS + 1];
 	unsigned int	dies[MAX_PLAYERS + 1];
 	int				cycles_to_die;
 	int				cycles_to_die_new;
 	int 			cycle;
 	int 			total;
+	int 			total_die;
+	void			(*images[IMG_NUM])(void);
 }				t_stats;
 
 typedef struct	s_register
@@ -153,6 +171,12 @@ void	show_stats();
 void	set_cycles_die(int to_set);
 void	set_cycles_die_new(int to_set);
 void	set_cycle(int to_set);
-
+void	recalc_total();
+void	show_nuke();
+void	show_time_to_die();
+void	init_visu();
+void	show_skull_one();
+void	show_skull_two();
+void	show_skull_three();
 
 #endif //COREWAR_COREWAR_H
