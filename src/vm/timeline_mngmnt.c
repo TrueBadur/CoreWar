@@ -12,25 +12,31 @@
 
 #include "corewar.h"
 
-void tl_put(t_mngr *mngr, short time, t_list_node *lst, int addlast)
+void tl_put(t_mngr *mngr, short time, t_car *car)
 {
 	if (!mngr->timeline[time])
-		if (!(mngr->timeline[time] = ft_lstinit()))
+		if (!(mngr->timeline[time] = ft_vecinit(sizeof(void*) * CAR_ST_S)))
 			safe_exit(mngr, MALLOC_ERROR);
-	addlast ? ft_lstaddend(mngr->timeline[time], lst) : ft_lstadd(mngr->timeline[time], lst);
-	if (mngr->timeline[time]->len && !mngr->timeline[time]->end)
+	if(!(mngr->timeline[time] = ft_vecpush(mngr->timeline[time], &car,
+			sizeof(void*))))
 		safe_exit(mngr, MALLOC_ERROR);
 }
 
 void	tl_car_iter(t_mngr *mngr, void (*f)(t_mngr*, t_car*))
 {
-	t_list_node *lst;
-	t_car	   *car;
+	t_car	**cars;
+	int		i;
+	int		cur_time;
+	t_car	*tmp;
 
-	lst = mngr->timeline[mngr->cycle % (MAX_OP_TIME + 1)]->begin;
-	while (lst)
+	cur_time = mngr->cycle % (MAX_OP_TIME + 1);
+	t_vector *vec = mngr->timeline[cur_time];
+	i = -1;
+	while (++i < mngr->timeline[cur_time]->len / sizeof(void*))
 	{
-		f(mngr, (t_car*)lst->content);
-		lst = lst->next;
+		cars = (t_car**)mngr->timeline[cur_time]->data;
+		tmp = cars[i];
+		if (cars[i]->eval_in > -1)
+			f(mngr, cars[i]);
 	}
 }

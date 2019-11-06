@@ -6,7 +6,7 @@
 /*   By: ehugh-be <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/14 16:26:51 by ehugh-be          #+#    #+#             */
-/*   Updated: 2019/11/01 21:16:16 by ehugh-be         ###   ########.fr       */
+/*   Updated: 2019/11/06 22:44:10 by ehugh-be         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,13 +65,20 @@ int car_in_lst(void *lst_cont, void *car_cont)
 void	bury_car(t_mngr *mngr, int i)
 {
 	t_car *car_tmp;
+	int			car_i;
+	t_vector *time;
 
 	car_tmp = pop_car(mngr->cars, i);
-	ft_lstdel_by_val(mngr->timeline[car_tmp->eval_in], car_in_lst, car_tmp);
+	time = mngr->timeline[car_tmp->eval_in]; //todo car can't be find in given time
+	car_i = ft_vecbinsearch(time, car_tmp, NULL);
+	time->len -= sizeof(void*);
+	ft_memmove(time->data + car_i * sizeof(void*), time->data + time->len,
+			sizeof(void*));
 	if (mngr->cycles_delta <= 0)
 		free(car_tmp);
 	else
-		ft_vecpush_small(mngr->dead_cars, (long)car_tmp, sizeof(void*));
+		if (!ft_vecpush_small(mngr->dead_cars, (long)car_tmp, sizeof(void*)))
+			safe_exit(mngr, MALLOC_ERROR);
 	mngr->num_cars--;
 	if (mngr->flags & FLAG_V)
 		ft_printf("{\\200}Process {Red}%d {\\200}hasn't lived for {Red}%d"
@@ -87,7 +94,7 @@ void	check_cars(t_mngr *mngr)
 	mngr->num_checks++;
 	cars = mngr->cars->data;
 	i = -1;
-	while (++i < mngr->cars->len / sizeof(void*)) //todo replace with iterating from end to start
+	while (++i < mngr->cars->len / sizeof(void*))
 	{
 		if (cars[i]->live_cycle - 1 < mngr->cycle - mngr->cycles_delta || mngr->cycles_delta <= 0)
 			bury_car(mngr, i--);

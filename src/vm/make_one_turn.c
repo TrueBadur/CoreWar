@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   make_one_turn.c                                    :+:      :+:    :+:   */
+/*   make_one_turn.c                     +               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ehugh-be <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/15 17:06:37 by ehugh-be          #+#    #+#             */
-/*   Updated: 2019/11/01 18:54:24 by ehugh-be         ###   ########.fr       */
+/*   Updated: 2019/11/06 18:38:08 by ehugh-be         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,24 +31,30 @@ void	handle_op(t_mngr *mngr, t_car *car)
 
 void proceed_cars(t_mngr *mngr, short cur_time)
 {
-	t_list_node *lst;
-	t_car		*car;
+	t_car		**cars;
 	char		op;
 	int			time_to_put;
+	int			i;
 
-	t_list *tmp = mngr->timeline[cur_time];
-	while ((lst = ft_lsttake(mngr->timeline[cur_time])))
+	i = -1;
+	while (++i < mngr->timeline[cur_time]->len / sizeof(void*))
 	{
-		car = (t_car*)lst->content;
-		op = (char)mngr->arena[car->pos];
+		cars = (t_car**)mngr->timeline[cur_time]->data;
+		op = (char)mngr->arena[cars[i]->pos];
 		if (OP_live <= op && OP_aff >= op)
 			time_to_put = cur_time + get_op_info(op)->num_of_ticks;
 		else
 			time_to_put = cur_time + 1;
-		car->op_code = op;
-		car->eval_in = (short) (time_to_put % (MAX_OP_TIME + 1));
-        tl_put(mngr, car->eval_in, lst, 1);
+		cars[i]->op_code = op;
+		cars[i]->eval_in = (short)(time_to_put % (MAX_OP_TIME + 1));
+		tl_put(mngr, cars[i]->eval_in, cars[i]);
 	}
+	mngr->timeline[cur_time]->len = 0;
+}
+
+int		car_comp(void *a, void *b)
+{
+	return ((int)(((t_car*)a)->id - ((t_car*)b)->id));
 }
 
 void	make_one_turn(t_mngr *mngr)
@@ -58,6 +64,7 @@ void	make_one_turn(t_mngr *mngr)
 	cur_time = (short)(mngr->cycle % (MAX_OP_TIME + 1));
 	if (!mngr->timeline[cur_time] || !mngr->timeline[cur_time]->len)
 		return ;
+//	ft_vecsort(&mngr->timeline[cur_time], car_comp, sizeof(void*));
 	tl_car_iter(mngr, handle_op);
 	proceed_cars(mngr, cur_time);
 }
