@@ -6,7 +6,7 @@
 /*   By: ehugh-be <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/12 13:41:24 by ehugh-be          #+#    #+#             */
-/*   Updated: 2019/06/07 20:00:59 by ehugh-be         ###   ########.fr       */
+/*   Updated: 2019/11/06 21:58:25 by jleann           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,6 +114,8 @@ t_vector			*ft_vecremove(t_vector *vec, size_t strt, size_t s);
 int					ft_vecbinsearch_int(t_vector *vec, int val);
 t_vector			*ft_vecput(t_vector *vec, size_t pos, size_t size,
 		void *data);
+void				ft_vecquicksort(t_vector *vec,
+							int(*comp)(void *, void *), size_t ssize);
 typedef struct		s_string
 {
 	char			*data;
