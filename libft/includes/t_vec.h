@@ -111,7 +111,8 @@ t_vector			*ft_vecpush_small(t_vector *vec, long data, size_t s);
 t_vector			*ft_vecgrow(t_vector *vec, size_t s);
 t_vector			*ft_vecshrink(t_vector *vec, unsigned int offset);
 t_vector			*ft_vecremove(t_vector *vec, size_t strt, size_t s);
-int					ft_vecbinsearch_int(t_vector *vec, int val);
+int					ft_vecbinsearch(t_vector *vec, void *val,
+		int(*compare)(void*, void*));
 t_vector			*ft_vecput(t_vector *vec, size_t pos, size_t size,
 		void *data);
 typedef struct		s_string
