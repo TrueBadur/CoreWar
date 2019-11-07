@@ -18,9 +18,34 @@ static void	put_champs(t_mngr *mngr)
 
 	i = -1;
 	while (++i < mngr->chmp_num)
-        if (mngr->chmps[i])
-		    ft_memcpy(mngr->arena + i * MEM_SIZE / mngr->chmp_num,
-				mngr->chmps[i]->code, mngr->chmps[i]->size);
+	{
+		if (mngr->chmps[i])
+		{
+			ft_memcpy(mngr->arena + i * MEM_SIZE / mngr->chmp_num,
+					  mngr->chmps[i]->code, mngr->chmps[i]->size);
+
+			refresh_mem(mngr, (i * MEM_SIZE / mngr->chmp_num)
+					, (mngr->chmps[i]->size), i);
+
+			/*
+			show_pos_in_arena(mngr, 0);
+			show_pos_in_arena(mngr, 63);
+			show_pos_in_arena(mngr, 64);
+			show_pos_in_arena(mngr, 4095);
+			 */
+			/*
+			int j = -1;
+			while(++j < 4096)
+			{
+				attron(COLOR_PAIR(BRUTAL));
+				show_pos_in_arena(mngr, j);
+				curs_set(0);
+				refresh();
+				getchar();
+			}
+			 */
+		}
+	}
 }
 
 static void init_carrieges(t_mngr *mngr)
@@ -51,6 +76,7 @@ void	init_arena(t_mngr *mngr)
 {
 	if (!(mngr->arena = ft_memalloc(MEM_SIZE)))
 		safe_exit(mngr, MALLOC_ERROR);
+	show_game_init(mngr);
 	put_champs(mngr);
 	init_carrieges(mngr);
 	mngr->cycles_to_die = CYCLE_TO_DIE;

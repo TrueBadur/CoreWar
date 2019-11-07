@@ -178,5 +178,9 @@ void	init_visu();
 void	show_skull_one();
 void	show_skull_two();
 void	show_skull_three();
+void	show_game_init(t_mngr *mngr);
+void	refresh_mem(t_mngr *mngr, int start, int size, int color);
+void	show_pos_in_arena(t_mngr *mngr, int pos);
+void	attron_ply_clr(int i);
 
 #endif //COREWAR_COREWAR_H

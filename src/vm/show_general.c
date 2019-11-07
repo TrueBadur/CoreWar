@@ -34,3 +34,8 @@ void	init_visu()
 	border(0, 0, 0, 0, 0, 0, 0, 0);
 	refresh();
 }
+
+void	attron_ply_clr(int i)
+{
+	attron(COLOR_PAIR(i + 1));
+}

@@ -77,7 +77,7 @@ void	show_bar(int id, t_stats *st)
 		attron(COLOR_PAIR(RIP));
 	while (bar++ < live)
 		printw("#");
-	attron(COLOR_PAIR(id + PLAYER_SHIFT));
+	attron_ply_clr(id);
 	while (bar++ < 100)
 		printw(" ");
 	printw("]");
@@ -110,7 +110,7 @@ void	show_stats()
 	lin = 16;
 	while (++idx < MAX_PLAYERS + 1)
 	{
-		attron(COLOR_PAIR(idx + PLAYER_SHIFT));
+		attron_ply_clr(idx);
 		mvprintw(lin++, COL_SEP,"idx=%d", idx + 1);
 		pop = 100.0 * st->cars[idx] / st->total;
 		per = 100.0 * st->dies[idx] / st->cars[idx];
@@ -121,7 +121,7 @@ void	show_stats()
 		else if ((int)per > 0)
 			attron(COLOR_PAIR(RIP));
 		printw("%3.0f%%", per);
-		attron(COLOR_PAIR(idx + PLAYER_SHIFT));
+		attron_ply_clr(idx);
 		printw("\t%d", st->dies[idx]);
 		move(lin++, COL_SEP);
 		show_bar(idx, st);
