@@ -54,7 +54,7 @@ void proceed_cars(t_mngr *mngr, short cur_time)
 
 int		car_comp(void *a, void *b)
 {
-	return ((int)(((t_car*)a)->id - ((t_car*)b)->id));
+	return ((int)(((t_car*)b)->id - ((t_car*)a)->id));
 }
 
 void	make_one_turn(t_mngr *mngr)
@@ -64,7 +64,8 @@ void	make_one_turn(t_mngr *mngr)
 	cur_time = (short)(mngr->cycle % (MAX_OP_TIME + 1));
 	if (!mngr->timeline[cur_time] || !mngr->timeline[cur_time]->len)
 		return ;
-//	ft_vecsort(&mngr->timeline[cur_time], car_comp, sizeof(void*));
+	t_car **tmp = mngr->timeline[cur_time]->data;
+	ft_vecquicksort(mngr->timeline[cur_time], car_comp, sizeof(void*));
 	tl_car_iter(mngr, handle_op);
 	proceed_cars(mngr, cur_time);
 }

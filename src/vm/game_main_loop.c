@@ -6,7 +6,7 @@
 /*   By: ehugh-be <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/14 16:26:51 by ehugh-be          #+#    #+#             */
-/*   Updated: 2019/11/06 22:44:10 by ehugh-be         ###   ########.fr       */
+/*   Updated: 2019/11/07 14:51:45 by ehugh-be         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,28 +32,21 @@ t_car	*pop_car(t_vector *vec, int pos)
 	return (tmp_car);
 }
 
-void ft_lstdel_by_val(t_list *lst, int (*f)(void*, void*), void *cmp)
+void ft_vecdel_by_val(t_vector *vec,  void *cmp)
 {
-	t_list_node *node;
+	int i;
 
-	node = lst->begin;
-	while(node)
+	i = -1;
+	while(++i < vec->len / sizeof(void*))
 	{
-		if (!f(node->content, cmp))
+		if (*(void**)(vec->data + i * sizeof(void*)) == cmp)
 		{
-			if (node->prev)
-				node->prev->next = node->next;
-			else
-				lst->begin = node->next;
-			if (node->next)
-				node->next->prev = node->prev;
-			else
-				lst->end = node->prev;
-			lst->len -= 1;
-			free(node);
+			vec->len -= sizeof(void*);
+			ft_memmove(vec->data + i * sizeof(void*), vec->data + vec->len,
+					   sizeof(void*));
 			return ;
 		}
-		node = node->next;
+
 	}
 }
 
@@ -65,15 +58,10 @@ int car_in_lst(void *lst_cont, void *car_cont)
 void	bury_car(t_mngr *mngr, int i)
 {
 	t_car *car_tmp;
-	int			car_i;
 	t_vector *time;
 
 	car_tmp = pop_car(mngr->cars, i);
-	time = mngr->timeline[car_tmp->eval_in]; //todo car can't be find in given time
-	car_i = ft_vecbinsearch(time, car_tmp, NULL);
-	time->len -= sizeof(void*);
-	ft_memmove(time->data + car_i * sizeof(void*), time->data + time->len,
-			sizeof(void*));
+	ft_vecdel_by_val(mngr->timeline[car_tmp->eval_in], car_tmp);
 	if (mngr->cycles_delta <= 0)
 		free(car_tmp);
 	else
