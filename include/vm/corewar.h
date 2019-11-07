@@ -92,6 +92,8 @@ typedef struct	s_stats
 	int 			cycle;
 	int 			total;
 	int 			total_die;
+	unsigned char 	arena[MEM_SIZE];
+	unsigned char 	color[MEM_SIZE];
 	void			(*images[IMG_NUM])(void);
 }				t_stats;
 
@@ -182,5 +184,6 @@ void	show_game_init(t_mngr *mngr);
 void	refresh_mem(t_mngr *mngr, int start, int size, int color);
 void	show_pos_in_arena(t_mngr *mngr, int pos);
 void	attron_ply_clr(int i);
+void	update_mem(t_mngr *mngr, int id_ply, char show);
 
 #endif //COREWAR_COREWAR_H

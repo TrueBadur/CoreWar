@@ -17,6 +17,7 @@ t_stats	*get_stats(void)
 	static t_stats	st;
 	static int		init;
 	time_t 			t;
+	int i;
 
 	if (init == 0)
 	{
@@ -26,6 +27,12 @@ t_stats	*get_stats(void)
 		st.images[2] = show_skull_two;
 		st.images[3] = show_skull_three;
 		init = 1;
+		i = -1;
+		while (++i)
+		{
+			st.arena[i] = 0;
+			st.color[i] = 0;
+		}
 	}
 	return &st;
 }

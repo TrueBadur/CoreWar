@@ -103,3 +103,31 @@ void	refresh_mem(t_mngr *mngr, int start, int size, int color)
 	refresh();
 	getchar();
 }
+
+void	update_mem(t_mngr *mngr, int id_ply, char show)
+{
+	t_stats *st;
+	int		idx;
+
+	st = get_stats();
+	idx = -1;
+	while (++idx < MEM_SIZE)
+	{
+		if (mngr->arena[idx] == st->arena[idx])
+			continue;
+		st->arena[idx] = mngr->arena[idx];
+		st->color[idx] = id_ply;
+		if (show)
+		{
+			if (id_ply < 0)
+				id_ply = -id_ply;
+			attron(COLOR_PAIR(id_ply));
+			show_pos_in_arena(mngr, idx);
+		}
+	}
+	if (show)
+		attron(COLOR_PAIR(DEF));
+	curs_set(0);
+	refresh();
+	getchar();
+}

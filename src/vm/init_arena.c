@@ -27,6 +27,8 @@ static void	put_champs(t_mngr *mngr)
 			refresh_mem(mngr, (i * MEM_SIZE / mngr->chmp_num)
 					, (mngr->chmps[i]->size), i);
 
+			update_mem(mngr, i, 0);
+
 			/*
 			show_pos_in_arena(mngr, 0);
 			show_pos_in_arena(mngr, 63);
