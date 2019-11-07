@@ -54,7 +54,7 @@ void proceed_cars(t_mngr *mngr, short cur_time)
 
 int		car_comp(void *a, void *b)
 {
-	return ((int)(((t_car*)b)->id - ((t_car*)a)->id));
+	return ((int)((*(t_car**)b)->id - (*(t_car**)a)->id));
 }
 
 void	make_one_turn(t_mngr *mngr)

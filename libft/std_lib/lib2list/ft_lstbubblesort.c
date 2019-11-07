@@ -1,7 +1,4 @@
 #include "ft_list.h"
-#include "ft_ls.h"
-#include "arg_parser.h"
-#include "ft_string.h"
 
 void        swap_nodes(t_list *lst, t_list_node *l, t_list_node *r)
 {

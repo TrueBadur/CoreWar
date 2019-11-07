@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_vecquicksort.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jleann <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: ehugh-be <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/06 21:59:10 by jleann            #+#    #+#             */
-/*   Updated: 2019/11/06 21:59:26 by jleann           ###   ########.fr       */
+/*   Updated: 2019/11/07 18:16:35 by ehugh-be         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,15 @@
 
 void	ft_memswap(void *a, void *b, size_t size)
 {
-	char	tmp[size];
+	void	*tmp;
 
-	ft_memcpy(tmp, a, size);
-	ft_memcpy(a, b, size);
-	ft_memcpy(b, tmp, size);
+	(void)size
+	tmp = *(void**)a;
+	*(void**)a = *(void**)b;
+	*(void**)b = tmp;
+//	ft_memcpy(tmp, a, size);
+//	ft_memcpy(a, b, size);
+//	ft_memcpy(b, tmp, size);
 }
 
 uint32_t	partition(void *data, t_int2 begened,
