@@ -122,7 +122,6 @@ int		add_parm(t_lexdata *dat)
 	{
 		if ((err = process_dir(dat, line)))
 			return (err);
-		return (0);
 	}
 	else if ((err = process_indir(dat, line)))
 		return (err);

@@ -14,7 +14,17 @@
 
 inline static uint8_t	get_par_type(uint8_t ops, uint8_t id)
 {
-	return ((uint8_t)(ops >> (uint8_t)(6 - id * 2)) & 3U);
+	uint8_t tmp;
+
+	tmp = (uint8_t)(ops >> (uint8_t)(6 - id * 2)) & 3U;
+	if (tmp == 1)
+		return (T_REG);
+	else if (tmp == 2)
+		return (T_DIR);
+	else if (tmp == 3)
+		return (T_IND);
+	else
+		return (-1);
 }
 
 static void				read_params(t_command *cmd, void *exc, size_t *cr,
@@ -59,24 +69,16 @@ static void				read_params_opt(t_command *cmd, void *exc, size_t *cr,
 	while (cur_par < op->params_num)
 	{
 		tmp = get_par_type(cmd->par_types, cur_par);
-		if (tmp == 1 && T_REG & op->paramtypes[cur_par])
-		{
+		if (tmp == T_REG && T_REG & op->paramtypes[cur_par])
 			cmd->params[cur_par].data = read_int8_mem(exc, cr, cap);
-			cmd->params[cur_par].type = T_REG;
-		}
-		else if (tmp == 3 && T_IND & op->paramtypes[cur_par])
-		{
+		else if (tmp == T_IND && T_IND & op->paramtypes[cur_par])
 			cmd->params[cur_par].data = read_int16_mem(exc, cr, cap);
-			cmd->params[cur_par].type = T_IND;
-		}
-		else if (tmp == 2 && T_DIR & op->paramtypes[cur_par])
-		{
+		else if (tmp == T_DIR && T_DIR & op->paramtypes[cur_par])
 			cmd->params[cur_par].data = op->t_dir_size ?
 					read_int16_mem(exc, cr, cap) : read_int32_mem(exc, cr, cap);
-			cmd->params[cur_par].type = T_DIR;
-		}
 		else
 			raise_error_dis(INVALID_PAR_TYPE_ERR);
+		cmd->params[cur_par].type = tmp;
 		cur_par++;
 	}
 }
