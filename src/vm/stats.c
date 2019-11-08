@@ -19,6 +19,7 @@ t_stats	*get_stats(void)
 	time_t 			t;
 	int i;
 
+
 	if (init == 0)
 	{
 		srand((unsigned) time(&t));
@@ -26,12 +27,15 @@ t_stats	*get_stats(void)
 		st.images[1] = show_skull_one;
 		st.images[2] = show_skull_two;
 		st.images[3] = show_skull_three;
+		st.rate = 100000;
 		init = 1;
 		i = -1;
 		while (++i)
 		{
 			st.arena[i] = 0;
 			st.color[i] = 0;
+            st.arena_old[i] = 0;
+            st.color_old[i] = 0;
 		}
 	}
 	return &st;

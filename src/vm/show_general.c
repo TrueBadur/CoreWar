@@ -31,6 +31,13 @@ void	init_visu()
 	init_pair(RIP, COLOR_WHITE, COLOR_BLACK);
 	init_pair(DOOM, COLOR_BLACK, COLOR_WHITE);
 
+    init_pair(P1H, COLOR_WHITE, COLOR_CYAN);
+    init_pair(P2H, COLOR_WHITE, COLOR_GREEN);
+    init_pair(P3H, COLOR_WHITE, COLOR_MAGENTA);
+    init_pair(P4H, COLOR_WHITE, COLOR_YELLOW);
+    init_pair(PUH, COLOR_WHITE, COLOR_RED);
+
+
 	border(0, 0, 0, 0, 0, 0, 0, 0);
 	refresh();
 }

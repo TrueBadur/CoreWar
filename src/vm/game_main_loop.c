@@ -110,6 +110,7 @@ void	check_cars(t_mngr *mngr)
 		}
 	}
 	show_stats();
+	reshow_area(mngr);
 	if (mngr->cycles_delta > 0)
 		mngr->cycles_to_die += mngr->cycles_delta;
 	mngr->live_num = 0;
@@ -152,6 +153,7 @@ void	game_main(t_mngr *mngr)
 	while (mngr->num_cars)
 	{
 	    make_one_turn(mngr);
+        show_area(mngr);
         if (mngr->flags & FLAG_DUMP && mngr->cycle == mngr->dump_nbr)
             dump_arena(mngr);
         if (mngr->cycle >= mngr->cycles_to_die || mngr->cycles_delta <= 0)

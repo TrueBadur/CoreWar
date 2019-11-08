@@ -38,17 +38,19 @@ void	show_bar_gen(t_stats *st)
 void	print_gen(t_stats *st)
 {
 	int		lin;
+	int		col;
 	double	per;
 
 	lin = 9;
+	col = COL_SEP;
 	per = 100.0 * st->total_die / st->total;
 
-	mvprintw(lin++, COL_SEP, "Death wave  = \t%d", st->death_wave);
-	mvprintw(lin++, COL_SEP, "Cycle       = \t%d", st->cycle);
-	mvprintw(lin++, COL_SEP, "Num cars    = \t%d", st->total);
-	mvprintw(lin++, COL_SEP, "Num dies    = %3.0f%%\t%d", per, st->total_die);
-	mvprintw(lin++, COL_SEP, "Cycle 2 die = \t%d -> %d", st->cycles_to_die, st->cycles_to_die_new);
-	move(lin++, COL_SEP);
+	mvprintw(lin++, col, "Death wave  = \t%d", st->death_wave);
+	mvprintw(lin++, col, "Cycle       = \t%d", st->cycle);
+	mvprintw(lin++, col, "Num cars    = \t%d", st->total);
+	mvprintw(lin++, col, "Num dies    = %3.0f%%\t%d", per, st->total_die);
+	mvprintw(lin++, col, "Cycle 2 die = \t%d -> %d", st->cycles_to_die, st->cycles_to_die_new);
+	move(lin++, col);
 	show_bar_gen(st);
 }
 

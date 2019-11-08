@@ -40,6 +40,11 @@
 #define BRUTAL 8
 #define RIP 9
 #define DOOM 10
+#define P1H 11
+#define P2H 12
+#define P3H 13
+#define P4H 14
+#define PUH 15
 
 #define IMG_NUM 4
 
@@ -93,7 +98,10 @@ typedef struct	s_stats
 	int 			total;
 	int 			total_die;
 	unsigned char 	arena[MEM_SIZE];
-	unsigned char 	color[MEM_SIZE];
+	char 	        color[MEM_SIZE];
+    unsigned char 	arena_old[MEM_SIZE];
+    char         	color_old[MEM_SIZE];
+	int	rate;
 	void			(*images[IMG_NUM])(void);
 }				t_stats;
 
@@ -181,9 +189,11 @@ void	show_skull_one();
 void	show_skull_two();
 void	show_skull_three();
 void	show_game_init(t_mngr *mngr);
-void	refresh_mem(t_mngr *mngr, int start, int size, int color);
-void	show_pos_in_arena(t_mngr *mngr, int pos);
+void	show_champ_mem_init(t_mngr *mngr, int start, int size, int color);
+void	show_pos_in_arena(t_mngr *mngr, int pos, int color);
 void	attron_ply_clr(int i);
-void	update_mem(t_mngr *mngr, int id_ply, char show);
+void	update_mem(t_mngr *mngr, int id_ply);
+void    show_area(t_mngr *mngr);
+void	reshow_area(t_mngr *mngr);
 
 #endif //COREWAR_COREWAR_H

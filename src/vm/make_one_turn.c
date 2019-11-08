@@ -27,7 +27,7 @@ void	handle_op(t_mngr *mngr, t_car *car)
 	if (ret)
 		print_addr(mngr, car->pos, FT_ABS(ret));
 	car->pos = (car->pos + FT_ABS(ret)) % MEM_SIZE;
-	update_mem(mngr, *(int *)car->regs, 1);
+	update_mem(mngr, *(int *)car->regs);
 }
 
 void proceed_cars(t_mngr *mngr, short cur_time)

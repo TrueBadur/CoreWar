@@ -24,10 +24,10 @@ static void	put_champs(t_mngr *mngr)
 			ft_memcpy(mngr->arena + i * MEM_SIZE / mngr->chmp_num,
 					  mngr->chmps[i]->code, mngr->chmps[i]->size);
 
-			refresh_mem(mngr, (i * MEM_SIZE / mngr->chmp_num)
+			show_champ_mem_init(mngr, (i * MEM_SIZE / mngr->chmp_num)
 					, (mngr->chmps[i]->size), i);
 
-			update_mem(mngr, i, 0);
+			//update_mem(mngr, i);
 
 			/*
 			show_pos_in_arena(mngr, 0);
