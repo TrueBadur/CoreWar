@@ -31,6 +31,7 @@ void	assemble(t_argdata *args)
 	}
 	champdata = run_champgenerator(lexdata);
 	write_champ(champdata, args);
+	ft_printf("Writing output program to %s", args->ofname);
 	free_lexdata(lexdata);
 	free_champdata(champdata);
 }
