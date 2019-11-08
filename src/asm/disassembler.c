@@ -6,7 +6,7 @@
 /*   By: jleann <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/26 18:29:01 by jleann            #+#    #+#             */
-/*   Updated: 2019/10/26 18:29:02 by jleann           ###   ########.fr       */
+/*   Updated: 2019/11/02 02:26:29 by jleann           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,19 @@ void	*check_header(int fd, t_headdata *headdata)
 	return (exec_code);
 }
 
+void	free_cmd_list(t_list_node *lst)
+{
+	t_list_node	*tmp;
+
+	while (lst)
+	{
+		tmp = lst->next;
+		free(lst->content);
+		free(lst);
+		lst = tmp;
+	}
+}
+
 void	disassemble(t_argdata *args)
 {
 	int			fd;
@@ -49,7 +62,9 @@ void	disassemble(t_argdata *args)
 	if ((fd = open(args->fname, O_RDONLY)) == -1)
 		raise_error_dis(CONNOT_OPEN_FILE_ERR);
 	ft_bzero(&data, sizeof(t_headdata));
-	exec_code = check_header(fd ,&data);
+	exec_code = check_header(fd, &data);
 	generate_commands_dis(&data, exec_code, &cmd_lst);
 	write_commands_dis(&data, &cmd_lst, args->ofname);
+	free(exec_code);
+	free_cmd_list(cmd_lst.begin);
 }

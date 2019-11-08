@@ -19,11 +19,13 @@
 # define NO_FILE_PROVIDED_ERR "No file provided!"
 # define INVALID_FILE_EXT_ERR "Invalid file extension"
 
+# include <stdint.h>
+
 typedef struct	s_flag
 {
-	int			ftype:1;
-	int			fassemble:1;
-	int			fdisassemble:1;
+	uint32_t	ftype:1;
+	uint32_t	fassemble:1;
+	uint32_t	fdisassemble:1;
 }				t_flag;
 
 typedef struct	s_argdata
