@@ -29,11 +29,12 @@ void	handle_op(t_mngr *mngr, t_car *car)
 	car->pos = (car->pos + FT_ABS(ret)) % MEM_SIZE;
 }
 
+#define TL_TO_PUT (mngr->timeline[time_to_put])
 void proceed_cars(t_mngr *mngr, short cur_time)
 {
 	t_car		**cars;
 	char		op;
-	int			time_to_put;
+	short		time_to_put;
 	int			i;
 
 	i = -1;
@@ -42,14 +43,21 @@ void proceed_cars(t_mngr *mngr, short cur_time)
 		cars = (t_car**)mngr->timeline[cur_time]->data;
 		op = (char)mngr->arena[cars[i]->pos];
 		if (OP_live <= op && OP_aff >= op)
-			time_to_put = cur_time + get_op_info(op)->num_of_ticks;
+			time_to_put = (short)((cur_time + get_op_info(op)->num_of_ticks) %
+					(MAX_OP_TIME + 1));
 		else
-			time_to_put = cur_time + 1;
+			time_to_put = (short)((cur_time + 1) % (MAX_OP_TIME + 1));
 		cars[i]->op_code = op;
-		cars[i]->eval_in = (short)(time_to_put % (MAX_OP_TIME + 1));
+		cars[i]->eval_in = time_to_put;
 		tl_put(mngr, cars[i]->eval_in, cars[i]);
+		if (TL_TO_PUT->offset >= 0 && cars[i]->id >= TL_TO_PUT->offset)
+			TL_TO_PUT->offset = cars[i]->id;
+		else
+			TL_TO_PUT->offset = -1;
 	}
+	//TODO set flag about sorted;
 	mngr->timeline[cur_time]->len = 0;
+	mngr->timeline[cur_time]->offset = 0;
 }
 
 int		car_comp(void *a, void *b)
@@ -65,7 +73,10 @@ void	make_one_turn(t_mngr *mngr)
 	if (!mngr->timeline[cur_time] || !mngr->timeline[cur_time]->len)
 		return ;
 	t_car **tmp = mngr->timeline[cur_time]->data;
-	ft_vecquicksort(mngr->timeline[cur_time], car_comp, sizeof(void*));
+	t_vector *tmp1 = mngr->timeline[cur_time];
+	if ((int)mngr->timeline[cur_time]->offset < 0)
+		mngr->timeline[cur_time] = vm_radixsort(mngr->timeline[cur_time], mngr->timeline[cur_time]->len /
+			sizeof(void*), mngr);
 	tl_car_iter(mngr, handle_op);
 	proceed_cars(mngr, cur_time);
 }

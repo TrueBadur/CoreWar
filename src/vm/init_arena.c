@@ -6,7 +6,7 @@
 /*   By: ehugh-be <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/14 16:28:19 by ehugh-be          #+#    #+#             */
-/*   Updated: 2019/11/06 22:21:56 by ehugh-be         ###   ########.fr       */
+/*   Updated: 2019/11/08 17:05:45 by ehugh-be         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,8 @@ static void init_carrieges(t_mngr *mngr)
 void	init_arena(t_mngr *mngr)
 {
 	if (!(mngr->arena = ft_memalloc(MEM_SIZE)))
+		safe_exit(mngr, MALLOC_ERROR);
+	if (!(mngr->rxsort_out = ft_vecinit(sizeof(void*) * VEC_ST_S)))
 		safe_exit(mngr, MALLOC_ERROR);
 	put_champs(mngr);
 	init_carrieges(mngr);
