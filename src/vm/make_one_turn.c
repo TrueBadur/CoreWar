@@ -29,6 +29,16 @@ void	handle_op(t_mngr *mngr, t_car *car)
 	car->pos = (car->pos + FT_ABS(ret)) % MEM_SIZE;
 }
 
+static void set_max_id(t_vector *vec, int id)
+{
+	if (vec->offset < 0)
+		vec->offset = id > -vec->offset ? -id : vec->offset;
+	else if (id < vec->offset)
+		vec->offset *= -1;
+	else
+		vec->offset = id;
+}
+
 #define TL_TO_PUT (mngr->timeline[time_to_put])
 void proceed_cars(t_mngr *mngr, short cur_time)
 {
@@ -50,12 +60,8 @@ void proceed_cars(t_mngr *mngr, short cur_time)
 		cars[i]->op_code = op;
 		cars[i]->eval_in = time_to_put;
 		tl_put(mngr, cars[i]->eval_in, cars[i]);
-		if (TL_TO_PUT->offset >= 0 && cars[i]->id >= TL_TO_PUT->offset)
-			TL_TO_PUT->offset = cars[i]->id;
-		else
-			TL_TO_PUT->offset = -1;
+		set_max_id(mngr->timeline[time_to_put], cars[i]->id);
 	}
-	//TODO set flag about sorted;
 	mngr->timeline[cur_time]->len = 0;
 	mngr->timeline[cur_time]->offset = 0;
 }

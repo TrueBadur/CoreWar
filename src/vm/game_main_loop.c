@@ -61,7 +61,7 @@ void	bury_car(t_mngr *mngr, int i)
 	t_vector *time;
 
 	car_tmp = pop_car(mngr->cars, i);
-	ft_vecdel_by_val(mngr->timeline[car_tmp->eval_in], car_tmp);
+	ft_vecdel_by_val(mngr->timeline[car_tmp->eval_in], car_tmp); //todo move to evaluation
 	if (mngr->cycles_delta <= 0)
 		free(car_tmp);
 	else
