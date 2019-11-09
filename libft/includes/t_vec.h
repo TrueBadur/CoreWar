@@ -101,7 +101,7 @@ typedef struct		s_vector
 	void			*data;
 	unsigned int	cap;
 	unsigned int	len;
-	unsigned int	offset;
+	int				offset;
 }					t_vector;
 
 t_vector			*ft_vecinit(size_t cap);

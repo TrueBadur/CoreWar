@@ -18,7 +18,7 @@ void	ft_memswap(void *a, void *b, size_t size)
 {
 	void	*tmp;
 
-	(void)size
+	(void)size;
 	tmp = *(void**)a;
 	*(void**)a = *(void**)b;
 	*(void**)b = tmp;
