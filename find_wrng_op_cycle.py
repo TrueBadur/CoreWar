@@ -24,7 +24,7 @@ def get_chmps():
         chmp = input("Enter name of chmp n{}: ".format(i))
         if chmp:
             chmp = chmp if chmp[-4:] == '.cor' else chmp + '.cor'
-        if chmp == "rnd" or (not chmp and len(chmps) < 1):
+        if chmp == "rnd.cor" or (not chmp and len(chmps) < 1):
             chmps.append(random.choice(lst_chmps))
         elif check_chmp_name(chmp):
             chmps.append(chmp)
