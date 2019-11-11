@@ -25,18 +25,23 @@ static t_btavl	*ft_avlrmmin(t_btavl *tr)
 	return (tmp);
 }
 
-t_btavl			*ft_avlrem(t_btavl *tr, void *key, void (*f)(void **),
-		int (f_c)(void*, void*))
+/*
+ * Removes node from tree by given 'key' using 'free_data' to free data in node
+ * 'compare' is used to compare keys
+ */
+
+t_btavl			*ft_avlrem(t_btavl *tr, void *key, void (*free_data)(void **),
+		int (compare)(void*, void*))
 {
 	t_btavl *tmp;
 	int		cmp;
 
 	if (!tr)
 		return (NULL);
-	cmp = ft_avl_keycmp(tr->key, key, tr->key_type, f_c);
+	cmp = ft_avl_keycmp(tr->key, key, tr->key_type, compare);
 	if (cmp == 0)
 	{
-		f(&(tr->data));
+		free_data ? free_data(&(tr->data)) : free(tr->data);
 		if (!tr->right)
 		{
 			tmp = tr->left;
@@ -49,8 +54,8 @@ t_btavl			*ft_avlrem(t_btavl *tr, void *key, void (*f)(void **),
 		return (ft_avlbal(tmp));
 	}
 	else if (cmp == 1)
-		tr->left = ft_avlrem(tr->left, key, f, f_c);
+		tr->left = ft_avlrem(tr->left, key, free_data, compare);
 	else
-		tr->right = ft_avlrem(tr->right, key, f, f_c);
+		tr->right = ft_avlrem(tr->right, key, free_data, compare);
 	return (ft_avlbal(tr));
 }

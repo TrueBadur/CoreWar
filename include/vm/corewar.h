@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   corewar.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: blomo <marvin@42.fr>                       +#+  +:+       +#+        */
+/*   By: ehugh-be <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/11 16:27:53 by ehugh-be          #+#    #+#             */
-/*   Updated: 2019/10/30 14:37:38 by blomo            ###   ########.fr       */
+/*   Updated: 2019/11/08 17:57:18 by ehugh-be         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@
 #define FLAG_DUMP ((unsigned int)1 << (unsigned int)4)
 #define FLAG_V ((unsigned int)1 << (unsigned int)5)
 #define ARG_REG_S 1
+#define VEC_ST_S 8
 
 typedef enum	e_operation_codes
 {
@@ -95,10 +96,11 @@ typedef struct	s_chmp
 
 typedef struct	s_mngr
 {
-	t_list		*timeline[MAX_OP_TIME + 1]; //TODO replace with array of t_list
+	t_vector	*timeline[MAX_OP_TIME + 1];
 	t_chmp		*chmps[MAX_PLAYERS];
-	t_vector	*cars;  //TODO chose storage structure for carriges
+	t_vector	*cars;
 	t_vector	*dead_cars;
+	t_vector	*rxsort_out;
 	unsigned char 		*arena;
 	unsigned	flags; //TODO make flags
 	int         dump_nbr;
@@ -123,8 +125,9 @@ void			proceed_cars(t_mngr *mngr, short cur_time);
 /*
 ** ----------------------Working with timeline------------------------------- **
 */
-void tl_put(t_mngr *mngr, short time, t_list_node *lst, int addlast);
+void 			tl_put(t_mngr *mngr, short time, t_car *car);
 void			tl_car_iter(t_mngr *mngr, void (*f)(t_mngr*, t_car*));
+t_vector		*vm_radixsort(t_vector *vec, size_t size, t_mngr *mngr);
 
 /*
 ** -----------------------------Operations----------------------------------- **

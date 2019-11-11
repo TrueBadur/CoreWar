@@ -6,29 +6,12 @@
 /*   By: ehugh-be <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/14 16:21:57 by ehugh-be          #+#    #+#             */
-/*   Updated: 2019/10/22 21:03:07 by ehugh-be         ###   ########.fr       */
+/*   Updated: 2019/11/06 21:12:24 by ehugh-be         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
 #include "error_msgs.h"
-
-static void	del_time(t_list *lst)
-{
-	t_list_node	*cur;
-	t_list_node	*tmp;
-
-	if (!lst)
-		return ;
-	cur = lst->begin;
-	while(cur)
-	{
-		tmp = cur->next;
-		free(cur);
-		cur = tmp;
-	}
-	free(lst);
-}
 
 void		rm_chmp(t_chmp *chmp)
 {
@@ -68,7 +51,7 @@ static void	cleanup(t_mngr *mngr)
 	ft_vecdel((void**)&mngr->dead_cars);
 	i = -1;
 	while (++i < MAX_OP_TIME + 1)
-		del_time(mngr->timeline[i]);
+		ft_vecdel((void**)&mngr->timeline[i]);
 	free(mngr);
 }
 

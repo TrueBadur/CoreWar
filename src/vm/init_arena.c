@@ -6,7 +6,7 @@
 /*   By: ehugh-be <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/14 16:28:19 by ehugh-be          #+#    #+#             */
-/*   Updated: 2019/11/01 17:20:49 by ehugh-be         ###   ########.fr       */
+/*   Updated: 2019/11/08 17:05:45 by ehugh-be         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,14 +35,13 @@ static void init_carrieges(t_mngr *mngr)
 	{
 		if (!(car = ft_memalloc(sizeof(t_car))))
 			safe_exit(mngr, MALLOC_ERROR);
-		car->id = mngr->next_id;
+		car->id = mngr->next_id++;
 		car->pos = i * MEM_SIZE / mngr->chmp_num;
-		if (!ft_vecpush(mngr->cars, &car, sizeof(void *)))
+		if (!(mngr->cars = ft_vecpush(mngr->cars, &car, sizeof(void *))))
 			safe_exit(mngr, MALLOC_ERROR);
-        tl_put(mngr, 0, ft_lstnew_noc(car, sizeof(void *)), 0);
+		tl_put(mngr, 0, car);
 		mngr->num_cars++;
-		mngr->next_id++;
-		*(int*)car->regs = (char)(-car->id - 1);
+		*(int*)car->regs = (int)(-car->id - 1);
 		mngr->winner = car->id;
 	}
 }
@@ -51,10 +50,13 @@ void	init_arena(t_mngr *mngr)
 {
 	if (!(mngr->arena = ft_memalloc(MEM_SIZE)))
 		safe_exit(mngr, MALLOC_ERROR);
+	if (!(mngr->rxsort_out = ft_vecinit(sizeof(void*) * VEC_ST_S)))
+		safe_exit(mngr, MALLOC_ERROR);
 	put_champs(mngr);
 	init_carrieges(mngr);
 	mngr->cycles_to_die = CYCLE_TO_DIE;
 	mngr->cycles_delta = CYCLE_TO_DIE;
-	mngr->dead_cars = ft_vecinit(sizeof(void*) * 8);
+	if (!(mngr->dead_cars = ft_vecinit(sizeof(void*) * 8)))
+		safe_exit(mngr, MALLOC_ERROR);
 	proceed_cars(mngr, 0);
 }
