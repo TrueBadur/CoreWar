@@ -14,7 +14,7 @@
 #include "checkop.h"
 
 #define BYTE_OP (unsigned char)(mngr->arena[car->pos])
-#define BYTE_CODE (unsigned char)(mngr->arena[car->pos + 1])
+#define BYTE_CODE (unsigned char)(mngr->arena[(car->pos + 1) % MEM_SIZE])
 
 void	handle_op(t_mngr *mngr, t_car *car)
 {
@@ -51,6 +51,8 @@ void proceed_cars(t_mngr *mngr, short cur_time)
 	while (++i < mngr->timeline[cur_time]->len / sizeof(void*))
 	{
 		cars = (t_car**)mngr->timeline[cur_time]->data;
+		if (cars[i]->eval_in != cur_time)
+			continue ;
 		op = (char)mngr->arena[cars[i]->pos];
 		if (OP_live <= op && OP_aff >= op)
 			time_to_put = (short)((cur_time + get_op_info(op)->num_of_ticks) %

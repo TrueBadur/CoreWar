@@ -6,7 +6,7 @@
 /*   By: ehugh-be <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/14 16:26:51 by ehugh-be          #+#    #+#             */
-/*   Updated: 2019/11/07 14:51:45 by ehugh-be         ###   ########.fr       */
+/*   Updated: 2019/11/11 14:55:14 by ehugh-be         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,12 +61,13 @@ void	bury_car(t_mngr *mngr, int i)
 	t_vector *time;
 
 	car_tmp = pop_car(mngr->cars, i);
-	ft_vecdel_by_val(mngr->timeline[car_tmp->eval_in], car_tmp); //todo move to evaluation
-	if (mngr->cycles_delta <= 0)
-		free(car_tmp);
-	else
-		if (!ft_vecpush_small(mngr->dead_cars, (long)car_tmp, sizeof(void*)))
-			safe_exit(mngr, MALLOC_ERROR);
+	mngr->timeline[car_tmp->eval_in]->offset =
+		car_tmp->eval_in == ft_abs(mngr->timeline[car_tmp->eval_in]->offset) ?
+		-mngr->num_cars : mngr->timeline[car_tmp->eval_in]->offset;
+	car_tmp->eval_in = -1;
+//	ft_vecdel_by_val(mngr->timeline[car_tmp->eval_in], car_tmp); //todo move to evaluation
+	if (!ft_vecpush_small(mngr->dead_cars, (long)car_tmp, sizeof(void*)))
+		safe_exit(mngr, MALLOC_ERROR);
 	mngr->num_cars--;
 	if (mngr->flags & FLAG_V)
 		ft_printf("{\\200}Process {Red}%d {\\200}hasn't lived for {Red}%d"

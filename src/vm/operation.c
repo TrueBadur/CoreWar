@@ -6,7 +6,7 @@
 /*   By: ehugh-be <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/16 15:05:59 by blomo             #+#    #+#             */
-/*   Updated: 2019/11/08 17:31:02 by ehugh-be         ###   ########.fr       */
+/*   Updated: 2019/11/10 12:37:25 by ehugh-be         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,8 @@ void make_fork_lfork(t_mngr *mngr, t_car *car, t_t_op *op)
     mngr->num_cars++;
     newcar->pos = get_addr_arena(car->pos + args.x);
     newcar->id = mngr->next_id++;
-	tl_put(mngr, (short) (mngr->cycle % (MAX_OP_TIME + 1)), newcar);
+    newcar->eval_in = (short)(mngr->cycle % (MAX_OP_TIME + 1));
+	tl_put(mngr, (short)(mngr->cycle % (MAX_OP_TIME + 1)), newcar);
     if (mngr->flags & FLAG_V)
         ft_printf("P    %d | {Blue}%s{eof} %d (%d)\n", car->id + 1, op->op
         == OP_fork ? "fork" : "lfork", args.x,newcar->pos);

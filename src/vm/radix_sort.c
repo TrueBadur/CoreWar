@@ -6,7 +6,7 @@
 /*   By: ehugh-be <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/07 22:07:46 by ehugh-be          #+#    #+#             */
-/*   Updated: 2019/11/09 19:24:44 by ehugh-be         ###   ########.fr       */
+/*   Updated: 2019/11/09 19:27:16 by ehugh-be         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ t_vector	*vm_radixsort(t_vector *vec, size_t size, t_mngr *mngr)
 		vec = counting_sort(vec, size, place, mngr);
 		place *= 10;
 	}
-	vec->offset = ((t_car*)(vec->data + vec->len - sizeof(void*)))->id;
+//	vec->offset = ((t_car*)(vec->data + vec->len - sizeof(void*)))->id;
 	return (vec);
 }
 

@@ -36,7 +36,7 @@ void	tl_car_iter(t_mngr *mngr, void (*f)(t_mngr*, t_car*))
 	{
 		cars = (t_car**)mngr->timeline[cur_time]->data;
 		tmp = cars[i];
-		if (cars[i]->eval_in > -1)
+		if (cars[i]->eval_in == cur_time)
 			f(mngr, cars[i]);
 	}
 }
