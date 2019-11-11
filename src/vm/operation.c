@@ -88,6 +88,8 @@ void make_fork_lfork(t_mngr *mngr, t_car *car, t_t_op *op)
     newcar->id = mngr->next_id++;
     newcar->eval_in = (short)(mngr->cycle % (MAX_OP_TIME + 1));
 	tl_put(mngr, (short)(mngr->cycle % (MAX_OP_TIME + 1)), newcar);
+	mngr->timeline[newcar->eval_in]->offset = FT_SIGN(mngr->timeline[newcar->eval_in]->offset)
+	* newcar->id;
     if (mngr->flags & FLAG_V)
         ft_printf("P    %d | {Blue}%s{eof} %d (%d)\n", car->id + 1, op->op
         == OP_fork ? "fork" : "lfork", args.x,newcar->pos);
