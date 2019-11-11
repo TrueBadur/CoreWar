@@ -59,7 +59,10 @@ void print_st(t_car *car, int reg1, int reg2, t_t_op *op)
 
 void print_sti(t_car *car, int arg1, int arg2, int arg3)
 {
-	ft_printf("P    %d | {Blue}%s{eof} r%d %d %d\n", car->id + 1, "sti", arg1 + 1, arg2, arg3);
+//	ft_printf("P    %d | {Blue}%s{eof} r%d %d %d\n", car->id + 1, "sti", arg1 + 1, arg2, arg3);
+//	ft_printf("       | -> store to %d + %d = %d (with pc and mod %d)\n", arg2, arg3, arg2 + arg3, ((arg2 + arg3) % IDX_MOD + car->pos) % MEM_SIZE);
+//	ft_printf("test eto znachenie %.8x skopirovano po adresy %d \n", *(int *) car->regs[arg1].reg), get_addr_arena(((arg2 + arg3) % IDX_MOD + car->pos)); // test
+
+	ft_printf("P  %d | %s r%d %d %d\n", car->id + 1, "sti", arg1 + 1, arg2, arg3);
 	ft_printf("       | -> store to %d + %d = %d (with pc and mod %d)\n", arg2, arg3, arg2 + arg3, ((arg2 + arg3) % IDX_MOD + car->pos) % MEM_SIZE);
-    ft_printf("test eto znachenie %.8x skopirovano po adresy %d \n", *(int *) car->regs[arg1].reg), get_addr_arena(((arg2 + arg3) % IDX_MOD + car->pos)); // test
 }
