@@ -19,10 +19,8 @@
 void	show_bar_gen(t_stats *st)
 {
 	int bar;
-	int	live;
 	int	rip;
 
-	live = 100;
 	rip = (int) (100.0 * st->total_die / st->total);
 	bar = -1;
 	printw("\t\t[");
@@ -64,7 +62,6 @@ void	show_bar(int id, t_stats *st)
 	int	live;
 	int	rip;
 
-
 	if (st->cars[id] == 0)
 		return ;
 	live = (int) (100.0 * st->cars[id] / st->total);
@@ -98,14 +95,16 @@ void	show_stats()
 	attron(COLOR_PAIR(DEF));
 	move(0,0);
 
-	//show_skull_one();
+	show_skull_one();
 	//show_skull_two();
 	//show_skull_three();
 	//show_nuke();
+	/*
 	if (RND < IMG_NUM)
 		st->images[rand() % RND]();
 	else
 		st->images[rand() % IMG_NUM]();
+	 */
 	show_time_to_die();
 	print_gen(st);
 	idx = -1;

@@ -12,11 +12,6 @@
 
 #include "corewar.h"
 
-#define COL_STEP 3
-#define LIN_STEP 2
-#define	COL_IN_LIN 64
-#define	SHIFT_SCD_PANEL 10
-
 void	side_board(int lin)
 {
 	move (lin, 0);
@@ -56,58 +51,19 @@ void	show_board()
 	top_bot_board(lin);
 }
 
-void	show_game_init(t_mngr *mngr)
-{
-	int i;
-	int j;
-	int lin;
-
-	lin = LIN_STEP - 1;
-	i = -1;
-	show_board();
-	while ((++i * COL_IN_LIN) < MEM_SIZE)
-	{
-		move(++lin, COL_STEP);
-		j = -1;
-		while(++j < COL_IN_LIN - 1)
-			printw("%02x ", mngr->arena[j + COL_IN_LIN * i]);
-		printw("%02x", mngr->arena[j + COL_IN_LIN * i]);
-	}
-	refresh();
-	getchar();
-}
-
 void	show_pos_in_arena(t_mngr *mngr, int pos, int id_ply)
 {
-	int col;
-	int lin;
+	WINDOW	*win;
+	int		col;
+	int		lin;
 
-    attron(COLOR_PAIR(id_ply));
-	lin = pos / COL_IN_LIN + LIN_STEP;
-	col = (pos % COL_IN_LIN) * 3 + COL_STEP;
-	move(lin, col);
-	printw("%02x", mngr->arena[pos]);
-	attron(COLOR_PAIR(DEF));
-}
-
-void	show_champ_mem_init(t_mngr *mngr, int start, int size, int idx)
-{
-    t_stats *st;
-
-    st = get_stats();
-	size += start;
-	while (start < size)
-	{
-        st->arena[start] = mngr->arena[start];
-        st->color[start] = idx + 1;
-        st->arena_old[start] = mngr->arena[start];
-        st->color_old[start] = idx + 1;
-		show_pos_in_arena(mngr, start, idx + 1);
-		start += 1;
-	}
-	curs_set(0);
-	refresh();
-	getchar();
+	win = get_win(WIN_MAIN);
+    wattron(win, COLOR_PAIR(id_ply));
+	lin = pos / COL_IN_LIN;
+	col = (pos % COL_IN_LIN) * 3;
+	wmove(win, lin, col);
+	wprintw(win, "%02x", mngr->arena[pos]);
+	wattron(win, COLOR_PAIR(DEF));
 }
 
 void	update_mem(t_mngr *mngr, int id_ply)
@@ -124,40 +80,6 @@ void	update_mem(t_mngr *mngr, int id_ply)
 		st->arena[idx] = mngr->arena[idx];
 		st->color[idx] = (id_ply > -4 && id_ply < 0) ? id_ply : -5;
 	}
-}
-
-void	show_scnd_panel(t_mngr *mngr)
-{
-	t_stats *st;
-	int lin;
-	int col;
-
-	st = get_stats();
-	lin = LIN_STEP;
-	col = COL_IN_LIN * 3 + COL_STEP * 2 + SHIFT_SCD_PANEL;
-	move(lin++, col);
-	printw("rate  =%d", st->rate);
-	move(lin++, col);
-	move(lin++, col);
-	printw("cycle =%d", mngr->cycle);
-	move(lin++, col);
-	printw("cars  =%d", mngr->num_cars);
-}
-
-void	rate_control(t_stats *st)
-{
-	int 	cmd;
-
-	cbreak();
-	nodelay(stdscr, TRUE);
-	cmd = getch();
-	if (cmd == 'p')
-		st->rate -= 1000;
-	else if (cmd == 'o')
-		st->rate += 1000;
-	if (st->rate < 0)
-		st->rate = 1;
-	nodelay(stdscr, FALSE);
 }
 
 void    show_area(t_mngr *mngr)
@@ -192,11 +114,9 @@ void    show_area(t_mngr *mngr)
     {
 		curs_set(0);
 		refresh();
-		usleep(st->rate);
-		//getchar();
+		pause_or_wait(st, G_PHASE_MEM_CHANGE);
 	}
 }
-
 
 void	reshow_area(t_mngr *mngr)
 {

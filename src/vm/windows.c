@@ -12,32 +12,35 @@
 
 #include "corewar.h"
 
+/*
+** WIN_MAIN_BORDER 0
+** WIN_MAIN 1
+** WIN_CNTR_BORDER 2
+** WIN_CNTR 3
+** WIN_PLY_BORDER 4
+** WIN_PLY 5
+ */
+
+
+# define SIDE_COL 64
+
 WINDOW	**get_windows()
 {
-	static WINDOW *wins[6];
+	static WINDOW *wins[10];
 	static int is_set;
 
 	if (is_set == 0)
 	{
-		int lin;
-		int col;
-		int spac;
-
-		lin = 20;
-		col = 40;
-		spac = 10;
-		wins[0] = newwin(lin, col, spac, spac);
-		wins[1] = newwin(lin, col, spac, col + spac);
-		wins[2] = newwin(lin, col, lin + spac, spac);
-		wins[3] = newwin(lin, col, lin + spac, col + spac);
-		wins[4] = newwin(lin, col, 2 * lin + spac, spac);
-		wins[5] = newwin(lin, col, 2 * lin + spac, col + spac);
-		wattron(wins[0], COLOR_PAIR(1));
-		wattron(wins[1], COLOR_PAIR(2));
-		wattron(wins[2], COLOR_PAIR(3));
-		wattron(wins[3], COLOR_PAIR(4));
-		wattron(wins[4], COLOR_PAIR(5));
-		wattron(wins[5], COLOR_PAIR(6));
+		wins[0] = newwin(68, 197, 0, 0);
+		wins[1] = newwin(64, 191, 2, 3);
+		wins[2] = newwin(5, SIDE_COL, 0, 197);
+		wins[3] = newwin(1, SIDE_COL - 9, 2, 197 + 8);
+		wins[4] = newwin(63, SIDE_COL, 5, 197);
+		wins[5] = newwin(63 - 4, SIDE_COL - 4, 5 + 2, 197 + 2);
+		wins[6] = newwin(14, SIDE_COL, 0, 197);
+		wins[7] = newwin(14 - 4, SIDE_COL - 4, 2, 197 + 2);
+		wins[8] = newwin(54, SIDE_COL, 14, 197);
+		wins[9] = newwin(54 - 4, SIDE_COL - 4, 14 + 2, 197 + 2);
 		is_set = 1;
 	}
 

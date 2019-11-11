@@ -26,28 +26,10 @@ static void	put_champs(t_mngr *mngr)
 
 			show_champ_mem_init(mngr, (i * MEM_SIZE / mngr->chmp_num)
 					, (mngr->chmps[i]->size), i);
-
-			//update_mem(mngr, i);
-
-			/*
-			show_pos_in_arena(mngr, 0);
-			show_pos_in_arena(mngr, 63);
-			show_pos_in_arena(mngr, 64);
-			show_pos_in_arena(mngr, 4095);
-			 */
-			/*
-			int j = -1;
-			while(++j < 4096)
-			{
-				attron(COLOR_PAIR(BRUTAL));
-				show_pos_in_arena(mngr, j);
-				curs_set(0);
-				refresh();
-				getchar();
-			}
-			 */
 		}
 	}
+
+	show_champ_let_start(mngr);
 }
 
 static void init_carrieges(t_mngr *mngr)

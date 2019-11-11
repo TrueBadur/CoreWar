@@ -28,6 +28,7 @@ t_stats	*get_stats(void)
 		st.images[2] = show_skull_two;
 		st.images[3] = show_skull_three;
 		st.rate = 100000;
+		st.game_mod = G_MOD_PAUSE_SELECT;
 		init = 1;
 		i = -1;
 		while (++i)

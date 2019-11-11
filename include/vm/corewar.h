@@ -46,7 +46,33 @@
 #define P4H 14
 #define PUH 15
 
+#define G_MOD_PAUSE_ALL 1
+#define G_MOD_PAUSE_SELECT 2
+#define G_MOD_NO_PAUSE 3
+
+#define G_PHASE_MEM_CHANGE 1
+
 #define IMG_NUM 4
+
+#define COL_STEP 3
+#define LIN_STEP 2
+#define	COL_IN_LIN 64
+#define	SHIFT_SCD_PANEL 7
+
+#define SIDE_PANEL_LIN_LIM 90
+#define SIDE_PANEL_COL_LIN 40
+
+#define WIN_MAIN_BORDER 0
+#define WIN_MAIN 1
+#define WIN_CNTR_BORDER 2
+#define WIN_CNTR 3
+#define WIN_PLY_BORDER 4
+#define WIN_PLY 5
+#define WIN_G_CNTR_BORDER 6
+#define WIN_G_CNTR 7
+#define WIN_G_PLY_BORDER 8
+#define WIN_G_PLY 9
+
 
 typedef enum	e_operation_codes
 {
@@ -98,10 +124,11 @@ typedef struct	s_stats
 	int 			total;
 	int 			total_die;
 	unsigned char 	arena[MEM_SIZE];
-	char 	        color[MEM_SIZE];
+	int 	        color[MEM_SIZE];
     unsigned char 	arena_old[MEM_SIZE];
-    char         	color_old[MEM_SIZE];
-	int	rate;
+    int         	color_old[MEM_SIZE];
+	int				rate;
+	char 			game_mod;
 	void			(*images[IMG_NUM])(void);
 }				t_stats;
 
@@ -195,5 +222,13 @@ void	attron_ply_clr(int i);
 void	update_mem(t_mngr *mngr, int id_ply);
 void    show_area(t_mngr *mngr);
 void	reshow_area(t_mngr *mngr);
+void	rate_control(t_stats *st);
+void	pause_or_wait(t_stats *st, char phase);
+void	show_board();
+void	show_scnd_panel(t_mngr *mngr);
+void	show_side_panel_init(t_mngr *mngr, int idx_champ);
+WINDOW	*get_win(int id);
+int		game_set_param(t_stats *st, int from_user);
+int		g_set_param(int from_user);
 
 #endif //COREWAR_COREWAR_H
