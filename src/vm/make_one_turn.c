@@ -24,7 +24,7 @@ void	handle_op(t_mngr *mngr, t_car *car)
 	op = (t_t_op){car->op_code, ARG1(BYTE_CODE), ARG2(BYTE_CODE), ARG3(BYTE_CODE)};
 	if ((ret = check_op(&op)) > 0)
 		get_op_func(op.op)(mngr, car, &op);
-	if (ft_abs(ret) > 1 && mngr->flags & FLAG_V && car->op_code != OP_zjmp)
+	if (ft_abs(ret) > 1 && mngr->flags & FLAG_V && (car->op_code != OP_zjmp || car->carry != 1))
 		print_addr(mngr, car->pos, FT_ABS(ret));
 	car->pos = (car->pos + FT_ABS(ret)) % MEM_SIZE;
 }
@@ -43,7 +43,6 @@ static void set_max_id(t_vector *vec, int id)
 void proceed_cars(t_mngr *mngr, short cur_time)
 {
 	t_car		**cars;
-	char		op;
 	short		time_to_put;
 	int			i;
 
@@ -53,13 +52,11 @@ void proceed_cars(t_mngr *mngr, short cur_time)
 		cars = (t_car**)mngr->timeline[cur_time]->data;
 		if (cars[i]->eval_in != cur_time)
 			continue ;
-		op = (char)mngr->arena[cars[i]->pos];
-		if (OP_live <= op && OP_aff >= op)
-			time_to_put = (short)((cur_time + get_op_info(op)->num_of_ticks) %
+		if (OP_live <= cars[i]->op_code && OP_aff >= cars[i]->op_code)
+			time_to_put = (short)((cur_time + get_op_info(cars[i]->op_code)->num_of_ticks) %
 					(MAX_OP_TIME + 1));
 		else
 			time_to_put = (short)((cur_time + 1) % (MAX_OP_TIME + 1));
-		cars[i]->op_code = op;
 		cars[i]->eval_in = time_to_put;
 		tl_put(mngr, cars[i]->eval_in, cars[i]);
 		set_max_id(mngr->timeline[time_to_put], cars[i]->id);

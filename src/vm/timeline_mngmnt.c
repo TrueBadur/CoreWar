@@ -6,7 +6,7 @@
 /*   By: ehugh-be <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/09 19:22:18 by ehugh-be          #+#    #+#             */
-/*   Updated: 2019/11/09 19:22:59 by ehugh-be         ###   ########.fr       */
+/*   Updated: 2019/11/11 23:02:42 by ehugh-be         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,9 @@ void	tl_car_iter(t_mngr *mngr, void (*f)(t_mngr*, t_car*))
 	{
 		cars = (t_car**)mngr->timeline[cur_time]->data;
 		tmp = cars[i];
-		if (cars[i]->eval_in == cur_time)
-			f(mngr, cars[i]);
+		if (cars[i]->eval_in != cur_time)
+			continue ;
+		f(mngr, cars[i]);
+		cars[i]->op_code = (char)mngr->arena[cars[i]->pos];
 	}
 }
