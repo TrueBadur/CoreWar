@@ -6,7 +6,7 @@
 /*   By: ehugh-be <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/14 16:28:19 by ehugh-be          #+#    #+#             */
-/*   Updated: 2019/11/12 14:12:59 by ehugh-be         ###   ########.fr       */
+/*   Updated: 2019/11/12 19:46:38 by ehugh-be         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,17 @@
 static void	put_champs(t_mngr *mngr)
 {
 	int i;
+	int j;
 
-	i = -1;
-	while (++i < mngr->chmp_num)
-        if (mngr->chmps[i])
-		    ft_memcpy(mngr->arena + i * MEM_SIZE / mngr->chmp_num,
-				mngr->chmps[i]->code, mngr->chmps[i]->size);
+	i = mngr->chmp_num;
+	j = -1;
+	while (i && ++j >= 0)
+        if (mngr->chmps[j])
+		{
+			ft_memcpy(mngr->arena + (j * MEM_SIZE / mngr->chmp_num) % MEM_SIZE,
+					  mngr->chmps[j]->code, mngr->chmps[j]->size);
+			i--;
+		}
 }
 
 static void init_carrieges(t_mngr *mngr)
