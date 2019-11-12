@@ -6,7 +6,7 @@
 /*   By: ehugh-be <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/14 16:28:19 by ehugh-be          #+#    #+#             */
-/*   Updated: 2019/11/12 19:46:38 by ehugh-be         ###   ########.fr       */
+/*   Updated: 2019/11/12 19:48:08 by ehugh-be         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,14 +17,13 @@ static void	put_champs(t_mngr *mngr)
 	int i;
 	int j;
 
-	i = mngr->chmp_num;
+	i = -1;
 	j = -1;
-	while (i && ++j >= 0)
+	while (i < mngr->chmp_num && ++j < MAX_PLAYERS)
         if (mngr->chmps[j])
 		{
-			ft_memcpy(mngr->arena + (j * MEM_SIZE / mngr->chmp_num) % MEM_SIZE,
+			ft_memcpy(mngr->arena + (++i * MEM_SIZE / mngr->chmp_num),
 					  mngr->chmps[j]->code, mngr->chmps[j]->size);
-			i--;
 		}
 }
 
