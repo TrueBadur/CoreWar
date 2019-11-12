@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   operation.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ehugh-be <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: blomo <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/16 15:05:59 by blomo             #+#    #+#             */
 /*   Updated: 2019/11/12 18:55:40 by ehugh-be         ###   ########.fr       */
@@ -140,11 +140,8 @@ void make_aff(t_mngr *mngr, t_car *car,t_t_op *op)
 
     (void)op;
     arg1 = mngr->arena[get_addr_arena(car->pos + (int)OP_BASE)] - 1;
-    if (mngr->flags & FLAG_V)
+    if (check_reg(arg1) && mngr->flags & FLAG_A)
     {
-        ft_printf("P %4d | %s %d\n", car->id + 1, "aff",
-        		arg1 + 1);
+        ft_printf("Aff: %c\n",(*(int*)car->regs[arg1].reg % IDX_MOD));
     }
-    if (check_reg(arg1))
-        write(STDOUT_FILENO, (char*)car->regs[arg1].reg, ARG_REG_S);
 }

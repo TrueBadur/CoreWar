@@ -70,7 +70,7 @@ int get_indir_pos(t_mngr *mngr, t_car *car, int *step, int mod)
 {
 	int in_dir;
 
-	in_dir = get_dir(mngr, step ,2) % mod;
+	in_dir = get_dir(mngr, step ,2);
 	return(in_dir);
 }
 

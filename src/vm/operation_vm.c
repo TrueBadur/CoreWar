@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   operation_vm.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ehugh-be <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: blomo <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/18 15:41:07 by blomo             #+#    #+#             */
-/*   Updated: 2019/11/11 20:08:54 by ehugh-be         ###   ########.fr       */
+/*   Updated: 2019/11/12 19:13:40 by blomo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ void	make_st(t_mngr *mngr, t_car *car, t_t_op *op)
 		}
 		else
 		{
-			step = car->pos + args.y;
+			step = car->pos + ((op->a2 == IND_CODE) ? args.y % IDX_MOD : args.y);
 			copy_reg_to_arena(mngr, car, args.x, step);
 		}
 		if (mngr->flags & FLAG_V)
