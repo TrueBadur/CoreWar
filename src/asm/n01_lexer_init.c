@@ -37,6 +37,10 @@ void	setup_dat(t_lexdata *dat)
 	dat->champ_comment = NULL;
 	dat->cur_line = NULL;
 	dat->err_line = -1;
+	dat->labels_num = 0;
+	dat->srt = -1;
+	dat->end = -1;
+	dat->cur_idx = -1;
 }
 
 int		init_dat(t_lexdata **dat)
@@ -46,9 +50,4 @@ int		init_dat(t_lexdata **dat)
 		return (ERR_LEX__ID_MALLOC_DAT);
 	setup_dat(*dat);
 	return (0);
-}
-
-void	free_lexdata(t_lexdata *data)
-{
-	clean_n_exit(data, 0);
 }

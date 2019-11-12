@@ -26,7 +26,7 @@
 # define ERR_LEX__ID_NULL_NODE 5
 # define LEX_ERR_MSG_NULL_NODE			"ft_lstnew_node NULL return"
 # define ERR_LEX__ID_FD 6
-# define LEX_ERR_MSG_FD					"fd < 1"
+# define LEX_ERR_MSG_FD					" no no such file \"%s\""
 # define ERR_LEX__ID_UNDEFINE_CMD 7
 # define LEX_ERR_MSG_UNDEFINE_CMD		"undefine command"
 # define ERR_LEX__ID_NO_LAB_CHAR 8

@@ -40,7 +40,7 @@ void		read_command(t_command *cmd, t_list_node **lst)
 	if (token->type == LABEL_ID)
 	{
 		cmd->label = token;
-		token = eat(lst, LABEL_ID);
+		eat(lst, LABEL_ID);
 	}
 	token = eat(lst, 0);
 	if (token->type == INST_ID)
