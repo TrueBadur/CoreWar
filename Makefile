@@ -1,4 +1,3 @@
-
 NAME = corewar
 
 ASM_OUT = asm
@@ -15,7 +14,7 @@ SRC_SHARED = $(wildcard $(SRC_DIR)/*.c)
 OBJ_DIR = obj
 OBJ_ASM = $(patsubst $(SRC_DIR)/%.c, $(OBJ_DIR)/%.o, $(SRC_ASM))
 OBJ_VM = $(patsubst $(SRC_DIR)/%.c, $(OBJ_DIR)/%.o, $(SRC_VM))
-OBJ_SHARED = $(patsubmake\st $(SRC_DIR)/%.c, $(OBJ_DIR)/%.o, $(SRC_VM))
+OBJ_SHARED = $(patsubst $(SRC_DIR)/%.c, $(OBJ_DIR)/%.o, $(SRC_SHARED))
 OBJ = $(OBJ_ASM) $(OBJ_VM) $(OBJ_SHARED)
 
 INCLUDE_DIR = "include"
@@ -47,8 +46,8 @@ $(OBJ_DIR):
 
 $(NAME): $(OBJ_DIR) $(OBJ)
 	@make -C $(LIB_DIR)
-	@gcc $(CC_FLAGS)  -L $(LIB_PATH) -l ft -o $(ASM_OUT) $(OBJ_ASM) -I$(LIBFT_INC_DIR) -I$(SHARED_INCLUDE_DIR) -I$(ASM_INCLUDE_DIR)
-	@gcc $(CC_FLAGS)  -L $(LIB_PATH) -l ft -o $(VM_OUT) $(OBJ_VM) -I$(LIBFT_INC_DIR) -I$(SHARED_INCLUDE_DIR) -I$(VM_INCLUDE_DIR)
+	@gcc $(CC_FLAGS)  -L $(LIB_PATH) -l ft -o $(ASM_OUT) $(OBJ_ASM) $(OBJ_SHARED) -I$(LIBFT_INC_DIR) -I$(SHARED_INCLUDE_DIR) -I$(ASM_INCLUDE_DIR)
+	@gcc $(CC_FLAGS)  -L $(LIB_PATH) -l ft -o $(VM_OUT) $(OBJ_VM) $(OBJ_SHARED) -I$(LIBFT_INC_DIR) -I$(SHARED_INCLUDE_DIR) -I$(VM_INCLUDE_DIR)
 
 clean:
 	@rm -rf $(OBJ_DIR)
