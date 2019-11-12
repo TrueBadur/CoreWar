@@ -59,6 +59,8 @@ void proceed_car(t_mngr *mngr, t_car *car, short cur_time, int offset)
 		if (car->op_code <= OP_aff && car->op_code >= OP_live)
 			time_to_put = (short)((cur_time +
 				get_op_info(car->op_code)->num_of_ticks - 1) % (MAX_OP_TIME + 1));
+		else
+			car->pos = (car->pos + 1) % MEM_SIZE;
 	}
 	else
 	{
