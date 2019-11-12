@@ -12,17 +12,6 @@
 
 #include "disassembler.h"
 
-static char		*get_par_type(char type)
-{
-	if (type == T_REG)
-		return ("T_REG");
-	else if (type == T_DIR)
-		return ("T_DIR");
-	else if (type == T_IND)
-		return ("T_IND");
-	return ("");
-}
-
 static void		print_command(int fd, t_command *cmd)
 {
 	int cur;

@@ -85,7 +85,7 @@ void		replace_labels(t_list *cmds, size_t *larr)
 {
 	t_command	*cur_cmd;
 	t_list_node	*cur_node;
-	char		cur_par;
+	int			cur_par;
 	t_op		*cur_op;
 
 	cur_node = cmds->begin;

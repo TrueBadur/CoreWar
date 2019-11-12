@@ -40,7 +40,7 @@ void		read_arr(int fd, void *target, size_t size)
 	int	ret;
 
 	ret = read(fd, target, size);
-	if (ret != -1 && ret != size)
+	if (ret != -1 && (size_t)ret != size)
 		raise_error_dis(UNEXPECTED_EOF_ERR);
 	else if (ret == -1)
 	{
