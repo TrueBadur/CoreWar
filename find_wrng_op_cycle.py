@@ -37,7 +37,7 @@ get_chmps()
 cycle_num = int(input("Enter cap of cycles to test: "))
 print(chmps)
 
-corwar_command = "{version} {dump} {dump_n} -v {v_arg} {chmps} > {file}"
+corwar_command = "{version} {dump} {dump_n} {chmps} > {file}"
 
 def run_corewars(cycle):
     os.system(corwar_command.format(version=d_corewar, dump="-d", dump_n=cycle,
