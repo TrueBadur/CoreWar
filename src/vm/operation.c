@@ -6,7 +6,7 @@
 /*   By: ehugh-be <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/16 15:05:59 by blomo             #+#    #+#             */
-/*   Updated: 2019/11/10 12:37:25 by ehugh-be         ###   ########.fr       */
+/*   Updated: 2019/11/12 18:48:34 by ehugh-be         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,10 +80,8 @@ void make_fork_lfork(t_mngr *mngr, t_car *car, t_t_op *op)
 	get_args(mngr, car, op, &args);
     newcar = resurect_car(mngr);
     if (newcar == NULL)
-    {
         if(!(newcar = (t_car*)malloc(sizeof(t_car))))
             safe_exit(mngr, MALLOC_ERROR);
-    }
     ft_memcpy(newcar, car, sizeof(t_car));
     if (!ft_vecpush(mngr->cars, &newcar, sizeof(newcar)))
     	safe_exit(mngr, MALLOC_ERROR);
@@ -92,8 +90,9 @@ void make_fork_lfork(t_mngr *mngr, t_car *car, t_t_op *op)
     mngr->num_cars++;
     newcar->pos = get_addr_arena(car->pos + args.x);
     newcar->id = mngr->next_id++;
-    newcar->eval_in = (short)(mngr->cycle % (MAX_OP_TIME + 1));
-	tl_put(mngr, (short)(mngr->cycle % (MAX_OP_TIME + 1)), newcar);
+    newcar->op_code = 0;
+    newcar->eval_in = (short)((mngr->cycle + 1) % (MAX_OP_TIME + 1));
+	tl_put(mngr, newcar->eval_in, newcar);
 	mngr->timeline[newcar->eval_in]->offset = FT_SIGN(mngr->timeline[newcar->eval_in]->offset)
 	* newcar->id;
     if (mngr->flags & FLAG_V)
