@@ -6,7 +6,7 @@
 /*   By: ehugh-be <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/14 16:26:51 by ehugh-be          #+#    #+#             */
-/*   Updated: 2019/11/11 14:55:14 by ehugh-be         ###   ########.fr       */
+/*   Updated: 2019/11/11 20:09:55 by ehugh-be         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,8 +70,10 @@ void	bury_car(t_mngr *mngr, int i)
 		safe_exit(mngr, MALLOC_ERROR);
 	mngr->num_cars--;
 	if (mngr->flags & FLAG_V)
-		ft_printf("{\\200}Process {Red}%d {\\200}hasn't lived for {Red}%d"
-"{\\200} (CTD {Red}%d{eof})\n", car_tmp->id + 1, mngr->cycle - car_tmp->live_cycle,
+		ft_printf("Process %d hasn't lived for %d (CTD %d)\n",
+				car_tmp->id + 1, mngr->cycle - car_tmp->live_cycle,
+//		ft_printf("{\\200}Process {Red}%d {\\200}hasn't lived for {Red}%d"
+//"{\\200} (CTD {Red}%d{eof})\n", car_tmp->id + 1, mngr->cycle - car_tmp->live_cycle,
 mngr->cycles_delta);
 }
 
@@ -93,7 +95,8 @@ void	check_cars(t_mngr *mngr)
 		mngr->cycles_delta -= CYCLE_DELTA;
 		mngr->num_checks = 0;
 		if (mngr->flags & FLAG_V)
-			ft_printf("{\\35}Cycles to die{eof} is now {\\92}%d{eof}\n",
+			ft_printf("Cycles to die is now %d\n",
+//			ft_printf("{\\35}Cycles to die{eof} is now {\\92}%d{eof}\n",
 				  mngr->cycles_delta);
 	}
 	if (mngr->cycles_delta > 0)
@@ -152,6 +155,7 @@ void	game_main(t_mngr *mngr)
             check_cars(mngr);
 		mngr->cycle++;
 		if (mngr->flags & FLAG_V)
-			ft_printf("Now in cycle {Red}%d{eof}\n", mngr->cycle);
+//			ft_printf("It is now cycle {Red}%d{eof}\n", mngr->cycle);
+			ft_printf("It is now cycle %d\n", mngr->cycle);
 	}
 }

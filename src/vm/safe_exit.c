@@ -6,7 +6,7 @@
 /*   By: ehugh-be <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/14 16:21:57 by ehugh-be          #+#    #+#             */
-/*   Updated: 2019/11/06 21:12:24 by ehugh-be         ###   ########.fr       */
+/*   Updated: 2019/11/11 17:03:29 by ehugh-be         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,14 +37,6 @@ static void	cleanup(t_mngr *mngr)
 			free(((t_car**)mngr->cars->data)[i]);
 	ft_vecdel((void**)&mngr->cars);
 	i = -1;
-	//TODO free timeline
-//	while (++i < MAX_OP_TIME + 1)
-
-	//free chmps
-	while (++i < MAX_PLAYERS)
-		rm_chmp(mngr->chmps[i]);
-	//free dead_cars
-	i = -1;
 	if (mngr->dead_cars)
 		while (++i < mngr->dead_cars->len / sizeof(void*))
 			free(((t_car**)mngr->dead_cars->data)[i]);
@@ -52,6 +44,10 @@ static void	cleanup(t_mngr *mngr)
 	i = -1;
 	while (++i < MAX_OP_TIME + 1)
 		ft_vecdel((void**)&mngr->timeline[i]);
+	i = -1;
+	while (++i < MAX_PLAYERS)
+		rm_chmp(mngr->chmps[i]);
+	ft_vecdel((void**)&mngr->rxsort_out);
 	free(mngr);
 }
 

@@ -32,12 +32,18 @@ void make_ldi_lldi(t_mngr *mngr, t_car *car, t_t_op *op)
 		*(int*)car->regs[args.z].reg = res;
 		if (mngr->flags & FLAG_V)
 		{
-			ft_printf("P    %d | {Blue}%s{eof} %d %d r%d\n", car->id + 1,
+//			ft_printf("P    %d | {Blue}%s{eof} %d %d r%d\n", car->id + 1,
+//					  op->op == OP_ldi ? "ldi" :"lldi", args.x, args.y, args.z + 1);
+//			ft_printf("       | -> load from %d + %d = %d "
+//					  "(with pc and mod %d)\n", args.x, args.y, args.x + args.y,
+//					  (car->pos + args.x + args.y) % MEM_SIZE);
+//			ft_printf("test otkyda schitivali %d, reg  = %d\n",car->pos + ((args.x + args.y) % (op->op == OP_ldi ? IDX_MOD : INT_MAX)), *(int*)car->regs[args.z].reg); // test
+
+			ft_printf("P %4d | %s %d %d r%d\n", car->id + 1,
 					  op->op == OP_ldi ? "ldi" :"lldi", args.x, args.y, args.z + 1);
 			ft_printf("       | -> load from %d + %d = %d "
 					  "(with pc and mod %d)\n", args.x, args.y, args.x + args.y,
 					  (car->pos + args.x + args.y) % MEM_SIZE);
-			ft_printf("test otkyda schitivali %d, reg  = %d\n",car->pos + ((args.x + args.y) % (op->op == OP_ldi ? IDX_MOD : INT_MAX)), *(int*)car->regs[args.z].reg); // test
 		}
 	}
 }
@@ -88,9 +94,13 @@ void make_fork_lfork(t_mngr *mngr, t_car *car, t_t_op *op)
     newcar->id = mngr->next_id++;
     newcar->eval_in = (short)(mngr->cycle % (MAX_OP_TIME + 1));
 	tl_put(mngr, (short)(mngr->cycle % (MAX_OP_TIME + 1)), newcar);
+	mngr->timeline[newcar->eval_in]->offset = FT_SIGN(mngr->timeline[newcar->eval_in]->offset)
+	* newcar->id;
     if (mngr->flags & FLAG_V)
-        ft_printf("P    %d | {Blue}%s{eof} %d (%d)\n", car->id + 1, op->op
-        == OP_fork ? "fork" : "lfork", args.x,newcar->pos);
+//		ft_printf("P    %d | {Blue}%s{eof} %d (%d)\n", car->id + 1, op->op
+//	== OP_fork ? "fork" : "lfork", args.x,newcar->pos);
+		ft_printf("P %4d | %s %d (%d)\n", car->id + 1,
+			op->op == OP_fork ? "fork" : "lfork", args.x,newcar->pos);
 }
 
 
@@ -111,10 +121,13 @@ void make_and_or_xor(t_mngr *mngr, t_car *car, t_t_op *op)
 		car->carry = (char)(*(int *)car->regs[args.z].reg == 0);
 		if (mngr->flags & FLAG_V)
         {
-            ft_printf("P    %d | {Blue}%s{eof} %d %d r%d\n", car->id + 1,
-                      op->op == OP_and ? "and" : op->op == OP_or ? "or" : "xor",
-                      args.x, args.y, args.z + 1);
+//			ft_printf("P    %d | {Blue}%s{eof} %d %d r%d\n", car->id + 1,
+//					  op->op == OP_and ? "and" : op->op == OP_or ? "or" : "xor",
+//					  args.x, args.y, args.z + 1);
 //            ft_printf("test r1 = %d r2 = %d  res = %d \n",*(int*)car->regs[args.x].reg,*(int*)car->regs[args.y].reg,*(int*)car->regs[args.z].reg ); // test
+			ft_printf("P %4d | %s %d %d r%d\n", car->id + 1,
+					  op->op == OP_and ? "and" : op->op == OP_or ? "or" : "xor",
+					  args.x, args.y, args.z + 1);
         }
 
 	}
@@ -128,7 +141,7 @@ void make_aff(t_mngr *mngr, t_car *car,t_t_op *op)
     arg1 = mngr->arena[get_addr_arena(car->pos + (int)OP_BASE)] - 1;
     if (mngr->flags & FLAG_V)
     {
-        ft_printf("P    %d | {Blue}%s{eof} %d\n", car->id + 1, "aff",
+        ft_printf("P %4d | %s %d\n", car->id + 1, "aff",
         		arg1 + 1);
     }
     if (check_reg(arg1))

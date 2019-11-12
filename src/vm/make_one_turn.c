@@ -24,7 +24,7 @@ void	handle_op(t_mngr *mngr, t_car *car)
 	op = (t_t_op){car->op_code, ARG1(BYTE_CODE), ARG2(BYTE_CODE), ARG3(BYTE_CODE)};
 	if ((ret = check_op(&op)) > 0)
 		get_op_func(op.op)(mngr, car, &op);
-	if (ft_abs(ret) > 1 && mngr->flags & FLAG_V)
+	if (ft_abs(ret) > 1 && mngr->flags & FLAG_V && car->op_code != OP_zjmp)
 		print_addr(mngr, car->pos, FT_ABS(ret));
 	car->pos = (car->pos + FT_ABS(ret)) % MEM_SIZE;
 }
