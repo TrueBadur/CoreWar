@@ -6,7 +6,7 @@
 /*   By: ehugh-be <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/16 15:05:59 by blomo             #+#    #+#             */
-/*   Updated: 2019/11/11 20:13:21 by ehugh-be         ###   ########.fr       */
+/*   Updated: 2019/11/11 20:25:26 by ehugh-be         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,11 @@ void print_addr(t_mngr *mngr, int pos, int adv)
 
     i = -1;
 //    ft_printf("{Green}ADV %d{eof} ({Green}%#.4x -> %#.4x{eof}) ", adv,
-	ft_printf("ADV %d (%#.4x -> %#.4x) ", adv,
+	if (!pos)
+		ft_printf("ADV %d (0x%#.4x -> %#.4x) ", adv,
+				  pos, (pos + adv) % MEM_SIZE);
+	else
+		ft_printf("ADV %d (%#.4x -> %#.4x) ", adv,
 			  pos, (pos + adv) % MEM_SIZE);
     while(++i < adv)
     {
@@ -28,7 +32,7 @@ void print_addr(t_mngr *mngr, int pos, int adv)
 			ft_printf("0%x ", mngr->arena[(pos + i) % MEM_SIZE]);
 //		ft_printf("{Red}0%x {eof}", mngr->arena[(pos + i) % MEM_SIZE]);
         else
-			ft_printf("%x", mngr->arena[(pos + i) % MEM_SIZE]); //TODO replace with single line with placeholders
+			ft_printf("%x ", mngr->arena[(pos + i) % MEM_SIZE]); //TODO replace with single line with placeholders
 //            ft_printf("{Red}%x {eof}", mngr->arena[(pos + i) % MEM_SIZE]);
     }
     ft_printf("\n");

@@ -6,7 +6,7 @@
 /*   By: ehugh-be <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/14 16:26:51 by ehugh-be          #+#    #+#             */
-/*   Updated: 2019/11/11 20:09:55 by ehugh-be         ###   ########.fr       */
+/*   Updated: 2019/11/11 20:43:05 by ehugh-be         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,7 @@ void	check_cars(t_mngr *mngr)
 		mngr->cycles_delta -= CYCLE_DELTA;
 		mngr->num_checks = 0;
 		if (mngr->flags & FLAG_V)
-			ft_printf("Cycles to die is now %d\n",
+			ft_printf("Cycle to die is now %d\n",
 //			ft_printf("{\\35}Cycles to die{eof} is now {\\92}%d{eof}\n",
 				  mngr->cycles_delta);
 	}
@@ -148,14 +148,14 @@ void	game_main(t_mngr *mngr)
 {
 	while (mngr->num_cars)
 	{
-	    make_one_turn(mngr);
-        if (mngr->flags & FLAG_DUMP && mngr->cycle == mngr->dump_nbr)
-            dump_arena(mngr);
-        if (mngr->cycle >= mngr->cycles_to_die || mngr->cycles_delta <= 0)
-            check_cars(mngr);
-		mngr->cycle++;
 		if (mngr->flags & FLAG_V)
 //			ft_printf("It is now cycle {Red}%d{eof}\n", mngr->cycle);
 			ft_printf("It is now cycle %d\n", mngr->cycle);
+	    make_one_turn(mngr);
+        if (mngr->cycle >= mngr->cycles_to_die || mngr->cycles_delta <= 0)
+            check_cars(mngr);
+		if (mngr->flags & FLAG_DUMP && mngr->cycle == mngr->dump_nbr)
+			dump_arena(mngr);
+		mngr->cycle++;
 	}
 }

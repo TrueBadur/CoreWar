@@ -16,17 +16,25 @@
 #define BYTE_OP (unsigned char)(mngr->arena[car->pos])
 #define BYTE_CODE (unsigned char)(mngr->arena[(car->pos + 1) % MEM_SIZE])
 
-void	handle_op(t_mngr *mngr, t_car *car)
+void	handle_op(t_mngr *mngr, t_car *car, short cur_time)
 {
 	short ret;
 	t_t_op	op;
 
+	//if car moved previous turn aka op_code is 0
+	// than read op and set corresponding values
+	// and put in corresponding time
+	// else
+	// try to evaluate op, set op to 0 and move to next time frame
 	op = (t_t_op){car->op_code, ARG1(BYTE_CODE), ARG2(BYTE_CODE), ARG3(BYTE_CODE)};
-	if ((ret = check_op(&op)) > 0)
+	if ((ret = check_op(&op)) > 0) //assuming that in case of invalid args car moves more than 1
+	{
 		get_op_func(op.op)(mngr, car, &op);
-	if (ft_abs(ret) > 1 && mngr->flags & FLAG_V && car->op_code != OP_zjmp)
+//		car->op_code = 0;
+	}
+	if (ret != -1 && mngr->flags & FLAG_V && (car->op_code != OP_zjmp || car->carry != 1))
 		print_addr(mngr, car->pos, FT_ABS(ret));
-	car->pos = (car->pos + FT_ABS(ret)) % MEM_SIZE;
+	proceed_car(mngr, car, cur_time, ret);
 }
 
 static void set_max_id(t_vector *vec, int id)
@@ -40,37 +48,26 @@ static void set_max_id(t_vector *vec, int id)
 }
 
 #define TL_TO_PUT (mngr->timeline[time_to_put])
-void proceed_cars(t_mngr *mngr, short cur_time)
+void proceed_car(t_mngr *mngr, t_car *car, short cur_time, int offset)
 {
-	t_car		**cars;
-	char		op;
-	short		time_to_put;
-	int			i;
+	short	time_to_put;
 
-	i = -1;
-	while (++i < mngr->timeline[cur_time]->len / sizeof(void*))
+	time_to_put = (short)((cur_time + 1) % (MAX_OP_TIME + 1));
+	if (offset == -1)
 	{
-		cars = (t_car**)mngr->timeline[cur_time]->data;
-		if (cars[i]->eval_in != cur_time)
-			continue ;
-		op = (char)mngr->arena[cars[i]->pos];
-		if (OP_live <= op && OP_aff >= op)
-			time_to_put = (short)((cur_time + get_op_info(op)->num_of_ticks) %
-					(MAX_OP_TIME + 1));
-		else
-			time_to_put = (short)((cur_time + 1) % (MAX_OP_TIME + 1));
-		cars[i]->op_code = op;
-		cars[i]->eval_in = time_to_put;
-		tl_put(mngr, cars[i]->eval_in, cars[i]);
-		set_max_id(mngr->timeline[time_to_put], cars[i]->id);
+		car->op_code = (char)mngr->arena[car->pos];
+		if (car->op_code <= OP_aff && car->op_code >= OP_live)
+			time_to_put = (short)((cur_time +
+				get_op_info(car->op_code)->num_of_ticks - 1) % (MAX_OP_TIME + 1));
 	}
-	mngr->timeline[cur_time]->len = 0;
-	mngr->timeline[cur_time]->offset = 0;
-}
-
-int		car_comp(void *a, void *b)
-{
-	return ((int)((*(t_car**)b)->id - (*(t_car**)a)->id));
+	else
+	{
+		car->op_code = 0;
+		car->pos = (car->pos + ft_abs(offset)) % MEM_SIZE;
+	}
+	car->eval_in = time_to_put;
+	tl_put(mngr, time_to_put, car);
+	set_max_id(mngr->timeline[time_to_put], car->id);
 }
 
 void	make_one_turn(t_mngr *mngr)
@@ -86,6 +83,6 @@ void	make_one_turn(t_mngr *mngr)
 		mngr->timeline[cur_time] = vm_radixsort(mngr->timeline[cur_time], mngr->timeline[cur_time]->len /
 			sizeof(void*), mngr);
 	tl_car_iter(mngr, handle_op);
-	proceed_cars(mngr, cur_time);
+//	proceed_cars(mngr, cur_time);
 }
 

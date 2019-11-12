@@ -6,7 +6,7 @@
 /*   By: ehugh-be <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/18 15:41:07 by blomo             #+#    #+#             */
-/*   Updated: 2019/11/11 20:02:54 by ehugh-be         ###   ########.fr       */
+/*   Updated: 2019/11/11 20:08:54 by ehugh-be         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,9 +119,9 @@ void	make_zjmp(t_mngr *mngr, t_car *car, t_t_op *op)
 
 	int l;    // test
 	l = car->pos; // test
-	args.x = args.x % IDX_MOD;
+//	args.x = args.x ;
 	if (car->carry == 1)
-		car->pos = get_addr_arena(car->pos + args.x - 3);
+		car->pos = get_addr_arena(car->pos + args.x % IDX_MOD - 3);
     if (mngr->flags & FLAG_V)
     {
 		ft_printf("P %4d | %s %d %s\n", car->id + 1,"zjmp",

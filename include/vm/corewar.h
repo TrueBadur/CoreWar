@@ -121,12 +121,12 @@ void			safe_exit(t_mngr *mngr, enum e_exit_codes code);
 void			init_arena(t_mngr *mngr);
 void		    parse_file(char *str, t_mngr *mngr, int nbr);
 void			make_one_turn(t_mngr *mngr);
-void			proceed_cars(t_mngr *mngr, short cur_time);
+void			proceed_car(t_mngr *mngr, t_car *car, short cur_time, int offset);
 /*
 ** ----------------------Working with timeline------------------------------- **
 */
 void 			tl_put(t_mngr *mngr, short time, t_car *car);
-void			tl_car_iter(t_mngr *mngr, void (*f)(t_mngr*, t_car*));
+void			tl_car_iter(t_mngr *mngr, void (*f)(t_mngr*, t_car*, short));
 t_vector		*vm_radixsort(t_vector *vec, size_t size, t_mngr *mngr);
 
 /*

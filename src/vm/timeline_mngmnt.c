@@ -6,7 +6,7 @@
 /*   By: ehugh-be <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/09 19:22:18 by ehugh-be          #+#    #+#             */
-/*   Updated: 2019/11/09 19:22:59 by ehugh-be         ###   ########.fr       */
+/*   Updated: 2019/11/12 12:52:44 by ehugh-be         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void tl_put(t_mngr *mngr, short time, t_car *car)
 		safe_exit(mngr, MALLOC_ERROR);
 }
 
-void	tl_car_iter(t_mngr *mngr, void (*f)(t_mngr*, t_car*))
+void	tl_car_iter(t_mngr *mngr, void (*f)(t_mngr*, t_car*, short))
 {
 	t_car	**cars;
 	int		i;
@@ -36,7 +36,10 @@ void	tl_car_iter(t_mngr *mngr, void (*f)(t_mngr*, t_car*))
 	{
 		cars = (t_car**)mngr->timeline[cur_time]->data;
 		tmp = cars[i];
-		if (cars[i]->eval_in == cur_time)
-			f(mngr, cars[i]);
+		// if op is valid do the op move car in space and move one step in time
+		// else read op move in space and move N steps in time
+		if (cars[i]->eval_in != cur_time)
+			continue ;
+		f(mngr, cars[i], cur_time);
 	}
 }
