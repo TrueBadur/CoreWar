@@ -42,4 +42,6 @@ void	tl_car_iter(t_mngr *mngr, void (*f)(t_mngr*, t_car*, short))
 			continue ;
 		f(mngr, cars[i], cur_time);
 	}
+	mngr->timeline[cur_time]->len = 0;
+	mngr->timeline[cur_time]->offset = 0;
 }
