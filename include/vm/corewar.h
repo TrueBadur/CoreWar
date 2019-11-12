@@ -72,6 +72,13 @@
 #define WIN_G_CNTR 7
 #define WIN_G_PLY_BORDER 8
 #define WIN_G_PLY 9
+#define WIN_D_IMG 10
+#define WIN_D_BAN 11
+#define WIN_D_STA 12
+#define WIN_END_MAIN 13
+#define WIN_END_LEFT 14
+#define WIN_END_RIGHT 15
+
 
 
 typedef enum	e_operation_codes
@@ -116,6 +123,7 @@ typedef enum 	e_exit_codes
 typedef struct	s_stats
 {
 	unsigned int	death_wave;
+	int				last_death_wave_cycle;
 	unsigned int	cars[MAX_PLAYERS + 1];
 	unsigned int	dies[MAX_PLAYERS + 1];
 	int				cycles_to_die;
@@ -130,6 +138,7 @@ typedef struct	s_stats
 	int				rate;
 	char 			game_mod;
 	void			(*images[IMG_NUM])(void);
+	char 			ttd_screen;
 }				t_stats;
 
 typedef struct	s_register
@@ -204,15 +213,15 @@ void 	add_dies_stats(int reg);
 void 	add_cars_stats(int reg);
 void	refresh_stats();
 t_stats	*get_stats(void);
-void	show_stats();
+void	show_time_to_die(t_mngr *mngr);
 void	set_cycles_die(int to_set);
 void	set_cycles_die_new(int to_set);
 void	set_cycle(int to_set);
 void	recalc_total();
-void	show_nuke();
-void	show_time_to_die();
+void	show_nuke(WINDOW *win);
+void	show_time_banner();
 void	init_visu();
-void	show_skull_one();
+void	show_skull_one(WINDOW *win);
 void	show_skull_two();
 void	show_skull_three();
 void	show_game_init(t_mngr *mngr);
@@ -223,12 +232,21 @@ void	update_mem(t_mngr *mngr, int id_ply);
 void    show_area(t_mngr *mngr);
 void	reshow_area(t_mngr *mngr);
 void	rate_control(t_stats *st);
-void	pause_or_wait(t_stats *st, char phase);
+void	pause_or_wait_mem_change(t_stats *st);
 void	show_board();
 void	show_scnd_panel(t_mngr *mngr);
 void	show_side_panel_init(t_mngr *mngr, int idx_champ);
 WINDOW	*get_win(int id);
-int		game_set_param(t_stats *st, int from_user);
-int		g_set_param(int from_user);
+int		game_set_param(int from_user);
+void	update_side_cntr(void);
+void	clear_init_screen();
+void	clear_mem_trig_screen();
+void	clear_time_to_die_screen();
+void	show_side_cntr(t_mngr *mngr);
+void	game_panel_border();
+void	pause_or_wait_reshow(t_stats *st);
+void	pause_or_wait_time_to_die();
+void	show_winner(t_mngr *mngr);
+void	clear_time_end_screen();
 
 #endif //COREWAR_COREWAR_H

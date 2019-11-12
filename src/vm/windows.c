@@ -26,7 +26,7 @@
 
 WINDOW	**get_windows()
 {
-	static WINDOW *wins[10];
+	static WINDOW *wins[16];
 	static int is_set;
 
 	if (is_set == 0)
@@ -41,6 +41,12 @@ WINDOW	**get_windows()
 		wins[7] = newwin(14 - 4, SIDE_COL - 4, 2, 197 + 2);
 		wins[8] = newwin(54, SIDE_COL, 14, 197);
 		wins[9] = newwin(54 - 4, SIDE_COL - 4, 14 + 2, 197 + 2);
+		wins[10] = newwin(50, 100, 8, 15);
+		wins[11] = newwin(10, 140, 4, 115);
+		wins[12] = newwin(50, 140, 18, 115);
+		wins[13] = newwin(80, 70, 10, 80);
+		wins[14] = newwin(80, 140, 0, 0);
+		wins[15] = newwin(80, 140, 0, 160);
 		is_set = 1;
 	}
 

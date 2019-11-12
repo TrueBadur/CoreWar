@@ -28,7 +28,6 @@ static void	put_champs(t_mngr *mngr)
 					, (mngr->chmps[i]->size), i);
 		}
 	}
-
 	show_champ_let_start(mngr);
 }
 

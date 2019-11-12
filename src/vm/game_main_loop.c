@@ -109,8 +109,7 @@ void	check_cars(t_mngr *mngr)
 			bury_car(mngr, i--);
 		}
 	}
-	show_stats();
-	reshow_area(mngr);
+	show_time_to_die(mngr);
 	if (mngr->cycles_delta > 0)
 		mngr->cycles_to_die += mngr->cycles_delta;
 	mngr->live_num = 0;

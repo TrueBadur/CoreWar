@@ -12,9 +12,10 @@
 
 #include "corewar.h"
 
-void	show_skull_one()
+void	show_skull_one(WINDOW *win)
 {
-	printw("                                                _,,---\"\"\"\"\"\"---,_\n"
+	wprintw(win,
+		   "                                                _,,---\"\"\"\"\"\"---,_\n"
 		   "                                             ,-\"                 \"-,\n"
 		   "             ____                         ,-\"       ,--\"\"\"\"\"\"\"--,   \\\\\n"
 		   "        ,-\"\"\"    \"\"--,                 ,-\"  .    ,-\"             \"-,  \\\\\n"

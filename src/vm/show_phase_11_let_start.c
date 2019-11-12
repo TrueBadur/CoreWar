@@ -12,7 +12,7 @@
 
 #include "corewar.h"
 
-void	update_side_cntr(mngr)
+void	update_side_cntr(void)
 {
 	WINDOW *win;
 	t_stats *st;
@@ -41,74 +41,62 @@ void	update_side_cntr(mngr)
 	wprintw(win, "         |   |   |   |   |\n");
 	wprintw(win, "         |   |   |   |   +- pause time (-)\n");
 	wprintw(win, "         |   |   |   +----- pause time (+)\n");
-	wprintw(win, "         |   |   +--------- mode: no pause\n");
+	wprintw(win, "         |   |   +--------- mode: no  pause\n");
 	wprintw(win, "         |   +------------- mode: die pause\n");
 	wprintw(win, "         +----------------- mode: all pause\n");
 	wrefresh(win);
 }
 
-void	show_side_cntr(mngr)
+void	show_side_cntr(t_mngr *mngr)
 {
 	WINDOW *win;
 
 	win = get_win(WIN_G_CNTR_BORDER);
 	wborder(win, '#', '#', '#', '#', '#', '#', '#', '#');
+	wprintw(win, "> Control panel <");
 	wrefresh(win);
-	update_side_cntr(mngr);
-}
-
-void	erase_init_side_panel(mngr)
-{
-	WINDOW *win;
-
-	win = get_win(WIN_CNTR_BORDER);
-	werase(win);
-	wrefresh(win);
-	win = get_win(WIN_CNTR);
-	werase(win);
-	wrefresh(win);
-	win = get_win(WIN_PLY_BORDER);
-	werase(win);
-	wrefresh(win);
-	win = get_win(WIN_PLY);
-	werase(win);
-	wrefresh(win);
+	update_side_cntr();
 }
 
 void	show_let_start(WINDOW	*win)
 {
-	/*
-	wprintw(win, "\t        /                             \n"
-			 "\t /  _ _/   _   __/_ __/  _     _ _    \n"
-			 "\t(__(- /  _)  _) /(// /  (/ ((/(//     \n"
-			 "\t                                      \n"
-			 "\t  __                                  \n"
-			 "\t ( _/_ __/  _      _ /_ _ _     _ _ | \n"
-			 "\t__)/(// /  (/ /)(/( ((-(//  ((/(//  . \n"
-			 "\t                                      \n");
-	*/
 	wprintw(win, "  _          _   _             _             _    \n"
 				 " | |        | | ( )           | |           | |   \n"
 				 " | |     ___| |_|/ ___     ___| |_ __ _ _ __| |_  \n"
 				 " | |    / _ \\ __| / __|   / __| __/ _` | '__| __| \n"
 				 " | |___|  __/ |_  \\__ \\   \\__ \\ || (_| | |  | |_  \n"
 				 " |______\\___|\\__| |___/   |___/\\__\\__,_|_|   \\__| \n");
-	wprintw(win, "\t\t   __ _  __      ____ _ _ __ \n"
-				 "\t\t  / _` | \\ \\ /\\ / / _` | '__|\n"
-				 "\t\t | (_| |  \\ V  V / (_| | |   \n"
-				 "\t\t  \\__,_|   \\_/\\_/ \\__,_|_|   \n"
-				 "\t\t                             \n");
+	wprintw(win, "\t\t       __ _  __      ____ _ _ __ \n"
+				 "\t\t      / _` | \\ \\ /\\ / / _` | '__|\n"
+				 "\t\t     | (_| |  \\ V  V / (_| | |   \n"
+				 "\t\t      \\__,_|   \\_/\\_/ \\__,_|_|   \n"
+				 "\t\t                               \n");
 	wprintw(win, "   _____ _             _   \n"
 				 "  / ____| |           | |  \n"
 				 " | (___ | |_ __ _ _ __| |_ \n"
 				 "  \\___ \\| __/ _` | '__| __|\n"
 				 "  ____) | || (_| | |  | |_ \n"
-				 " |_____/ \\__\\__,_|_|   \\__|                       _ \n");
-	wprintw(win, "                                                 | |\n"
-				 "   __ _    ___ ___  _ __ _____      ____ _ _ __  | |\n"
-				 "  / _` |  / __/ _ \\| '__/ _ \\ \\ /\\ / / _` | '__| | |\n"
-				 " | (_| | | (_| (_) | | |  __/\\ V  V / (_| | |    |_|\n"
-				 "  \\__,_|  \\___\\___/|_|  \\___| \\_/\\_/ \\__,_|_|    (_)\n");
+				 " |_____/ \\__\\__,_|_|   \\__|                     \n");
+	wprintw(win, "                                                 \n"
+				 "   __ _    ___ ___  _ __ _____      ____ _ _ __  \n"
+				 "  / _` |  / __/ _ \\| '__/ _ \\ \\ /\\ / / _` | '__| \n"
+				 " | (_| | | (_| (_) | | |  __/\\ V  V / (_| | |    \n"
+				 "  \\__,_|  \\___\\___/|_|  \\___| \\_/\\_/ \\__,_|_|     _\n");
+	wprintw(win, "\t\t\t                         | |\n"
+				 "\t\t\t    __      ____ _ _ __  | |\n"
+				 "\t\t\t    \\ \\ /\\ / / _` | '__| | |\n"
+				 "\t\t\t     \\ V  V / (_| | |    |_|\n"
+				 "\t\t\t      \\_/\\_/ \\__,_|_|    (_)\n");
+}
+
+void	game_panel_border()
+{
+	WINDOW	*win;
+
+	win = get_win(WIN_G_PLY_BORDER);
+	wborder(win, '#', '#', '#', '#', '#', '#', '#', '#');
+	wprintw(win, "> Game panel <");
+	wrefresh(win);
 }
 
 void	show_champ_let_start(mngr)
@@ -116,11 +104,9 @@ void	show_champ_let_start(mngr)
 	WINDOW	*win;
 	int		from_user;
 
-	erase_init_side_panel(mngr);
+	clear_init_screen();
 	show_side_cntr(mngr);
-	win = get_win(WIN_G_PLY_BORDER);
-	wborder(win, '#', '#', '#', '#', '#', '#', '#', '#');
-	wrefresh(win);
+	game_panel_border();
 	win = get_win(WIN_G_PLY);
 	wattron(win, COLOR_PAIR(BLOOD));
 	show_let_start(win);
@@ -128,9 +114,9 @@ void	show_champ_let_start(mngr)
 	wprintw(win, "\n\n\t  For start a war : PRESS ANY KEY\n");
 	wrefresh(win);
 	from_user = getchar();
-	while (g_set_param(from_user))
+	while (game_set_param(from_user))
 	{
-		update_side_cntr(mngr);
+		update_side_cntr();
 		from_user = getchar();
 	}
 }

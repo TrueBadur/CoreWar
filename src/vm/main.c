@@ -42,6 +42,7 @@ static void	champion_introduce(t_mngr *mngr)
 
 static void	winer_anounce(t_mngr *mngr)
 {
+	show_winner(mngr);
 	if (!(mngr->flags & FLAG_S))
 		ft_printf("Contestant %d. \"%s\", has won !\n", mngr->winner + 1, mngr->chmps[mngr->winner]->name);
 }

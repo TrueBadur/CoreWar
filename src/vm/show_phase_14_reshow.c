@@ -12,39 +12,35 @@
 
 #include "corewar.h"
 
-void	control_panel()
+void	game_panel_reshow()
 {
-	WINDOW *win;
+	WINDOW	*win;
 
-	win = get_win(WIN_CNTR);
-	wprintw(win, "    >>>> PRESS ANY KEY <<<<");
+	game_panel_border();
+	win = get_win(WIN_G_PLY);
+	wprintw(win, "\t\tFor continue : PRESS ANY KEY");
 	wrefresh(win);
 }
 
-void	show_side_panel_init(t_mngr *mngr, int idx_champ)
+void	reshow_area(t_mngr *mngr)
 {
+	t_stats	*st;
 	WINDOW	*win;
-	int		id_champ_to_show;
+	int		idx;
 
-	win = get_win(WIN_PLY);
-	if (idx_champ == -1)
-	{
-		control_panel();
-		wprintw(win, "   >>>> PRESS ANY KEY <<<<\n");
-		wprintw(win, "   and next champ will enter to the game");
-	}
-	else
-	{
-		werase(win);
-		id_champ_to_show = -(mngr->chmps[idx_champ]->id) - 1;
-		wprintw(win, "Player %d : \n\n\t", id_champ_to_show);
-		wattron(win, COLOR_PAIR(idx_champ + 1));
-		wprintw(win, "%s\n\n", mngr->chmps[idx_champ]->name);
-		wattron(win, COLOR_PAIR(DEF));
-		wprintw(win, "Comment   : \n\n\t");
-		wattron(win, COLOR_PAIR(idx_champ + 1));
-		wprintw(win, "%s\n", mngr->chmps[idx_champ]->moto);
-		wattron(win, COLOR_PAIR(DEF));
-	}
+	st = get_stats();
+	if (st->game_mod == G_MOD_NO_PAUSE)
+		return ;
+	clear_time_to_die_screen();
+	win = get_win(WIN_MAIN_BORDER);
+	wborder(win, '#', '#', '#', '#', '#', '#', '#', '#');
 	wrefresh(win);
+	win = get_win(WIN_MAIN);
+	idx = -1;
+	while (++idx < MEM_SIZE)
+		show_pos_in_arena(mngr, idx, st->color_old[idx]);
+	wrefresh(win);
+	show_side_cntr(mngr);
+	game_panel_reshow();
+	pause_or_wait_reshow(st);
 }

@@ -23,11 +23,13 @@ t_stats	*get_stats(void)
 	if (init == 0)
 	{
 		srand((unsigned) time(&t));
-		st.images[0] = show_nuke;
-		st.images[1] = show_skull_one;
+		st.images[0] = show_skull_two;
+		st.images[1] = show_skull_two;
 		st.images[2] = show_skull_two;
 		st.images[3] = show_skull_three;
-		st.rate = 100000;
+		st.last_death_wave_cycle = 0;
+		st.rate = 0;
+		st.ttd_screen = 0;
 		st.game_mod = G_MOD_PAUSE_SELECT;
 		init = 1;
 		i = -1;
@@ -60,7 +62,6 @@ void	refresh_stats()
 	st->total = 0;
 	st->total_die = 0;
 	st->death_wave += 1;
-
 }
 
 void 	add_cars_stats(int reg) {

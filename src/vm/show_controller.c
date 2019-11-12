@@ -12,7 +12,7 @@
 
 #include "corewar.h"
 
-int		game_set_param(t_stats *st, int from_user)
+int		game_set_job_param(t_stats *st, int from_user)
 {
 	if (from_user != 'f' && from_user != 'r'
 		&& from_user != 'q' && from_user != 'w'
@@ -36,12 +36,12 @@ int		game_set_param(t_stats *st, int from_user)
 	return (1);
 }
 
-int		g_set_param(int from_user)
+int		game_set_param(int from_user)
 {
 	t_stats *st;
 
 	st = get_stats();
-	return (game_set_param(st, from_user));
+	return (game_set_job_param(st, from_user));
 }
 
 void	rate_control(t_stats *st)
@@ -51,7 +51,8 @@ void	rate_control(t_stats *st)
 	cbreak();
 	nodelay(stdscr, TRUE);
 	cmd = getch();
-	game_set_param(st, cmd);
+	if(game_set_job_param(st, cmd))
+		update_side_cntr();
 	nodelay(stdscr, FALSE);
 }
 
@@ -63,17 +64,37 @@ void	pause_or_wait_mem_change(t_stats *st)
 	{
 		nodelay(stdscr, FALSE);
 		from_user = getchar();
-		game_set_param(st, from_user);
+		if(game_set_job_param(st, from_user))
+			update_side_cntr();
 	}
 	else
 	{
+		rate_control(st);
 		usleep(st->rate);
 	}
 }
 
-void	pause_or_wait(t_stats *st, char phase)
+void	pause_or_wait_reshow(t_stats *st)
 {
-	if (phase == G_PHASE_MEM_CHANGE)
-		pause_or_wait_mem_change(st);
+	int from_user;
+
+	if (st->game_mod != G_MOD_NO_PAUSE)
+	{
+		nodelay(stdscr, FALSE);
+		from_user = getchar();
+		if(game_set_job_param(st, from_user))
+			update_side_cntr();
+	}
+	else
+	{
+		rate_control(st);
+		usleep(st->rate);
+	}
 }
 
+/*
+void	pause_or_wait(t_stats *st)
+{
+	pause_or_wait_mem_change(st);
+}
+*/
