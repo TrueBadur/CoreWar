@@ -148,14 +148,14 @@ void	game_main(t_mngr *mngr)
 {
 	while (mngr->num_cars)
 	{
+		if (mngr->flags & FLAG_V)
+//			ft_printf("It is now cycle {Red}%d{eof}\n", mngr->cycle);
+			ft_printf("It is now cycle %d\n", mngr->cycle);
 	    make_one_turn(mngr);
         if (mngr->cycle >= mngr->cycles_to_die || mngr->cycles_delta <= 0)
             check_cars(mngr);
 		if (mngr->flags & FLAG_DUMP && mngr->cycle == mngr->dump_nbr)
 			dump_arena(mngr);
 		mngr->cycle++;
-		if (mngr->flags & FLAG_V)
-//			ft_printf("It is now cycle {Red}%d{eof}\n", mngr->cycle);
-			ft_printf("It is now cycle %d\n", mngr->cycle);
 	}
 }
