@@ -10,7 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "lexer.h"
+#include "op.h"
+#include <stdlib.h>
 
 t_op	*get_op_info(int id)
 {
