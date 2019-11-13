@@ -22,6 +22,7 @@
 #include <stdio.h>
 #include <ncurses.h>
 #include <stdlib.h>
+#include <signal.h>
 
 #define MAX_OP_TIME 1000
 #define FLAG_DUMP ((unsigned int)1 << (unsigned int)4)
@@ -79,7 +80,15 @@
 #define WIN_END_LEFT 14
 #define WIN_END_RIGHT 15
 
+#define	WIN_SIZE_COL 261
+#define WIN_SIZE_LIN 68
 
+#define G_PHASE_INIT   1
+#define G_PHASE_LETS   2
+#define G_PHASE_MEM    3
+#define G_PHASE_TTD    4
+#define G_PHASE_RESHOW 5
+#define G_PHASE_END    6
 
 typedef enum	e_operation_codes
 {
@@ -138,7 +147,7 @@ typedef struct	s_stats
 	int				rate;
 	char 			game_mod;
 	void			(*images[IMG_NUM])(void);
-	char 			ttd_screen;
+	char 			phase_game;
 }				t_stats;
 
 typedef struct	s_register
@@ -227,26 +236,29 @@ void	show_skull_three();
 void	show_game_init(t_mngr *mngr);
 void	show_champ_mem_init(t_mngr *mngr, int start, int size, int color);
 void	show_pos_in_arena(t_mngr *mngr, int pos, int color);
-void	attron_ply_clr(int i);
 void	update_mem(t_mngr *mngr, int id_ply);
 void    show_area(t_mngr *mngr);
 void	reshow_area(t_mngr *mngr);
 void	rate_control(t_stats *st);
 void	pause_or_wait_mem_change(t_stats *st);
-void	show_board();
 void	show_scnd_panel(t_mngr *mngr);
 void	show_side_panel_init(t_mngr *mngr, int idx_champ);
 WINDOW	*get_win(int id);
+WINDOW	**get_windows();
 int		game_set_param(int from_user);
 void	update_side_cntr(void);
 void	clear_init_screen();
 void	clear_mem_trig_screen();
 void	clear_time_to_die_screen();
-void	show_side_cntr(t_mngr *mngr);
+void	show_side_cntr();
 void	game_panel_border();
 void	pause_or_wait_reshow(t_stats *st);
 void	pause_or_wait_time_to_die();
 void	show_winner(t_mngr *mngr);
 void	clear_time_end_screen();
+void	resizeHandler(int sig);
+int		checkSize();
+void	set_right_size();
+void	clean_all_win();
 
 #endif //COREWAR_COREWAR_H

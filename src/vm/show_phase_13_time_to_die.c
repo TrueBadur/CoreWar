@@ -118,7 +118,7 @@ void	show_time_to_die(t_mngr *mngr)
 	if (st->game_mod == G_MOD_NO_PAUSE)
 		return ;
 	clear_mem_trig_screen();
-	st->ttd_screen = 1;
+	st->phase_game = G_PHASE_TTD;
 	win = get_win(WIN_D_IMG);
 	//wborder(win, '#', '#', '#', '#', '#', '#', '#', '#');
 	show_skull_one(win);

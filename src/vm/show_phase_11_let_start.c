@@ -47,7 +47,7 @@ void	update_side_cntr(void)
 	wrefresh(win);
 }
 
-void	show_side_cntr(t_mngr *mngr)
+void	show_side_cntr()
 {
 	WINDOW *win;
 
@@ -102,10 +102,13 @@ void	game_panel_border()
 void	show_champ_let_start(mngr)
 {
 	WINDOW	*win;
+	t_stats *st;
 	int		from_user;
 
+	st =get_stats();
+	st->phase_game = G_PHASE_LETS;
 	clear_init_screen();
-	show_side_cntr(mngr);
+	show_side_cntr();
 	game_panel_border();
 	win = get_win(WIN_G_PLY);
 	wattron(win, COLOR_PAIR(BLOOD));

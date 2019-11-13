@@ -55,11 +55,9 @@ void    show_area(t_mngr *mngr)
 	char	happend;
 
 	st = get_stats();
-	if (st->ttd_screen == 1)
-	{
+	if (st->phase_game == G_PHASE_TTD)
 		reshow_area(mngr);
-		st->ttd_screen = 0;
-	}
+	st->phase_game = G_PHASE_MEM;
 	happend = 0;
 	idx = -1;
 	show_scnd_panel(mngr);

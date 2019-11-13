@@ -39,11 +39,6 @@ void	init_visu()
 	refresh();
 }
 
-void	attron_ply_clr(int i)
-{
-	attron(COLOR_PAIR(i + 1));
-}
-
 void	clear_window(int id_win)
 {
 	WINDOW	*win;
@@ -78,9 +73,23 @@ void	clear_time_to_die_screen()
 	clear_window(WIN_D_STA);
 }
 
+void	clean_all_win()
+{
+	WINDOW	**all_wins;
+	WINDOW	*win;
+	int idx;
+
+	all_wins = get_windows();
+	idx = -1;
+	while ((win  = all_wins[++idx]))
+	{
+		werase(win);
+		wrefresh(win);
+	}
+}
+
 void	clear_time_end_screen()
 {
-	clear_window(WIN_END_MAIN);
-	clear_window(WIN_END_LEFT);
-	clear_window(WIN_END_RIGHT);
+	clean_all_win();
+	endwin();
 }

@@ -12,36 +12,44 @@
 
 #include "corewar.h"
 
-void	game_panel_reshow()
+int		checkSize()
 {
-	WINDOW	*win;
+	int		nh;
+	int		nw;
 
-	game_panel_border();
-	win = get_win(WIN_G_PLY);
-	wprintw(win, "\t\tFor continue : PRESS ANY KEY");
-	wrefresh(win);
+	getmaxyx(stdscr, nh, nw);
+	erase();
+	if (nh < WIN_SIZE_LIN || nw < WIN_SIZE_COL)
+	{
+		border(0, 1, 0, 1, 1, 1, 1, 1);
+		move(0, 2);
+		printw("col = %d", nw);
+		move(4, 0);
+		printw("lin = %d", nh);
+		move(2, 2);
+		printw("Place size window. col > %d and lin > %d",
+				WIN_SIZE_COL, WIN_SIZE_LIN);
+		refresh();
+		return (1);
+	}
+	else
+	{
+		move(2, 2);
+		printw(">>>> PRESS ANY KEY <<<<");
+		refresh();
+	}
+	return (0);
 }
 
-void	reshow_area(t_mngr *mngr)
+void	set_right_size()
 {
-	t_stats	*st;
-	WINDOW	*win;
-	int		idx;
+	while (checkSize())
+		getchar();
+}
 
-	st = get_stats();
-	st->phase_game = G_PHASE_RESHOW;
-	if (st->game_mod == G_MOD_NO_PAUSE)
-		return ;
-	clear_time_to_die_screen();
-	win = get_win(WIN_MAIN_BORDER);
-	wborder(win, '#', '#', '#', '#', '#', '#', '#', '#');
-	wrefresh(win);
-	win = get_win(WIN_MAIN);
-	idx = -1;
-	while (++idx < MEM_SIZE)
-		show_pos_in_arena(mngr, idx, st->color_old[idx]);
-	wrefresh(win);
-	show_side_cntr();
-	game_panel_reshow();
-	pause_or_wait_reshow(st);
+void	resizeHandler(int sig)
+{
+	endwin();
+	initscr();
+	checkSize();
 }

@@ -45,10 +45,13 @@ void	show_banner_winner()
 
 void	show_winner(t_mngr *mngr)
 {
-	WINDOW *win;
+	WINDOW	*win;
+	t_stats	*st;
 	int 	len;
 	char	*name;
 
+	st = get_stats();
+	st->phase_game = G_PHASE_END;
 	show_banner_winner();
 	name = mngr->chmps[mngr->winner]->name;
 	len = (70 - (int)ft_strlen(name)) / 2;

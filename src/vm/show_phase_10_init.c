@@ -36,7 +36,7 @@ void	show_game_init(t_mngr *mngr)
 	int lin;
 	WINDOW	*win;
 
-	show_game_init_border(mngr);
+	show_game_init_border();
 	win = get_win(WIN_MAIN);
 	lin = LIN_STEP - 1;
 	i = -1;
