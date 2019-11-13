@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   operation.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: blomo <blomo@student.42.fr>                +#+  +:+       +#+        */
+/*   By: blomo <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/16 15:05:59 by blomo             #+#    #+#             */
-/*   Updated: 2019/11/13 19:00:58 by blomo            ###   ########.fr       */
+/*   Updated: 2019/11/13 19:28:06 by blomo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,10 +32,10 @@ void		make_ldi_lldi(t_mngr *mngr, t_car *car, t_t_op *op)
 		if (mngr->flags & FLAG_V)
 		{
 			ft_printf("P %4d | %s %d %d r%d\n", car->id + 1,
-				op->op == OP_ldi ? "ldi" : "lldi", args.x, args.y, args.z + 1);
-			ft_printf("       | -> load from %d + %d = %d (with pc and mod %d)
-			\n", args.x, args.y, args.x + args.y, (car->pos + args.x + args.y)
-			% MEM_SIZE);
+					  op->op == OP_ldi ? "ldi" :"lldi", args.x, args.y, args.z + 1);
+			ft_printf("       | -> load from %d + %d = %d "
+					  "(with pc and mod %d)\n", args.x, args.y, args.x + args.y,
+					  (car->pos + args.x + args.y) % MEM_SIZE);
 		}
 	}
 }
