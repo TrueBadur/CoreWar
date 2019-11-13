@@ -51,11 +51,9 @@ int main(int argc, char **argv)
 {
 	t_mngr *mngr;
 
-	signal(SIGWINCH, resizeHandler);
-	init_visu();
-	set_right_size();
 	mngr = init_mngr();
 	validate_input(mngr, argc, argv);
+	start_visu(mngr);
 	init_arena(mngr);
 	champion_introduce(mngr);
 	game_main(mngr);

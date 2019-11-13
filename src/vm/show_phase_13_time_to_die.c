@@ -113,6 +113,8 @@ void	show_time_to_die(t_mngr *mngr)
 	t_stats *st;
 	WINDOW	*win;
 
+	if (!(mngr->flags & FLAG_S))
+		return ;
 	st = get_stats();
 	st->last_death_wave_cycle = mngr->cycle;
 	if (st->game_mod == G_MOD_NO_PAUSE)

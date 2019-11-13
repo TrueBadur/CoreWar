@@ -218,14 +218,14 @@ void			tl_car_iter(t_mngr *mngr, void (*f)(t_mngr*, t_car*));
 /*
 ** -----------------------------Statistic------------------------------------ **
 */
-void 	add_dies_stats(int reg);
-void 	add_cars_stats(int reg);
-void	refresh_stats();
+void 	add_dies_stats(t_mngr *mngr, int reg);
+void 	add_cars_stats(t_mngr *mngr, int reg);
+void	refresh_stats(t_mngr *mngr);
 t_stats	*get_stats(void);
 void	show_time_to_die(t_mngr *mngr);
-void	set_cycles_die(int to_set);
-void	set_cycles_die_new(int to_set);
-void	set_cycle(int to_set);
+void	set_cycles_die(t_mngr *mngr);
+void	set_cycles_die_new(t_mngr *mngr);
+void	set_cycle(t_mngr *mngr);
 void	recalc_total();
 void	show_nuke(WINDOW *win);
 void	show_time_banner();
@@ -260,5 +260,7 @@ void	resizeHandler(int sig);
 int		checkSize();
 void	set_right_size();
 void	clean_all_win();
+void	show_champ_let_start(t_mngr *mngr);
+void	start_visu(t_mngr *mngr);
 
 #endif //COREWAR_COREWAR_H

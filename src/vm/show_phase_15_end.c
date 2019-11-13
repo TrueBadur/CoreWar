@@ -50,6 +50,8 @@ void	show_winner(t_mngr *mngr)
 	int 	len;
 	char	*name;
 
+	if (!(mngr->flags & FLAG_S))
+		return ;
 	st = get_stats();
 	st->phase_game = G_PHASE_END;
 	show_banner_winner();

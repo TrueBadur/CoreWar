@@ -73,7 +73,7 @@ void parse_cor(char *file, t_mngr *mngr, int nbr)
 	mngr->chmps[nbr]->moto = get_str(fd, COMMENT_LENGTH, mngr);
 	if (get4byte(mngr, fd) != 0)
         safe_exit(mngr, NO_ZERO_BYTE);
-    mngr->chmps[nbr]->code = get_code(mngr, fd, (size_t) mngr->chmps[nbr]->size);
+	mngr->chmps[nbr]->code = get_code(mngr, fd, (size_t) mngr->chmps[nbr]->size);
     mngr->chmp_num++;
 }
 

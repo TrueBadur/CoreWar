@@ -93,3 +93,12 @@ void	clear_time_end_screen()
 	clean_all_win();
 	endwin();
 }
+
+void	start_visu(t_mngr *mngr)
+{
+	if (!(mngr->flags & FLAG_S))
+		return ;
+	signal(SIGWINCH, resizeHandler);
+	init_visu();
+	set_right_size();
+}

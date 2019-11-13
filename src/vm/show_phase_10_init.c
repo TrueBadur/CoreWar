@@ -36,6 +36,8 @@ void	show_game_init(t_mngr *mngr)
 	int lin;
 	WINDOW	*win;
 
+	if (!(mngr->flags & FLAG_S))
+		return ;
 	show_game_init_border();
 	win = get_win(WIN_MAIN);
 	lin = LIN_STEP - 1;
@@ -57,6 +59,8 @@ void	show_champ_mem_init(t_mngr *mngr, int start, int size, int idx)
 {
 	t_stats *st;
 
+	if (!(mngr->flags & FLAG_S))
+		return ;
 	st = get_stats();
 	size += start;
 	while (start < size)

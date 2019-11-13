@@ -42,11 +42,13 @@ t_stats	*get_stats(void)
 	return &st;
 }
 
-void	refresh_stats()
+void	refresh_stats(t_mngr *mngr)
 {
 	t_stats *st;
 	int		idx;
 
+	if (!(mngr->flags & FLAG_S))
+		return ;
 	st = get_stats();
 	idx = -1;
 	while (++idx < MAX_PLAYERS + 1)
@@ -60,11 +62,16 @@ void	refresh_stats()
 	st->total = 0;
 	st->total_die = 0;
 	st->death_wave += 1;
+	set_cycles_die(mngr);
+	set_cycle(mngr);
 }
 
-void 	add_cars_stats(int reg) {
+void 	add_cars_stats(t_mngr *mngr, int reg)
+{
 	t_stats *st;
 
+	if (!(mngr->flags & FLAG_S))
+		return ;
 	st = get_stats();
 	if (reg > -1 || reg < -4)
 		st->cars[4] += 1;
@@ -72,10 +79,12 @@ void 	add_cars_stats(int reg) {
 		st->cars[-reg - 1] += 1;
 }
 
-void 	add_dies_stats(int reg)
+void 	add_dies_stats(t_mngr *mngr, int reg)
 {
 	t_stats *st;
 
+	if (!(mngr->flags & FLAG_S))
+		return ;
 	st = get_stats();
 	if (reg > -1 || reg < -4)
 		st->dies[4] += 1;
@@ -99,26 +108,30 @@ void	recalc_total()
 		st->total_die += (int)st->dies[idx];
 }
 
-void	set_cycles_die(int to_set)
+void	set_cycles_die(t_mngr *mngr)
 {
 	t_stats *st;
 
 	st = get_stats();
-	st->cycles_to_die = to_set;
+	st->cycles_to_die = mngr->cycles_delta;
 }
 
-void	set_cycles_die_new(int to_set)
+void	set_cycles_die_new(t_mngr *mngr)
 {
 	t_stats *st;
 
+	if (!(mngr->flags & FLAG_S))
+		return ;
 	st = get_stats();
-	st->cycles_to_die_new = to_set;
+	st->cycles_to_die_new = mngr->cycles_to_die;
 }
 
-void	set_cycle(int to_set)
+void	set_cycle(t_mngr *mngr)
 {
 	t_stats *st;
 
+	if (!(mngr->flags & FLAG_S))
+		return ;
 	st = get_stats();
-	st->cycle = to_set;
+	st->cycle = mngr->cycle;
 }

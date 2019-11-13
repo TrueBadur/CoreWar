@@ -99,12 +99,14 @@ void	game_panel_border()
 	wrefresh(win);
 }
 
-void	show_champ_let_start(mngr)
+void	show_champ_let_start(t_mngr *mngr)
 {
 	WINDOW	*win;
 	t_stats *st;
 	int		from_user;
 
+	if (!(mngr->flags & FLAG_S))
+		return ;
 	st =get_stats();
 	st->phase_game = G_PHASE_LETS;
 	clear_init_screen();

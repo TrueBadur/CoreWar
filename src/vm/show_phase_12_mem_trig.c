@@ -54,6 +54,8 @@ void    show_area(t_mngr *mngr)
 	int		idx;
 	char	happend;
 
+	if (!(mngr->flags & FLAG_S))
+		return ;
 	st = get_stats();
 	if (st->phase_game == G_PHASE_TTD)
 		reshow_area(mngr);
