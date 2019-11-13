@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_arena.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: blomo <marvin@42.fr>                       +#+  +:+       +#+        */
+/*   By: ehugh-be <ehugh-be@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/14 16:28:19 by ehugh-be          #+#    #+#             */
-/*   Updated: 2019/11/13 17:17:43 by blomo            ###   ########.fr       */
+/*   Updated: 2019/11/13 17:58:09 by blomo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,24 +14,24 @@
 
 static void	put_champs(t_mngr *mngr)
 {
-	int i;
-	int j;
+	int		i;
+	int		j;
 
 	i = -1;
 	j = -1;
 	while (i < mngr->chmp_num && ++j < MAX_PLAYERS)
-        if (mngr->chmps[j])
+		if (mngr->chmps[j])
 		{
 			ft_memcpy(mngr->arena + (++i * MEM_SIZE / mngr->chmp_num),
-					  mngr->chmps[j]->code, mngr->chmps[j]->size);
+			mngr->chmps[j]->code, mngr->chmps[j]->size);
 		}
 }
 
-static void init_carrieges(t_mngr *mngr)
+static void	init_carrieges(t_mngr *mngr)
 {
-	int i;
+	int		i;
 	t_car	*car;
-	int j;
+	int		j;
 
 	if (!(mngr->cars = ft_vecinit(2 * mngr->chmp_num)))
 		safe_exit(mngr, MALLOC_ERROR);
@@ -55,7 +55,7 @@ static void init_carrieges(t_mngr *mngr)
 	}
 }
 
-void	init_arena(t_mngr *mngr)
+void		init_arena(t_mngr *mngr)
 {
 	if (!(mngr->arena = ft_memalloc(MEM_SIZE)))
 		safe_exit(mngr, MALLOC_ERROR);
@@ -68,5 +68,4 @@ void	init_arena(t_mngr *mngr)
 	mngr->cycles_delta = CYCLE_TO_DIE;
 	if (!(mngr->dead_cars = ft_vecinit(sizeof(void*) * 8)))
 		safe_exit(mngr, MALLOC_ERROR);
-//	proceed_cars(mngr, 0);
 }
