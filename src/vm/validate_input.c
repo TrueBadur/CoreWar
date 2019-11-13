@@ -6,12 +6,12 @@
 /*   By: blomo <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/14 16:39:49 by ehugh-be          #+#    #+#             */
-/*   Updated: 2019/11/13 16:41:24 by blomo            ###   ########.fr       */
+/*   Updated: 2019/11/13 17:11:37 by blomo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
-#include "limits.h"
+
 
 int handle_n(t_mngr *mngr, char **argv, int i)
 {
@@ -107,40 +107,11 @@ void check_players(t_mngr *mngr, char **argv, int argc)
         }
     }
 }
-void sort_champ(t_mngr *mngr)
-{
-	int i;
-	int k;
-	t_chmp *temp[4];
-
-	k = 0;
-	i = -1;
-	while(++i < 4)
-	{
-		if (mngr->chmps[i])
-		{
-			temp[k] = (t_chmp*)malloc(sizeof(t_chmp));
-			ft_memcpy(temp[k],mngr->chmps[i], sizeof(t_chmp));
-			free(mngr->chmps[i]);
-			mngr->chmps[i] = NULL;
-			k++;
-		}
-	}
-	while(--k > -1)
-	{
-		mngr->chmps[k] = (t_chmp*)malloc(sizeof(t_chmp));
-		ft_memcpy(mngr->chmps[k],temp[k], sizeof(t_chmp));
-		ft_bzero(temp[k], sizeof(t_chmp));
-		free(temp[k]);
-	}
-}
 
 void validate_input(t_mngr *mngr, int argc, char **argv)
 {
-    if(argc == 1)
+    if (argc == 1)
         safe_exit(mngr, FEW_ARGUMENTS);
 	parse_flags(mngr, argv);
     check_players(mngr,argv,argc);
-    if (mngr->flags & FLAG_N)
-    	sort_champ(mngr);
 }
