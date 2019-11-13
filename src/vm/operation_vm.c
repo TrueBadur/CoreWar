@@ -6,7 +6,7 @@
 /*   By: blomo <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/18 15:41:07 by blomo             #+#    #+#             */
-/*   Updated: 2019/10/31 21:20:54 by blomo            ###   ########.fr       */
+/*   Updated: 2019/11/12 19:13:40 by blomo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,11 +48,9 @@ void	make_ld_lld(t_mngr *mngr, t_car *car, t_t_op *op)
 		*(int *) car->regs[args.y].reg = args.x;
 		car->carry = (char) (args.x == 0);
 		if (mngr->flags & FLAG_V)
-		{
-            ft_printf("P    %d | {Blue}%s{eof} %d r%d\n", car->id + 1,
+			ft_printf("P %4d | %s %d r%d\n", car->id + 1,
+//					  ft_printf("P %4d | {Blue}%s{eof} %d r%d\n", car->id + 1,
                       op->op == OP_ld ? "ld" : "lld", args.x, args.y + 1);
-            ft_printf("for test reg %d =  %d\n",args.y + 1, *(int *) car->regs[args.y].reg); // proverka pravilno li zapisali znachenie v registr
-        }
 	}
 }
 
@@ -74,7 +72,7 @@ void	make_st(t_mngr *mngr, t_car *car, t_t_op *op)
 		}
 		else
 		{
-			step = car->pos + args.y;
+			step = car->pos + ((op->a2 == IND_CODE) ? args.y % IDX_MOD : args.y);
 			copy_reg_to_arena(mngr, car, args.x, step);
 		}
 		if (mngr->flags & FLAG_V)
@@ -103,9 +101,9 @@ void	make_add_sub(t_mngr *mngr, t_car *car, t_t_op *op)
 		car->carry = (char)(res == 0);
         if (mngr->flags & FLAG_V)
         {
-            ft_printf("P    %d | {Blue}%s{eof} r%d r%d r%d\n", car->id + 1,
+			ft_printf("P %4d | %s r%d r%d r%d\n", car->id + 1,
+//					  ft_printf("P %4d | {Blue}%s{eof} r%d r%d r%d\n", car->id + 1,
                       op->op == OP_add ? "add" : "sub", args.x + 1, args.y + 1, args.z + 1);
-            ft_printf("test znacheniy r1 = %d, r2 = %d, res = %d i v r3 = %", *(int *)car->regs[args.x].reg, *(int *)car->regs[args.y].reg, res, *(int *)car->regs[args.z].reg ); // test
         }
 	}
 
@@ -121,14 +119,14 @@ void	make_zjmp(t_mngr *mngr, t_car *car, t_t_op *op)
 
 	int l;    // test
 	l = car->pos; // test
-	args.x = args.x % IDX_MOD;
+//	args.x = args.x ;
 	if (car->carry == 1)
-		car->pos = get_addr_arena(car->pos + args.x - 3);
+		car->pos = get_addr_arena(car->pos + args.x % IDX_MOD - 3);
     if (mngr->flags & FLAG_V)
     {
-        ft_printf("P    %d | {Blue}%s{eof} %d %s\n", car->id + 1,"zjmp",
+		ft_printf("P %4d | %s %d %s\n", car->id + 1,"zjmp",
+//				  ft_printf("P %4d | {Blue}%s{eof} %d %s\n", car->id + 1,"zjmp",
                   args.x, car->carry == 1 ? "OK" : "FAILED");
-        ft_printf("test tek poz = %d i kyda pos = %d   +3 eto y tebya potom carpoz dobavit\n",l, car->pos ); // test kyda prygnyla
     }
 
 }

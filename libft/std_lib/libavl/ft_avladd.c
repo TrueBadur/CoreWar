@@ -12,7 +12,13 @@
 
 #include "btavl.h"
 
-void	ft_avladd(t_btavl **tr, t_btavl *leaf, int (*f)(void *, void *, size_t))
+/*
+** Insert given leaf into tree using stored data in 'compare' function to
+** determine the order
+*/
+
+void	ft_avladd(t_btavl **tr, t_btavl *leaf,
+		int (*compare)(void *, void *, size_t))
 {
 	if (!tr)
 		return ;
@@ -21,8 +27,8 @@ void	ft_avladd(t_btavl **tr, t_btavl *leaf, int (*f)(void *, void *, size_t))
 		*tr = leaf;
 		return ;
 	}
-	if (f((*tr)->data, leaf->data, leaf->size) < 0)
-		ft_avladd(&((*tr)->left), leaf, f);
+	if (compare((*tr)->data, leaf->data, leaf->size) < 0)
+		ft_avladd(&((*tr)->left), leaf, compare);
 	else
-		ft_avladd(&((*tr)->right), leaf, f);
+		ft_avladd(&((*tr)->right), leaf, compare);
 }

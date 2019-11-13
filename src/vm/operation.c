@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   operation.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ehugh-be <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: blomo <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/16 15:05:59 by blomo             #+#    #+#             */
-/*   Updated: 2019/11/01 16:30:35 by ehugh-be         ###   ########.fr       */
+/*   Updated: 2019/11/12 18:55:40 by ehugh-be         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,14 +30,22 @@ void make_ldi_lldi(t_mngr *mngr, t_car *car, t_t_op *op)
 		res = car->pos + ((args.x + args.y) % (op->op == OP_ldi ? IDX_MOD : INT_MAX));
 		res = get_dir(mngr, &res, DIR_SIZE);
 		*(int*)car->regs[args.z].reg = res;
+		if (op->op == OP_lldi)
+			car->carry = (char) (res == 0);
 		if (mngr->flags & FLAG_V)
 		{
-			ft_printf("P    %d | {Blue}%s{eof} %d %d r%d\n", car->id + 1,
+//			ft_printf("P    %d | {Blue}%s{eof} %d %d r%d\n", car->id + 1,
+//					  op->op == OP_ldi ? "ldi" :"lldi", args.x, args.y, args.z + 1);
+//			ft_printf("       | -> load from %d + %d = %d "
+//					  "(with pc and mod %d)\n", args.x, args.y, args.x + args.y,
+//					  (car->pos + args.x + args.y) % MEM_SIZE);
+//			ft_printf("test otkyda schitivali %d, reg  = %d\n",car->pos + ((args.x + args.y) % (op->op == OP_ldi ? IDX_MOD : INT_MAX)), *(int*)car->regs[args.z].reg); // test
+
+			ft_printf("P %4d | %s %d %d r%d\n", car->id + 1,
 					  op->op == OP_ldi ? "ldi" :"lldi", args.x, args.y, args.z + 1);
 			ft_printf("       | -> load from %d + %d = %d "
 					  "(with pc and mod %d)\n", args.x, args.y, args.x + args.y,
 					  (car->pos + args.x + args.y) % MEM_SIZE);
-			ft_printf("test otkyda schitivali %d, reg  = %d\n",car->pos + ((args.x + args.y) % (op->op == OP_ldi ? IDX_MOD : INT_MAX)), *(int*)car->regs[args.z].reg); // test
 		}
 	}
 }
@@ -74,21 +82,26 @@ void make_fork_lfork(t_mngr *mngr, t_car *car, t_t_op *op)
 	get_args(mngr, car, op, &args);
     newcar = resurect_car(mngr);
     if (newcar == NULL)
-    {
         if(!(newcar = (t_car*)malloc(sizeof(t_car))))
             safe_exit(mngr, MALLOC_ERROR);
-    }
     ft_memcpy(newcar, car, sizeof(t_car));
-    ft_vecpush(mngr->cars, &newcar, sizeof(newcar));
+    if (!ft_vecpush(mngr->cars, &newcar, sizeof(newcar)))
+    	safe_exit(mngr, MALLOC_ERROR);
     if (op->op == 12)
         args.x = args.x % IDX_MOD;
     mngr->num_cars++;
     newcar->pos = get_addr_arena(car->pos + args.x);
-    newcar->just_forked = 1;
     newcar->id = mngr->next_id++;
-    tl_put(mngr, (short) (mngr->cycle % (MAX_OP_TIME + 1)), ft_lstnew_noc(newcar, sizeof(newcar)), 0);
+    newcar->op_code = 0;
+    newcar->eval_in = (short)((mngr->cycle + 1) % (MAX_OP_TIME + 1));
+	tl_put(mngr, newcar->eval_in, newcar);
+	mngr->timeline[newcar->eval_in]->offset = FT_SIGN(mngr->timeline[newcar->eval_in]->offset)
+	* newcar->id;
     if (mngr->flags & FLAG_V)
-        ft_printf("P    %d | {Blue}%s{eof} %d (%d)\n", car->id + 1, op->op == OP_fork ? "fork" : "lfork", args.x,newcar->pos);
+//		ft_printf("P    %d | {Blue}%s{eof} %d (%d)\n", car->id + 1, op->op
+//	== OP_fork ? "fork" : "lfork", args.x,newcar->pos);
+		ft_printf("P %4d | %s %d (%d)\n", car->id + 1,
+			op->op == OP_fork ? "fork" : "lfork", args.x,newcar->pos);
 }
 
 
@@ -109,10 +122,13 @@ void make_and_or_xor(t_mngr *mngr, t_car *car, t_t_op *op)
 		car->carry = (char)(*(int *)car->regs[args.z].reg == 0);
 		if (mngr->flags & FLAG_V)
         {
-            ft_printf("P    %d | {Blue}%s{eof} %d %d r%d\n", car->id + 1,
-                      op->op == OP_and ? "and" : op->op == OP_or ? "or" : "xor",
-                      args.x, args.y, args.z + 1);
+//			ft_printf("P    %d | {Blue}%s{eof} %d %d r%d\n", car->id + 1,
+//					  op->op == OP_and ? "and" : op->op == OP_or ? "or" : "xor",
+//					  args.x, args.y, args.z + 1);
 //            ft_printf("test r1 = %d r2 = %d  res = %d \n",*(int*)car->regs[args.x].reg,*(int*)car->regs[args.y].reg,*(int*)car->regs[args.z].reg ); // test
+			ft_printf("P %4d | %s %d %d r%d\n", car->id + 1,
+					  op->op == OP_and ? "and" : op->op == OP_or ? "or" : "xor",
+					  args.x, args.y, args.z + 1);
         }
 
 	}
@@ -124,11 +140,8 @@ void make_aff(t_mngr *mngr, t_car *car,t_t_op *op)
 
     (void)op;
     arg1 = mngr->arena[get_addr_arena(car->pos + (int)OP_BASE)] - 1;
-    if (mngr->flags & FLAG_V)
+    if (check_reg(arg1) && mngr->flags & FLAG_A)
     {
-        ft_printf("P    %d | {Blue}%s{eof} %d\n", car->id + 1, "aff",
-        		arg1 + 1);
+        ft_printf("Aff: %c\n",(*(int*)car->regs[arg1].reg % IDX_MOD));
     }
-    if (check_reg(arg1))
-        write(STDOUT_FILENO, (char*)car->regs[arg1].reg, ARG_REG_S);
 }

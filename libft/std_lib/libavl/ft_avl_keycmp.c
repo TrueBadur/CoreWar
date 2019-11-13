@@ -12,9 +12,10 @@
 
 #include "btavl.h"
 
-int	ft_avl_keycmp(void *a, void *b, t_avl_k_t kt, int (f)(void*, void*))
+int	ft_avl_keycmp(void *a, void *b, t_avl_k_t keytype,
+		int (key_compare)(void*, void*))
 {
-	if (kt < STRING)
+	if (keytype < STRING)
 	{
 		if (a == b)
 			return (0);
@@ -23,9 +24,9 @@ int	ft_avl_keycmp(void *a, void *b, t_avl_k_t kt, int (f)(void*, void*))
 		else
 			return (-1);
 	}
-	else if (kt == STRING)
+	else if (keytype == STRING)
 		return (ft_strcmp(a, b));
 	else
-		return (f(a, b));
+		return (key_compare(a, b));
 }
 
