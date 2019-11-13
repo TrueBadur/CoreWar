@@ -6,7 +6,7 @@
 /*   By: ehugh-be <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/13 16:37:21 by ehugh-be          #+#    #+#             */
-/*   Updated: 2019/07/13 16:48:48 by ehugh-be         ###   ########.fr       */
+/*   Updated: 2019/11/09 18:38:33 by ehugh-be         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,9 @@
 
 t_vector	*ft_vecput(t_vector *vec, size_t pos, size_t size, void *data)
 {
-	if (pos + size > vec->cap)
-		vec = ft_vecgrow(vec, vec->cap * 2);
+	while (pos + size > vec->cap)
+		if (!(vec = ft_vecgrow(vec, vec->cap * 2)))
+			return (NULL);
 	ft_memcpy(vec->data + pos, data, size);
 	if (pos + size > vec->len)
 		vec->len = pos + size;

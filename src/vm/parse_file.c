@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_file.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: blomo <marvin@42.fr>                       +#+  +:+       +#+        */
+/*   By: ehugh-be <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/14 10:04:59 by blomo             #+#    #+#             */
-/*   Updated: 2019/10/15 19:06:51 by blomo            ###   ########.fr       */
+/*   Updated: 2019/11/12 21:31:19 by ehugh-be         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,9 +31,10 @@ char		*get_str(int fd, size_t len, t_mngr *mngr)
 {
 	int	size;
 	char	*buffer;
-	if (!(buffer = (char*)malloc(sizeof(char) * len)))
-		safe_exit(mngr, MALLOC_ERROR, NULL);
+	if (!(buffer = (char*)malloc(sizeof(char) * (len + 1))))
+        safe_exit(mngr, MALLOC_ERROR, NULL);
 	size = read(fd, buffer, len);
+	buffer[size] = '\0';
 	if (size == -1 || size < (size_t)len)
 		safe_exit(mngr, READ_ERROR, NULL);
 	return (buffer);
