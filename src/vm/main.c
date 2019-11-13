@@ -19,7 +19,7 @@
  	t_mngr *mngr;
 
 	if (!(mngr = ft_memalloc(sizeof(t_mngr))))
-		safe_exit(mngr, MALLOC_ERROR);
+		safe_exit(mngr, MALLOC_ERROR, NULL);
 	ft_bzero(mngr->timeline, (MAX_OP_TIME + 1) * sizeof(void*));
 	return (mngr);
 }
@@ -53,6 +53,6 @@ int main(int argc, char **argv)
 	champion_introduce(mngr);
 	game_main(mngr);
 	winer_anounce(mngr);
-	safe_exit(mngr, SUCCESS);
+	safe_exit(mngr, SUCCESS, NULL);
     return (0);
 }

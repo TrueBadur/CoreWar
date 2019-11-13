@@ -29,16 +29,16 @@ static void init_carrieges(t_mngr *mngr)
 	t_car	*car;
 
 	if (!(mngr->cars = ft_vecinit(2 * mngr->chmp_num)))
-		safe_exit(mngr, MALLOC_ERROR);
+		safe_exit(mngr, MALLOC_ERROR, NULL);
 	i = -1;
 	while (++i < mngr->chmp_num)
 	{
 		if (!(car = ft_memalloc(sizeof(t_car))))
-			safe_exit(mngr, MALLOC_ERROR);
+			safe_exit(mngr, MALLOC_ERROR, NULL);
 		car->id = mngr->next_id;
 		car->pos = i * MEM_SIZE / mngr->chmp_num;
 		if (!ft_vecpush(mngr->cars, &car, sizeof(void *)))
-			safe_exit(mngr, MALLOC_ERROR);
+			safe_exit(mngr, MALLOC_ERROR, NULL);
         tl_put(mngr, 0, ft_lstnew_noc(car, sizeof(void *)), 0);
 		mngr->num_cars++;
 		mngr->next_id++;
@@ -50,7 +50,7 @@ static void init_carrieges(t_mngr *mngr)
 void	init_arena(t_mngr *mngr)
 {
 	if (!(mngr->arena = ft_memalloc(MEM_SIZE)))
-		safe_exit(mngr, MALLOC_ERROR);
+		safe_exit(mngr, MALLOC_ERROR, NULL);
 	put_champs(mngr);
 	init_carrieges(mngr);
 	mngr->cycles_to_die = CYCLE_TO_DIE;

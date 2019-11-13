@@ -52,6 +52,7 @@ typedef enum 	e_exit_codes
 	SUCCESS,
 	MALLOC_ERROR,
     FEW_ARGUMENTS,
+    INVALID_FLAG,
     INVALID_N,
     TOO_MANY_CHMPS,
     FEW_BYTE,
@@ -63,7 +64,8 @@ typedef enum 	e_exit_codes
     INVALID_FILE_EXTENSION,
     INVALID_ARRAY_CHAMPION,
     INVALID_ARGUMENT_NAME,
-    CALL_DUMP
+    CALL_DUMP,
+    HELP
 }				t_eexcode;
 
 typedef struct	s_register
@@ -115,7 +117,7 @@ typedef struct	s_mngr
 
 void			validate_input(t_mngr *mngr, int argc, char **argv);
 void			game_main(t_mngr *mngr);
-void			safe_exit(t_mngr *mngr, enum e_exit_codes code);
+void safe_exit(t_mngr *mngr, t_eexcode exit_code, const char *err_arg);
 void			init_arena(t_mngr *mngr);
 void		    parse_file(char *str, t_mngr *mngr, int nbr);
 void			make_one_turn(t_mngr *mngr);

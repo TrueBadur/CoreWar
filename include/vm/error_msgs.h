@@ -27,5 +27,5 @@
 #define INVALID_FILE_EXTENSION_MSG "{Red}Error: \n Invalid file extension \n"
 #define INVALID_ARRAY_CHAMPION_MSG "{Red}Error: \n Invalid array champion \n"
 #define INVALID_ARGUMENT_NAME_MSG "{Red}Error: \n Invalid argument name \n"
-
+#define INVALID_FLAG_MSG "{Red}Error: \n Invalid flag: %s \n"
 #endif //COREWAR_ERROR_MSGS_H

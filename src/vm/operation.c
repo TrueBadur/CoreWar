@@ -76,7 +76,7 @@ void make_fork_lfork(t_mngr *mngr, t_car *car, t_t_op *op)
     if (newcar == NULL)
     {
         if(!(newcar = (t_car*)malloc(sizeof(t_car))))
-            safe_exit(mngr, MALLOC_ERROR);
+			safe_exit(mngr, MALLOC_ERROR, NULL);
     }
     ft_memcpy(newcar, car, sizeof(t_car));
     ft_vecpush(mngr->cars, &newcar, sizeof(newcar));

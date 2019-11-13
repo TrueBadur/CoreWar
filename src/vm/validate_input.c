@@ -23,15 +23,15 @@ int handle_n(t_mngr *mngr, char **argv, int i)
     if (argv[i + 1] != NULL && !ft_atoi_safe(argv[i + 1], &nbr))
     {
         if (!(nbr >= 1 && nbr <= MAX_PLAYERS))
-            safe_exit(mngr, INVALID_N);
+			safe_exit(mngr, INVALID_N, NULL);
         nbr--;
     }
     else
-        safe_exit(mngr, INVALID_N);
+		safe_exit(mngr, INVALID_N, NULL);
     if(argv[i + 2] != NULL)
         parse_file(argv[i + 2], mngr, nbr);
     else
-        safe_exit(mngr, FEW_ARGUMENTS);
+		safe_exit(mngr, FEW_ARGUMENTS, NULL);
     argv[i + 1][0] = '\0';
     argv[i + 2][0] = '\0';
     return (2);
@@ -44,7 +44,7 @@ void parse_dump(t_mngr *mngr, char **argv, int i)
     nbr = 0;
     argv[i][0] = '\0';
     if (!(argv[i + 1] != NULL && !ft_atoi_safe(argv[i + 1], &nbr) && !(mngr->flags & FLAG_DUMP)))
-        safe_exit(mngr, INVALID_N);
+		safe_exit(mngr, INVALID_N, NULL);
     mngr->flags = mngr->flags | FLAG_DUMP;
     mngr->dump_nbr = nbr;
     argv[i + 1][0] = '\0';
@@ -56,22 +56,34 @@ void parse_v(t_mngr *mngr, char **argv, int i)
     if (!(mngr->flags & FLAG_V))
         mngr->flags = mngr->flags | FLAG_V;
     else
-        safe_exit(mngr, INVALID_N);
+		safe_exit(mngr, INVALID_N, NULL);
 }
 
 void parse_flags(t_mngr *mngr, char **argv)
 {
-    int i;
+    int		i;
+	char	*cur;
 
     i = 0;
     while(argv[++i])
     {
-        if (!ft_strcmp(argv[i], "-n"))
-			i += handle_n(mngr, argv, i);
-        if (!ft_strcmp(argv[i], "-dump"))
-            parse_dump(mngr, argv, i);
-        if (!(ft_strcmp(argv[i], "-v")))
-            parse_v(mngr, argv ,i);
+		cur = argv[i];
+		if (cur[0] == '-')
+		{
+			cur++;
+			if (!ft_strcmp(cur, "n"))
+				i += handle_n(mngr, argv, i);
+			else if (!ft_strcmp(cur, "dump"))
+				parse_dump(mngr, argv, i);
+			else if (!(ft_strcmp(cur, "v")))
+				parse_v(mngr, argv ,i);
+			else if (!(ft_strcmp(cur, "h")) ||
+					!(ft_strcmp(cur, "-help")))
+				safe_exit(mngr, HELP, cur);
+			else
+				safe_exit(mngr, INVALID_FLAG, cur);
+		}
+
     }
 }
 void check_players(t_mngr *mngr, char **argv, int argc)
@@ -88,7 +100,7 @@ void check_players(t_mngr *mngr, char **argv, int argc)
             while(mngr->chmps[c] && c < MAX_PLAYERS)
                 c++;
             if(c == MAX_PLAYERS)
-                safe_exit(mngr, TOO_MANY_CHMPS);
+				safe_exit(mngr, TOO_MANY_CHMPS, NULL);
 			parse_file(argv[i], mngr, c);
         }
     }
@@ -97,7 +109,7 @@ void check_players(t_mngr *mngr, char **argv, int argc)
 void validate_input(t_mngr *mngr, int argc, char **argv)
 {
     if(argc == 1)
-        safe_exit(mngr, FEW_ARGUMENTS);
+		safe_exit(mngr, HELP, NULL);
 	parse_flags(mngr, argv);
     check_players(mngr,argv,argc);
 }

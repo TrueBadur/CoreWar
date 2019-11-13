@@ -139,7 +139,7 @@ void	dump_arena(t_mngr *mngr)
         }
         ft_printf("\n");
     }
-   safe_exit(mngr,CALL_DUMP);
+	safe_exit(mngr, CALL_DUMP, NULL);
 }
 
 #define DUMP_TIME 1

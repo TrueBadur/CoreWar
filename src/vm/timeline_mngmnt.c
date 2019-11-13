@@ -16,10 +16,10 @@ void tl_put(t_mngr *mngr, short time, t_list_node *lst, int addlast)
 {
 	if (!mngr->timeline[time])
 		if (!(mngr->timeline[time] = ft_lstinit()))
-			safe_exit(mngr, MALLOC_ERROR);
+			safe_exit(mngr, MALLOC_ERROR, NULL);
 	addlast ? ft_lstaddend(mngr->timeline[time], lst) : ft_lstadd(mngr->timeline[time], lst);
 	if (mngr->timeline[time]->len && !mngr->timeline[time]->end)
-		safe_exit(mngr, MALLOC_ERROR);
+		safe_exit(mngr, MALLOC_ERROR, NULL);
 }
 
 void	tl_car_iter(t_mngr *mngr, void (*f)(t_mngr*, t_car*))
