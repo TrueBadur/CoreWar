@@ -6,7 +6,7 @@
 /*   By: ehugh-be <ehugh-be@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/14 16:26:51 by ehugh-be          #+#    #+#             */
-/*   Updated: 2019/11/13 17:46:18 by blomo            ###   ########.fr       */
+/*   Updated: 2019/11/13 20:19:24 by blomo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,9 +100,9 @@ void			dump_arena(t_mngr *mngr)
 				ft_printf("0%x ", mngr->arena[j + 64 * i]);
 			else
 				ft_printf("%x ", mngr->arena[j + 64 * i]);
-        }
-        ft_printf("\n");
-    }
+		}
+		ft_printf("\n");
+	}
 	safe_exit(mngr, CALL_DUMP, NULL);
 }
 

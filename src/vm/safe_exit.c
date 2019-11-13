@@ -6,7 +6,7 @@
 /*   By: ehugh-be <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/14 16:21:57 by ehugh-be          #+#    #+#             */
-/*   Updated: 2019/11/11 17:03:29 by ehugh-be         ###   ########.fr       */
+/*   Updated: 2019/11/13 20:27:39 by blomo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ static void	cleanup(t_mngr *mngr)
 	free(mngr);
 }
 
-void	print_help()
+void		print_help(void)
 {
 	ft_printf("Usage: ./corewar [-d N] [-v] [-g] [-n N  <champion1.cor>]"
 	"[-a] <champion1.cor> <...>\n");
@@ -64,7 +64,7 @@ void	print_help()
 	ft_printf("   -h / --help: Print this message\n");
 }
 
-void safe_exit(t_mngr *mngr, t_eexcode exit_code, const char *err_arg)
+void		safe_exit(t_mngr *mngr, t_eexcode exit_code, const char *err_arg)
 {
 	if (mngr)
 		cleanup(mngr);

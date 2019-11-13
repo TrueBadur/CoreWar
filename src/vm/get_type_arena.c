@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_type_arena.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: blomo <marvin@42.fr>                       +#+  +:+       +#+        */
+/*   By: blomo <blomo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/13 17:02:20 by blomo             #+#    #+#             */
-/*   Updated: 2019/11/13 17:02:20 by blomo            ###   ########.fr       */
+/*   Updated: 2019/11/13 20:36:09 by blomo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,15 @@
 #include "checkop.h"
 #include <limits.h>
 
-int	get_addr_arena(int adr)
+int			get_addr_arena(int adr)
 {
 	return ((adr < 0) ? (adr % MEM_SIZE) + MEM_SIZE : (adr % MEM_SIZE));
 }
 
-int	get_dir(t_mngr *mngr, int *pos, int size)
+int			get_dir(t_mngr *mngr, int *pos, int size)
 {
-	char buffer[size];
-	int c;
+	char	buffer[size];
+	int		c;
 
 	c = -1;
 	while (++c < size)
@@ -31,17 +31,17 @@ int	get_dir(t_mngr *mngr, int *pos, int size)
 	return (size == 2 ? *(short*)buffer : *(int*)buffer);
 }
 
-inline char check_reg(int reg)
+inline char	check_reg(int reg)
 {
 	return ((char)(reg >= 0 && reg <= 15 ? 1 : 0));
 }
 
-void copy_reg_to_arena(t_mngr *mngr, t_car *car, int reg1, int reg2)
+void		copy_reg_to_arena(t_mngr *mngr, t_car *car, int reg1, int reg2)
 {
 	int c;
 
 	c = -1;
 	while (++c < REG_SIZE)
-		mngr->arena[get_addr_arena(reg2 + c)] = car->regs[reg1].reg[REG_SIZE - 1 - c];
+		mngr->arena[get_addr_arena(reg2 + c)] =
+		car->regs[reg1].reg[REG_SIZE - 1 - c];
 }
-

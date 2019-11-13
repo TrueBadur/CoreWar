@@ -14,7 +14,8 @@
 
 #define DGT_CAR_IND(x) ((int)(((t_car**)(vec->data))[x]->id / place) % 10)
 
-t_vector		*counting_sort(t_vector *vec, size_t size, int place, t_mngr *mngr)
+t_vector		*counting_sort(t_vector *vec, size_t size, int place,
+		t_mngr *mngr)
 {
 	t_vector	*tmp;
 	int			count[11];

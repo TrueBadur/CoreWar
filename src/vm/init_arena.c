@@ -6,7 +6,7 @@
 /*   By: blomo <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/14 16:28:19 by ehugh-be          #+#    #+#             */
-/*   Updated: 2019/11/13 20:11:41 by blomo            ###   ########.fr       */
+/*   Updated: 2019/11/13 20:12:10 by blomo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ static void	init_carrieges(t_mngr *mngr)
 	int		j;
 
 	if (!(mngr->cars = ft_vecinit(2 * mngr->chmp_num)))
-	safe_exit(mngr, MALLOC_ERROR, NULL);
+		safe_exit(mngr, MALLOC_ERROR, NULL);
 	i = 0;
 	j = -1;
 	while (++j < MAX_PLAYERS)

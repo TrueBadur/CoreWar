@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   timeline_mngmnt.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ehugh-be <ehugh-be@student.42.fr>          +#+  +:+       +#+        */
+/*   By: blomo <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/09 19:22:18 by ehugh-be          #+#    #+#             */
-/*   Updated: 2019/11/13 19:21:17 by blomo            ###   ########.fr       */
+/*   Updated: 2019/11/13 20:11:41 by blomo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void			tl_put(t_mngr *mngr, short time, t_car *car)
 	if (!mngr->timeline[time])
 		if (!(mngr->timeline[time] = ft_vecinit(sizeof(void*) * VEC_ST_S)))
 			safe_exit(mngr, MALLOC_ERROR, NULL);
-	if(!(mngr->timeline[time] = ft_vecpush(mngr->timeline[time], &car,
+	if (!(mngr->timeline[time] = ft_vecpush(mngr->timeline[time], &car,
 			sizeof(void*))))
 		safe_exit(mngr, MALLOC_ERROR, NULL);
 }

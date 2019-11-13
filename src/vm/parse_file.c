@@ -6,7 +6,7 @@
 /*   By: blomo <blomo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/14 10:04:59 by blomo             #+#    #+#             */
-/*   Updated: 2019/11/13 19:08:18 by blomo            ###   ########.fr       */
+/*   Updated: 2019/11/13 20:25:30 by blomo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ char				*get_str(int fd, size_t len, t_mngr *mngr)
 	char			*buffer;
 
 	if (!(buffer = (char*)malloc(sizeof(char) * (len + 1))))
-        safe_exit(mngr, MALLOC_ERROR, NULL);
+		safe_exit(mngr, MALLOC_ERROR, NULL);
 	size = read(fd, buffer, len);
 	buffer[size] = '\0';
 	if (size == -1 || size < (size_t)len)
@@ -47,7 +47,7 @@ unsigned char		*get_code(t_mngr *mngr, int fd, size_t len)
 	unsigned char	*buffer;
 	unsigned char	byte;
 
-	if (!(buffer = (unsigned char*)malloc(sizeof(unsigned char)*(len))))
+	if (!(buffer = (unsigned char*)malloc(sizeof(unsigned char) * (len))))
 		safe_exit(mngr, MALLOC_ERROR, NULL);
 	size = read(fd, buffer, len);
 	if (size == -1 || size < (size_t)len || read(fd, &byte, 1) != 0)
@@ -61,12 +61,12 @@ void				parse_cor(char *file, t_mngr *mngr, int nbr)
 
 	if ((fd = open(file, O_RDONLY)) < 0)
 		safe_exit(mngr, OPEN_ERROR, NULL);
-	if(!(mngr->chmps[nbr] = (t_chmp *) malloc(sizeof(t_chmp))))
+	if (!(mngr->chmps[nbr] = (t_chmp *)malloc(sizeof(t_chmp))))
 		safe_exit(mngr, MALLOC_ERROR, NULL);
 	mngr->chmps[nbr]->id = nbr;
 	if (get4byte(mngr, fd) != COREWAR_EXEC_MAGIC)
 		safe_exit(mngr, INVALID_EXEC_MAGIC, NULL);
-    mngr->chmps[nbr]->name = get_str(fd, 128, mngr);
+	mngr->chmps[nbr]->name = get_str(fd, 128, mngr);
 	if (get4byte(mngr, fd) != 0)
 		safe_exit(mngr, NO_ZERO_BYTE, NULL);
 	mngr->chmps[nbr]->size = get4byte(mngr, fd);
@@ -75,18 +75,17 @@ void				parse_cor(char *file, t_mngr *mngr, int nbr)
 	mngr->chmps[nbr]->moto = get_str(fd, COMMENT_LENGTH, mngr);
 	if (get4byte(mngr, fd) != 0)
 		safe_exit(mngr, NO_ZERO_BYTE, NULL);
-    mngr->chmps[nbr]->code = get_code(mngr, fd, (size_t) mngr->chmps[nbr]->size);
-    mngr->chmp_num++;
+	mngr->chmps[nbr]->code = get_code(mngr, fd, (size_t)mngr->chmps[nbr]->size);
+	mngr->chmp_num++;
 }
 
 void				parse_file(char *str, t_mngr *mngr, int nbr)
 {
 	int				i;
 
-
-    if(str == NULL)
+	if (str == NULL)
 		safe_exit(mngr, INVALID_ARGUMENT_NAME, NULL);
-    if(mngr->chmps[nbr] != NULL)
+	if (mngr->chmps[nbr] != NULL)
 		safe_exit(mngr, INVALID_ARRAY_CHAMPION, NULL);
 	i = ft_strlen(str);
 	i = i - 4;

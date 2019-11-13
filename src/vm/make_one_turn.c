@@ -42,7 +42,8 @@ static void		set_max_id(t_vector *vec, int id)
 		vec->offset = id;
 }
 
-void			proceed_car(t_mngr *mngr, t_car *car, short cur_time, int offset)
+void			proceed_car(t_mngr *mngr, t_car *car, short cur_time,
+		int offset)
 {
 	short		time_to_put;
 

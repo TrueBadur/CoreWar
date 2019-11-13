@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ehugh-be <ehugh-be@student.42.fr>          +#+  +:+       +#+        */
+/*   By: blomo <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/11 16:24:31 by ehugh-be          #+#    #+#             */
-/*   Updated: 2019/11/13 18:07:41 by blomo            ###   ########.fr       */
+/*   Updated: 2019/11/13 20:11:41 by blomo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,5 +54,5 @@ int				main(int argc, char **argv)
 	game_main(mngr);
 	winer_anounce(mngr);
 	safe_exit(mngr, SUCCESS, NULL);
-    return (0);
+	return (0);
 }
