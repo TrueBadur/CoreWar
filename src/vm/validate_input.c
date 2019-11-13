@@ -65,7 +65,7 @@ void parse_a(t_mngr *mngr, char **argv, int i)
 	if (!(mngr->flags & FLAG_A))
 		mngr->flags = mngr->flags | FLAG_A;
 	else
-		safe_exit(mngr, INVALID_N);
+		safe_exit(mngr, INVALID_N, NULL);
 }
 
 void parse_flags(t_mngr *mngr, char **argv)

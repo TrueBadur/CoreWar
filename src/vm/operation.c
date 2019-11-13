@@ -86,7 +86,7 @@ void make_fork_lfork(t_mngr *mngr, t_car *car, t_t_op *op)
             safe_exit(mngr, MALLOC_ERROR, NULL);
     ft_memcpy(newcar, car, sizeof(t_car));
     if (!ft_vecpush(mngr->cars, &newcar, sizeof(newcar)))
-    	safe_exit(mngr, MALLOC_ERROR);
+    	safe_exit(mngr, MALLOC_ERROR, NULL);
     if (op->op == 12)
         args.x = args.x % IDX_MOD;
     mngr->num_cars++;

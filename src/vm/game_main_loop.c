@@ -67,7 +67,7 @@ void	bury_car(t_mngr *mngr, int i)
 	car_tmp->eval_in = -1;
 //	ft_vecdel_by_val(mngr->timeline[car_tmp->eval_in], car_tmp); //todo move to evaluation
 	if (!ft_vecpush_small(mngr->dead_cars, (long)car_tmp, sizeof(void*)))
-		safe_exit(mngr, MALLOC_ERROR);
+		safe_exit(mngr, MALLOC_ERROR, NULL);
 	mngr->num_cars--;
 	if (mngr->flags & FLAG_V)
 		ft_printf("Process %d hasn't lived for %d (CTD %d)\n",
