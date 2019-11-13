@@ -26,6 +26,7 @@
 #define FLAG_DUMP ((unsigned int)1 << (unsigned int)4)
 #define FLAG_V ((unsigned int)1 << (unsigned int)5)
 #define FLAG_A ((unsigned int)1 << (unsigned int)6)
+#define FLAG_N ((unsigned int)1 << (unsigned int)7)
 #define ARG_REG_S 1
 #define VEC_ST_S 8
 
