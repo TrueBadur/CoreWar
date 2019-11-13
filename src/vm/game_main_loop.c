@@ -44,7 +44,7 @@ void			bury_car(t_mngr *mngr, int i)
 		-mngr->num_cars : mngr->timeline[car_tmp->eval_in]->offset;
 	car_tmp->eval_in = -1;
 	if (!ft_vecpush_small(mngr->dead_cars, (long)car_tmp, sizeof(void*)))
-		safe_exit(mngr, MALLOC_ERROR);
+		safe_exit(mngr, MALLOC_ERROR, NULL);
 	mngr->num_cars--;
 	if (mngr->flags & FLAG_V)
 		ft_printf("Process %d hasn't lived for %d (CTD %d)\n", car_tmp->id + 1,
@@ -100,10 +100,10 @@ void			dump_arena(t_mngr *mngr)
 				ft_printf("0%x ", mngr->arena[j + 64 * i]);
 			else
 				ft_printf("%x ", mngr->arena[j + 64 * i]);
-		}
-		ft_printf("\n");
-	}
-	safe_exit(mngr, CALL_DUMP);
+        }
+        ft_printf("\n");
+    }
+	safe_exit(mngr, CALL_DUMP, NULL);
 }
 
 #define DUMP_TIME 1

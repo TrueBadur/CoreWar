@@ -51,7 +51,20 @@ static void	cleanup(t_mngr *mngr)
 	free(mngr);
 }
 
-void		safe_exit(t_mngr *mngr, t_eexcode exit_code)
+void	print_help()
+{
+	ft_printf("Usage: ./corewar [-d N] [-v] [-g] [-n N  <champion1.cor>]"
+	"[-a] <champion1.cor> <...>\n");
+	ft_printf("    -a        : Prints output from \"aff\""
+	"(Default is to hide it)\n");
+	ft_printf("    -d N      : Dumps memory after N cycles then exits\n");
+	ft_printf("    -n N      : Set champion on Nth place\n");
+	ft_printf("    -v        : Verbose output\n");
+	ft_printf("    -g        : Ncurses output mode\n");
+	ft_printf("   -h / --help: Print this message\n");
+}
+
+void safe_exit(t_mngr *mngr, t_eexcode exit_code, const char *err_arg)
 {
 	if (mngr)
 		cleanup(mngr);
@@ -81,5 +94,9 @@ void		safe_exit(t_mngr *mngr, t_eexcode exit_code)
 		ft_printf(INVALID_ARRAY_CHAMPION_MSG);
 	else if (exit_code == INVALID_ARGUMENT_NAME)
 		ft_printf(INVALID_ARGUMENT_NAME_MSG);
+	else if (exit_code == INVALID_FLAG)
+		ft_printf(INVALID_FLAG_MSG, err_arg);
+	else if (exit_code == HELP)
+		print_help();
 	exit(exit_code);
 }

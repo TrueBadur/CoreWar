@@ -64,20 +64,20 @@ void		make_fork_lfork(t_mngr *mngr, t_car *car, t_t_op *op)
 
 	ft_bzero(&args, sizeof(t_int3));
 	get_args(mngr, car, op, &args);
-	newcar = resurect_car(mngr);
-	if (newcar == NULL)
-		if (!(newcar = (t_car*)malloc(sizeof(t_car))))
-			safe_exit(mngr, MALLOC_ERROR);
-	ft_memcpy(newcar, car, sizeof(t_car));
-	if (!ft_vecpush(mngr->cars, &newcar, sizeof(newcar)))
-		safe_exit(mngr, MALLOC_ERROR);
-	if (op->op == 12)
-		args.x = args.x % IDX_MOD;
-	mngr->num_cars++;
-	newcar->pos = get_addr_arena(car->pos + args.x);
-	newcar->id = mngr->next_id++;
-	newcar->op_code = 0;
-	newcar->eval_in = (short)((mngr->cycle + 1) % (MAX_OP_TIME + 1));
+    newcar = resurect_car(mngr);
+    if (newcar == NULL)
+        if(!(newcar = (t_car*)malloc(sizeof(t_car))))
+            safe_exit(mngr, MALLOC_ERROR, NULL);
+    ft_memcpy(newcar, car, sizeof(t_car));
+    if (!ft_vecpush(mngr->cars, &newcar, sizeof(newcar)))
+    	safe_exit(mngr, MALLOC_ERROR, NULL);
+    if (op->op == 12)
+        args.x = args.x % IDX_MOD;
+    mngr->num_cars++;
+    newcar->pos = get_addr_arena(car->pos + args.x);
+    newcar->id = mngr->next_id++;
+    newcar->op_code = 0;
+    newcar->eval_in = (short)((mngr->cycle + 1) % (MAX_OP_TIME + 1));
 	tl_put(mngr, newcar->eval_in, newcar);
 	mngr->timeline[newcar->eval_in]->offset =
 	FT_SIGN(mngr->timeline[newcar->eval_in]->offset)

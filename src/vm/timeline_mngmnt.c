@@ -16,10 +16,10 @@ void			tl_put(t_mngr *mngr, short time, t_car *car)
 {
 	if (!mngr->timeline[time])
 		if (!(mngr->timeline[time] = ft_vecinit(sizeof(void*) * VEC_ST_S)))
-			safe_exit(mngr, MALLOC_ERROR);
-	if (!(mngr->timeline[time] = ft_vecpush(mngr->timeline[time], &car,
+			safe_exit(mngr, MALLOC_ERROR, NULL);
+	if(!(mngr->timeline[time] = ft_vecpush(mngr->timeline[time], &car,
 			sizeof(void*))))
-		safe_exit(mngr, MALLOC_ERROR);
+		safe_exit(mngr, MALLOC_ERROR, NULL);
 }
 
 void			tl_car_iter(t_mngr *mngr, void (*f)(t_mngr*, t_car*, short))
