@@ -67,7 +67,7 @@ void		print_help(void)
 char		*get_err_str(t_eexcode code)
 {
 	static char *strs[] = {
-			"ok\n",
+			" ",
 			"{Red}Error: \n Memory allocation failed{eof}\n",
 			"{Red}Error: \n Too many champions given. Make your choice!{eof}\n",
 			"{Red}Error: \n Invalid n \n",
