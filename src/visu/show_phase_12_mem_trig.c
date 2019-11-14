@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   stats.c                                            :+:      :+:    :+:   */
+/*   show_phase_12_mem_trig.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: wgorold <wgorold@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/01 18:38:24 by wgorold           #+#    #+#             */
-/*   Updated: 2019/11/01 18:38:35 by wgorold          ###   ########.fr       */
+/*   Updated: 2019/11/14 13:42:45 by wgorold          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,7 @@ void	show_bar_death(WINDOW *win, t_mngr *mngr, t_stats *st)
 
 	total = mngr->cycles_to_die - st->last_death_wave_cycle;
 	next_in = mngr->cycles_to_die - mngr->cycle;
-
-	next_in = (int) (100.0 * next_in / total);
+	next_in = (int)(100.0 * next_in / total);
 	bar = -1;
 	wprintw(win, "    [");
 	while (bar++ < next_in / 2)
@@ -48,26 +47,20 @@ void	show_scnd_panel(t_mngr *mngr)
 	wrefresh(win);
 }
 
-void    show_area(t_mngr *mngr)
+int		reprint_mem(t_mngr *mngr, t_stats *st)
 {
-	t_stats *st;
-	int		idx;
-	char	happend;
+	int	idx;
+	int	out;
 
-	if (!(mngr->flags & FLAG_S))
-		return ;
-	st = get_stats();
-	if (st->phase_game == G_PHASE_TTD)
-		reshow_area(mngr);
-	st->phase_game = G_PHASE_MEM;
-	happend = 0;
+	out = 0;
 	idx = -1;
-	show_scnd_panel(mngr);
 	while (++idx < MEM_SIZE)
 	{
-		if (st->arena_old[idx] == st->arena[idx] && st->color_old[idx] / 10 == 0)
+		if (st->arena_old[idx] == st->arena[idx]
+			&& st->color_old[idx] / 10 == 0)
 			continue;
-		if (st->arena_old[idx] == st->arena[idx] && st->color_old[idx] / 10)
+		if (st->arena_old[idx] == st->arena[idx]
+			&& st->color_old[idx] / 10)
 		{
 			st->color_old[idx] -= 10;
 			show_pos_in_arena(mngr, idx, st->color_old[idx]);
@@ -77,9 +70,23 @@ void    show_area(t_mngr *mngr)
 		st->color_old[idx] = -st->color[idx] + 10;
 		st->color[idx] = -st->color[idx];
 		show_pos_in_arena(mngr, idx, st->color_old[idx]);
-		happend = 1;
+		out = 1;
 	}
-	if (happend)
+	return (out);
+}
+
+void	show_area(t_mngr *mngr)
+{
+	t_stats *st;
+
+	if (!(mngr->flags & FLAG_S))
+		return ;
+	st = get_stats();
+	if (st->phase_game == G_PHASE_TTD)
+		reshow_area(mngr);
+	st->phase_game = G_PHASE_MEM;
+	show_scnd_panel(mngr);
+	if (reprint_mem(mngr, st))
 	{
 		curs_set(0);
 		wrefresh(get_win(WIN_MAIN));

@@ -1,50 +1,50 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   stats.c                                            :+:      :+:    :+:   */
+/*   show_side_panel.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: wgorold <wgorold@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/01 18:38:24 by wgorold           #+#    #+#             */
-/*   Updated: 2019/11/01 18:38:35 by wgorold          ###   ########.fr       */
+/*   Updated: 2019/11/14 13:42:49 by wgorold          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
 
-void	control_panel()
+void	control_panel(void)
 {
-	WINDOW *win;
+	t_nwin	win;
 
-	win = get_win(WIN_CNTR);
-	wprintw(win, "    >>>> PRESS ANY KEY <<<<");
-	wrefresh(win);
+	win.w = get_win(WIN_CNTR);
+	wprintw(win.w, "    >>>> PRESS ANY KEY <<<<");
+	wrefresh(win.w);
 }
 
 void	show_side_panel_init(t_mngr *mngr, int idx_champ)
 {
-	WINDOW	*win;
+	t_nwin	win;
 	int		id_champ_to_show;
 
-	win = get_win(WIN_PLY);
+	win.w = get_win(WIN_PLY);
 	if (idx_champ == -1)
 	{
 		control_panel();
-		wprintw(win, "   >>>> PRESS ANY KEY <<<<\n");
-		wprintw(win, "   and next champ will enter to the game");
+		wprintw(win.w, "   >>>> PRESS ANY KEY <<<<\n");
+		wprintw(win.w, "   and next champ will enter to the game");
 	}
 	else
 	{
-		werase(win);
+		werase(win.w);
 		id_champ_to_show = -(mngr->chmps[idx_champ]->id) - 1;
-		wprintw(win, "Player %d : \n\n\t", id_champ_to_show);
-		wattron(win, COLOR_PAIR(idx_champ + 1));
-		wprintw(win, "%s\n\n", mngr->chmps[idx_champ]->name);
-		wattron(win, COLOR_PAIR(DEF));
-		wprintw(win, "Comment   : \n\n\t");
-		wattron(win, COLOR_PAIR(idx_champ + 1));
-		wprintw(win, "%s\n", mngr->chmps[idx_champ]->moto);
-		wattron(win, COLOR_PAIR(DEF));
+		wprintw(win.w, "Player %d : \n\n\t", id_champ_to_show);
+		wattron(win.w, COLOR_PAIR(idx_champ + COL_PLY_SHIFT));
+		wprintw(win.w, "%s\n\n", mngr->chmps[idx_champ]->name);
+		wattron(win.w, COLOR_PAIR(DEF));
+		wprintw(win.w, "Comment   : \n\n\t");
+		wattron(win.w, COLOR_PAIR(idx_champ + COL_PLY_SHIFT));
+		wprintw(win.w, "%s\n", mngr->chmps[idx_champ]->moto);
+		wattron(win.w, COLOR_PAIR(DEF));
 	}
-	wrefresh(win);
+	wrefresh(win.w);
 }

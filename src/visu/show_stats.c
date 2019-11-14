@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   stats.c                                            :+:      :+:    :+:   */
+/*   show_stats.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: wgorold <wgorold@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/01 18:38:24 by wgorold           #+#    #+#             */
-/*   Updated: 2019/11/01 18:38:35 by wgorold          ###   ########.fr       */
+/*   Updated: 2019/11/14 13:42:58 by wgorold          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,15 +16,10 @@ t_stats	*get_stats(void)
 {
 	static t_stats	st;
 	static int		init;
-	int i;
-
+	int				i;
 
 	if (init == 0)
 	{
-		st.images[0] = show_skull_two;
-		st.images[1] = show_skull_two;
-		st.images[2] = show_skull_two;
-		st.images[3] = show_skull_three;
 		st.last_death_wave_cycle = 0;
 		st.rate = 0;
 		st.phase_game = G_PHASE_INIT;
@@ -35,11 +30,11 @@ t_stats	*get_stats(void)
 		{
 			st.arena[i] = 0;
 			st.color[i] = 0;
-            st.arena_old[i] = 0;
-            st.color_old[i] = 0;
+			st.arena_old[i] = 0;
+			st.color_old[i] = 0;
 		}
 	}
-	return &st;
+	return (&st);
 }
 
 void	refresh_stats(t_mngr *mngr)
@@ -66,7 +61,7 @@ void	refresh_stats(t_mngr *mngr)
 	set_cycle(mngr);
 }
 
-void 	add_cars_stats(t_mngr *mngr, int reg)
+void	add_cars_stats(t_mngr *mngr, int reg)
 {
 	t_stats *st;
 
@@ -79,7 +74,7 @@ void 	add_cars_stats(t_mngr *mngr, int reg)
 		st->cars[-reg - 1] += 1;
 }
 
-void 	add_dies_stats(t_mngr *mngr, int reg)
+void	add_dies_stats(t_mngr *mngr, int reg)
 {
 	t_stats *st;
 
@@ -92,7 +87,7 @@ void 	add_dies_stats(t_mngr *mngr, int reg)
 		st->dies[-reg - 1] += 1;
 }
 
-void	recalc_total()
+void	recalc_total(void)
 {
 	t_stats *st;
 	int		idx;
@@ -106,32 +101,4 @@ void	recalc_total()
 	idx = -1;
 	while (++idx < MAX_PLAYERS + 1)
 		st->total_die += (int)st->dies[idx];
-}
-
-void	set_cycles_die(t_mngr *mngr)
-{
-	t_stats *st;
-
-	st = get_stats();
-	st->cycles_to_die = mngr->cycles_delta;
-}
-
-void	set_cycles_die_new(t_mngr *mngr)
-{
-	t_stats *st;
-
-	if (!(mngr->flags & FLAG_S))
-		return ;
-	st = get_stats();
-	st->cycles_to_die_new = mngr->cycles_to_die;
-}
-
-void	set_cycle(t_mngr *mngr)
-{
-	t_stats *st;
-
-	if (!(mngr->flags & FLAG_S))
-		return ;
-	st = get_stats();
-	st->cycle = mngr->cycle;
 }

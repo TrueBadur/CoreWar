@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   stats.c                                            :+:      :+:    :+:   */
+/*   show_controller.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: wgorold <wgorold@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/01 18:38:24 by wgorold           #+#    #+#             */
-/*   Updated: 2019/11/01 18:38:35 by wgorold          ###   ########.fr       */
+/*   Updated: 2019/11/14 13:42:41 by wgorold          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@ int		game_set_job_param(t_stats *st, int from_user)
 		&& from_user != 'q' && from_user != 'w'
 		&& from_user != 'e')
 		return (0);
-
 	if (from_user == 'f')
 		st->rate -= 1000;
 	else if (from_user == 'r')
@@ -46,12 +45,12 @@ int		game_set_param(int from_user)
 
 void	rate_control(t_stats *st)
 {
-	int 	cmd;
+	int	cmd;
 
 	cbreak();
 	nodelay(stdscr, TRUE);
 	cmd = getch();
-	if(game_set_job_param(st, cmd))
+	if (game_set_job_param(st, cmd))
 		update_side_cntr();
 	nodelay(stdscr, FALSE);
 }
@@ -64,7 +63,7 @@ void	pause_or_wait_mem_change(t_stats *st)
 	{
 		nodelay(stdscr, FALSE);
 		from_user = getchar();
-		if(game_set_job_param(st, from_user))
+		if (game_set_job_param(st, from_user))
 			update_side_cntr();
 	}
 	else
@@ -82,7 +81,7 @@ void	pause_or_wait_reshow(t_stats *st)
 	{
 		nodelay(stdscr, FALSE);
 		from_user = getchar();
-		if(game_set_job_param(st, from_user))
+		if (game_set_job_param(st, from_user))
 			update_side_cntr();
 	}
 	else
@@ -91,10 +90,3 @@ void	pause_or_wait_reshow(t_stats *st)
 		usleep(st->rate);
 	}
 }
-
-/*
-void	pause_or_wait(t_stats *st)
-{
-	pause_or_wait_mem_change(st);
-}
-*/

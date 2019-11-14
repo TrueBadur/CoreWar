@@ -1,47 +1,44 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   stats.c                                            :+:      :+:    :+:   */
+/*   show_game.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: wgorold <wgorold@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/01 18:38:24 by wgorold           #+#    #+#             */
-/*   Updated: 2019/11/01 18:38:35 by wgorold          ###   ########.fr       */
+/*   Updated: 2019/11/14 13:42:42 by wgorold          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
 
-void	game_panel_reshow()
+void	show_pos_in_arena(t_mngr *mngr, int pos, int id_ply)
 {
-	WINDOW	*win;
+	t_nwin	win;
+	int		col;
+	int		lin;
 
-	game_panel_border();
-	win = get_win(WIN_G_PLY);
-	wprintw(win, "\t\tFor continue : PRESS ANY KEY");
-	wrefresh(win);
+	win.w = get_win(WIN_MAIN);
+	lin = pos / COL_IN_LIN;
+	col = (pos % COL_IN_LIN) * 3;
+	wattron(win.w, COLOR_PAIR(id_ply));
+	wmove(win.w, lin, col);
+	wprintw(win.w, "%02x", mngr->arena[pos]);
+	wattron(win.w, COLOR_PAIR(DEF));
 }
 
-void	reshow_area(t_mngr *mngr)
+void	update_mem(t_mngr *mngr, int id_ply)
 {
-	t_stats	*st;
-	WINDOW	*win;
+	t_stats *st;
 	int		idx;
 
 	st = get_stats();
-	st->phase_game = G_PHASE_RESHOW;
-	if (st->game_mod == G_MOD_NO_PAUSE)
-		return ;
-	clear_time_to_die_screen();
-	win = get_win(WIN_MAIN_BORDER);
-	wborder(win, '#', '#', '#', '#', '#', '#', '#', '#');
-	wrefresh(win);
-	win = get_win(WIN_MAIN);
 	idx = -1;
 	while (++idx < MEM_SIZE)
-		show_pos_in_arena(mngr, idx, st->color_old[idx]);
-	wrefresh(win);
-	show_side_cntr();
-	game_panel_reshow();
-	pause_or_wait_reshow(st);
+	{
+		if (mngr->arena[idx] == st->arena[idx])
+			continue;
+		st->arena[idx] = mngr->arena[idx];
+		st->color[idx] = (id_ply > -4 && id_ply < 0) ? id_ply : -5;
+	}
 }

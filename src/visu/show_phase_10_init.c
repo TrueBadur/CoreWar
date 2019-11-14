@@ -1,56 +1,56 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   stats.c                                            :+:      :+:    :+:   */
+/*   show_phase_10_init.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: wgorold <wgorold@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/01 18:38:24 by wgorold           #+#    #+#             */
-/*   Updated: 2019/11/01 18:38:35 by wgorold          ###   ########.fr       */
+/*   Updated: 2019/11/14 13:42:44 by wgorold          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
 
-void 	show_game_init_border()
+void	show_game_init_border(void)
 {
-	WINDOW	*win;
+	t_nwin	win;
 
-	win = get_win(WIN_MAIN_BORDER);
-	wborder(win, '#', '#', '#', '#', '#', '#', '#', '#');
-	wrefresh(win);
-	win = get_win(WIN_CNTR_BORDER);
-	wborder(win, '#', '#', '#', '#', '#', '#', '#', '#');
-	wprintw(win, "> Control panel <");
-	wrefresh(win);
-	win = get_win(WIN_PLY_BORDER);
-	wborder(win, '#', '#', '#', '#', '#', '#', '#', '#');
-	wprintw(win, "> Players panel <");
-	wrefresh(win);
+	win.w = get_win(WIN_MAIN_BORDER);
+	wborder(win.w, '#', '#', '#', '#', '#', '#', '#', '#');
+	wrefresh(win.w);
+	win.w = get_win(WIN_CNTR_BORDER);
+	wborder(win.w, '#', '#', '#', '#', '#', '#', '#', '#');
+	wprintw(win.w, "> Control panel <");
+	wrefresh(win.w);
+	win.w = get_win(WIN_PLY_BORDER);
+	wborder(win.w, '#', '#', '#', '#', '#', '#', '#', '#');
+	wprintw(win.w, "> Players panel <");
+	wrefresh(win.w);
 }
 
 void	show_game_init(t_mngr *mngr)
 {
-	int i;
-	int j;
-	int lin;
-	WINDOW	*win;
+	t_nwin	win;
+	int		i;
+	int		j;
+	int		lin;
 
 	if (!(mngr->flags & FLAG_S))
 		return ;
 	show_game_init_border();
-	win = get_win(WIN_MAIN);
+	win.w = get_win(WIN_MAIN);
 	lin = LIN_STEP - 1;
 	i = -1;
 	while ((++i * COL_IN_LIN) < MEM_SIZE)
 	{
 		move(++lin, 0);
 		j = -1;
-		while(++j < COL_IN_LIN - 1)
-			wprintw(win, "%02x ", mngr->arena[j + COL_IN_LIN * i]);
-		wprintw(win, "%02x", mngr->arena[j + COL_IN_LIN * i]);
+		while (++j < COL_IN_LIN - 1)
+			wprintw(win.w, "%02x ", mngr->arena[j + COL_IN_LIN * i]);
+		wprintw(win.w, "%02x", mngr->arena[j + COL_IN_LIN * i]);
 	}
-	wrefresh(win);
+	wrefresh(win.w);
 	show_side_panel_init(mngr, -1);
 	getchar();
 }
