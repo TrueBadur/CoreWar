@@ -6,7 +6,7 @@
 /*   By: blomo <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/16 15:05:59 by blomo             #+#    #+#             */
-/*   Updated: 2019/11/14 17:56:25 by blomo            ###   ########.fr       */
+/*   Updated: 2019/11/14 17:56:42 by blomo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,8 @@ void		make_ldi_lldi(t_mngr *mngr, t_car *car, t_t_op *op)
 				IDX_MOD : INT_MAX));
 		res = get_dir(mngr, &res, DIR_SIZE);
 		*(int*)car->regs[args.z].reg = res;
-		car->carry = (op->op == OP_lldi && (char)(res == 0)) ? 1 : car->carry;
+		if (op->op == OP_lldi)
+			car->carry = (char)(res == 0);
 		if (mngr->flags & FLAG_V)
 		{
 			ft_printf("P %4d | %s %d %d r%d\n", car->id + 1,
