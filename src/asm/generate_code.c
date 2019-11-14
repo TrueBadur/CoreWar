@@ -48,7 +48,7 @@ void		write_int32(char **dest, int32_t value)
 void		write_command(char *dest, t_command *cmd)
 {
 	t_op	*opdata;
-	char	cur_par;
+	int		cur_par;
 
 	opdata = get_op_info(cmd->cmd_type);
 	*dest++ = cmd->cmd_type;

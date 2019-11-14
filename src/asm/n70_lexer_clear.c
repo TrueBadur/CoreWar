@@ -22,6 +22,7 @@
 **		t_lexdata *dat
 */
 
+
 void	clear_token(t_lexdata *dat)
 {
 	t_list_node	*node;
