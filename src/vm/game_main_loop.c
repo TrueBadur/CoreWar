@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   game_main_loop.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ehugh-be <ehugh-be@student.42.fr>          +#+  +:+       +#+        */
+/*   By: blomo <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/14 16:26:51 by ehugh-be          #+#    #+#             */
-/*   Updated: 2019/11/13 20:19:24 by blomo            ###   ########.fr       */
+/*   Updated: 2019/11/14 15:11:47 by blomo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ void			bury_car(t_mngr *mngr, int i)
 		safe_exit(mngr, MALLOC_ERROR, NULL);
 	mngr->num_cars--;
 	if (mngr->flags & FLAG_V)
-		ft_printf("Process %d hasn't lived for %d (CTD %d)\n", car_tmp->id + 1,
+		ft_printf("Process %d hasn't lived for %d cycles (CTD %d)\n", car_tmp->id + 1,
 		mngr->cycle - car_tmp->live_cycle, mngr->cycles_delta);
 }
 

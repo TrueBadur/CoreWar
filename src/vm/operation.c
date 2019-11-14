@@ -6,7 +6,7 @@
 /*   By: blomo <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/16 15:05:59 by blomo             #+#    #+#             */
-/*   Updated: 2019/11/14 14:59:55 by blomo            ###   ########.fr       */
+/*   Updated: 2019/11/14 15:54:19 by blomo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,9 +32,14 @@ void		make_ldi_lldi(t_mngr *mngr, t_car *car, t_t_op *op)
 		{
 			ft_printf("P %4d | %s %d %d r%d\n", car->id + 1,
 			op->op == OP_ldi ? "ldi" : "lldi", args.x, args.y, args.z + 1);
-			ft_printf("       | -> load from %d + %d = %d "
+			if (op->op == OP_ldi)
+				ft_printf("       | -> load from %d + %d = %d "
 			"(with pc and mod %d)\n", args.x, args.y, args.x + args.y,
 			(car->pos + args.x + args.y) % MEM_SIZE);
+			else
+				ft_printf("       | -> load from %d + %d = %d "
+						  "(with pc %d)\n", args.x, args.y, args.x + args.y,
+						  car->pos + args.x + args.y);
 		}
 	}
 }
@@ -82,7 +87,7 @@ void		make_fork_lfork(t_mngr *mngr, t_car *car, t_t_op *op)
 	FT_SIGN(mngr->timeline[newcar->eval_in]->offset) * newcar->id;
 	if (mngr->flags & FLAG_V)
 		ft_printf("P %4d | %s %d (%d)\n", car->id + 1,
-	op->op == OP_fork ? "fork" : "lfork", args.x, newcar->pos);
+	op->op == OP_fork ? "fork" : "lfork", args.x, args.x);
 }
 
 void		make_and_or_xor(t_mngr *mngr, t_car *car, t_t_op *op)

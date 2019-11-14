@@ -81,7 +81,6 @@ void			make_one_turn(t_mngr *mngr)
 	tmp1 = mngr->timeline[cur_time];
 	if ((int)mngr->timeline[cur_time]->offset < 0)
 		mngr->timeline[cur_time] = vm_radixsort(mngr->timeline[cur_time],
-		mngr->timeline[cur_time]->len /
-			sizeof(void*), mngr);
+		mngr->timeline[cur_time]->len / sizeof(void*), mngr);
 	tl_car_iter(mngr, handle_op);
 }

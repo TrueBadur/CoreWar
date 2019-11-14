@@ -63,6 +63,7 @@ void				parse_cor(char *file, t_mngr *mngr, int nbr)
 		safe_exit(mngr, OPEN_ERROR, NULL);
 	if (!(mngr->chmps[nbr] = (t_chmp *)malloc(sizeof(t_chmp))))
 		safe_exit(mngr, MALLOC_ERROR, NULL);
+	ft_bzero(mngr->chmps[nbr], sizeof(t_chmp));
 	mngr->chmps[nbr]->id = nbr;
 	if (get4byte(mngr, fd) != COREWAR_EXEC_MAGIC)
 		safe_exit(mngr, INVALID_EXEC_MAGIC, NULL);
