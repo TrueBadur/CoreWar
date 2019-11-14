@@ -106,9 +106,6 @@ void			dump_arena(t_mngr *mngr)
 	safe_exit(mngr, CALL_DUMP, NULL);
 }
 
-#define DUMP_TIME 1
-#define CYCLE_DEBUG 1
-
 void			game_main(t_mngr *mngr)
 {
 	while (mngr->num_cars)

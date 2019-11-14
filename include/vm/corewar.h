@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   corewar.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ehugh-be <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: blomo <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/11 16:27:53 by ehugh-be          #+#    #+#             */
-/*   Updated: 2019/11/08 17:57:18 by ehugh-be         ###   ########.fr       */
+/*   Updated: 2019/11/14 15:05:41 by blomo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 #include <fcntl.h>
 #include <stdio.h>
 #include <ncurses.h>
+#include <limits.h>
 
 #define MAX_OP_TIME 1000
 #define FLAG_DUMP ((unsigned int)1 << (unsigned int)4)
@@ -124,6 +125,9 @@ void			game_main(t_mngr *mngr);
 void safe_exit(t_mngr *mngr, t_eexcode exit_code, const char *err_arg);
 void			init_arena(t_mngr *mngr);
 void		    parse_file(char *str, t_mngr *mngr, int nbr);
+void		parse_dump(t_mngr *mngr, char **argv, int i);
+void		parse_v(t_mngr *mngr, char **argv, int i);
+void		parse_a(t_mngr *mngr, char **argv, int i);
 void			make_one_turn(t_mngr *mngr);
 void			proceed_car(t_mngr *mngr, t_car *car, short cur_time, int offset);
 /*

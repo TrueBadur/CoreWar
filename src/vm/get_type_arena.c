@@ -12,7 +12,6 @@
 
 #include "corewar.h"
 #include "checkop.h"
-#include <limits.h>
 
 int			get_addr_arena(int adr)
 {

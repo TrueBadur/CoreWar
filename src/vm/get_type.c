@@ -3,16 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   get_type.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: blomo <blomo@student.42.fr>                +#+  +:+       +#+        */
+/*   By: blomo <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/13 17:50:39 by blomo             #+#    #+#             */
-/*   Updated: 2019/11/13 17:56:10 by blomo            ###   ########.fr       */
+/*   Updated: 2019/11/14 14:51:00 by blomo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
 #include "checkop.h"
-#include <limits.h>
 
 int					get_reg(t_mngr *mngr, int *step)
 {
@@ -43,42 +42,38 @@ int					get_indir_pos(t_mngr *mngr, t_car *car, int *step, int mod)
 	return (in_dir);
 }
 
+void				get_args_init(t_int4 *r, t_op **op_inf, t_t_op *op)
+{
+	r->x = -1;
+	*op_inf = get_op_info(op->op);
+	r->z = (op->op == OP_lld) ? INT_MAX : IDX_MOD;
+}
+
 int					get_args(t_mngr *mngr, t_car *car, t_t_op *op, t_int3 *arg)
 {
-	int				i;
+	t_int4			r;
 	t_op			*op_inf;
-	int				step;
-	int				mod;
-	char			flag;
 	unsigned char	arg_type;
 
-	i = -1;
-	op_inf = get_op_info(op->op);
-	if (op->op == OP_lld)
-		mod = INT_MAX;
-	else
-		mod = IDX_MOD;
-	step = car->pos + ((op_inf->is_param_b == 1) ? (int)OP_BASE : (int)OP_SIZE);
-	while (++i < op_inf->params_num)
+	get_args_init(&r, &op_inf, op);
+	r.y = car->pos + ((op_inf->is_param_b == 1) ? (int)OP_BASE : (int)OP_SIZE);
+	while (++r.x < op_inf->params_num)
 	{
-		arg_type = ((unsigned char*)op)[i + 1];
+		arg_type = ((unsigned char*)op)[r.x + 1];
 		if (arg_type == REG_CODE)
 		{
-			flag = ((int*)arg)[i];
-			if (!check_reg(((int *)arg)[i] = get_reg(mngr, &step)))
+			r.w = ((int*)arg)[r.x];
+			if (!check_reg(((int *)arg)[r.x] = get_reg(mngr, &r.y)))
 				return (0);
-			if (!flag)
-				((int*)arg)[i] = *(int*)car->regs[((int*)arg)[i]].reg;
+			if (!r.w)
+				((int*)arg)[r.x] = *(int*)car->regs[((int*)arg)[r.x]].reg;
 		}
 		else if (arg_type == IND_CODE)
-		{
-			if (op->op == OP_st)
-				((int*)arg)[i] = get_indir_pos(mngr, car, &step, mod);
-			else
-				((int*)arg)[i] = get_indir(mngr, car, &step, mod);
-		}
+			((int*)arg)[r.x] = (op->op == OP_st) ? get_indir_pos(mngr, car,
+					&r.y, r.z) : get_indir(mngr, car, &r.y, r.z);
 		else
-			((int*)arg)[i] = get_dir(mngr, &step, DIR_SIZE - op_inf->t_dir_size * 2);
+			((int*)arg)[r.x] = get_dir(mngr, &r.y,
+					DIR_SIZE - op_inf->t_dir_size * 2);
 	}
 	return (1);
 }

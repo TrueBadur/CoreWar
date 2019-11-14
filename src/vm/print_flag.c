@@ -6,13 +6,12 @@
 /*   By: blomo <blomo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/16 15:05:59 by blomo             #+#    #+#             */
-/*   Updated: 2019/11/13 19:13:10 by blomo            ###   ########.fr       */
+/*   Updated: 2019/11/14 15:01:49 by blomo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
 #include "checkop.h"
-#include <limits.h>
 
 void		print_addr(t_mngr *mngr, int pos, int adv)
 {
@@ -59,4 +58,14 @@ void		print_sti(t_car *car, int arg1, int arg2, int arg3)
 	arg3);
 	ft_printf("       | -> store to %d + %d = %d (with pc and mod %d)\n", arg2,
 	arg3, arg2 + arg3, ((arg2 + arg3) % IDX_MOD + car->pos) % MEM_SIZE);
+}
+
+void		print_and_or_xor(t_int3 *args, int id, t_t_op *op)
+{
+	if (op->op == OP_and)
+		ft_printf("P %4d | %s %d %d r%d\n", id + 1, "and",
+				args->x, args->y, args->z + 1);
+	else
+		ft_printf("P %4d | %s %d %d r%d\n", id + 1, op->op == OP_or ?
+		"or" : "xor", args->x, args->y, args->z + 1);
 }

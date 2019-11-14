@@ -3,16 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   operation.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: blomo <blomo@student.42.fr>                +#+  +:+       +#+        */
+/*   By: blomo <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/16 15:05:59 by blomo             #+#    #+#             */
-/*   Updated: 2019/11/13 20:23:36 by blomo            ###   ########.fr       */
+/*   Updated: 2019/11/14 14:59:55 by blomo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
 #include "checkop.h"
-#include <limits.h>
 
 void		make_ldi_lldi(t_mngr *mngr, t_car *car, t_t_op *op)
 {
@@ -80,8 +79,7 @@ void		make_fork_lfork(t_mngr *mngr, t_car *car, t_t_op *op)
 	newcar->eval_in = (short)((mngr->cycle + 1) % (MAX_OP_TIME + 1));
 	tl_put(mngr, newcar->eval_in, newcar);
 	mngr->timeline[newcar->eval_in]->offset =
-	FT_SIGN(mngr->timeline[newcar->eval_in]->offset)
-	* newcar->id;
+	FT_SIGN(mngr->timeline[newcar->eval_in]->offset) * newcar->id;
 	if (mngr->flags & FLAG_V)
 		ft_printf("P %4d | %s %d (%d)\n", car->id + 1,
 	op->op == OP_fork ? "fork" : "lfork", args.x, newcar->pos);
@@ -106,11 +104,7 @@ void		make_and_or_xor(t_mngr *mngr, t_car *car, t_t_op *op)
 			(unsigned int)args.y);
 		car->carry = (char)(*(int *)car->regs[args.z].reg == 0);
 		if (mngr->flags & FLAG_V)
-		{
-			ft_printf("P %4d | %s %d %d r%d\n", car->id + 1,
-			op->op == OP_and ? "and" : op->op == OP_or ? "or" : "xor",
-			args.x, args.y, args.z + 1);
-		}
+			print_and_or_xor(&args, car->id, op);
 	}
 }
 

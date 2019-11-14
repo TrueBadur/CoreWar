@@ -48,6 +48,8 @@ int get_indir(t_mngr *mngr, t_car *car, int *step, int mod);
 int		get_reg(t_mngr *mngr, int *step);
 int get_dir(t_mngr *mngr, int *pos, int size);
 int get_addr_arena(int adr);
+void 		print_and_or_xor(t_int3	*args, int id, t_t_op *op);
+
 
 
 
