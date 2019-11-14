@@ -6,7 +6,7 @@
 /*   By: blomo <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/16 15:05:59 by blomo             #+#    #+#             */
-/*   Updated: 2019/11/14 17:56:42 by blomo            ###   ########.fr       */
+/*   Updated: 2019/11/14 20:36:58 by blomo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,17 +29,7 @@ void		make_ldi_lldi(t_mngr *mngr, t_car *car, t_t_op *op)
 		if (op->op == OP_lldi)
 			car->carry = (char)(res == 0);
 		if (mngr->flags & FLAG_V)
-		{
-			ft_printf("P %4d | %s %d %d r%d\n", car->id + 1,
-					op->op == OP_ldi ?
-			"ldi" : "lldi", args.x, args.y, args.z + 1);
-			(op->op == OP_ldi) ?
-			ft_printf("       | -> load from %d + %d = %d (with pc and mod "
-			"%d)\n", args.x, args.y, args.x + args.y, (car->pos + (args.x +
-			args.y) % IDX_MOD)) :
-			ft_printf("       | -> load from %d + %d = %d (with pc %d)\n",
-			args.x, args.y, args.x + args.y, (car->pos + (args.x + args.y)));
-		}
+			print_ldi_lldi(&args, car->id, car->pos, op);
 	}
 }
 

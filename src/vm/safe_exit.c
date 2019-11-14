@@ -6,12 +6,11 @@
 /*   By: blomo <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/14 16:21:57 by ehugh-be          #+#    #+#             */
-/*   Updated: 2019/11/14 20:25:26 by blomo            ###   ########.fr       */
+/*   Updated: 2019/11/14 20:28:20 by blomo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
-#include "error_msgs.h"
 
 void		rm_chmp(t_chmp *chmp)
 {
@@ -67,7 +66,7 @@ void		print_help(void)
 char		*get_err_str(t_eexcode code)
 {
 	static char *strs[] = {
-			"\n",
+			"",
 			"{Red}Error: \n Memory allocation failed{eof}\n",
 			"{Red}Error: \n Too many champions given. Make your choice!{eof}\n",
 			"{Red}Error: \n Invalid n \n",
