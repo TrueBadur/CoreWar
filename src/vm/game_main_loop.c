@@ -6,7 +6,7 @@
 /*   By: blomo <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/14 16:26:51 by ehugh-be          #+#    #+#             */
-/*   Updated: 2019/11/14 15:11:47 by blomo            ###   ########.fr       */
+/*   Updated: 2019/11/14 18:00:23 by blomo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,6 @@ t_car			*pop_car(t_vector *vec, int pos)
 void			bury_car(t_mngr *mngr, int i)
 {
 	t_car		*car_tmp;
-	t_vector	*time;
 
 	car_tmp = pop_car(mngr->cars, i);
 	mngr->timeline[car_tmp->eval_in]->offset =
@@ -47,7 +46,8 @@ void			bury_car(t_mngr *mngr, int i)
 		safe_exit(mngr, MALLOC_ERROR, NULL);
 	mngr->num_cars--;
 	if (mngr->flags & FLAG_V)
-		ft_printf("Process %d hasn't lived for %d cycles (CTD %d)\n", car_tmp->id + 1,
+		ft_printf("Process %d hasn't lived for %d cycles (CTD %d)\n",
+				car_tmp->id + 1,
 		mngr->cycle - car_tmp->live_cycle, mngr->cycles_delta);
 }
 
@@ -75,35 +75,6 @@ void			check_cars(t_mngr *mngr)
 	if (mngr->cycles_delta > 0)
 		mngr->cycles_to_die += mngr->cycles_delta;
 	mngr->live_num = 0;
-}
-
-void			dump_arena(t_mngr *mngr)
-{
-	int			i;
-	int			j;
-
-	i = -1;
-	while (++i < 64)
-	{
-		if (i == 0)
-			ft_printf("0x0000 : ");
-		else
-			ft_printf("%#.4x : ", i * 64);
-		j = -1;
-		while (++j < 64)
-		{
-			if (mngr->arena[j + 64 * i] <= 9 && mngr->arena[j + 64 * i] > 0)
-				ft_printf("0%x ", mngr->arena[j + 64 * i]);
-			else if (mngr->arena[j + 64 * i] == 0)
-				ft_printf("0%x ", mngr->arena[j + 64 * i]);
-			else if (mngr->arena[j + 64 * i] < 16)
-				ft_printf("0%x ", mngr->arena[j + 64 * i]);
-			else
-				ft_printf("%x ", mngr->arena[j + 64 * i]);
-		}
-		ft_printf("\n");
-	}
-	safe_exit(mngr, CALL_DUMP, NULL);
 }
 
 void			game_main(t_mngr *mngr)

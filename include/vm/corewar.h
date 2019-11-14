@@ -130,6 +130,8 @@ void		parse_v(t_mngr *mngr, char **argv, int i);
 void		parse_a(t_mngr *mngr, char **argv, int i);
 void			make_one_turn(t_mngr *mngr);
 void			proceed_car(t_mngr *mngr, t_car *car, short cur_time, int offset);
+void			dump_arena(t_mngr *mngr);
+
 /*
 ** ----------------------Working with timeline------------------------------- **
 */

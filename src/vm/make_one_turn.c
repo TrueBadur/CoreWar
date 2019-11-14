@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   make_one_turn.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: blomo <blomo@student.42.fr>                +#+  +:+       +#+        */
+/*   By: blomo <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/13 18:09:28 by blomo             #+#    #+#             */
-/*   Updated: 2019/11/13 18:14:17 by blomo            ###   ########.fr       */
+/*   Updated: 2019/11/14 16:31:39 by blomo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,14 +71,10 @@ void			proceed_car(t_mngr *mngr, t_car *car, short cur_time,
 void			make_one_turn(t_mngr *mngr)
 {
 	short		cur_time;
-	t_car		**tmp;
-	t_vector	*tmp1;
 
 	cur_time = (short)(mngr->cycle % (MAX_OP_TIME + 1));
 	if (!mngr->timeline[cur_time] || !mngr->timeline[cur_time]->len)
 		return ;
-	tmp = mngr->timeline[cur_time]->data;
-	tmp1 = mngr->timeline[cur_time];
 	if ((int)mngr->timeline[cur_time]->offset < 0)
 		mngr->timeline[cur_time] = vm_radixsort(mngr->timeline[cur_time],
 		mngr->timeline[cur_time]->len / sizeof(void*), mngr);

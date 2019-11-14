@@ -6,7 +6,7 @@
 /*   By: blomo <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/16 15:05:59 by blomo             #+#    #+#             */
-/*   Updated: 2019/11/14 15:54:19 by blomo            ###   ########.fr       */
+/*   Updated: 2019/11/14 17:56:25 by blomo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,23 +23,21 @@ void		make_ldi_lldi(t_mngr *mngr, t_car *car, t_t_op *op)
 	if (get_args(mngr, car, op, &args))
 	{
 		res = car->pos + ((args.x + args.y) % (op->op == OP_ldi ?
-			IDX_MOD : INT_MAX));
+				IDX_MOD : INT_MAX));
 		res = get_dir(mngr, &res, DIR_SIZE);
 		*(int*)car->regs[args.z].reg = res;
-		if (op->op == OP_lldi)
-			car->carry = (char)(res == 0);
+		car->carry = (op->op == OP_lldi && (char)(res == 0)) ? 1 : car->carry;
 		if (mngr->flags & FLAG_V)
 		{
 			ft_printf("P %4d | %s %d %d r%d\n", car->id + 1,
-			op->op == OP_ldi ? "ldi" : "lldi", args.x, args.y, args.z + 1);
-			if (op->op == OP_ldi)
-				ft_printf("       | -> load from %d + %d = %d "
-			"(with pc and mod %d)\n", args.x, args.y, args.x + args.y,
-			(car->pos + args.x + args.y) % MEM_SIZE);
-			else
-				ft_printf("       | -> load from %d + %d = %d "
-						  "(with pc %d)\n", args.x, args.y, args.x + args.y,
-						  car->pos + args.x + args.y);
+					op->op == OP_ldi ?
+			"ldi" : "lldi", args.x, args.y, args.z + 1);
+			(op->op == OP_ldi) ?
+			ft_printf("       | -> load from %d + %d = %d (with pc and mod "
+			"%d)\n", args.x, args.y, args.x + args.y, (car->pos + (args.x +
+			args.y) % IDX_MOD)) :
+			ft_printf("       | -> load from %d + %d = %d (with pc %d)\n",
+			args.x, args.y, args.x + args.y, (car->pos + (args.x + args.y)));
 		}
 	}
 }
@@ -75,8 +73,7 @@ void		make_fork_lfork(t_mngr *mngr, t_car *car, t_t_op *op)
 	ft_memcpy(newcar, car, sizeof(t_car));
 	if (!ft_vecpush(mngr->cars, &newcar, sizeof(newcar)))
 		safe_exit(mngr, MALLOC_ERROR, NULL);
-	if (op->op == 12)
-		args.x = args.x % IDX_MOD;
+	args.x = (op->op == 12) ? args.x % IDX_MOD : args.x;
 	mngr->num_cars++;
 	newcar->pos = get_addr_arena(car->pos + args.x);
 	newcar->id = mngr->next_id++;
@@ -87,7 +84,8 @@ void		make_fork_lfork(t_mngr *mngr, t_car *car, t_t_op *op)
 	FT_SIGN(mngr->timeline[newcar->eval_in]->offset) * newcar->id;
 	if (mngr->flags & FLAG_V)
 		ft_printf("P %4d | %s %d (%d)\n", car->id + 1,
-	op->op == OP_fork ? "fork" : "lfork", args.x, args.x);
+	op->op == OP_fork ? "fork" : "lfork", args.x,
+	(car->pos + args.x) % MEM_SIZE);
 }
 
 void		make_and_or_xor(t_mngr *mngr, t_car *car, t_t_op *op)

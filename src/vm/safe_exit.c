@@ -64,6 +64,26 @@ void		print_help(void)
 	ft_printf("   -h / --help: Print this message\n");
 }
 
+void		safe_exit1(t_eexcode exit_code, const char *err_arg)
+{
+	if (exit_code == INVALID_EXEC_MAGIC)
+		ft_printf(INVALID_EXEC_MAGIC_MSG);
+	else if (exit_code == NO_ZERO_BYTE)
+		ft_printf(NO_ZERO_BYTE_MSG);
+	else if (exit_code == INVALID_SIZE_BYTE_CHAMPION)
+		ft_printf(INVALID_SIZE_BYTE_CHAMPION_MSG);
+	else if (exit_code == INVALID_FILE_EXTENSION)
+		ft_printf(INVALID_FILE_EXTENSION_MSG);
+	else if (exit_code == INVALID_ARRAY_CHAMPION)
+		ft_printf(INVALID_ARRAY_CHAMPION_MSG);
+	else if (exit_code == INVALID_ARGUMENT_NAME)
+		ft_printf(INVALID_ARGUMENT_NAME_MSG);
+	else if (exit_code == INVALID_FLAG)
+		ft_printf(INVALID_FLAG_MSG, err_arg);
+	else if (exit_code == HELP)
+		print_help();
+}
+
 void		safe_exit(t_mngr *mngr, t_eexcode exit_code, const char *err_arg)
 {
 	if (mngr)
@@ -82,21 +102,6 @@ void		safe_exit(t_mngr *mngr, t_eexcode exit_code, const char *err_arg)
 		ft_printf(READ_ERROR_MSG);
 	else if (exit_code == OPEN_ERROR)
 		ft_printf(OPEN_ERROR_MSG);
-	else if (exit_code == INVALID_EXEC_MAGIC)
-		ft_printf(INVALID_EXEC_MAGIC_MSG);
-	else if (exit_code == NO_ZERO_BYTE)
-		ft_printf(NO_ZERO_BYTE_MSG);
-	else if (exit_code == INVALID_SIZE_BYTE_CHAMPION)
-		ft_printf(INVALID_SIZE_BYTE_CHAMPION_MSG);
-	else if (exit_code == INVALID_FILE_EXTENSION)
-		ft_printf(INVALID_FILE_EXTENSION_MSG);
-	else if (exit_code == INVALID_ARRAY_CHAMPION)
-		ft_printf(INVALID_ARRAY_CHAMPION_MSG);
-	else if (exit_code == INVALID_ARGUMENT_NAME)
-		ft_printf(INVALID_ARGUMENT_NAME_MSG);
-	else if (exit_code == INVALID_FLAG)
-		ft_printf(INVALID_FLAG_MSG, err_arg);
-	else if (exit_code == HELP)
-		print_help();
+	safe_exit1(exit_code, err_arg);
 	exit(exit_code);
 }
