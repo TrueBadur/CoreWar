@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "corewar.h"
+#include "visu.h"
 
 void	show_time_to_die(t_mngr *mngr)
 {

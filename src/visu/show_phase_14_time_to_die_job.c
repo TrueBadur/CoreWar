@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "corewar.h"
+#include "visu.h"
 
 void	show_bar_gen(t_stats *st, WINDOW *win)
 {
@@ -33,11 +33,11 @@ void	print_gen(t_stats *st, WINDOW *win)
 
 	wattron(win, COLOR_PAIR(DEF));
 	per = 100.0 * st->total_die / st->total;
-	wprintw(win, "Death wave  = \t%d\n", st->death_wave);
-	wprintw(win, "Cycle       = \t%d\n", st->cycle);
-	wprintw(win, "Num cars    = \t%d\n", st->total);
+	wprintw(win, "Death wave  = \t\t%d\n", st->death_wave);
+	wprintw(win, "Cycle       = \t\t%d\n", st->cycle);
+	wprintw(win, "Num cars    = \t\t%d\n", st->total);
 	wprintw(win, "Num dies    = %3.0f%%\t%d\n", per, st->total_die);
-	wprintw(win, "Cycle 2 die = \t%d -> %d\n",
+	wprintw(win, "Cycle 2 die = \t\t%d -> %d\n",
 			st->cycles_to_die, st->cycles_to_die_new);
 	show_bar_gen(st, win);
 }

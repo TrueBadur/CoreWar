@@ -70,7 +70,7 @@
 # define G_PHASE_RESHOW 	5
 # define G_PHASE_END    	6
 
-typedef struct	s_stats
+typedef struct		s_stats
 {
 	unsigned int	death_wave;
 	int				last_death_wave_cycle;
@@ -88,62 +88,59 @@ typedef struct	s_stats
 	int				rate;
 	char			game_mod;
 	char			phase_game;
-}				t_stats;
+}					t_stats;
 
-typedef struct	s_nwin
+typedef struct		s_nwin
 {
-	WINDOW		*w;
-}				t_nwin;
+	WINDOW			*w;
+}					t_nwin;
 
-typedef struct	s_nwin_tab
+typedef struct		s_nwin_tab
 {
-	WINDOW		**ws;
-}				t_nwin_tab;
+	WINDOW			**ws;
+}					t_nwin_tab;
 
-/*
-** -----------------------------Statistic------------------------------------ **
-*/
-void	add_dies_stats(t_mngr *mngr, int reg);
-void	add_cars_stats(t_mngr *mngr, int reg);
-void	refresh_stats(t_mngr *mngr);
-t_stats	*get_stats(void);
-void	show_time_to_die(t_mngr *mngr);
-void	set_cycles_die(t_mngr *mngr);
-void	set_cycles_die_new(t_mngr *mngr);
-void	set_cycle(t_mngr *mngr);
-void	recalc_total();
-void	show_nuke(WINDOW *win);
-void	show_time_banner();
-void	init_visu();
-void	show_skull_one(WINDOW *win);
-void	show_game_init(t_mngr *mngr);
-void	show_champ_mem_init(t_mngr *mngr, int start, int size, int color);
-void	show_pos_in_arena(t_mngr *mngr, int pos, int color);
-void	update_mem(t_mngr *mngr, int id_ply);
-void	show_area(t_mngr *mngr);
-void	reshow_area(t_mngr *mngr);
-void	rate_control(t_stats *st);
-void	pause_or_wait_mem_change(t_stats *st);
-void	show_scnd_panel(t_mngr *mngr);
-void	show_side_panel_init(t_mngr *mngr, int idx_champ);
-WINDOW	*get_win(int id);
-WINDOW	**get_windows();
-int		game_set_param(int from_user);
-void	update_side_cntr(void);
-void	clear_init_screen();
-void	clear_mem_trig_screen();
-void	clear_time_to_die_screen();
-void	show_side_cntr();
-void	game_panel_border();
-void	pause_or_wait_reshow(t_stats *st);
-void	pause_or_wait_time_to_die();
-void	show_winner(t_mngr *mngr);
-void	resize_handler(int sig);
-int		check_size();
-void	set_right_size();
-void	clean_all_win();
-void	show_champ_let_start(t_mngr *mngr);
-void	start_visu(t_mngr *mngr);
-void	show_champ_stats(t_mngr *mngr, WINDOW *win);
+void				add_dies_stats(t_mngr *mngr, int reg);
+void				add_cars_stats(t_mngr *mngr, int reg);
+void				refresh_stats(t_mngr *mngr);
+t_stats				*get_stats(void);
+void				show_time_to_die(t_mngr *mngr);
+void				set_cycles_die(t_mngr *mngr);
+void				set_cycles_die_new(t_mngr *mngr);
+void				set_cycle(t_mngr *mngr);
+void				recalc_total();
+void				show_nuke(WINDOW *win);
+void				show_time_banner();
+void				init_visu();
+void				show_skull_one(WINDOW *win);
+void				show_game_init(t_mngr *mngr);
+void				show_champ_mem_init(t_mngr *mngr, int start,
+					int size, int color);
+void				show_pos_in_arena(t_mngr *mngr, int pos, int color);
+void				update_mem(t_mngr *mngr, int id_ply);
+void				show_area(t_mngr *mngr);
+void				reshow_area(t_mngr *mngr);
+void				rate_control(t_stats *st);
+void				pause_or_wait_mem_change(t_stats *st);
+void				show_scnd_panel(t_mngr *mngr);
+void				show_side_panel_init(t_mngr *mngr, int idx_champ);
+WINDOW				*get_win(int id);
+WINDOW				**get_windows();
+int					game_set_param(int from_user);
+void				update_side_cntr(void);
+void				clear_init_screen();
+void				clear_mem_trig_screen();
+void				clear_time_to_die_screen();
+void				show_side_cntr();
+void				game_panel_border();
+void				pause_or_wait_reshow(t_stats *st);
+void				show_winner(t_mngr *mngr);
+void				resize_handler(int sig);
+int					check_size();
+void				set_right_size();
+void				clean_all_win();
+void				show_champ_let_start(t_mngr *mngr);
+void				start_visu(t_mngr *mngr);
+void				show_champ_stats(t_mngr *mngr, WINDOW *win);
 
-#endif //VISU_H
+#endif

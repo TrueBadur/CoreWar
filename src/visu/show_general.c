@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "corewar.h"
+#include "visu.h"
 
 void	clear_window(int id_win)
 {

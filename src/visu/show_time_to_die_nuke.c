@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "corewar.h"
+#include "visu.h"
 
 void	show_nuke_top(WINDOW *win)
 {

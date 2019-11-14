@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "corewar.h"
+#include "visu.h"
 
 void	show_bar_death(WINDOW *win, t_mngr *mngr, t_stats *st)
 {

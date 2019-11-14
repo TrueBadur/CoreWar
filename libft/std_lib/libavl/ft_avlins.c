@@ -15,26 +15,31 @@
 
 
 /*
+ * Insert given node in tree using given function to compare keys
 ** @param tr - libavl tree to which insert new node
 ** @param node - node to insert
 ** @return - pointer to balanced libavl tree with inserted node
 */
 
-t_btavl	*ft_avlins(t_btavl *tr, t_btavl *node, int (f)(void*, void*))
+t_btavl	*ft_avlins(t_btavl *tr, t_btavl *node, int (compare)(void*, void*))
 {
 	int	cmp;
+
 	if (!node)
 		return (tr);
 	if (!tr)
 		return (node);
 	if (tr->key_type != node->key_type)
+	{
+		ft_avlfree(tr);
 		return (NULL);
-	cmp = ft_avl_keycmp(tr->key, node->key, tr->key_type, f);
+	}
+	cmp = ft_avl_keycmp(tr->key, node->key, tr->key_type, compare);
 	if (cmp == 0)
 		return (tr);
 	if (cmp > 0)
-		tr->left = ft_avlins(tr->left, node, f);
+		tr->left = ft_avlins(tr->left, node, compare);
 	else
-		tr->right = ft_avlins(tr->right, node, f);
+		tr->right = ft_avlins(tr->right, node, compare);
 	return (ft_avlbal(tr));
 }

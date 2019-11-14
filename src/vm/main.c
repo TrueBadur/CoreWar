@@ -12,7 +12,7 @@
 
 
 #include "corewar.h"
-
+#include "visu.h"
 
  static t_mngr *init_mngr(void)
  {
@@ -44,7 +44,7 @@ static void	winer_anounce(t_mngr *mngr)
 {
 	show_winner(mngr);
 	if (!(mngr->flags & FLAG_S))
-		ft_printf("Contestant %d. \"%s\", has won !\n", mngr->winner + 1, mngr->chmps[mngr->winner]->name);
+		ft_printf("Contestant %d, \"%s\", has won !\n", mngr->winner + 1, mngr->chmps[mngr->winner]->name);
 }
 
 int main(int argc, char **argv)

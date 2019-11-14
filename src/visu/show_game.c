@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "corewar.h"
+#include "visu.h"
 
 void	show_pos_in_arena(t_mngr *mngr, int pos, int id_ply)
 {

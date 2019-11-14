@@ -6,37 +6,23 @@
 /*   By: ehugh-be <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/14 16:21:57 by ehugh-be          #+#    #+#             */
-/*   Updated: 2019/10/22 21:03:07 by ehugh-be         ###   ########.fr       */
+/*   Updated: 2019/11/11 17:03:29 by ehugh-be         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
 #include "error_msgs.h"
 
-static void	del_time(t_list *lst)
-{
-	t_list_node	*cur;
-	t_list_node	*tmp;
-
-	if (!lst)
-		return ;
-	cur = lst->begin;
-	while(cur)
-	{
-		tmp = cur->next;
-		free(cur);
-		cur = tmp;
-	}
-	free(lst);
-}
-
 void		rm_chmp(t_chmp *chmp)
 {
 	if (!chmp)
 		return ;
-	free(chmp->name);
-	free(chmp->moto);
-	free(chmp->code);
+	if (chmp->name)
+		free(chmp->name);
+	if (chmp->moto)
+		free(chmp->moto);
+	if (chmp->code)
+		free(chmp->code);
 	free(chmp);
 }
 
@@ -51,21 +37,17 @@ static void	cleanup(t_mngr *mngr)
 			free(((t_car**)mngr->cars->data)[i]);
 	ft_vecdel((void**)&mngr->cars);
 	i = -1;
-	//TODO free timeline
-//	while (++i < MAX_OP_TIME + 1)
-
-	//free chmps
-	while (++i < MAX_PLAYERS)
-		rm_chmp(mngr->chmps[i]);
-	//free dead_cars
-	i = -1;
 	if (mngr->dead_cars)
 		while (++i < mngr->dead_cars->len / sizeof(void*))
 			free(((t_car**)mngr->dead_cars->data)[i]);
 	ft_vecdel((void**)&mngr->dead_cars);
 	i = -1;
 	while (++i < MAX_OP_TIME + 1)
-		del_time(mngr->timeline[i]);
+		ft_vecdel((void**)&mngr->timeline[i]);
+	i = -1;
+	while (++i < MAX_PLAYERS)
+		rm_chmp(mngr->chmps[i]);
+	ft_vecdel((void**)&mngr->rxsort_out);
 	free(mngr);
 }
 

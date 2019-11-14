@@ -70,7 +70,7 @@ int get_indir_pos(t_mngr *mngr, t_car *car, int *step, int mod)
 {
 	int in_dir;
 
-	in_dir = get_dir(mngr, step ,2) % mod;
+	in_dir = get_dir(mngr, step ,2);
 	return(in_dir);
 }
 
@@ -80,6 +80,7 @@ int  get_args(t_mngr *mngr, t_car *car, t_t_op *op, t_int3 *arg)
 	t_op *op_inf;
 	int step;
 	int mod;
+	char flag;
 
 	i = -1;
 	op_inf = get_op_info(op->op);
@@ -93,9 +94,11 @@ int  get_args(t_mngr *mngr, t_car *car, t_t_op *op, t_int3 *arg)
 		unsigned char arg_type = ((unsigned char *) op)[i + 1];
 		if (arg_type == REG_CODE)
 		{
+			flag = ((int *) arg)[i];
 			if (!check_reg(((int *) arg)[i] = get_reg(mngr, &step)))
-				return (0);
-			((int *) arg)[i] = *(int *) car->regs[((int *) arg)[i]].reg;
+					return (0);
+			if (!flag)
+				((int *) arg)[i] = *(int *) car->regs[((int *) arg)[i]].reg;
 		}
 		else if (arg_type == IND_CODE)
 		{

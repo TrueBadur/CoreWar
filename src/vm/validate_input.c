@@ -59,6 +59,15 @@ void parse_v(t_mngr *mngr, char **argv, int i)
         safe_exit(mngr, INVALID_N);
 }
 
+void parse_a(t_mngr *mngr, char **argv, int i)
+{
+	argv[i][0] = '\0';
+	if (!(mngr->flags & FLAG_A))
+		mngr->flags = mngr->flags | FLAG_A;
+	else
+		safe_exit(mngr, INVALID_N);
+}
+
 void parse_s(t_mngr *mngr, char **argv, int i)
 {
 	argv[i][0] = '\0';
@@ -81,6 +90,8 @@ void parse_flags(t_mngr *mngr, char **argv)
             parse_dump(mngr, argv, i);
         if (!(ft_strcmp(argv[i], "-v")))
             parse_v(mngr, argv ,i);
+		if (!(ft_strcmp(argv[i], "-a")))
+			parse_a(mngr, argv ,i);
 		if (!(ft_strcmp(argv[i], "-s")))
 			parse_s(mngr, argv ,i);
     }

@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "corewar.h"
+#include "visu.h"
 
 void	set_cycles_die(t_mngr *mngr)
 {
@@ -27,7 +27,7 @@ void	set_cycles_die_new(t_mngr *mngr)
 	if (!(mngr->flags & FLAG_S))
 		return ;
 	st = get_stats();
-	st->cycles_to_die_new = mngr->cycles_to_die;
+	st->cycles_to_die_new = mngr->cycles_delta;
 }
 
 void	set_cycle(t_mngr *mngr)

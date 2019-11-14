@@ -114,9 +114,9 @@ int				get_next_line(const int fd, char **line)
 		return (tmp);
 	}
 	tmp = ft_readtobuf(vector, line, fd);
-	if (tmp != 1 || vector->offset > vector->len)
+	if (tmp != 1 || (unsigned)vector->offset > vector->len)
 	{
-		if (vector->offset < vector->len)
+		if ((unsigned)vector->offset < vector->len)
 			tmp = ft_gnlsub(vector, vector->len - vector->offset, line);
 		tree = ft_avlrem(tree, TO_AVL_KEY(fd), &ft_vecdel, NULL);
 	}

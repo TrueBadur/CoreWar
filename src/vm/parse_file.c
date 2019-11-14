@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_file.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: blomo <marvin@42.fr>                       +#+  +:+       +#+        */
+/*   By: ehugh-be <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/14 10:04:59 by blomo             #+#    #+#             */
-/*   Updated: 2019/10/15 19:06:51 by blomo            ###   ########.fr       */
+/*   Updated: 2019/11/12 21:31:19 by ehugh-be         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,9 +31,10 @@ char		*get_str(int fd, size_t len, t_mngr *mngr)
 {
 	int	size;
 	char	*buffer;
-	if (!(buffer = (char*)malloc(sizeof(char) * len)))
+	if (!(buffer = (char*)malloc(sizeof(char) * (len + 1))))
         safe_exit(mngr, MALLOC_ERROR);
 	size = read(fd, buffer, len);
+	buffer[size] = '\0';
 	if (size == -1 || size < (size_t)len)
         safe_exit(mngr, READ_ERROR);
 	return (buffer);
@@ -57,11 +58,12 @@ unsigned char *get_code(t_mngr *mngr, int fd, size_t len)
 void parse_cor(char *file, t_mngr *mngr, int nbr)
 {
 	int fd;
-    if(!(mngr->chmps[nbr] = (t_chmp *) malloc(sizeof(t_chmp))))
-        safe_exit(mngr, MALLOC_ERROR);
-    mngr->chmps[nbr]->id = nbr;
+
 	if ((fd = open(file, O_RDONLY)) < 0)
         safe_exit(mngr, OPEN_ERROR);
+	if(!(mngr->chmps[nbr] = (t_chmp *) malloc(sizeof(t_chmp))))
+		safe_exit(mngr, MALLOC_ERROR);
+	mngr->chmps[nbr]->id = nbr;
 	if (get4byte(mngr, fd) != COREWAR_EXEC_MAGIC)
         safe_exit(mngr, INVALID_EXEC_MAGIC);
     mngr->chmps[nbr]->name = get_str(fd, 128, mngr);
