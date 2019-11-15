@@ -29,7 +29,7 @@ void			tl_car_iter(t_mngr *mngr, void (*f)(t_mngr*, t_car*, short))
 	int			cur_time;
 
 	cur_time = mngr->cycle % (MAX_OP_TIME + 1);
-	i = mngr->timeline[cur_time]->len / sizeof(void*);
+	i = mngr->timeline[cur_time]->len / sizeof(void *);
 	while (--i > -1)
 	{
 		cars = (t_car**)mngr->timeline[cur_time]->data;
