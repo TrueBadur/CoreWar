@@ -6,7 +6,7 @@
 /*   By: blomo <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/14 16:39:49 by ehugh-be          #+#    #+#             */
-/*   Updated: 2019/11/15 16:59:21 by blomo            ###   ########.fr       */
+/*   Updated: 2019/11/15 18:06:11 by blomo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,10 @@ void		check_players(t_mngr *mngr, char **argv, int argc)
 void		validate_input(t_mngr *mngr, int argc, char **argv)
 {
 	if (argc == 1)
+	{
+		print_help();
 		safe_exit(mngr, HELP, NULL);
+	}
 	parse_flags(mngr, argv);
 	check_players(mngr, argv, argc);
 }
