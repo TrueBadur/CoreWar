@@ -13,9 +13,9 @@
 #include "corewar.h"
 #include "checkop.h"
 
-fptr	get_op_func(int id)
+t_fptr	get_op_func(int id)
 {
-	static fptr op_handlers[17] = {
+	static t_fptr op_handlers[17] = {
 		make_live,
 		make_ld_lld,
 		make_st,

@@ -6,7 +6,7 @@
 /*   By: blomo <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/14 20:40:28 by blomo             #+#    #+#             */
-/*   Updated: 2019/11/14 20:47:03 by blomo            ###   ########.fr       */
+/*   Updated: 2019/11/15 15:44:03 by blomo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,10 @@ typedef struct		s_t_op
 	unsigned char	a3;
 }					t_t_op;
 
-typedef void		(*fptr)(t_mngr*, t_car*, t_t_op*);
+typedef void		(*t_fptr)(t_mngr*, t_car*, t_t_op*);
 
 short				check_op(t_t_op *op);
-fptr				get_op_func(int id);
+t_fptr				get_op_func(int id);
 
 void				make_live(t_mngr *mngr, t_car *car, t_t_op *op);
 void				make_ld_lld(t_mngr *mngr, t_car *car, t_t_op *op);
