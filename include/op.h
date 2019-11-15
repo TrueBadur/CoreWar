@@ -68,7 +68,7 @@ typedef struct		s_op
 {
 	char			*name;
 	char			params_num;
-	uint8_t			paramtypes[3];
+	uint8_t			prm_tp[3];
 	int				num_of_ticks;
 	char			is_param_b;
 	char			t_dir_size;

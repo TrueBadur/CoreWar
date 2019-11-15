@@ -25,7 +25,7 @@ void		read_params(t_command *cmd, t_list_node **lst)
 		if (cur_par != 0)
 			eat(lst, DELIM_ID);
 		token = eat(lst, PARAM_ID);
-		if (((uint8_t)(token->sub_type) & opdata->paramtypes[cur_par]) == 0)
+		if (((uint8_t)(token->sub_type) & opdata->prm_tp[cur_par]) == 0)
 			raise_error_sem(INVALID_PAR_TYPE_ERR, token);
 		cmd->params[cur_par] = token;
 		cur_par++;

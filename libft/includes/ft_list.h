@@ -42,6 +42,7 @@ t_list_node				*ft_lstat(t_list *lst, size_t offset);
 t_list_node				*ft_lstmax(t_list *lst, int (*comp)(void *, void *));
 t_list_node				*ft_lsttake(t_list *lst);
 t_list_node				*ft_lsttakeend(t_list *lst);
-void		lst_sort(t_list *files_list,int (*f)(void *, void *), char rev);
+void					lst_sort(t_list *files_list, int (*f)(void *, void *),
+		char rev);
 
 #endif

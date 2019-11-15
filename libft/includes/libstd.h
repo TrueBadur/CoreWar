@@ -10,11 +10,10 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-
 #ifndef LIBFT_LIBSTD_H
-#define LIBFT_LIBSTD_H
-#include <unistd.h>
-#include <stdlib.h>
+# define LIBFT_LIBSTD_H
+# include <unistd.h>
+# include <stdlib.h>
 # define IN_RNGII(a, b, c) ((a) <= (b) && (b) <= (c))
 # define IN_RANGE_CI(a, b, c) ((a) < (b) && (b) <= (c))
 # define IN_RANGE_IC(a, b, c) ((a) <= (b) && (b) < (c))

@@ -21,7 +21,9 @@
 # include <unistd.h>
 # include <string.h>
 # include "ft_printf.h"
-//# include "t_list.h"
+/*
+** # include "t_list.h"
+*/
 # include "libstd.h"
 
 #endif

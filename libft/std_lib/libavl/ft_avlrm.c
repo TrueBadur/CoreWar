@@ -26,9 +26,9 @@ static t_btavl	*ft_avlrmmin(t_btavl *tr)
 }
 
 /*
- * Removes node from tree by given 'key' using 'free_data' to free data in node
- * 'compare' is used to compare keys
- */
+** Removes node from tree by given 'key' using 'free_data' to free data in node
+** 'compare' is used to compare keys
+*/
 
 t_btavl			*ft_avlrem(t_btavl *tr, void *key, void (*free_data)(void **),
 		int (compare)(void*, void*))

@@ -16,7 +16,7 @@ int	ft_lstiteri(t_list *list, int (*f)(void *, int))
 {
 	t_list_node	*cur;
 	int			res;
-	int 		cur_cnt;
+	int			cur_cnt;
 
 	cur_cnt = 0;
 	res = 0;

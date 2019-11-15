@@ -32,4 +32,3 @@ t_vector	*ft_vecput(t_vector *vec, size_t pos, size_t size, void *data)
 		vec->len = pos + size;
 	return (vec);
 }
-

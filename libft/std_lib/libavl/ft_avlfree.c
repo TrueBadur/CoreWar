@@ -24,8 +24,8 @@ t_btavl	*ft_avlfree(t_btavl *tr)
 }
 
 /*
- * Frees the tree but data is freed with given function
- */
+** Frees the tree but data is freed with given function
+*/
 
 t_btavl	*ft_avlfree_custom(t_btavl *tr, void (free_data)(void*))
 {

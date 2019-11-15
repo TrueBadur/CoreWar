@@ -29,4 +29,3 @@ int	ft_avl_keycmp(void *a, void *b, t_avl_k_t keytype,
 	else
 		return (key_compare(a, b));
 }
-

@@ -20,7 +20,7 @@
 
 int	ft_isnumeric(char *line)
 {
-	while(*line != '\0')
+	while (*line != '\0')
 	{
 		if (!ft_isdigit(*line))
 			return (0);

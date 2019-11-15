@@ -37,17 +37,17 @@ static void				read_params(t_command *cmd, void *exc, size_t *cr,
 	cur_par = 0;
 	while (cur_par < op->params_num)
 	{
-		if (op->paramtypes[cur_par] == T_REG)
+		if (op->prm_tp[cur_par] == T_REG)
 		{
 			cmd->params[cur_par].data = read_int8_mem(exc, cr, cap);
 			cmd->params[cur_par].type = T_REG;
 		}
-		else if (op->paramtypes[cur_par] == T_IND)
+		else if (op->prm_tp[cur_par] == T_IND)
 		{
 			cmd->params[cur_par].data = read_int8_mem(exc, cr, cap);
 			cmd->params[cur_par].type = T_IND;
 		}
-		else if (op->paramtypes[cur_par] == T_DIR)
+		else if (op->prm_tp[cur_par] == T_DIR)
 		{
 			cmd->params[cur_par].data = op->t_dir_size ?
 					read_int16_mem(exc, cr, cap) : read_int32_mem(exc, cr, cap);
@@ -69,11 +69,11 @@ static void				read_params_opt(t_command *cmd, void *exc, size_t *cr,
 	while (cur_par < op->params_num)
 	{
 		tmp = get_par_type(cmd->par_types, cur_par);
-		if (tmp == T_REG && T_REG & op->paramtypes[cur_par])
+		if (tmp == T_REG && T_REG & op->prm_tp[cur_par])
 			cmd->params[cur_par].data = read_int8_mem(exc, cr, cap);
-		else if (tmp == T_IND && T_IND & op->paramtypes[cur_par])
+		else if (tmp == T_IND && T_IND & op->prm_tp[cur_par])
 			cmd->params[cur_par].data = read_int16_mem(exc, cr, cap);
-		else if (tmp == T_DIR && T_DIR & op->paramtypes[cur_par])
+		else if (tmp == T_DIR && T_DIR & op->prm_tp[cur_par])
 			cmd->params[cur_par].data = op->t_dir_size ?
 					read_int16_mem(exc, cr, cap) : read_int32_mem(exc, cr, cap);
 		else

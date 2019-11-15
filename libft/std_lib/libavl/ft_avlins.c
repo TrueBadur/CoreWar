@@ -13,9 +13,8 @@
 #define FT_SOURCE_BTAVL
 #include "btavl.h"
 
-
 /*
- * Insert given node in tree using given function to compare keys
+** Insert given node in tree using given function to compare keys
 ** @param tr - libavl tree to which insert new node
 ** @param node - node to insert
 ** @return - pointer to balanced libavl tree with inserted node

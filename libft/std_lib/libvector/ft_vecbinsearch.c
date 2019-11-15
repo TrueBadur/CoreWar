@@ -6,7 +6,7 @@
 /*   By: ehugh-be <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/16 19:33:00 by ehugh-be          #+#    #+#             */
-/*   Updated: 2019/11/06 20:48:50 by ehugh-be         ###   ########.fr       */
+/*   Updated: 2019/11/15 18:42:21 by ehugh-be         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,13 @@
 ** haven't been found
 */
 
-static int ft_standart_cmp(void* a, void *b)
+static int	ft_standart_cmp(void *a, void *b)
 {
 	return (a - b);
 }
 
-int	ft_vecbinsearch(t_vector *vec, void *val, int (*compare)(void*, void*))
+int			ft_vecbinsearch(t_vector *vec, void *val,
+		int (*compare)(void*, void*))
 {
 	int ret;
 	int tmp;

@@ -91,7 +91,7 @@ void	print_error(t_lexdata *dat, int err)
 {
 	unsigned long line;
 
-	line = (dat->err_line == -1) ? dat->lines.len : dat->err_line;
+	line = ((long)dat->err_line == -1) ? dat->lines.len : dat->err_line;
 	ft_printf("\033[31;1mLexer_ERROR [%03d, %03d]:", line, dat->srt);
 	print_msg_error(dat, err);
 	ft_printf("\n\033[0m");
