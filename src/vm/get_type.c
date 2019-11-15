@@ -5,110 +5,75 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: blomo <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/10/17 17:14:19 by blomo             #+#    #+#             */
-/*   Updated: 2019/10/31 21:21:45 by blomo            ###   ########.fr       */
+/*   Created: 2019/11/13 17:50:39 by blomo             #+#    #+#             */
+/*   Updated: 2019/11/14 14:51:00 by blomo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
 #include "checkop.h"
-#include <limits.h>
 
-int get_addr_arena(int adr)
+int					get_reg(t_mngr *mngr, int *step)
 {
-    return ((adr < 0) ? (adr % MEM_SIZE) + MEM_SIZE : (adr % MEM_SIZE));
-}
-
-int get_dir(t_mngr *mngr, int *pos, int size)
-{
-    char buffer[size];
-    int c;
-
-    c = -1;
-    while (++c < size)
-        buffer[size - c - 1] = (char)mngr->arena[get_addr_arena(*pos + c)];
-    *pos += size;
-    return (size == 2 ? *(short*)buffer : *(int*)buffer);
-}
-
-inline char check_reg(int reg)
-{
-    return ((char)(reg >= 0 && reg <= 15 ? 1 : 0));
-}
-
-void copy_reg_to_arena(t_mngr *mngr, t_car *car, int reg1, int reg2)
-{
-	int c;
-
-	c = -1;
-	while (++c < REG_SIZE)
-		mngr->arena[get_addr_arena(reg2 + c)] = car->regs[reg1].reg[REG_SIZE - 1 - c];
-}
-
-int		get_reg(t_mngr *mngr, int *step)
-{
-	int reg;
+	int				reg;
 
 	reg = mngr->arena[get_addr_arena(*step)] - 1;
 	*step += 1;
 	return (reg);
 }
 
-int get_indir(t_mngr *mngr, t_car *car, int *step, int mod)
+int					get_indir(t_mngr *mngr, t_car *car, int *step, int mod)
 {
-	int reg;
-	int in_dir;
-	int pos_indir;
+	int				reg;
+	int				in_dir;
+	int				pos_indir;
 
-	in_dir = get_dir(mngr, step ,IND_SIZE) % mod;
+	in_dir = get_dir(mngr, step, IND_SIZE) % mod;
 	pos_indir = car->pos + in_dir;
 	reg = get_dir(mngr, &pos_indir, 4);
-	return(reg);
+	return (reg);
 }
 
-int get_indir_pos(t_mngr *mngr, t_car *car, int *step, int mod)
+int					get_indir_pos(t_mngr *mngr, t_car *car, int *step, int mod)
 {
-	int in_dir;
+	int				in_dir;
 
-	in_dir = get_dir(mngr, step ,2);
-	return(in_dir);
+	in_dir = get_dir(mngr, step, 2);
+	return (in_dir);
 }
 
-int  get_args(t_mngr *mngr, t_car *car, t_t_op *op, t_int3 *arg)
+void				get_args_init(t_int4 *r, t_op **op_inf, t_t_op *op)
 {
-	int i;
-	t_op *op_inf;
-	int step;
-	int mod;
-	char flag;
+	r->x = -1;
+	*op_inf = get_op_info(op->op);
+	r->z = (op->op == OP_lld) ? INT_MAX : IDX_MOD;
+}
 
-	i = -1;
-	op_inf = get_op_info(op->op);
-	if(op->op == OP_lld)
-		mod = INT_MAX;
-	else
-		mod = IDX_MOD;
-	step = car->pos + ((op_inf->is_param_b == 1) ? (int)OP_BASE : (int)OP_SIZE);
-	while (++i < op_inf->params_num)
+int					get_args(t_mngr *mngr, t_car *car, t_t_op *op, t_int3 *arg)
+{
+	t_int4			r;
+	t_op			*op_inf;
+	unsigned char	arg_type;
+
+	get_args_init(&r, &op_inf, op);
+	r.y = car->pos + ((op_inf->is_param_b == 1) ? (int)OP_BASE : (int)OP_SIZE);
+	while (++r.x < op_inf->params_num)
 	{
-		unsigned char arg_type = ((unsigned char *) op)[i + 1];
+		arg_type = ((unsigned char*)op)[r.x + 1];
 		if (arg_type == REG_CODE)
 		{
-			flag = ((int *) arg)[i];
-			if (!check_reg(((int *) arg)[i] = get_reg(mngr, &step)))
-					return (0);
-			if (!flag)
-				((int *) arg)[i] = *(int *) car->regs[((int *) arg)[i]].reg;
+			r.w = ((int*)arg)[r.x];
+			if (!check_reg(((int *)arg)[r.x] = get_reg(mngr, &r.y)))
+				return (0);
+			if (!r.w)
+				((int*)arg)[r.x] = *(int*)car->regs[((int*)arg)[r.x]].reg;
 		}
 		else if (arg_type == IND_CODE)
-		{
-			if(op->op == OP_st)
-				((int *) arg)[i] = get_indir_pos(mngr, car, &step, mod);
-			else
-				((int *) arg)[i] = get_indir(mngr, car, &step, mod);
-		}
+			((int*)arg)[r.x] = (op->op == OP_st) ? get_indir_pos(mngr, car,
+					&r.y, r.z) : get_indir(mngr, car, &r.y, r.z);
 		else
-			((int *) arg)[i] = get_dir(mngr, &step, DIR_SIZE - op_inf->t_dir_size * 2);
+			((int*)arg)[r.x] = get_dir(mngr, &r.y,
+					DIR_SIZE - op_inf->t_dir_size * 2);
 	}
 	return (1);
 }

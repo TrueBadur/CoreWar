@@ -3,15 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   safe_exit.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ehugh-be <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: blomo <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/14 16:21:57 by ehugh-be          #+#    #+#             */
-/*   Updated: 2019/11/11 17:03:29 by ehugh-be         ###   ########.fr       */
+/*   Updated: 2019/11/14 20:28:20 by blomo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
-#include "error_msgs.h"
 
 void		rm_chmp(t_chmp *chmp)
 {
@@ -51,35 +50,47 @@ static void	cleanup(t_mngr *mngr)
 	free(mngr);
 }
 
-void		safe_exit(t_mngr *mngr, t_eexcode exit_code)
+void		print_help(void)
+{
+	ft_printf("Usage: ./corewar [-d N] [-v] [-g] [-n N  <champion1.cor>]"
+	"[-a] <champion1.cor> <...>\n");
+	ft_printf("    -a        : Prints output from \"aff\""
+	"(Default is to hide it)\n");
+	ft_printf("    -d N      : Dumps memory after N cycles then exits\n");
+	ft_printf("    -n N      : Set champion on Nth place\n");
+	ft_printf("    -v        : Verbose output\n");
+	ft_printf("    -g        : Ncurses output mode\n");
+	ft_printf("   -h / --help: Print this message\n");
+}
+
+char		*get_err_str(t_eexcode code)
+{
+	static char *strs[] = {
+			"",
+			"{Red}Error: \n Memory allocation failed{eof}\n",
+			"{Red}Error: \n Too many champions given. Make your choice!{eof}\n",
+			"{Red}Error: \n Invalid n \n",
+			"{Red}Error: \n Few arguments \n",
+			"{Red}Error: \n Few byte in magic number \n",
+			"{Red}Error: \n Read error \n",
+			"{Red}Error: \n Invalid exec magic \n",
+			"{Red}Error: \n Open error \n",
+			"{Red}Error: \n No zero byte \n",
+			"{Red}Error: \n Invalid size byte champion \n",
+			"{Red}Error: \n Invalid file extension \n",
+			"{Red}Error: \n Invalid array champion \n",
+			"{Red}Error: \n Invalid argument name \n",
+			"{Red}Error: \n Invalid flag: %s \n",
+			""
+	};
+
+	return (strs[code]);
+}
+
+void		safe_exit(t_mngr *mngr, t_eexcode exit_code, const char *err_arg)
 {
 	if (mngr)
 		cleanup(mngr);
-	if (exit_code == MALLOC_ERROR)
-		ft_printf(MALLOC_ERROR_MSG);
-	else if (exit_code == TOO_MANY_CHMPS)
-		ft_printf(TOO_MANY_CHAMPIONS_MSG);
-	else if (exit_code == INVALID_N)
-		ft_printf(INVALID_N_MSG);
-	else if (exit_code == FEW_ARGUMENTS)
-		ft_printf(FEW_ARGUMENTS_MSG);
-	else if (exit_code == FEW_BYTE)
-		ft_printf(FEW_BYTE_MSG);
-	else if (exit_code == READ_ERROR)
-		ft_printf(READ_ERROR_MSG);
-	else if (exit_code == OPEN_ERROR)
-		ft_printf(OPEN_ERROR_MSG);
-	else if (exit_code == INVALID_EXEC_MAGIC)
-		ft_printf(INVALID_EXEC_MAGIC_MSG);
-	else if (exit_code == NO_ZERO_BYTE)
-		ft_printf(NO_ZERO_BYTE_MSG);
-	else if (exit_code == INVALID_SIZE_BYTE_CHAMPION)
-		ft_printf(INVALID_SIZE_BYTE_CHAMPION_MSG);
-	else if (exit_code == INVALID_FILE_EXTENSION)
-		ft_printf(INVALID_FILE_EXTENSION_MSG);
-	else if (exit_code == INVALID_ARRAY_CHAMPION)
-		ft_printf(INVALID_ARRAY_CHAMPION_MSG);
-	else if (exit_code == INVALID_ARGUMENT_NAME)
-		ft_printf(INVALID_ARGUMENT_NAME_MSG);
+	ft_printf(get_err_str(exit_code), err_arg);
 	exit(exit_code);
 }
