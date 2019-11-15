@@ -1,5 +1,4 @@
 # Prerequisites
-.gitignore
 *.d
 
 # Object files
@@ -53,4 +52,8 @@ Mkfile.old
 dkms.conf
 
 cmake-build-debug/
+.DS_Store
+wgorold_libft
+README_wgorold
+.vscode/
 .idea/

@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   get_op_data.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zaz <marvin@42.fr>                         +#+  +:+       +#+        */
+/*   By: PhilippNox <PhilippNox@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/10/04 11:43:01 by zaz               #+#    #+#             */
-/*   Updated: 2013/11/06 14:44:35 by zaz              ###   ########.fr       */
+/*   Updated: 2019/10/16 22:58:01 by PhilippNox       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "op.h"
+#include <stdlib.h>
 
 t_op	*get_op_info(int id)
 {
@@ -33,5 +34,7 @@ t_op	*get_op_info(int id)
 	{"aff", 1, {T_REG}, 2, 1, 0}
 	};
 
+	if (id < 1 || id > 17)
+		return (NULL);
 	return (op_tab + id - 1);
 }
