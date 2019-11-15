@@ -31,7 +31,7 @@ LIB_INCLUDE = $(LIB_DIR)/includes
 
 NCURSES = -lncurses
 
-CC_FLAGS = -Wall -Wextra -O3
+CC_FLAGS = -Wall -Wextra -Werror
 
 .PHONY: all $(NAME) clean fclean re
 
