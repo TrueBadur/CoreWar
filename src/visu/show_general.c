@@ -58,6 +58,7 @@ void	clean_all_win(void)
 	{
 		werase(win.w);
 		wrefresh(win.w);
+		delwin(win.w);
 	}
 	endwin();
 }
