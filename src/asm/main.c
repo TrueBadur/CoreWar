@@ -17,22 +17,21 @@
 
 void	free_argdata(t_argdata *res)
 {
-	if (res->fname)
-		free(res->fname);
-	if (res->ofname)
-		free(res->ofname);
+	free(res->fname);
+	free(res->ofname);
 	free(res);
 }
 
-int	main(int argc, char **argv)
+int		main(int argc, char **argv)
 {
 	t_argdata	*args;
 
 	args = read_args(argc, argv);
-	if ((args->flags.ftype == 0 || args->flags.fassemble) && !args->flags.fdisassemble)
+	if ((args->flags.ftype == 0 || args->flags.fassemble) &&
+		!args->flags.fdisassemble)
 		assemble(args);
 	else
 		disassemble(args);
 	free_argdata(args);
-    return (0);
+	return (0);
 }

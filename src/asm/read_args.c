@@ -21,7 +21,8 @@ static void		raise_error(const char *str)
 	exit(1);
 }
 
-static void		read_flags(t_argdata *args, char **argv, int *cur_arg, int arg_num)
+static void		read_flags(t_argdata *args, char **argv,
+							int *cur_arg, int arg_num)
 {
 	if (argv[*cur_arg][1] == 'd')
 		args->flags.fdisassemble = 1;
@@ -62,7 +63,7 @@ static void		check_extension(t_argdata *args)
 t_argdata		*read_args(int argc, char **argv)
 {
 	t_argdata	*res;
-	int 		cur_arg;
+	int			cur_arg;
 
 	res = ft_memalloc(sizeof(t_argdata));
 	cur_arg = 1;
@@ -77,5 +78,6 @@ t_argdata		*read_args(int argc, char **argv)
 	check_for_conflict(res);
 	if (!res->flags.fdisassemble && !res->flags.fassemble)
 		check_extension(res);
+	create_ofname(res);
 	return (res);
 }
