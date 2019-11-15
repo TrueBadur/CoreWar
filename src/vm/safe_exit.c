@@ -6,13 +6,13 @@
 /*   By: blomo <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/14 16:21:57 by ehugh-be          #+#    #+#             */
-/*   Updated: 2019/11/14 20:28:20 by blomo            ###   ########.fr       */
+/*   Updated: 2019/11/15 18:04:17 by blomo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
 
-void		rm_chmp(t_chmp *chmp)
+static void	rm_chmp(t_chmp *chmp)
 {
 	if (!chmp)
 		return ;
@@ -56,7 +56,7 @@ void		print_help(void)
 	"[-a] <champion1.cor> <...>\n");
 	ft_printf("    -a        : Prints output from \"aff\""
 	"(Default is to hide it)\n");
-	ft_printf("    -d N      : Dumps memory after N cycles then exits\n");
+	ft_printf("    -dump N      : Dumps memory after N cycles then exits\n");
 	ft_printf("    -n N      : Set champion on Nth place\n");
 	ft_printf("    -v        : Verbose output\n");
 	ft_printf("    -g        : Ncurses output mode\n");
@@ -68,19 +68,20 @@ char		*get_err_str(t_eexcode code)
 	static char *strs[] = {
 			"",
 			"{Red}Error: \n Memory allocation failed{eof}\n",
+			"{Red}Error: \n Few arguments {eof}\n",
+			"{Red}Error: \n Invalid flag: %s {eof}\n",
+			"{Red}Error: \n Invalid n {eof}\n",
 			"{Red}Error: \n Too many champions given. Make your choice!{eof}\n",
-			"{Red}Error: \n Invalid n \n",
-			"{Red}Error: \n Few arguments \n",
-			"{Red}Error: \n Few byte in magic number \n",
-			"{Red}Error: \n Read error \n",
-			"{Red}Error: \n Invalid exec magic \n",
-			"{Red}Error: \n Open error \n",
-			"{Red}Error: \n No zero byte \n",
-			"{Red}Error: \n Invalid size byte champion \n",
-			"{Red}Error: \n Invalid file extension \n",
-			"{Red}Error: \n Invalid array champion \n",
-			"{Red}Error: \n Invalid argument name \n",
-			"{Red}Error: \n Invalid flag: %s \n",
+			"{Red}Error: \n Few byte in magic number {eof}\n",
+			"{Red}Error: \n Read error {eof}\n",
+			"{Red}Error: \n Open error {eof}\n",
+			"{Red}Error: \n Invalid exec magic {eof}\n",
+			"{Red}Error: \n No zero byte {eof}\n",
+			"{Red}Error: \n Invalid size byte champion {eof}\n",
+			"{Red}Error: \n Invalid file extension {eof}\n",
+			"{Red}Error: \n Invalid array champion {eof}\n",
+			"{Red}Error: \n Invalid argument name {eof}\n",
+			"",
 			""
 	};
 
