@@ -6,7 +6,7 @@
 /*   By: blomo <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/14 16:21:57 by ehugh-be          #+#    #+#             */
-/*   Updated: 2019/11/14 20:28:20 by blomo            ###   ########.fr       */
+/*   Updated: 2019/11/15 16:30:43 by blomo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,19 +68,20 @@ char		*get_err_str(t_eexcode code)
 	static char *strs[] = {
 			"",
 			"{Red}Error: \n Memory allocation failed{eof}\n",
-			"{Red}Error: \n Too many champions given. Make your choice!{eof}\n",
-			"{Red}Error: \n Invalid n \n",
 			"{Red}Error: \n Few arguments \n",
+			"{Red}Error: \n Invalid flag: %s \n",
+			"{Red}Error: \n Invalid n \n",
+			"{Red}Error: \n Too many champions given. Make your choice!{eof}\n",
 			"{Red}Error: \n Few byte in magic number \n",
 			"{Red}Error: \n Read error \n",
-			"{Red}Error: \n Invalid exec magic \n",
 			"{Red}Error: \n Open error \n",
+			"{Red}Error: \n Invalid exec magic \n",
 			"{Red}Error: \n No zero byte \n",
 			"{Red}Error: \n Invalid size byte champion \n",
 			"{Red}Error: \n Invalid file extension \n",
 			"{Red}Error: \n Invalid array champion \n",
 			"{Red}Error: \n Invalid argument name \n",
-			"{Red}Error: \n Invalid flag: %s \n",
+			"",
 			""
 	};
 

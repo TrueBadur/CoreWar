@@ -134,5 +134,7 @@ void				tl_put(t_mngr *mngr, short time, t_car *car);
 void				tl_car_iter(t_mngr *mngr, void (*f)(t_mngr*,
 					t_car*, short));
 t_vector			*vm_radixsort(t_vector *vec, size_t size, t_mngr *mngr);
+void				print_help(void);
+
 
 #endif

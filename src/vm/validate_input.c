@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   validate_input.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ehugh-be <ehugh-be@student.42.fr>          +#+  +:+       +#+        */
+/*   By: blomo <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/14 16:39:49 by ehugh-be          #+#    #+#             */
-/*   Updated: 2019/11/13 20:34:21 by blomo            ###   ########.fr       */
+/*   Updated: 2019/11/15 16:59:21 by blomo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,10 @@ void		parse_flags(t_mngr *mngr, char **argv)
 				parse_a(mngr, argv, i);
 			else if (!(ft_strcmp(cur, "h")) ||
 			!(ft_strcmp(cur, "-help")))
+			{
+				print_help();
 				safe_exit(mngr, HELP, cur);
+			}
 			else
 				safe_exit(mngr, INVALID_FLAG, cur);
 		}
