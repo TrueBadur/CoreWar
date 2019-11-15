@@ -36,7 +36,7 @@ char				*get_str(int fd, size_t len, t_mngr *mngr)
 		safe_exit(mngr, MALLOC_ERROR, NULL);
 	size = read(fd, buffer, len);
 	buffer[size] = '\0';
-	if (size == -1 || size < (size_t)len)
+	if (size == -1 || size < (int)len)
 		safe_exit(mngr, READ_ERROR, NULL);
 	return (buffer);
 }
@@ -50,7 +50,7 @@ unsigned char		*get_code(t_mngr *mngr, int fd, size_t len)
 	if (!(buffer = (unsigned char*)malloc(sizeof(unsigned char) * (len))))
 		safe_exit(mngr, MALLOC_ERROR, NULL);
 	size = read(fd, buffer, len);
-	if (size == -1 || size < (size_t)len || read(fd, &byte, 1) != 0)
+	if (size == -1 || size < (int)len || read(fd, &byte, 1) != 0)
 		safe_exit(mngr, READ_ERROR, NULL);
 	return (buffer);
 }
@@ -71,7 +71,7 @@ void				parse_cor(char *file, t_mngr *mngr, int nbr)
 	if (get4byte(mngr, fd) != 0)
 		safe_exit(mngr, NO_ZERO_BYTE, NULL);
 	mngr->chmps[nbr]->size = get4byte(mngr, fd);
-	if ((mngr->chmps[nbr]->size < 0) || (mngr->chmps[nbr]->size > 682))
+	if ((mngr->chmps[nbr]->size > 682))
 		safe_exit(mngr, INVALID_SIZE_BYTE_CHAMPION, NULL);
 	mngr->chmps[nbr]->moto = get_str(fd, COMMENT_LENGTH, mngr);
 	if (get4byte(mngr, fd) != 0)

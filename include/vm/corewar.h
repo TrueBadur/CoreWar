@@ -19,13 +19,13 @@
 # include <sys/stat.h>
 # include <fcntl.h>
 # include <stdio.h>
-# include <ncurses.h>
 # include <limits.h>
 
 # define MAX_OP_TIME 1000
 # define FLAG_DUMP ((unsigned int)1 << (unsigned int)4)
 # define FLAG_V ((unsigned int)1 << (unsigned int)5)
 # define FLAG_A ((unsigned int)1 << (unsigned int)6)
+# define FLAG_S ((unsigned int)1 << (unsigned int)7)
 # define ARG_REG_S 1
 # define VEC_ST_S 8
 
@@ -91,7 +91,7 @@ typedef struct		s_chmp
 	size_t			size;
 	char			*name;
 	char			*moto;
-	char			*code;
+	unsigned char	*code;
 	int				id;
 }					t_chmp;
 
@@ -125,10 +125,12 @@ void				parse_file(char *str, t_mngr *mngr, int nbr);
 void				parse_dump(t_mngr *mngr, char **argv, int i);
 void				parse_v(t_mngr *mngr, char **argv, int i);
 void				parse_a(t_mngr *mngr, char **argv, int i);
+void				parse_s(t_mngr *mngr, char **argv, int i);
 void				make_one_turn(t_mngr *mngr);
 void				proceed_car(t_mngr *mngr, t_car *car, short cur_time,
 					int offset);
 void				dump_arena(t_mngr *mngr);
+void				check_cars(t_mngr *mngr);
 
 void				tl_put(t_mngr *mngr, short time, t_car *car);
 void				tl_car_iter(t_mngr *mngr, void (*f)(t_mngr*,

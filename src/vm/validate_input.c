@@ -35,6 +35,15 @@ int			handle_n(t_mngr *mngr, char **argv, int i)
 	return (2);
 }
 
+void		flags_exit(t_mngr *mngr, char *cur)
+{
+	if (!(ft_strcmp(cur, "h")) ||
+		!(ft_strcmp(cur, "-help")))
+		safe_exit(mngr, HELP, cur);
+	else
+		safe_exit(mngr, INVALID_FLAG, cur);
+}
+
 void		parse_flags(t_mngr *mngr, char **argv)
 {
 	int		i;
@@ -53,13 +62,12 @@ void		parse_flags(t_mngr *mngr, char **argv)
 				parse_dump(mngr, argv, i);
 			else if (!(ft_strcmp(cur, "v")))
 				parse_v(mngr, argv, i);
+			else if (!(ft_strcmp(cur, "s")))
+				parse_s(mngr, argv, i);
 			else if (!(ft_strcmp(cur, "a")))
 				parse_a(mngr, argv, i);
-			else if (!(ft_strcmp(cur, "h")) ||
-			!(ft_strcmp(cur, "-help")))
-				safe_exit(mngr, HELP, cur);
 			else
-				safe_exit(mngr, INVALID_FLAG, cur);
+				flags_exit(mngr, cur);
 		}
 	}
 }

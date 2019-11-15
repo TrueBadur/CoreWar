@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "corewar.h"
+#include "visu.h"
 
 static void	put_champs(t_mngr *mngr)
 {
@@ -24,7 +25,10 @@ static void	put_champs(t_mngr *mngr)
 		{
 			ft_memcpy(mngr->arena + (++i * MEM_SIZE / mngr->chmp_num),
 			mngr->chmps[j]->code, mngr->chmps[j]->size);
+			show_champ_mem_init(mngr, (i * MEM_SIZE / mngr->chmp_num),
+			(mngr->chmps[i]->size), i);
 		}
+	show_champ_let_start(mngr);
 }
 
 static void	init_carrieges(t_mngr *mngr)
@@ -61,6 +65,7 @@ void		init_arena(t_mngr *mngr)
 		safe_exit(mngr, MALLOC_ERROR, NULL);
 	if (!(mngr->rxsort_out = ft_vecinit(sizeof(void*) * VEC_ST_S)))
 		safe_exit(mngr, MALLOC_ERROR, NULL);
+	show_game_init(mngr);
 	put_champs(mngr);
 	init_carrieges(mngr);
 	mngr->cycle = 1;

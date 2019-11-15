@@ -12,6 +12,7 @@
 
 #include "corewar.h"
 #include "checkop.h"
+#include "visu.h"
 
 #define BYTE_CODE (unsigned char)(mngr->arena[(car->pos + 1) % MEM_SIZE])
 
@@ -30,6 +31,7 @@ void			handle_op(t_mngr *mngr, t_car *car, short cur_time)
 	car->carry != 1))
 		print_addr(mngr, car->pos, FT_ABS(ret));
 	proceed_car(mngr, car, cur_time, ret);
+	update_mem(mngr, *(int *)car->regs);
 }
 
 static void		set_max_id(t_vector *vec, int id)

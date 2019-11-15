@@ -14,7 +14,7 @@
 
 #define DGT_CAR_IND(x) ((int)(((t_car**)(vec->data))[x]->id / place) % 10)
 
-t_vector		*counting_sort(t_vector *vec, size_t size, int place,
+t_vector		*counting_sort(t_vector *vec, int size, int place,
 		t_mngr *mngr)
 {
 	t_vector	*tmp;
@@ -53,7 +53,7 @@ t_vector		*vm_radixsort(t_vector *vec, size_t size, t_mngr *mngr)
 	place = 1;
 	while (max / place > 0)
 	{
-		vec = counting_sort(vec, size, place, mngr);
+		vec = counting_sort(vec, (int)size, place, mngr);
 		place *= 10;
 	}
 	return (vec);

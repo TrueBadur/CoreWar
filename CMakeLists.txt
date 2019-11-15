@@ -9,9 +9,10 @@ include_directories(include)
 aux_source_directory(src/asm src_asm)
 aux_source_directory(src/vm src_vm)
 aux_source_directory(src/ src)
+aux_source_directory(src/visu src_visu)
 
 
-add_executable(corewar ${src_vm} ${src})
+add_executable(corewar ${src_vm} ${src_visu} ${src})
 target_link_libraries(corewar ${PROJECT_SOURCE_DIR}/libft/lib/libft.a)
 
 target_include_directories(corewar PUBLIC include/vm)

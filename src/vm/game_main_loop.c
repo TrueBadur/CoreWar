@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "corewar.h"
+#include "visu.h"
 
 t_car			*resurect_car(t_mngr *mngr)
 {
@@ -51,20 +52,31 @@ void			bury_car(t_mngr *mngr, int i)
 		mngr->cycle - car_tmp->live_cycle, mngr->cycles_delta);
 }
 
-void			check_cars(t_mngr *mngr)
+void			check_cars_job(t_mngr *mngr, t_car **cars)
 {
-	t_car		**cars;
-	int			i;
+	unsigned long	i;
 
-	mngr->num_checks++;
-	cars = mngr->cars->data;
 	i = -1;
 	while (++i < mngr->cars->len / sizeof(void*))
 	{
+		add_cars_stats(mngr, *(int*)cars[i]->regs);
 		if (cars[i]->live_cycle - 1 < mngr->cycle - mngr->cycles_delta ||
 			mngr->cycles_delta <= 0)
+		{
+			add_dies_stats(mngr, *(int*)cars[i]->regs);
 			bury_car(mngr, i--);
+		}
 	}
+}
+
+void			check_cars(t_mngr *mngr)
+{
+	t_car		**cars;
+
+	refresh_stats(mngr);
+	mngr->num_checks++;
+	cars = mngr->cars->data;
+	check_cars_job(mngr, cars);
 	if (mngr->live_num >= NBR_LIVE || mngr->num_checks >= MAX_CHECKS)
 	{
 		mngr->cycles_delta -= CYCLE_DELTA;
@@ -72,22 +84,9 @@ void			check_cars(t_mngr *mngr)
 		if (mngr->flags & FLAG_V)
 			ft_printf("Cycle to die is now %d\n", mngr->cycles_delta);
 	}
+	set_cycles_die_new(mngr);
 	if (mngr->cycles_delta > 0)
 		mngr->cycles_to_die += mngr->cycles_delta;
 	mngr->live_num = 0;
-}
-
-void			game_main(t_mngr *mngr)
-{
-	while (mngr->num_cars)
-	{
-		if (mngr->flags & FLAG_V)
-			ft_printf("It is now cycle %d\n", mngr->cycle);
-		make_one_turn(mngr);
-		if (mngr->cycle >= mngr->cycles_to_die || mngr->cycles_delta <= 0)
-			check_cars(mngr);
-		if (mngr->flags & FLAG_DUMP && mngr->cycle == mngr->dump_nbr)
-			dump_arena(mngr);
-		mngr->cycle++;
-	}
+	show_time_to_die(mngr);
 }

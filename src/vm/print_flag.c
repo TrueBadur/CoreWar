@@ -17,6 +17,8 @@ void		print_addr(t_mngr *mngr, int pos, int adv)
 {
 	int		i;
 
+	if (mngr->flags & FLAG_S)
+		return ;
 	i = -1;
 	if (!pos)
 		ft_printf("ADV %d (0x%#.4x -> %#.4x) ", adv, pos,

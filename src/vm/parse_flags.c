@@ -43,3 +43,12 @@ void		parse_a(t_mngr *mngr, char **argv, int i)
 	else
 		safe_exit(mngr, INVALID_N, NULL);
 }
+
+void		parse_s(t_mngr *mngr, char **argv, int i)
+{
+	argv[i][0] = '\0';
+	if (!(mngr->flags & FLAG_S))
+		mngr->flags = mngr->flags | FLAG_S;
+	else
+		safe_exit(mngr, INVALID_N, NULL);
+}

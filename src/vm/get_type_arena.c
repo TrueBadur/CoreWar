@@ -37,7 +37,7 @@ inline char	check_reg(int reg)
 
 void		copy_reg_to_arena(t_mngr *mngr, t_car *car, int reg1, int reg2)
 {
-	int c;
+	unsigned int	c;
 
 	c = -1;
 	while (++c < REG_SIZE)

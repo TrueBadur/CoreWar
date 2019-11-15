@@ -34,7 +34,7 @@ int					get_indir(t_mngr *mngr, t_car *car, int *step, int mod)
 	return (reg);
 }
 
-int					get_indir_pos(t_mngr *mngr, t_car *car, int *step, int mod)
+int					get_indir_pos(t_mngr *mngr, int *step)
 {
 	int				in_dir;
 
@@ -69,8 +69,8 @@ int					get_args(t_mngr *mngr, t_car *car, t_t_op *op, t_int3 *arg)
 				((int*)arg)[r.x] = *(int*)car->regs[((int*)arg)[r.x]].reg;
 		}
 		else if (arg_type == IND_CODE)
-			((int*)arg)[r.x] = (op->op == OP_st) ? get_indir_pos(mngr, car,
-					&r.y, r.z) : get_indir(mngr, car, &r.y, r.z);
+			((int*)arg)[r.x] = (op->op == OP_st) ? get_indir_pos(mngr,
+					&r.y) : get_indir(mngr, car, &r.y, r.z);
 		else
 			((int*)arg)[r.x] = get_dir(mngr, &r.y,
 					DIR_SIZE - op_inf->t_dir_size * 2);
