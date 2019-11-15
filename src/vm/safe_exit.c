@@ -27,7 +27,7 @@ void		rm_chmp(t_chmp *chmp)
 
 static void	cleanup(t_mngr *mngr)
 {
-	int		i;
+	unsigned long	i;
 
 	i = -1;
 	free(mngr->arena);

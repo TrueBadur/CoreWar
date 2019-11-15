@@ -91,7 +91,7 @@ typedef struct		s_chmp
 	size_t			size;
 	char			*name;
 	char			*moto;
-	char			*code;
+	unsigned char	*code;
 	int				id;
 }					t_chmp;
 

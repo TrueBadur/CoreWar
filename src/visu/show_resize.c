@@ -47,7 +47,7 @@ void	set_right_size(void)
 		getchar();
 }
 
-void	resize_handler(int sig)
+void	resize_handler(void)
 {
 	endwin();
 	initscr();
