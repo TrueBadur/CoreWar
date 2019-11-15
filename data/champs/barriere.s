@@ -4,7 +4,6 @@
 		and	r6, %0, r6
 		zjmp %:init
 
-# On bombarde derriere notre programme
 
 arriere:	ld	%-5, r5
 		ld	%1024,r4
@@ -29,8 +28,7 @@ fork_arriere:	live	%42
 		fork	%:arriere
 		zjmp	%:fork_arriere
 
-# On commence les lives en serie
-live_live:	live	%42	
+live_live:	live	%42
 		sti	r1, %:live100, r9	
 		sti	r1, %:live102, r9	
 		sti	r1, %:live104, r9	
