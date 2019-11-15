@@ -52,6 +52,7 @@ int		clean_n_exit(t_lexdata *dat, int err)
 {
 	t_list_node	*node;
 	t_list_node	*node_nxt;
+	char		*tmp;
 
 	if (err)
 		print_error(dat, err);
@@ -68,6 +69,8 @@ int		clean_n_exit(t_lexdata *dat, int err)
 		free(node);
 		node = node_nxt;
 	}
+	while (get_next_line(dat->fd, &tmp) != 0)
+		free(tmp);
 	free(dat);
 	return (err);
 }
