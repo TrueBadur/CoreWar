@@ -12,10 +12,6 @@
 
 #include "btavl.h"
 
-
-
-
-
 /*
 ** Creates new node with int as a key and stores given pointer to data without
 ** 	copying data
@@ -33,10 +29,7 @@ t_btavl	*ft_avlnew_nc(void *data, void *key, size_t size, t_avl_k_t kt)
 		return (NULL);
 	ret->size = size;
 	if (!data)
-	{
-		ret->data = NULL;
 		ret->size = 0;
-	}
 	ret->data = data;
 	ret->key = key;
 	ret->left = NULL;
@@ -47,8 +40,8 @@ t_btavl	*ft_avlnew_nc(void *data, void *key, size_t size, t_avl_k_t kt)
 }
 
 /*
-** Copies given data of size size to the newly created avl tree node with key
-** 		as int key of this node and returns pointer to this node
+** Copies given data of size 'size' to the newly created avl tree node with
+** 'key' as int key of this node and returns pointer to this node
 ** @param data - data to be copied in node
 ** @param key - key for the node
 ** @param size - size of data to be copied

@@ -1,0 +1,10 @@
+42_corewar/cmake-build-debug/corewar -s /Users/wgorold/42_coreWar/data/compiled/Asombra.cor /Users/wgorold/42_coreWar/data/compiled/maxidef.cor /Users/wgorold/42_coreWar/data/compiled/Douceur_power.cor
+
+42_corewar/data/corewar -n /Users/wgorold/42_coreWar/data/compiled/Asombra.cor /Users/wgorold/42_coreWar/data/compiled/maxidef.cor /Users/wgorold/42_coreWar/data/compiled/Douceur_power.cor
+
+
+Img2ASCii
+// http://mir3z.github.io/aalib.js/playground/www/
+
+Cool ASCII image
+// https://16colo.rs/pack/impure59/
