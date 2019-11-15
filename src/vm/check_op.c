@@ -3,24 +3,23 @@
 /*                                                        :::      ::::::::   */
 /*   check_op.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ehugh-be <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: ehugh-be <ehugh-be@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/16 23:15:01 by ehugh-be          #+#    #+#             */
-/*   Updated: 2019/10/30 17:22:33 by ehugh-be         ###   ########.fr       */
+/*   Updated: 2019/11/13 16:50:37 by blomo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
 #include "checkop.h"
 
-static short single_arg_check(t_op *tmp, t_t_op *op)
+static short	single_arg_check(t_op *tmp, t_t_op *op)
 {
-	char arg_type;
+	char		arg_type;
 
-	arg_type = (char)(((tmp->prm_tp[0] & T_REG) == T_REG) * 1 +
-					  ((tmp->prm_tp[0] & T_DIR) == T_DIR) * 2 +
-					  ((tmp->prm_tp[0] & T_IND) == T_IND) * 3);
-	*op = (t_t_op){op->op, arg_type, 0,0};
+	arg_type = (char)(((tmp->prm_tp[0] & T_REG) == T_REG) * 1 + ((tmp->prm_tp[0]
+		& T_DIR) == T_DIR) * 2 + ((tmp->prm_tp[0] & T_IND) == T_IND) * 3);
+	*op = (t_t_op){op->op, arg_type, 0, 0};
 	if (arg_type == T_REG)
 		return (OP_SIZE + 1);
 	else if (arg_type == T_IND)
@@ -31,8 +30,8 @@ static short single_arg_check(t_op *tmp, t_t_op *op)
 
 static short	check_params(t_t_op *c_op, t_op *smp, char *size)
 {
-	static char szs[3] = {1, 4, 2};
-	int i;
+	static char	szs[3] = {1, 4, 2};
+	int			i;
 
 	i = -1;
 	*size = OP_BASE;
@@ -47,10 +46,10 @@ static short	check_params(t_t_op *c_op, t_op *smp, char *size)
 		return (0);
 }
 
-short	check_op(t_t_op *op)
+short			check_op(t_t_op *op)
 {
-	t_op *tmp;
-	char ret;
+	t_op		*tmp;
+	char		ret;
 
 	if (op->op >= OP_live && op->op <= OP_aff)
 		tmp = get_op_info(op->op);
