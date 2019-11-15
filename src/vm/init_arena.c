@@ -26,7 +26,7 @@ static void	put_champs(t_mngr *mngr)
 			ft_memcpy(mngr->arena + (++i * MEM_SIZE / mngr->chmp_num),
 			mngr->chmps[j]->code, mngr->chmps[j]->size);
 			show_champ_mem_init(mngr, (i * MEM_SIZE / mngr->chmp_num),
-			(mngr->chmps[i]->size), i);
+			(mngr->chmps[j]->size), i);
 		}
 	show_champ_let_start(mngr);
 }
