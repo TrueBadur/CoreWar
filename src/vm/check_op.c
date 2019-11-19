@@ -30,13 +30,13 @@ static short	single_arg_check(t_op *tmp, t_t_op *op)
 
 static short	check_params(t_t_op *c_op, t_op *smp, char *size)
 {
-	static char	szs[3] = {1, 4, 2};
+	static char	szs[4] = {0, 1, 4, 2};
 	int			i;
 
 	i = -1;
 	*size = OP_BASE;
 	while (++i < smp->params_num)
-		*size += szs[((unsigned char*)c_op)[i + 1] - 1] - smp->t_dir_size * 2 *
+		*size += szs[((unsigned char*)c_op)[i + 1]] - smp->t_dir_size * 2 *
 				(((unsigned char*)c_op)[i + 1] == DIR_CODE);
 	if (((1u << (unsigned)(c_op->a1 - 1)) & smp->prm_tp[0]) && (!smp->prm_tp[1]
 	|| ((1u << (unsigned)(c_op->a2 - 1)) & smp->prm_tp[1])) && (!smp->prm_tp[2]

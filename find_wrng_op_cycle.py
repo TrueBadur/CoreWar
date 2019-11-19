@@ -5,6 +5,7 @@ import difflib
 d_corewar_path = "data/"
 d_corewar = d_corewar_path + "corewar"
 compiled_champ_path = d_corewar_path + "compiled/"
+# c_corewar_path = "cmake-build-debug/"
 c_corewar_path = "./"
 c_corewar = c_corewar_path + "corewar"
 
