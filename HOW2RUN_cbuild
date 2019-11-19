@@ -1,0 +1,41 @@
+42_corewar/cmake-build-debug/corewar -s /Users/wgorold/42_coreWar/data/compiled/Asombra.cor /Users/wgorold/42_coreWar/data/compiled/maxidef.cor /Users/wgorold/42_coreWar/data/compiled/Douceur_power.cor
+
+42_corewar/data/corewar -n /Users/wgorold/42_coreWar/data/compiled/Asombra.cor /Users/wgorold/42_coreWar/data/compiled/maxidef.cor /Users/wgorold/42_coreWar/data/compiled/Douceur_power.cor
+
+
+Img2ASCii
+// http://mir3z.github.io/aalib.js/playground/www/
+
+Cool ASCII image
+// https://16colo.rs/pack/impure59/
+
+
+cd /Users/wgorold/42_coreWar/valgrind && valgrind --leak-check=full ./a.out
+
+valgrind --leak-check=full 42_corewar/cmake-build-debug/corewar -s /Users/wgorold/42_coreWar/data/compiled/Asombra.cor /Users/wgorold/42_coreWar/data/compiled/maxidef.cor /Users/wgorold/42_coreWar/data/compiled/Douceur_power.cor
+
+valgrind --leak-check=full 42_corewar/cmake-build-debug/corewar /Users/wgorold/42_coreWar/data/compiled/Asombra.cor /Users/wgorold/42_coreWar/data/compiled/maxidef.cor /Users/wgorold/42_coreWar/data/compiled/Douceur_power.cor
+
+
+#
+#
+#
+python3 find_wrng_op_cycle.py
+    echo
+    toto
+    (enter)
+    14000
+
+./corewar -v -dump 1908 data/compiled/echo.cor data/compiled/toto.cor > core
+data/corewar -v 31 -d 1908 data/compiled/echo.cor data/compiled/toto.cor > org_core
+diff core org_core
+
+
+./corewar -s data/compiled/echo.cor data/compiled/toto.cor
+
+
+
+
+time data/corewar -v 31 -d 24600 data/compiled/echo.cor data/compiled/toto.cor > org_core
+
+time corewar -v -dump 24600 data/compiled/echo.cor data/compiled/toto.cor > core
