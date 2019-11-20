@@ -21,3 +21,10 @@ add_executable(asm ${src_asm} ${src})
 target_link_libraries(asm ${PROJECT_SOURCE_DIR}/libft/lib/libft.a)
 
 target_include_directories(asm PUBLIC include/asm)
+
+aux_source_directory(src/sort src_merge)
+
+add_executable(merge ${src_merge} ${src})
+target_link_libraries(merge ${PROJECT_SOURCE_DIR}/libft/lib/libft.a)
+
+target_include_directories(merge PUBLIC include/vm)
