@@ -6,13 +6,11 @@
 /*   By: ehugh-be <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/13 12:08:30 by ehugh-be          #+#    #+#             */
-/*   Updated: 2019/11/15 18:10:49 by ehugh-be         ###   ########.fr       */
+/*   Updated: 2019/11/21 17:16:31 by ehugh-be         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
-
-#define MINRUN_MAX 64
 
 #define EL_NUM (ts->size / ts->elsz)
 
@@ -47,10 +45,12 @@ int		count_run(t_timsort *tsort, int offset)
 	int tmp;
 
 	i = offset;
-	asc = tsort->compare(tsort->data + offset * tsort->elsz, tsort->data + (offset + 1) * tsort->elsz) <= 0;
+	asc = tsort->compare(tsort->data + offset * tsort->elsz, tsort->data +
+	(offset + 1) * tsort->elsz) <= 0;
 	while (++i < tsort->size / tsort->elsz && i - offset < tsort->minrun)
 	{
-		tmp = tsort->compare(tsort->data + i * tsort->elsz, tsort->data + (i + 1) * tsort->elsz);
+		tmp = tsort->compare(tsort->data + i * tsort->elsz, tsort->data +
+		(i + 1) * tsort->elsz);
 		if ((asc && tmp > 0) || (!asc && tmp < 1))
 				break;
 	}
@@ -117,11 +117,13 @@ t_int2		reverse_run(t_timsort *ts, t_int2 rng)
 	len = ft_abs(VEC2_RNG(rng));
 	while (++i < len / 2)
 		ft_memswap(ts->data + rng.x * ts->elsz+ i * ts->elsz,
-				   ts->data + rng.x * ts->elsz + (len - i - 1) * ts->elsz, ts->elsz);
-	return ((t_int2){rng.x, ft_abs(rng.y)});
+				   ts->data + rng.x * ts->elsz + (len - i - 1) * ts->elsz,
+				   ts->elsz);
+	return ((t_int2){rng.x, rng.y + ft_abs(VEC2_RNG(rng)) * 2});
 }
 
-void	*ft_bisect_right(void *data, void *val, t_uint2 els_eln, int (compare)(void*, void*))
+void	*ft_bisect_right(void *data, void *val, t_uint2 els_eln,
+		int (compare)(void*, void*))
 {
 	unsigned	start;
 	unsigned	end;
@@ -176,8 +178,8 @@ void	merge_lo(t_timsort *ts, t_int2 a, t_int2 b)
 	void	*tmp;
 
 	i_a = a.x;
-	i_b = b.x - 1;
-	tmp = malloc(VEC2_RNG(a));
+	i_b = b.x;
+	tmp = malloc(VEC2_RNG(a) * ts->elsz);
 	ft_memmove1(tmp, ts->data + a.x * ts->elsz, ts->elsz * VEC2_RNG(a));
 	i = a.x;
 	while (i_a < a.y && i_b < b.y)
@@ -187,11 +189,12 @@ void	merge_lo(t_timsort *ts, t_int2 a, t_int2 b)
 			ft_memmove1(ts->data + i++ * ts->elsz,
 						ts->data + i_b++ * ts->elsz, ts->elsz);
 		else
-			ft_memmove1(ts->data + i++ * ts->elsz, tmp + (i_a++ - a.x) * ts->elsz,
-						ts->elsz);
+			ft_memmove1(ts->data + i++ * ts->elsz,
+					tmp + (i_a++ - a.x) * ts->elsz, ts->elsz);
 	}
 	if (i_a < a.y)
-		ft_memmove1(ts->data + i * ts->elsz, tmp + (i_a - a.x) * ts->elsz, ts->elsz * (a.y - i_a));
+		ft_memmove1(ts->data + i * ts->elsz,
+				tmp + (i_a - a.x) * ts->elsz, ts->elsz * (a.y - i_a));
 	free(tmp);
 }
 
@@ -204,52 +207,52 @@ void	merge_hi(t_timsort *ts, t_int2 a, t_int2 b)
 
 	i_a = a.y - 1;
 	i_b = b.y - 1;
-	tmp = malloc(VEC2_RNG(b));
+	tmp = malloc(VEC2_RNG(b) * ts->elsz);
 	ft_memmove1(tmp, ts->data + b.x * ts->elsz, ts->elsz * VEC2_RNG(b));
 	i = b.y;
 	while (i_a >= a.x && i_b >= b.x)
 	{
-		if (ts->compare(tmp + (i_b - b.x) * ts->elsz, ts->data + i_a * ts->elsz) < 0)
-			ft_memmove1(ts->data + --i * ts->elsz, ts->data + i_a-- * ts->elsz, ts->elsz);
+		if (ts->compare(tmp + (i_b - b.x) * ts->elsz, ts->data + i_a * ts->elsz)
+		< 0)
+			ft_memmove1(ts->data + --i * ts->elsz,
+					ts->data + i_a-- * ts->elsz, ts->elsz);
 		else
-			ft_memmove1(ts->data + --i * ts->elsz, tmp + (i_b-- - b.x) * ts->elsz, ts->elsz);
+			ft_memmove1(ts->data + --i * ts->elsz,
+					tmp + (i_b-- - b.x) * ts->elsz, ts->elsz);
 	}
 	if (i_b >= b.x)
-		ft_memmove1(ts->data, tmp, ts->elsz * (i_b - b.x + 1));
+		ft_memmove1(ts->data + a.x * ts->elsz, tmp, ts->elsz * (i_b - b.x + 1));
 	free(tmp);
 }
 
-void	merge_runs(t_timsort *ts, t_int2 a, t_int2 b)
+void	merge_runs(t_timsort *ts, int offst)
 {
-	if (VEC2_RNG(a) <= VEC2_RNG(b))
-		merge_lo(ts, a, b);
+	if (VEC2_RNG(ts->rn_szs[ts->rns_s - offst]) <=
+		VEC2_RNG(ts->rn_szs[ts->rns_s - offst + 1]))
+		merge_lo(ts, ts->rn_szs[ts->rns_s - offst],
+				 ts->rn_szs[ts->rns_s - offst + 1]);
 	else
-		merge_hi(ts, a, b);
+		merge_hi(ts, ts->rn_szs[ts->rns_s - offst],
+				 ts->rn_szs[ts->rns_s - offst + 1]);
+	ts->rn_szs[ts->rns_s - offst].y = ts->rn_szs[ts->rns_s - offst + 1].y;
+	ts->rns_s--;
 }
 
 int		merge_collapse(t_timsort *ts)
 {
-	int run_s;
-
-	run_s = ts->rns_s;
 	if (ts->rns_s < 2)
 		return (0);
-	while (run_s > 2 && (VEC2_RNG(ts->rn_szs[ts->rns_s - 3]) <=
-VEC2_RNG(ts->rn_szs[ts->rns_s - 2]) + VEC2_RNG(ts->rn_szs[ts->rns_s - 1]) ||
-VEC2_RNG(ts->rn_szs[ts->rns_s - 2]) <= VEC2_RNG(ts->rn_szs[ts->rns_s - 1])))
+	while ((ts->rns_s > 2 && VEC2_RNG(ts->rn_szs[ts->rns_s - 3]) <=
+VEC2_RNG(ts->rn_szs[ts->rns_s - 2]) + VEC2_RNG(ts->rn_szs[ts->rns_s - 1]))
+|| (ts->rns_s > 1 && VEC2_RNG(ts->rn_szs[ts->rns_s - 2]) <=
+VEC2_RNG(ts->rn_szs[ts->rns_s - 1])))
 	{
-		if (VEC2_RNG(ts->rn_szs[ts->rns_s - 3]) < VEC2_RNG(ts->rn_szs[ts->rns_s - 1]))
-			merge_runs(ts, ts->rn_szs[ts->rns_s - 3], ts->rn_szs[ts->rns_s - 2]);
+		if (ts->rns_s > 2 && VEC2_RNG(ts->rn_szs[ts->rns_s - 3]) <
+		VEC2_RNG(ts->rn_szs[ts->rns_s - 1]))
+			merge_runs(ts, 3);
 		else
-			merge_runs(ts, ts->rn_szs[ts->rns_s - 2], ts->rn_szs[ts->rns_s - 1]);
-		run_s--;
+			merge_runs(ts, 2);
 	}
-	if (VEC2_RNG(ts->rn_szs[ts->rns_s - 2]) <= VEC2_RNG(ts->rn_szs[ts->rns_s - 1]))
-	{
-		merge_runs(ts, ts->rn_szs[ts->rns_s - 2], ts->rn_szs[ts->rns_s - 1]);
-		run_s--;
-	}
-	ts->rns_s = run_s;
 }
 
 t_timsort *init_timsort(void *data, size_t size, size_t el_size,
@@ -269,6 +272,17 @@ t_timsort *init_timsort(void *data, size_t size, size_t el_size,
 	return (ts);
 }
 
+t_int2	get_run(t_timsort *ts, t_int2 cur_run, int i)
+{
+	cur_run.y += count_run(ts, EL_NUM - i);
+	if (VEC2_RNG(cur_run) < 0)
+		cur_run = reverse_run(ts, cur_run);
+	if (VEC2_RNG(cur_run) < ts->minrun && VEC2_RNG(cur_run) < i)
+		cur_run.y = boost_run(ts, cur_run.x, cur_run.y,
+							  cur_run.x + (ts->minrun < i ? ts->minrun : i));
+	return (cur_run);
+}
+
 void	ft_vectimsort(void *data, size_t size, size_t el_size,
 		int (compare)(void*, void*))
 {
@@ -281,20 +295,19 @@ void	ft_vectimsort(void *data, size_t size, size_t el_size,
 	ts = init_timsort(data, size, el_size, compare);
 	i = EL_NUM;
 	cur_run = ts->rn_szs[0];
-	while (i)
+	while (i > 0)
 	{
-		cur_run.y += count_run(ts, EL_NUM - i);
-		if (VEC2_RNG(cur_run) < 0)
-			cur_run = reverse_run(ts, cur_run);
-		if (VEC2_RNG(cur_run) < ts->minrun)
-			cur_run.y = boost_run(ts, cur_run.x, cur_run.y, ts->minrun);
+		cur_run = get_run(ts, cur_run, i);
 		i -= VEC2_RNG(cur_run);
-		ts->rn_szs[ts->rns_s] = cur_run;
+		ts->rn_szs[ts->rns_s++] = cur_run;
 		merge_collapse(ts);
-		cur_run = (t_int2){ts->rn_szs[ts->rns_s].y, ts->rn_szs[ts->rns_s].y};
+		cur_run = (t_int2){ts->rn_szs[ts->rns_s - 1].y,
+					 ts->rn_szs[ts->rns_s - 1].y};
 	}
-//	merge_runs(vec, elsz, compare, tmp);
-//	free(tmp);
+	while (ts->rns_s > 1)
+		merge_runs(ts, 2);
+	free(ts->rn_szs);
+	free(ts);
 }
 
 int cmp(void* a, void* b)
@@ -302,14 +315,44 @@ int cmp(void* a, void* b)
 	return (((t_int2*)a)->x - ((t_int2*)b)->x);
 }
 
+#include <time.h>
+#include <stdlib.h>
+
+#define TEST_SIZE 4586
+
 int main()
 {
-	t_int2 tmp[] = {{1,3},{3,9},{5,-81},{-5, 34},{-2,6},{7,9}, {15, 45}};
+	t_int2 tmp[TEST_SIZE];
+	t_int2 tmp_back[TEST_SIZE];
 
-	t_timsort *ts = init_timsort(&tmp, sizeof(tmp), sizeof(t_int2), cmp);
-//	int t = count_run(ts, 0);
-//	t_int2 t2 = reverse_run(ts, (t_int2){0, t});
-//	int t3 = boost_run(ts, t2.x, t2.y, ts->minrun);
-	merge_lo(ts, (t_int2){0, 3}, (t_int2){3, 7});
-//	merge_hi(ts, (t_int2){0,4}, (t_int2){4, 7});
+	size_t rnd = time(NULL);
+	ft_printf("Seed = %d\n", rnd);
+	srand(rnd);   // Initialization, should only be called once.
+	for (int i = 0; i < TEST_SIZE; i++){
+		tmp[i].x = rand() % 1000 - 500;
+		tmp[i].y = rand() % 1000 - 500;
+	}
+	ft_memcpy(&tmp_back, tmp, sizeof(tmp));
+	ft_vectimsort(&tmp, sizeof(tmp), sizeof(t_int2), cmp);
+	ft_printf("sort_finished\n");
+	for (int i = 0; i < TEST_SIZE; i++)
+	{
+		int flag = 0;
+		int j = 0;
+		if (i > 0 && tmp[i].x < tmp[i - 1].x)
+			ft_printf("Elements %d and %d are not in order [%d], [%d]\n",
+					i, i - 1, tmp[i].x, tmp[i - 1].x);
+		for (; j < TEST_SIZE; j++)
+		{
+			if (tmp_back[i].x == tmp[j].x && tmp_back[i].y == tmp[j].y)
+			{
+				flag = 1;
+				break ;
+			}
+		}
+		if (flag)
+			continue ;
+		else
+			ft_printf("Element %d [%d, %d] not into final array\n",i, tmp_back[i].x, tmp_back[i].y);
+	}
 }
