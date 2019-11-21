@@ -1,14 +1,14 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: blomo <marvin@42.fr>                       +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/10/11 16:24:31 by ehugh-be          #+#    #+#             */
-/*   Updated: 2019/11/13 20:11:41 by blomo            ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    _merge_org                                         :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: wgorold <wgorold@student.42.fr>            +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2019/10/11 16:24:31 by wgorold           #+#    #+#              #
+#    Updated: 2019/11/21 21:44:29 by wgorold          ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
 
 #include "corewar.h"
 
@@ -88,7 +88,7 @@ int		condition(t_list_node *lf_tmp, t_list_node	*rg_tmp)
 		return (0);
 }
 
-void	merge(t_list_node *left, t_list_node *right, t_list *trash)
+t_list_node *merge(t_list_node *left, t_list_node *right, t_list *trash)
 {
 	t_list_node *str;
 	t_list_node *yarn;
@@ -200,6 +200,7 @@ void	merge(t_list_node *left, t_list_node *right, t_list *trash)
 	left->next = NULL;
 	left->prev = NULL;
 	ft_lstaddend(trash, left);
+	return (yarn);
 }
 
 void	show_cs_from_back(t_list_node *node, t_list_node *end)
@@ -232,6 +233,7 @@ void	nms(t_list *to_sort)
 	t_list		*control;
 	t_list		*trash;
 	t_list_node	*node;
+	t_list_node	*last;
 
 	control = ft_lstinit();
 	nms_cnt_lst(control, to_sort);
@@ -247,6 +249,7 @@ void	nms(t_list *to_sort)
 
 	trash = ft_lstinit();
 	node = control->begin;
+	last = NULL;
 
 	printf("next: sort init position\n\n");
 	show_cs_from_back(node, control->end);
@@ -257,6 +260,8 @@ void	nms(t_list *to_sort)
 			break ;
 		else if (node->prev == NULL)
 			node = node->next;
+		else if (node->next == NULL && node->prev->prev == NULL) //last merge
+			last = merge(node->prev, node, trash);
 		else if (node->next == NULL)
 			merge(node->prev, node, trash);
 		else if (node->content_size == node->prev->content_size)
@@ -266,6 +271,10 @@ void	nms(t_list *to_sort)
 		show_cs_from_back(node, control->end);
 	}
 	show_elem(node->content);
+	to_sort->begin = node->content;
+	while (last->next)
+		last = last->next;
+	to_sort->end = last;
 }
 
 int main(void)
@@ -285,5 +294,12 @@ int main(void)
 	printf("\n");
 	printf("\n");
 	nms(to_sort);
-
+	ft_lstiter(to_sort, &show);
+	printf("\n");
+	node = to_sort->end;
+	while(node)
+	{
+		printf("%d <- ", *(int *)(node->content));
+		node = node->prev;
+	}
 }
