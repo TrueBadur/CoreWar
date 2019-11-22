@@ -54,6 +54,7 @@ char				*ft_strdup(const char *s1);
 void				*ft_memalloc(size_t size);
 void				ft_memdel(void **ap);
 void				*ft_memmove(void *dst, const void *src, size_t len);
+void				ft_memswap(void **a, void **b, size_t size);
 char				*ft_strcat(char *s1, const char *s2);
 char				*ft_strncat(char *s1, const char *s2, size_t n);
 size_t				ft_strlcat(char *dst, const char *src, size_t n);
