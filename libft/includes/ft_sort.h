@@ -1,14 +1,26 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_sort.h                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ehugh-be <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/11/22 11:41:42 by ehugh-be          #+#    #+#             */
+/*   Updated: 2019/11/22 11:46:23 by ehugh-be         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #ifndef FT_SORT_H
-#define FT_SORT_H
+# define FT_SORT_H
 
-#include "libstd.h"
-#include "t_vec.h"
+# include "libstd.h"
+# include "t_vec.h"
+#include "stdio.h" //delete
 
-#define EL_NUM (ts->size / ts->elsz)
-#define VEC2_RNG(a) ((a).y - (a).x)
+# define EL_NUM (ts->size / ts->elsz)
+# define VEC2_RNG(a) ((a).y - (a).x)
 
-typedef struct			s_timsort
+typedef struct	s_timsort
 {
 	unsigned char	minrun;
 	t_int2			*rn_szs;
@@ -17,15 +29,15 @@ typedef struct			s_timsort
 	size_t			elsz;
 	size_t			size;
 	size_t			rns_s;
-}						t_timsort;
+}				t_timsort;
 
-int		ft_vectimsort(void *data, size_t size, size_t el_size,
-						 int (compare)(void*, void*));
-void	*ft_bisect_right(void *data, void *val, t_uint2 els_eln,
-						 int (compare)(void*, void*));
-int	merge_lo(t_timsort *ts, t_int2 a, t_int2 b);
-int		merge_collapse(t_timsort *ts);
-int		merge_runs(t_timsort *ts, int offst);
-t_int2	get_run(t_timsort *ts, t_int2 cur_run, int i);
+int				ft_timsort(void *data, size_t size, size_t el_size,
+						int (compare)(void*, void*));
+void			*ft_bisect_right(void *data, void *val, t_uint2 els_eln,
+						int (compare)(void*, void*));
+int				merge_lo(t_timsort *ts, t_int2 a, t_int2 b);
+int				merge_collapse(t_timsort *ts);
+int				merge_runs(t_timsort *ts, int offst);
+t_int2			get_run(t_timsort *ts, t_int2 cur_run, int i);
 
-#endif //COREWAR_FT_SORT_H
+#endif

@@ -6,23 +6,24 @@
 /*   By: ehugh-be <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/22 11:16:34 by ehugh-be          #+#    #+#             */
-/*   Updated: 2019/11/22 11:25:00 by ehugh-be         ###   ########.fr       */
+/*   Updated: 2019/11/22 13:16:57 by ehugh-be         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_sort.h"
 
-int			count_run(t_timsort *tsort, int offset)
+int			count_run(t_timsort *tsort, size_t offset)
 {
-	int i;
-	int asc;
-	int tmp;
+	size_t	i;
+	int		asc;
+	int		tmp;
 
 	i = offset;
-	asc = tsort->cmp(tsort->dta + offset * tsort->elsz, tsort->dta +
-														(offset + 1) *
-														tsort->elsz) <= 0;
-	while (++i < tsort->size / tsort->elsz && i - offset < tsort->minrun)
+	if (tsort->size / tsort->elsz - offset < 2)
+		return (1);
+	asc = (tsort->cmp(tsort->dta + offset * tsort->elsz, tsort->dta +
+	(offset + 1) * tsort->elsz) <= 0);
+	while (++i < (tsort->size / tsort->elsz) - 1 && i - offset < tsort->minrun)
 	{
 		tmp = tsort->cmp(tsort->dta + i * tsort->elsz, tsort->dta +
 													(i + 1) * tsort->elsz);

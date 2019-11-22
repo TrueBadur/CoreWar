@@ -54,7 +54,7 @@ int		merge_hi(t_timsort *ts, t_int2 a, t_int2 b)
 	i = b.y;
 	while (i_a >= a.x && i_b >= b.x)
 	{
-		if (ts->cmp(tmp + (i_b - b.x) * ts->elsz, ts->dta + i_a * ts->elsz)	< 0)
+		if (ts->cmp(tmp + (i_b - b.x) * ts->elsz, ts->dta + i_a * ts->elsz) < 0)
 			ft_memmove(ts->dta + --i * ts->elsz,
 					ts->dta + i_a-- * ts->elsz, ts->elsz);
 		else

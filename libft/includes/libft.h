@@ -21,6 +21,7 @@
 # include <unistd.h>
 # include <string.h>
 # include "ft_printf.h"
+# include "ft_sort.h"
 /*
 ** # include "t_list.h"
 */

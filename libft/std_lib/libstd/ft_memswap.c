@@ -6,14 +6,16 @@
 /*   By: ehugh-be <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/22 10:55:52 by ehugh-be          #+#    #+#             */
-/*   Updated: 2019/11/22 10:55:52 by ehugh-be         ###   ########.fr       */
+/*   Updated: 2019/11/22 11:40:58 by ehugh-be         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-void 	ft_memswap(void **a, void **b, size_t size)
+#include "libstd.h"
+
+void	ft_memswap(void **a, void **b, size_t size)
 {
-	void 	*tmp8;
-	char 	*tmp1;
+	void	*tmp8;
+	char	*tmp1;
 	int		i;
 
 	i = 0;

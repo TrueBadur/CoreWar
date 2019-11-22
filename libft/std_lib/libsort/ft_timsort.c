@@ -6,7 +6,7 @@
 /*   By: ehugh-be <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/13 12:08:30 by ehugh-be          #+#    #+#             */
-/*   Updated: 2019/11/22 11:19:22 by ehugh-be         ###   ########.fr       */
+/*   Updated: 2019/11/22 13:11:42 by ehugh-be         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,14 +37,15 @@ t_timsort				*init_timsort(void *data, size_t size, size_t el_size,
 	ts->size = size;
 	ts->cmp = compare;
 	ts->minrun = get_minrun(EL_NUM);
-	if (!(ts->rn_szs = malloc(sizeof(t_int2) * (EL_NUM / ts->minrun + 1))))
+	if (!(ts->rn_szs = malloc(sizeof(t_int2) * (EL_NUM / ts->minrun + 2))))
 		return (NULL);
 	ts->rn_szs[0] = (t_int2){0, 0};
 	ts->rns_s = 0;
 	return (ts);
 }
 
-int						ft_vectimsort(void *data, size_t size, size_t el_size,
+
+int						ft_timsort(void *data, size_t size, size_t el_size,
 		int (compare)(void*, void*))
 {
 	t_timsort	*ts;

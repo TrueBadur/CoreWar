@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   make_one_turn.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: blomo <marvin@42.fr>                       +#+  +:+       +#+        */
+/*   By: ehugh-be <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/13 18:09:28 by blomo             #+#    #+#             */
-/*   Updated: 2019/11/14 16:31:39 by blomo            ###   ########.fr       */
+/*   Updated: 2019/11/22 13:19:36 by ehugh-be         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,8 @@ void			handle_op(t_mngr *mngr, t_car *car, short cur_time)
 	car->carry != 1))
 		print_addr(mngr, car->pos, FT_ABS(ret));
 	proceed_car(mngr, car, cur_time, ret);
-	update_mem(mngr, *(int *)car->regs);
+	if (mngr->flags & FLAG_S)
+		update_mem(mngr, *(int *)car->regs);
 }
 
 static void		set_max_id(t_vector *vec, int id)
@@ -70,6 +71,11 @@ void			proceed_car(t_mngr *mngr, t_car *car, short cur_time,
 	set_max_id(mngr->timeline[time_to_put], car->id);
 }
 
+int				compare(void *a, void *b)
+{
+	return ((int)(*(t_car**)a)->id - (int)(*(t_car**)b)->id);
+}
+
 void			make_one_turn(t_mngr *mngr)
 {
 	short		cur_time;
@@ -78,7 +84,8 @@ void			make_one_turn(t_mngr *mngr)
 	if (!mngr->timeline[cur_time] || !mngr->timeline[cur_time]->len)
 		return ;
 	if ((int)mngr->timeline[cur_time]->offset < 0)
-		mngr->timeline[cur_time] = vm_radixsort(mngr->timeline[cur_time],
-		mngr->timeline[cur_time]->len / sizeof(void*), mngr);
+		if (ft_timsort(mngr->timeline[cur_time]->data,
+				mngr->timeline[cur_time]->len, sizeof(void*), compare))
+			safe_exit(mngr, MALLOC_ERROR, NULL);
 	tl_car_iter(mngr, handle_op);
 }

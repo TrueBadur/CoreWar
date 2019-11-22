@@ -6,7 +6,7 @@
 /*   By: ehugh-be <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/22 17:01:53 by ehugh-be          #+#    #+#             */
-/*   Updated: 2018/12/06 19:36:36 by ehugh-be         ###   ########.fr       */
+/*   Updated: 2019/11/22 11:36:19 by ehugh-be         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,4 +38,5 @@ void	*ft_memmove(void *dst, const void *src, size_t len)
 		while (len--)
 			*(char*)dst++ = *(char*)src++;
 	}
+	return (dst);
 }
