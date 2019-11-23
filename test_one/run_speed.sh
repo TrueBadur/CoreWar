@@ -12,6 +12,7 @@ inputfile=''
 outputfile=''
 CMD_core=''
 timeout=1
+out_dir=''
 
 print_usage() {
     printf "\nUsage:\tall options are required\n"
@@ -24,15 +25,19 @@ print_usage() {
 
     printf "or \t      👇:\n"
     printf "./run_speed.sh -c ../data/corewar -t 10 -i dir_fast_war/fast_war.not.txt -o mid_war\n\n"
+    #TODO w
+    #TODO ./run_init.sh -t ../data/compiled -f 0.non.txt -w outfiles
+    #TODO ./run_speed.sh -c ../data/corewar -t 0.1 -i ./outfiles/0_wave.non.txt -o 1_wave -w outfiles
     exit 1
 }
 
-while getopts 'i:o:c:t:' opts; do
+while getopts 'i:o:c:t:w:' opts; do
   case "${opts}" in
     i) inputfile=${OPTARG} ;;
     o) outputfile=${OPTARG}  ;;
     c) CMD_core=${OPTARG} ;;
     t) timeout=${OPTARG}  ;;
+    w) out_dir=${OPTARG} ;;
     *) print_usage ;;
   esac
 done
@@ -43,13 +48,11 @@ if [ -z "${inputfile}" ] || [ -z "${outputfile}" ] || [ -z "${CMD_core}" ] || [ 
 fi
 
 #script
-DIR=dir_$outputfile
-rm -r $DIR
-mkdir $DIR
+out_dir="./$out_dir"
 
-TMP=./$DIR/tmp.txt
-OUT=./$DIR/$outputfile.txt
-OUTNON=./$DIR/$outputfile.not.txt
+TMP=./$out_dir/tmp.txt
+OUT=./$out_dir/$outputfile.txt
+OUTNON=./$out_dir/$outputfile.not.txt
 
 rm    $OUT $OUTNON $TMP
 touch $OUT $OUTNON $TMP

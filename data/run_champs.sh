@@ -25,7 +25,7 @@ do
   echo -e "\n\033[0;107;30mProcessing $f file...\033[0m"
   #cat -n $f
   echo -e "\n\033[0;36m"
-  #../src/asm/build/asm $f
+  #../old/asm/build/asm $f
   if [ ! -z "${c_flag}" ]; then
     $PATH_ASM_ORG $f
     mv $(dirname $f)/$(basename $f .s).cor $(dirname $f)/org_$(basename $f .s).cor

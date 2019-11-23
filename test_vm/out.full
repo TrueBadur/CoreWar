@@ -1,0 +1,9 @@
+25973 ../data/compiled/NoIdea.cor ../data/compiled/echo.cor
+../data/corewar -d 25973 ../data/compiled/NoIdea.cor ../data/compiled/echo.cor > dump_main.txt
+../corewar -dump 25973 ../data/compiled/NoIdea.cor ../data/compiled/echo.cor > dump_test.txt
+Introducing contestants...
+* Player 1, weighing 640 bytes, "NoIdea" ("The random has killed you...") !
+* Player 2, weighing 656 bytes, "Echo" ("I'm coming") !
+Contestant 1, "NoIdea", has won !
+diff dump_main.txt dump_test.txt > outdiff.txt
+
