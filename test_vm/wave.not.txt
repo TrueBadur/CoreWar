@@ -1,0 +1,12 @@
+../data/compiled/Kappa.cor ../data/compiled/nl_at_header.cor
+../data/compiled/Kappa.cor ../data/compiled/nl_at_header_flipped.cor
+../data/compiled/MarineKing.cor ../data/compiled/nl_at_header.cor
+../data/compiled/MarineKing.cor ../data/compiled/nl_at_header_flipped.cor
+../data/compiled/Octobre_Rouge_V4.2.cor ../data/compiled/nl_at_header.cor
+../data/compiled/Octobre_Rouge_V4.2.cor ../data/compiled/nl_at_header_flipped.cor
+../data/compiled/Survivor.cor ../data/compiled/nl_at_header.cor
+../data/compiled/Survivor.cor ../data/compiled/nl_at_header_flipped.cor
+../data/compiled/_honeybadger.cor ../data/compiled/nl_at_header.cor
+../data/compiled/_honeybadger.cor ../data/compiled/nl_at_header_flipped.cor
+../data/compiled/aff_no_OCP.cor ../data/compiled/nl_at_header.cor
+../data/compiled/aff_no_OCP.cor ../data/compiled/nl_at_header_flipped.cor

@@ -1,0 +1,81 @@
+42_corewar/cmake-build-debug/corewar -s /Users/wgorold/42_coreWar/data/compiled/Asombra.cor /Users/wgorold/42_coreWar/data/compiled/maxidef.cor /Users/wgorold/42_coreWar/data/compiled/Douceur_power.cor
+
+42_corewar/data/corewar -n /Users/wgorold/42_coreWar/data/compiled/Asombra.cor /Users/wgorold/42_coreWar/data/compiled/maxidef.cor /Users/wgorold/42_coreWar/data/compiled/Douceur_power.cor
+
+
+Img2ASCii
+// http://mir3z.github.io/aalib.js/playground/www/
+
+Cool ASCII image
+// https://16colo.rs/pack/impure59/
+
+
+cd /Users/wgorold/42_coreWar/valgrind && valgrind --leak-check=full ./a.out
+
+valgrind --leak-check=full 42_corewar/cmake-build-debug/corewar -s /Users/wgorold/42_coreWar/data/compiled/Asombra.cor /Users/wgorold/42_coreWar/data/compiled/maxidef.cor /Users/wgorold/42_coreWar/data/compiled/Douceur_power.cor
+
+valgrind --leak-check=full 42_corewar/cmake-build-debug/corewar /Users/wgorold/42_coreWar/data/compiled/Asombra.cor /Users/wgorold/42_coreWar/data/compiled/maxidef.cor /Users/wgorold/42_coreWar/data/compiled/Douceur_power.cor
+
+
+#
+#
+#
+python3 find_wrng_op_cycle.py
+    echo
+    toto
+    (enter)
+    14000
+
+./corewar -v -dump 1908 data/compiled/echo.cor data/compiled/toto.cor > core
+data/corewar -v 31 -d 1908 data/compiled/echo.cor data/compiled/toto.cor > org_core
+diff core org_core
+
+
+./corewar -s data/compiled/echo.cor data/compiled/toto.cor
+
+#
+# 22.11.2019
+#
+
+cd /Users/wgorold/42_coreWar
+make re
+cd /Users/wgorold/42_coreWar/test_vm
+
+time ../data/corewar ../data/compiled/echo.cor ../data/compiled/toto.cor > org_core -d 24599
+
+time c > core
+
+../data/corewar ../data/compiled/echo.cor ../data/compiled/toto.cor -v 2
+
+
+OUTPUT=$(../data/corewar ../data/compiled/echo.cor ../data/compiled/toto.cor -v 2 | tail -3 | head -1 | sed 's/It is now cycle //')
+echo $OUTPUT
+
+OUTPUT=$(time ../data/corewar ../data/compiled/echo.cor ../data/compiled/toto.cor -v 2 | tail -3)
+
+
+OUTPUT=$(../data/corewar ../data/compiled/echo.cor ../data/compiled/toto.cor -d 10000 -v 2 | tail -3)
+
+		time -p OUTPUT=$(../data/corewar ../data/compiled/echo.cor ../data/compiled/toto.cor -d 10000 -v 2 | tail -3) > ok
+
+(time ../data/corewar ../data/compiled/echo.cor ../data/compiled/toto.cor -d 10000 -v 2 | tail -3) > outfile 2>&1
+string= $(head -1 outfile)
+if [[ $string == *"0x0f40"* ]]; then
+		echo "It's there!"
+fi
+
+
+
+
+diff $(../data/corewar -d 24599 ../data/compiled/echo.cor ../data/compiled/toto.cor) $(../corewar -dump 24599 ../data/compiled/echo.cor ../data/compiled/toto.cor)
+
+
+cat outfile | tail -3 | head -1 | sed 's/It is now cycle //'
+
+CMD=botbot
+echo "$(cat outfile | tail -3 | head -1 | sed 's/It is now cycle //') $CMD" >> $LIM.txt
+
+../data/corewar 24599 ../data/compiled/Bazou.cor ../data/compiled/littlepuppy.cor
+
+
+c

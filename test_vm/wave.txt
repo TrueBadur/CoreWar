@@ -1,0 +1,9 @@
+24291 ../data/compiled/Douceur_power.cor ../data/compiled/fast.cor
+25902 ../data/compiled/Kappa.cor ../data/compiled/mandragore.cor
+34721 ../data/compiled/Machine-gun.cor ../data/compiled/mandragore.cor
+25829 ../data/compiled/NoIdea.cor ../data/compiled/mandragore.cor
+25902 ../data/compiled/Octobre_Rouge_V4.2.cor ../data/compiled/bee_gees.cor
+25902 ../data/compiled/Octobre_Rouge_V4.2.cor ../data/compiled/mandragore.cor
+27437 ../data/compiled/Stargate0_1.cor ../data/compiled/master_of_puppets.cor
+49187 ../data/compiled/Survivor.cor ../data/compiled/mandragore.cor
+49187 ../data/compiled/aff_no_OCP.cor ../data/compiled/mandragore.cor

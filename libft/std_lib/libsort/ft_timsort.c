@@ -44,6 +44,12 @@ t_timsort				*init_timsort(void *data, size_t size, size_t el_size,
 	return (ts);
 }
 
+int						end_timsort(t_timsort *ts)
+{
+	free(ts->rn_szs);
+	free(ts);
+	return (0);
+}
 
 int						ft_timsort(void *data, size_t size, size_t el_size,
 		int (compare)(void*, void*))
@@ -52,8 +58,10 @@ int						ft_timsort(void *data, size_t size, size_t el_size,
 	int			i;
 	t_int2		cur_run;
 
-	if (size % el_size || size / el_size == 1)
+	if (size % el_size)
 		return (1);
+	if (size / el_size == 1)
+		return (0);
 	if (!(ts = init_timsort(data, size, el_size, compare)))
 		return (1);
 	i = EL_NUM;
@@ -70,7 +78,5 @@ int						ft_timsort(void *data, size_t size, size_t el_size,
 	}
 	while (ts->rns_s > 1)
 		merge_runs(ts, 2);
-	free(ts->rn_szs);
-	free(ts);
-	return (0);
+	return (end_timsort(ts));
 }

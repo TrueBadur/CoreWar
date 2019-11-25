@@ -15,7 +15,6 @@
 
 # include "libstd.h"
 # include "t_vec.h"
-#include "stdio.h" //delete
 
 # define EL_NUM (ts->size / ts->elsz)
 # define VEC2_RNG(a) ((a).y - (a).x)
