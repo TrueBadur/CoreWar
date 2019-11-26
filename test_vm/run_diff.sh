@@ -38,10 +38,11 @@ function compare() {
 
     eval $MAIN_CORE$TO_RUN > $dump_main
     eval $TEST_CORE$TO_RUN > $dump_test
+    #echo "diff $dump_main $dump_test > $outdiff"
     diff $dump_main $dump_test > $outdiff
     num=$[ $num + 1]
     echo "$num \t/ $total"
-    if [ -s outdiff.txt ]; then
+    if [ -s $outdiff ]; then
       echo "🚨  $TO_RUN"
       echo $TO_RUN >> $outfile
       echo $TO_RUN >> $fullout

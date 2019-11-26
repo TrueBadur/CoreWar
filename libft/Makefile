@@ -33,7 +33,7 @@ re: fclean all
 
 lib%.n:
 	@mkdir -p lib
-	make -C $(STD_LIB_PATH)$(basename $@)
+	@make -C $(STD_LIB_PATH)$(basename $@)
 
 lib%.clean:
 	@mkdir -p lib

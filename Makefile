@@ -61,6 +61,7 @@ clean:
 	@rm -rf $(OBJ_DIR)
 
 fclean: clean
-	@rm -f $(ASM_OUT) $(VM_OUT)
+	rm -f $(ASM_OUT) $(VM_OUT)
+	make fclean -C $(LIB_DIR)
 
 re: fclean all
