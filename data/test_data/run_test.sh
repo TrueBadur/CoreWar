@@ -1,7 +1,7 @@
 #!/bin/bash
 
 PATH_ASM_ORG=../asm
-PATH_ASM=../../cmake-build-debug/asm
+PATH_ASM=../../asm
 names=(./test_files/*)
 CHS=""
 

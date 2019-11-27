@@ -301,7 +301,6 @@
 27437 ../data/compiled/NoIdea.cor ../data/compiled/Stargate0_1.cor
 28157 ../data/compiled/NoIdea.cor ../data/compiled/Survivor.cor
 25902 ../data/compiled/NoIdea.cor ../data/compiled/Wall.cor
-25973 ../data/compiled/NoIdea.cor ../data/compiled/echo.cor
 27279 ../data/compiled/NoIdea.cor ../data/compiled/fast.cor
 25902 ../data/compiled/NoIdea.cor ../data/compiled/gedeon.cor
 25902 ../data/compiled/NoIdea.cor ../data/compiled/helltrain.cor

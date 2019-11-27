@@ -59,7 +59,7 @@ void		print_help(void)
 	ft_printf("    -dump N      : Dumps memory after N cycles then exits\n");
 	ft_printf("    -n N      : Set champion on Nth place\n");
 	ft_printf("    -v        : Verbose output\n");
-	ft_printf("    -g        : Ncurses output mode\n");
+	ft_printf("    -s        : Ncurses output mode\n");
 	ft_printf("   -h / --help: Print this message\n");
 }
 
